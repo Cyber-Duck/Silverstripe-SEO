@@ -1,6 +1,13 @@
 <?php
-
-class Page extends SiteTree {
+/**
+ * SEOadmin
+ * This sets up our admin databse SEO fields.
+ *
+ * @package silverstripe-seo
+ * @license MIT License https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO/blob/master/LICENSE
+ * @author  <andrewm@cyber-duck.co.uk>
+ **/
+class SEOadmin extends SiteTree {
 
 	private static $db = array(
 		'Title'          => 'Varchar',
