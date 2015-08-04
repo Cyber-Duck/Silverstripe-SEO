@@ -1,0 +1,27 @@
+{
+    "name": "Andrew-Mc-Cormack/Silverstripe-SEO",
+    "description": "A Silverstripe module to optimise the Meta, crawling, indexing, and sharing of your website content",
+    "type": "silverstripe-module",
+    "homepage": "http://github.com/Andrew-Mc-Cormack/Silverstripe-SEO",
+    "keywords": ["silverstripe","seo","meta","crawling","indexing"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Andrew Mc Cormack",
+            "email": "andrewm@cyber-duck.co.uk"
+        }
+    ],
+    "support": {
+        "issues": "http://github.com/Andrew-Mc-Cormack/Silverstripe-SEO/issues"
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "silverstripe/framework": "3.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.7.*"
+    },
+    "extra": {
+        "installer-name": "seo"
+    }
+}
