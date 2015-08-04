@@ -25,7 +25,8 @@ class SEOadmin extends SiteTree {
 		'TwitterCreator' => 'Varchar'
 	);
 
-	public function getCMSFields($fields) {
+	public function getCMSFields() {
+		$fields = parent::getCMSFields();
 
 		$fields->addFieldToTab('Root.SEO', new HeaderField('Meta'));
 
