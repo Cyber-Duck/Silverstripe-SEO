@@ -15,6 +15,16 @@ class SEOfields {
 	private $seo;
 
 	/**
+	 * @var object $seo An instance of the SEO class
+	 **/
+	private $title_length = 55;
+
+	/**
+	 * @var object $seo An instance of the SEO class
+	 **/
+	private $description_length = 156;
+
+	/**
 	 * Our constructor assigns the SEO instance to a class property
 	 *
 	 * @param object $seo
@@ -41,23 +51,20 @@ class SEOfields {
 		// Meta title input
 		$title = new TextField('Title');
 		$title->setTitle('Meta Title');
-		$title->setValue($this->seo->seo_title_default);
-		$title->setMaxLength($this->seo->seo_title_length);
+		$title->setMaxLength($this->title_length);
 
 		$fields->addFieldToTab('Root.SEO', $title); 
 
 		// Meta description input
 		$description = new TextField('Description');
 		$description->setTitle('Meta Description');
-		$description->setValue($this->seo->seo_description_default);
-		$description->setMaxLength($this->seo->seo_description_length);
+		$description->setMaxLength($this->description_length);
 
 		$fields->addFieldToTab('Root.SEO', $description); 
 
 		// Meta keywords input
 		$keywords = new TextField('Keywords');
 		$keywords->setTitle('Meta Keywords');
-		$keywords->setValue($this->seo->seo_keywords_default);
 
 		$fields->addFieldToTab('Root.SEO', $keywords); 
 
@@ -67,7 +74,6 @@ class SEOfields {
 		// Meta canonical input
 		$canonical = new TextField('Canonical');
 		$canonical->setTitle('Canonical');
-		$canonical->setValue($this->seo->seo_canonical_default);
 
 		$fields->addFieldToTab('Root.SEO', $canonical); 
 
@@ -75,7 +81,6 @@ class SEOfields {
 		$robots = new DropdownField('Robots');
 		$robots->setTitle('Meta Title');
 		$robots->setSource($this->Robots());
-		$robots->setValue($this->seo->seo_robots_default);
 
 		$fields->addFieldToTab('Root.SEO', $robots); 
 
@@ -85,7 +90,6 @@ class SEOfields {
 		// Show social Meta input
 		$social = new CheckboxField('Social');
 		$social->setTitle('Show Social Meta');
-		$social->setValue($this->seo->seo_social_default);
 
 		$fields->addFieldToTab('Root.SEO', $social); 
 
@@ -94,14 +98,12 @@ class SEOfields {
 		// Social Meta image
 		$image = new TextField('Image');
 		$image->setTitle('Social Sharing Image');
-		$image->setValue($this->seo->seo_image_default);
 
 		$fields->addFieldToTab('Root.SEO', $image); 
 
 		// og:site_name
 		$og_sitename = new TextField('OgSitename');
 		$og_sitename->setTitle('Open Graph Sitename');
-		$og_sitename->setValue($this->seo->seo_og_sitename_default);
 
 		$fields->addFieldToTab('Root.SEO', $og_sitename); 
 
@@ -109,7 +111,6 @@ class SEOfields {
 		$og_type = new DropdownField('OgType');
 		$og_type->setTitle('Open Graph Type');
 		$og_type->setSource($this->OgType());
-		$og_type->setValue($this->seo->seo_og_type_default);
 
 		$fields->addFieldToTab('Root.SEO', $og_type); 
 
@@ -117,7 +118,6 @@ class SEOfields {
 		$og_locale = new DropdownField('OgLocale');
 		$og_locale->setTitle('Open Graph Locale');
 		$og_locale->setSource($this->OgLocale());
-		$og_locale->setValue($this->seo->seo_og_locale_default);
 
 		$fields->addFieldToTab('Root.SEO', $og_locale); 
 
@@ -125,21 +125,18 @@ class SEOfields {
 		$twitter_card = new DropdownField('TwitterCard');
 		$twitter_card->setTitle('Twitter Card');
 		$twitter_card->setSource($this->TwitterCard());
-		$twitter_card->setValue($this->seo->seo_twitter_card_default);
 
 		$fields->addFieldToTab('Root.SEO', $twitter_card); 
 
 		// twitter:site
 		$twitter_site = new TextField('TwitterSite');
 		$twitter_site->setTitle('Twitter Site');
-		$twitter_site->setValue($this->seo->seo_twitter_site_default);
 
 		$fields->addFieldToTab('Root.SEO', $twitter_site); 
 
 		// twitter:creator
 		$twitter_creator = new TextField('TwitterCreator');
 		$twitter_creator->setTitle('Twitter Creator');
-		$twitter_creator->setValue($this->seo->seo_twitter_creator_default);
 
 		$fields->addFieldToTab('Root.SEO', $twitter_creator);
 
