@@ -114,7 +114,7 @@ class SEO extends SiteTree {
 		$fields = parent::getCMSFields();
 
 		// create an SEO fields object and inject an instance of this
-		$SEOfields = new SEOfields($this)
+		$SEOfields = new SEOfields($this);
 		$fields = $SEOfields->makeFields($fields);
 
 		return $fields;
