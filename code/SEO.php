@@ -29,6 +29,25 @@ class SEO extends SiteTree {
 	);
 
 	/**
+	 * @static array $db Our default database field values
+	 **/
+	private static $defaults = array(
+		'Title'          => '',
+		'Description'    => '',
+		'Keywords'       => '',
+		'Canonical'      => '',
+		'Robots'         => '',
+		'Social'         => 1,
+		'Image'          => '',
+		'OgSitename'     => '',
+		'OgType'         => '',
+		'OgLocale'       => '',
+		'TwitterCard'    => '',
+		'TwitterSite'    => '@',
+		'TwitterCreator' => '@'
+	);
+
+	/**
 	 * @var string $seo_default_title The default Meta title
 	 **/
 	protected $seo_title_default = '';
