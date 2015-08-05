@@ -10,19 +10,19 @@
 class SEOadmin extends SiteTree {
 
 	private static $db = array(
-		'Title'          => 'Varchar',
-		'Description'    => 'Varchar',
-		'Keywords'       => 'Varchar',
-		'Canonical'      => 'Varchar',
-		'Robots'         => 'Varchar',
+		'Title'          => 'Varchar(70)',
+		'Description'    => 'Varchar(180)',
+		'Keywords'       => 'Varchar(255)',
+		'Canonical'      => 'Varchar(255)',
+		'Robots'         => 'Varchar(16)',
 		'Social'         => 'boolean',
-		'Image'          => 'Varchar',
-		'OgSitename'     => 'Varchar',
-		'OgType'         => 'Varchar',
-		'OgLocale'       => 'Varchar',
-		'TwitterCard'    => 'Varchar',
-		'TwitterSite'    => 'Varchar',
-		'TwitterCreator' => 'Varchar'
+		'Image'          => 'Varchar(255)',
+		'OgSitename'     => 'Varchar(255)',
+		'OgType'         => 'Varchar(10)',
+		'OgLocale'       => 'Varchar(5)',
+		'TwitterCard'    => 'Varchar(30)',
+		'TwitterSite'    => 'Varchar(255)',
+		'TwitterCreator' => 'Varchar(255)'
 	);
 
 	public function getCMSFields() {
