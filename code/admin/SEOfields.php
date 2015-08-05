@@ -33,7 +33,7 @@ class SEOfields {
 	 *
 	 * @return object
 	 **/
-	private function makeFields($fields)
+	public function makeFields($fields)
 	{
 		$fields->addFieldToTab('Root.SEO', new HeaderField('Meta'));
 		$fields->addFieldToTab('Root.SEO', new LabelField('Build your content based SEO here'));
