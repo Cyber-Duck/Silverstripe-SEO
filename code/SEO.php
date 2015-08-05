@@ -1,260 +1,122 @@
 <?php
-class SEO {
-
-	private $url;
-
-	private $meta;
-
-	private $tags = array();
-
-	function __construct()
-	{
-		$this->url = Director::BaseURL();
-
-		$this->meta = new SEOmeta();
-	}
-
-	private function charset()
-	{
-
-	}
+/**
+ * SEO
+ * This sets up our database fields
+ *
+ * @package silverstripe-seo
+ * @license MIT License https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO/blob/master/LICENSE
+ * @author  <andrewm@cyber-duck.co.uk>
+ **/
+class SEO extends SiteTree {
 
 	/**
-	 * Returns an escaped or un-escaped value. Useful when input source is not trusted.
-	 *
-	 * @param string  $value  The value to return
-	 * @param boolean $escape True or false to escape or not
-	 *
-	 * @return string
+	 * @static array $db Our admin CMS database SEO fields
 	 **/
-	private function escape($value,$escape)
-	{
-		return $escape === true ? htmlspecialchars($value) : $value;
-	}
+	private static $db = array(
+		'Title'          => 'Varchar(70)',
+		'Description'    => 'Varchar(180)',
+		'Keywords'       => 'Varchar(255)',
+		'Canonical'      => 'Varchar(255)',
+		'Robots'         => 'Varchar(16)',
+		'Social'         => 'boolean',
+		'Image'          => 'Varchar(255)',
+		'OgSitename'     => 'Varchar(255)',
+		'OgType'         => 'Varchar(10)',
+		'OgLocale'       => 'Varchar(5)',
+		'TwitterCard'    => 'Varchar(30)',
+		'TwitterSite'    => 'Varchar(255)',
+		'TwitterCreator' => 'Varchar(255)'
+	);
 
 	/**
-	 * Create a <meta> HTML head tag.
-	 *
-	 * @param string  $name   The tag name property
-	 * @param string  $value  The value to return
-	 * @param boolean $escape True or false to escape or not
-	 *
-	 * @return string
+	 * @var string $seo_default_title The default Meta title
 	 **/
-	public function meta($name,$value,$escape = false,$tag = 'name')
-	{
-		$value = $this->escape($value,$escape);
-
-		return '<meta '.$tag.'="'.$name.'" value="'.$value.'">';
-	}
+	protected $seo_title_default = '';
 
 	/**
-	 * Create a <link> HTML head tag.
-	 *
-	 * @param string  $name   	  The tag name property
-	 * @param string  $value  	  The value to return
-	 * @param boolean $escape 	  True or false to escape or not
-	 * @param array   $attributes An array of extra tag attributes
-	 *
-	 * @return string
+	 * @var int $seo_meta_title_length The maximum Meta title length
 	 **/
-	private function link($name,$value,$escape = false,$attributes = array())
-	{
-		$value = $this->escape($value,$escape);
-
-		$extra = array();
-		if(count($attributes) > 0) :
-			foreach($attributes as $key => $attr) :
-				$extra[] = ' '.$key.'="'.$this->escape($attr,$escape).'"';
-			endforeach;
-		endif;
-
-		return '<link rel="'.$name.'" href="'.$value.'"'.implode('',$extra).'>';
-	}
+	protected $seo_title_length = 55;
 
 	/**
-	 * Create a <title> HTML head tag.
-	 *
-	 * @param string  $value  The value to return
-	 * @param boolean $escape True or false to escape or not
-	 *
-	 * @return string
+	 * @var string $seo_default_description The default Meta description
 	 **/
-	public function title($value, $escape = false)
-	{
-		return '<title>'.$this->escape($value,$escape).'</title>';
-	}
+	protected $seo_description_default = '';
 
 	/**
-	 * Create a <meta> description HTML head tag.
-	 *
-	 * @param string  $value  The value to return
-	 * @param boolean $escape True or false to escape or not
-	 *
-	 * @return string
+	 * @var int $seo_meta_description_length The maximum Meta description length
 	 **/
-	public function description($value, $escape = false)
-	{
-		$this->meta('description',$value,$escape);
-	}
+	protected $seo_description_length = 156;
 
 	/**
-	 * Create a <meta> keywords HTML head tag. This tag isn't used anymore by 
-	 * search engines because of spamming and can be left out of a page.
-	 *
-	 * @param string  $value  The value to return
-	 * @param boolean $escape True or false to escape or not
-	 *
-	 * @return string
+	 * @var string $seo_default_keywords The default Meta keywords
 	 **/
-	public function keywords($value, $escape = false)
-	{
-		$this->meta('keywords',$value,$escape);
-	}
+	protected $seo_keywords_default = '';
 
 	/**
-	 * Set the default site-wide robots <meta> tag value. For SEO purposes this 
-	 * should be noindex,nofollow and then any pages you wish to be indexed 
-	 * should be set as index,follow etc.
-	 *
-	 * @param boolean $index  Set to true (index) or false (noindex)
-	 * @param boolean $follow Set to true (follow) or false (nofollow)
-	 *
-	 * @return string
+	 * @var string $seo_canonical_default The default Meta canonical value
 	 **/
-	public function robotsDefault($index = false,$follow = false)
-	{
-		$this->robots($index,$follow);
-	}
+	protected $seo_canonical_default = '';
 
 	/**
-	 * Create a <meta> robots HTML head tag. You can use this method to build 
-	 * page specific tags and stop most duplicate content issues.
-	 *
-	 * @param boolean $index  Set to true (index) or false (noindex)
-	 * @param boolean $follow Set to true (follow) or false (nofollow)
-	 *
-	 * @return string
+	 * @var string $seo_default_robots The default crawl rules
 	 **/
-	public function robots($index = false,$follow = false)
-	{
-		$index  = $index  === true ? 'index'  : 'noindex';
-		$follow = $follow === true ? 'follow' : 'nofollow';
-
-		$this->meta('robots', $index.','.$follow);
-	}
+	protected $seo_robots_default = 'noindex,nofollow';
 
 	/**
-	 * Create a <link> canonical HTML head tag. This should be on every page of
-	 * your site and helps with duplicate content issues.
-	 *
-	 * @param string  $value  The value to return
-	 * @param boolean $escape True or false to escape or not
-	 * @param boolean $host   Include the host domain in the href attribute
-	 *
-	 * @return string
+	 * @var string $seo_social_default Show social Meta by default or not
 	 **/
-	public function canonical($value, $escape = false, $host = true)
-	{
-		$value = $host === true ? $this->url.$value : $value;
-
-		$this->link('canonical',$value,$escape)
-	}
+	protected $seo_social_default = 1;
 
 	/**
-	 * Create a <link> alternate HTML head tag. This is used to point to the 
-	 * page in another language format.
-	 *
-	 * @param string $value The value to return (URL)
-	 * @param string $lang  The lang code (en) etc.
-	 *
-	 * @return string
+	 * @var string $seo_image_default The default social image URL
 	 **/
-	public function alternate($value, $lang)
-	{
-		$attributes = array('hreflang' => $lang);
-
-		$this->link('alternate',$value,false,$attributes);
-	}
+	protected $seo_image_default = '';
 
 	/**
-	 * Create a <meta> apple-touch-icon HTML head tag. These are used on apple
-	 * devices liek iphones to create a bookmark icon
-	 *
-	 * @param string $value The value to return (image URL)
-	 * @param string $sizes The lang code (en) etc.
-	 *
-	 * @return string
+	 * @var string $seo_og_sitename_default The default social site name
 	 **/
-	public function appleIcon($value, $sizes)
-	{
-		$attributes = array('sizes' => $sizes);
-
-		$this->link('apple-touch-icon',$value,false,$attributes);
-	}
+	protected $seo_og_sitename_default = '';
 
 	/**
-	 * Create <meta> image tags for social sharing
-	 *
-	 * @param string $url The image URL
-	 *
-	 * @return string
+	 * @var string $seo_og_type_default The default open graph site type
 	 **/
-	public function image($url)
-	{
-		$this->meta('og:image', $url, false, 'property');
-		$this->meta('twitter:image',$url, false);
-	}
+	protected $seo_og_type_default = '';
 
 	/**
-	 * Create a <meta> open graph HTML head tag.
-	 *
-	 * @param string  $name   The og: tag name
-	 * @param string  $value  The value to return
-	 * @param boolean $escape True or false to escape or not
-	 *
-	 * @return string
+	 * @var string $seo_og_locale_default The default open graph locale
 	 **/
-	public function openGraph($name, $value, $escape = false)
-	{
-		$name = 'og:'.$name;
-
-		$this->meta($name,$value,$escape,'property');
-	}
+	protected $seo_og_locale_default = '';
 
 	/**
-	 * Create a <meta> twitter HTML head tag.
-	 *
-	 * @param string  $name   The twitter: tag name
-	 * @param string  $value  The tag value
-	 * @param boolean $escape True or false to escape or not
-	 *
-	 * @return string
+	 * @var string $seo_twitter_card_default The default Twitter card type
 	 **/
-	public function twitter($name, $value, $escape = false)
-	{
-		$name = 'twitter:'.$name;
-
-		$this->meta($name,$value,$escape);
-	}
+	protected $seo_twitter_card_default = '';
 
 	/**
-	 * Create a <meta> validation tag for things like Google Webmaster Tools.
-	 * 
-	 *
-	 * @param string  $name   The tag name
-	 * @param string  $value  The tag value
-	 * @param boolean $escape True or false to escape or not
-	 *
-	 * @return string
+	 * @var string $seo_twitter_site_default The default Twitter site handle
 	 **/
-	public function validate($name, $value, $escape = false)
-	{
-		$this->meta($name,$value,$escape);
-	}
+	protected $seo_twitter_site_default = '@';
 
-	public function rel()
+	/**
+	 * @var string $seo_twitter_creator_default The default Twitter creator handle
+	 **/
+	protected $seo_twitter_creator_default = '@';
+
+	/**
+	 * This method creates our SEO tab in our admin page and creates the 
+	 * necessary fields within it.
+	 *
+	 * @return object
+	 **/
+	public function getCMSFields()
 	{
-		
+		$fields = parent::getCMSFields();
+
+		// create an SEO fields object and inject an instance of this
+		$SEOfields = new SEOfields($this)
+		$fields = $SEOfields->makeFields($fields);
+
+		return $fields;
 	}
 }

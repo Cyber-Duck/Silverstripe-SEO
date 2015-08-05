@@ -1,142 +1,63 @@
 <?php
 /**
- * SEOadmin
- * This sets up our database fields and creates the various fields within the 
- * CMS system which we can populate with our SEO settings.
+ * SEOfields
+ * This creates our admin CMS database form fields
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEOadmin extends SiteTree {
+class SEOfields {
 
 	/**
-	 * @static array $db Our admin CMS database SEO fields
+	 * @var object $seo An instance of the SEO class
 	 **/
-	private static $db = array(
-		'Title'          => 'Varchar(70)',
-		'Description'    => 'Varchar(180)',
-		'Keywords'       => 'Varchar(255)',
-		'Canonical'      => 'Varchar(255)',
-		'Robots'         => 'Varchar(16)',
-		'Social'         => 'boolean',
-		'Image'          => 'Varchar(255)',
-		'OgSitename'     => 'Varchar(255)',
-		'OgType'         => 'Varchar(10)',
-		'OgLocale'       => 'Varchar(5)',
-		'TwitterCard'    => 'Varchar(30)',
-		'TwitterSite'    => 'Varchar(255)',
-		'TwitterCreator' => 'Varchar(255)'
-	);
+	private $seo;
 
 	/**
-	 * @var string $seo_default_title The default Meta title
+	 * Our constructor assigns the SEO instance to a class property
+	 *
+	 * @param object $seo
+	 *
+	 * @return void
 	 **/
-	protected $seo_title_default = '';
+	function __construct(SEO $seo)
+	{
+		$this->seo = $seo;
+	}
 
 	/**
-	 * @var int $seo_meta_title_length The maximum Meta title length
-	 **/
-	protected $seo_title_length = 55;
-
-	/**
-	 * @var string $seo_default_description The default Meta description
-	 **/
-	protected $seo_description_default = '';
-
-	/**
-	 * @var int $seo_meta_description_length The maximum Meta description length
-	 **/
-	protected $seo_description_length = 156;
-
-	/**
-	 * @var string $seo_default_keywords The default Meta keywords
-	 **/
-	protected $seo_keywords_default = '';
-
-	/**
-	 * @var string $seo_canonical_default The default Meta canonical value
-	 **/
-	protected $seo_canonical_default = '';
-
-	/**
-	 * @var string $seo_default_robots The default crawl rules
-	 **/
-	protected $seo_robots_default = 'noindex,nofollow';
-
-	/**
-	 * @var string $seo_social_default Show social Meta by default or not
-	 **/
-	protected $seo_social_default = 1;
-
-	/**
-	 * @var string $seo_image_default The default social image URL
-	 **/
-	protected $seo_image_default = '';
-
-	/**
-	 * @var string $seo_og_sitename_default The default social site name
-	 **/
-	protected $seo_og_sitename_default = '';
-
-	/**
-	 * @var string $seo_og_type_default The default open graph site type
-	 **/
-	protected $seo_og_type_default = '';
-
-	/**
-	 * @var string $seo_og_locale_default The default open graph locale
-	 **/
-	protected $seo_og_locale_default = '';
-
-	/**
-	 * @var string $seo_twitter_card_default The default Twitter card type
-	 **/
-	protected $seo_twitter_card_default = '';
-
-	/**
-	 * @var string $seo_twitter_site_default The default Twitter site handle
-	 **/
-	protected $seo_twitter_site_default = '@';
-
-	/**
-	 * @var string $seo_twitter_creator_default The default Twitter creator handle
-	 **/
-	protected $seo_twitter_creator_default = '@';
-
-	/**
-	 * This method creates our SEO tab in our admin page and creates the 
-	 * necessary fields within it.
+	 * The method which creates our admin form fields
+	 *
+	 * @param object $fields
 	 *
 	 * @return object
 	 **/
-	public function getCMSFields()
+	private function makeFields($fields)
 	{
-		$fields = parent::getCMSFields();
-
 		$fields->addFieldToTab('Root.SEO', new HeaderField('Meta'));
 		$fields->addFieldToTab('Root.SEO', new LabelField('Build your content based SEO here'));
 
 		// Meta title input
 		$title = new TextField('Title');
 		$title->setTitle('Meta Title');
-		$title->setValue($this->seo_title_default);
-		$title->setMaxLength($this->seo_title_length);
+		$title->setValue($this->seo->seo_title_default);
+		$title->setMaxLength($this->seo->seo_title_length);
 
 		$fields->addFieldToTab('Root.SEO', $title); 
 
 		// Meta description input
 		$description = new TextField('Description');
 		$description->setTitle('Meta Description');
-		$description->setValue($this->seo_description_default);
-		$description->setMaxLength($this->seo_description_length);
+		$description->setValue($this->seo->seo_description_default);
+		$description->setMaxLength($this->seo->seo_description_length);
 
 		$fields->addFieldToTab('Root.SEO', $description); 
 
 		// Meta keywords input
 		$keywords = new TextField('Keywords');
 		$keywords->setTitle('Meta Keywords');
-		$keywords->setValue($this->seo_keywords_default);
+		$keywords->setValue($this->seo->seo_keywords_default);
 
 		$fields->addFieldToTab('Root.SEO', $keywords); 
 
@@ -146,7 +67,7 @@ class SEOadmin extends SiteTree {
 		// Meta canonical input
 		$canonical = new TextField('Canonical');
 		$canonical->setTitle('Canonical');
-		$canonical->setValue($this->seo_canonical_default);
+		$canonical->setValue($this->seo->seo_canonical_default);
 
 		$fields->addFieldToTab('Root.SEO', $canonical); 
 
@@ -154,7 +75,7 @@ class SEOadmin extends SiteTree {
 		$robots = new DropdownField('Robots');
 		$robots->setTitle('Meta Title');
 		$robots->setSource($this->Robots());
-		$robots->setValue($this->seo_robots_default);
+		$robots->setValue($this->seo->seo_robots_default);
 
 		$fields->addFieldToTab('Root.SEO', $robots); 
 
@@ -164,7 +85,7 @@ class SEOadmin extends SiteTree {
 		// Show social Meta input
 		$social = new CheckboxField('Social');
 		$social->setTitle('Show Social Meta');
-		$social->setValue($this->seo_social_default);
+		$social->setValue($this->seo->seo_social_default);
 
 		$fields->addFieldToTab('Root.SEO', $social); 
 
@@ -173,14 +94,14 @@ class SEOadmin extends SiteTree {
 		// Social Meta image
 		$image = new TextField('Image');
 		$image->setTitle('Social Sharing Image');
-		$image->setValue($this->seo_image_default);
+		$image->setValue($this->seo->seo_image_default);
 
 		$fields->addFieldToTab('Root.SEO', $image); 
 
 		// og:site_name
 		$og_sitename = new TextField('OgSitename');
 		$og_sitename->setTitle('Open Graph Sitename');
-		$og_sitename->setValue($this->seo_og_sitename_default);
+		$og_sitename->setValue($this->seo->seo_og_sitename_default);
 
 		$fields->addFieldToTab('Root.SEO', $og_sitename); 
 
@@ -188,7 +109,7 @@ class SEOadmin extends SiteTree {
 		$og_type = new DropdownField('OgType');
 		$og_type->setTitle('Open Graph Type');
 		$og_type->setSource($this->OgType());
-		$og_type->setValue($this->seo_og_type_default);
+		$og_type->setValue($this->seo->seo_og_type_default);
 
 		$fields->addFieldToTab('Root.SEO', $og_type); 
 
@@ -196,7 +117,7 @@ class SEOadmin extends SiteTree {
 		$og_locale = new DropdownField('OgLocale');
 		$og_locale->setTitle('Open Graph Locale');
 		$og_locale->setSource($this->OgLocale());
-		$og_locale->setValue($this->seo_og_locale_default);
+		$og_locale->setValue($this->seo->seo_og_locale_default);
 
 		$fields->addFieldToTab('Root.SEO', $og_locale); 
 
@@ -204,21 +125,21 @@ class SEOadmin extends SiteTree {
 		$twitter_card = new DropdownField('TwitterCard');
 		$twitter_card->setTitle('Twitter Card');
 		$twitter_card->setSource($this->TwitterCard());
-		$twitter_card->setValue($this->seo_twitter_card_default);
+		$twitter_card->setValue($this->seo->seo_twitter_card_default);
 
 		$fields->addFieldToTab('Root.SEO', $twitter_card); 
 
 		// twitter:site
 		$twitter_site = new TextField('TwitterSite');
 		$twitter_site->setTitle('Twitter Site');
-		$twitter_site->setValue($this->seo_twitter_site_default);
+		$twitter_site->setValue($this->seo->seo_twitter_site_default);
 
 		$fields->addFieldToTab('Root.SEO', $twitter_site); 
 
 		// twitter:creator
 		$twitter_creator = new TextField('TwitterCreator');
 		$twitter_creator->setTitle('Twitter Creator');
-		$twitter_creator->setValue($this->seo_twitter_creator_default);
+		$twitter_creator->setValue($this->seo->seo_twitter_creator_default);
 
 		$fields->addFieldToTab('Root.SEO', $twitter_creator);
 
