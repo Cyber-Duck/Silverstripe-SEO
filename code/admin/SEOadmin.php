@@ -1,7 +1,8 @@
 <?php
 /**
  * SEOadmin
- * This sets up our admin databse SEO fields.
+ * This sets up our admin database fields and also creates the various fields 
+ * within the CMS system which we can populate with our SEO settings.
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO/blob/master/LICENSE
@@ -9,6 +10,9 @@
  **/
 class SEOadmin extends SiteTree {
 
+	/**
+	 * @static array $db Our admin CMS database SEO fields
+	 **/
 	private static $db = array(
 		'Title'          => 'Varchar(70)',
 		'Description'    => 'Varchar(180)',
@@ -25,6 +29,12 @@ class SEOadmin extends SiteTree {
 		'TwitterCreator' => 'Varchar(255)'
 	);
 
+	/**
+	 * This method creates our SEO tab in our admin page and creates the 
+	 * necessary fields within it.
+	 *
+	 * @return object
+	 **/
 	public function getCMSFields() {
 		$fields = parent::getCMSFields();
 
@@ -52,7 +62,12 @@ class SEOadmin extends SiteTree {
 
 		return $fields;
 	}
-	
+
+	/**
+	 * An array of Meta robots crawl rules used within our admin SEP tab
+	 *
+	 * @return array
+	 **/
 	public function Robots()
 	{
 		return array(
@@ -63,6 +78,11 @@ class SEOadmin extends SiteTree {
 		);
 	}
 
+	/**
+	 * An array of Open Graph (og:) types used within our admin SEO tab
+	 *
+	 * @return array
+	 **/
 	public function OgType()
 	{
 		return array(
@@ -75,6 +95,11 @@ class SEOadmin extends SiteTree {
 		);
 	}
 
+	/**
+	 * An array of Open Graph (og:) locales used within our admin SEO tab
+	 *
+	 * @return array
+	 **/
 	public function OgLocale()
 	{
 		return array(
@@ -83,6 +108,11 @@ class SEOadmin extends SiteTree {
 		);
 	}
 
+	/**
+	 * An array of Open Graph (twitter:card) types used within our admin SEO tab
+	 *
+	 * @return array
+	 **/
 	public function TwitterCard()
 	{
 		return array(
