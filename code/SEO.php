@@ -64,10 +64,9 @@ class SEO extends SiteTree {
 		return $fields;
 	}
 
-	public static function meta($pageID)
+	public static function meta()
 	{
 		$meta = new SEOmeta();
-		$meta->pageID = $pageID;
 
 		return $meta->tags();
 	}

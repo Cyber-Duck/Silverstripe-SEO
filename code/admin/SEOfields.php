@@ -79,7 +79,7 @@ class SEOfields {
 
 		// Meta robots input
 		$robots = new DropdownField('Robots');
-		$robots->setTitle('Meta Title');
+		$robots->setTitle('Meta Robots');
 		$robots->setSource($this->Robots());
 
 		$fields->addFieldToTab('Root.SEO', $robots); 
