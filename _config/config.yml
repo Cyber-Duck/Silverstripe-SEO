@@ -1,3 +1,7 @@
+LeftAndMain:
+  extra_requirements_css:
+    - seo/css/seo.css
+
 Page:
   extensions:
     - SeoExtension
