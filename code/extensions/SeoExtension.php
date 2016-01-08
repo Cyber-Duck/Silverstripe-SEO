@@ -72,8 +72,8 @@ class SeoExtension extends DataExtension {
     public function updateCMSFields(FieldList $fields) 
     {
         $fields->addFieldsToTab('Root.SEO', array(
-            $this->preview(),
             HeaderField::create($this->title),
+            $this->preview(),
             TextField::create('MetaTitle'),
             TextareaField::create('MetaDescription'),
             TextField::create('Canonical'),

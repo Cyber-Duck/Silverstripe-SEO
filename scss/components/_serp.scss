@@ -10,13 +10,13 @@
 	border-radius: 4px;
 	background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgi…gd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
 	background-size: 100%;
-	background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #eaeaea), color-stop(10%, #ffffff));
-	background-image: -moz-linear-gradient(#eaeaea, #ffffff 10%);
-	background-image: -webkit-linear-gradient(#eaeaea, #ffffff 10%);
-	background-image: linear-gradient(#eaeaea, #ffffff 10%);
+	background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #eaeaea), color-stop(5%, #ffffff));
+	background-image: -moz-linear-gradient(#eaeaea, #ffffff 5%);
+	background-image: -webkit-linear-gradient(#eaeaea, #ffffff 5%);
+	background-image: linear-gradient(#eaeaea, #ffffff 5%);
 	max-width: 512px;
-	padding: 20px 0;
-	width: 696px;
+	padding: 30px 0;
+	width: 694px;
 
 	.inside {
 		height: 76px;
