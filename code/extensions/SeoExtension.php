@@ -13,7 +13,7 @@ class SeoExtension extends DataExtension {
     /**
      * @var float $priority The default page sitemap page priority
      **/
-    private $priority = 0.50;
+    private $default_priority = 0.50;
 
     /**
      * @var float $priority The default page sitemap page priority
@@ -38,7 +38,7 @@ class SeoExtension extends DataExtension {
         'OGtype'          => 'Varchar(100)',
         'OGlocale'        => 'Varchar(10)',
         'TwitterCard'     => 'Varchar(100)',
-	);	
+	);
 
     /**
      * @static array $db Social image and other has_one relations
@@ -69,6 +69,18 @@ class SeoExtension extends DataExtension {
         $fields->addFieldToTab('Root.SEO', $this->SharingImage());
 
         return $fields;
+    }
+    
+    /**
+     * Set some default values for the fields
+     *
+     * @return void
+     **/
+    public function populateDefaults()
+    {
+        parent::populateDefaults();
+
+        $this->Priority = $this->default_priority;
     }
     
     /**
