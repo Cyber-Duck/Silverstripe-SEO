@@ -16,6 +16,16 @@ class SeoExtension extends DataExtension {
     private $priority = 0.50;
 
     /**
+     * @var float $priority The default page sitemap page priority
+     **/
+    private $image_size = 1024;
+
+    /**
+     * @var float $priority The default page sitemap page priority
+     **/
+    private $image_folder = 'Social';
+
+    /**
      * @static array $db Our page fields
      **/
 	private static $db = array(
@@ -45,20 +55,46 @@ class SeoExtension extends DataExtension {
     public function updateCMSFields(FieldList $fields) 
     {
         $fields->addFieldToTab('Root.SEO', HeaderField::create('Meta Tags'));
+
         $fields->addFieldToTab('Root.SEO', TextField::create('MetaTitle')); 
         $fields->addFieldToTab('Root.SEO', TextareaField::create('MetaDescription'));
-        $fields->addFieldToTab('Root.SEO', TextField::create('Canonical')); 
 
-        $priority = NumericField::create('Priority', 'Priority')->setValue($this->priority);
-        $fields->addFieldToTab('Root.SEO', $priority);
+        $fields->addFieldToTab('Root.SEO', TextField::create('Canonical'));
+        $fields->addFieldToTab('Root.SEO', $this->PriorityField());
         $fields->addFieldToTab('Root.SEO', DropdownField::create('ChangeFrequency', 'Change Frequency', $this->SitemapChangeFrequency())); 
         $fields->addFieldToTab('Root.SEO', DropdownField::create('Robots', 'Robots', $this->IndexRules()));
         $fields->addFieldToTab('Root.SEO', DropdownField::create('OGtype', 'Open Graph Type', $this->OGtype()));
         $fields->addFieldToTab('Root.SEO', DropdownField::create('OGlocale', 'Open Graph Locale', $this->OGlocale()));
         $fields->addFieldToTab('Root.SEO', DropdownField::create('TwitterCard', 'Twitter Card', $this->TwitterCardTypes()));
-        $fields->addFieldToTab('Root.SEO', Helpers::image('SocialImage','Social'));
+        $fields->addFieldToTab('Root.SEO', $this->SharingImage());
 
         return $fields;
+    }
+    
+    /**
+     * Creates our page priority sitemap field
+     *
+     * @return NumericField
+     **/
+    private function PriorityField()
+    {
+        return NumericField::create('Priority', 'Priority')->setValue($this->priority);
+    }
+    
+    /**
+     * Creates our social sharing upload field
+     *
+     * @return UploadField
+     **/
+    private function SharingImage()
+    {
+        $image = new UploadField('SocialImage');
+
+        $image->getValidator()->setAllowedMaxFileSize($this->image_size);
+        $image->setFolderName($this->image_folder);
+        $image->setAllowedFileCategories('image');
+
+        return $image;
     }
     
     /**
