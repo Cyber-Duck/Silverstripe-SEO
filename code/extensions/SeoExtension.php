@@ -52,7 +52,7 @@ class SeoExtension extends DataExtension {
      * @static array $has_many Class relations
      **/
     private static $has_many = array(
-        'HeadTags'        => 'HeadTag'
+        'HeadTags'        => 'SeoMetaTag'
     );
 
     /**
@@ -134,7 +134,7 @@ class SeoExtension extends DataExtension {
         $grid = new GridField(
             'HeadTags',
             'Other Meta Tags',
-            $this->HeadTags(),
+            $this->owner->HeadTags(),
             GridFieldConfig_RelationEditor::create()
         );
         return $grid;
