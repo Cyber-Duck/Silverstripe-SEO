@@ -22,7 +22,7 @@ class SeoExtension extends DataExtension {
         'MetaTitle'       => 'Varchar(512)',
         'MetaDescription' => 'Varchar(512)',
         'Canonical'       => 'Varchar(512)',
-        'Priority'        => 'Decimal(1,2)',
+        'Priority'        => 'Decimal(3,2)',
         'ChangeFrequency' => 'Varchar(100)',
         'Robots'          => 'Varchar(100)',
         'OGtype'          => 'Varchar(100)',
