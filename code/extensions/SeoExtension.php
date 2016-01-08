@@ -48,7 +48,7 @@ class SeoExtension extends DataExtension {
         $fields->addFieldToTab('Root.SEO', TextField::create('Canonical')); 
 
         $priority = DecimalField::create('Priority', 'Priority', $this->SitemapChangeFrequency())->setValue($this->priority);
-        $fields->addFieldToTab('Root.SEO', $priority));
+        $fields->addFieldToTab('Root.SEO', $priority);
         $fields->addFieldToTab('Root.SEO', DropdownField::create('ChangeFrequency', 'Change Frequency')); 
         $fields->addFieldToTab('Root.SEO', DropdownField::create('Robots', 'Robots', $this->IndexRules()));
         $fields->addFieldToTab('Root.SEO', DropdownField::create('OGtype', 'Open Graph Type', $this->OGtype()));
