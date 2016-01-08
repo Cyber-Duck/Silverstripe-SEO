@@ -61,6 +61,7 @@ class SeoExtension extends DataExtension {
     static $defaults = array (
         'Priority'        => 0.50,
         'ShowSocial'      => '1'
+        'ChangeFrequency' => 'weekly',
     );
     
     /**
