@@ -28,18 +28,18 @@ class SeoExtension extends DataExtension {
     /**
      * @static array $db Our page fields
      **/
-	private static $db = array(
+    private static $db = array(
         'MetaTitle'       => 'Varchar(512)',
         'MetaDescription' => 'Varchar(512)',
         'Canonical'       => 'Varchar(512)',
+        'Robots'          => 'Varchar(100)',
         'Priority'        => 'Decimal(3,2)',
         'ChangeFrequency' => 'Varchar(100)',
-        'Robots'          => 'Varchar(100)',
         'ShowSocial'      => 'Boolean',
         'OGtype'          => 'Varchar(100)',
         'OGlocale'        => 'Varchar(10)',
         'TwitterCard'     => 'Varchar(100)',
-	);
+    );
 
     /**
      * @static array $db Social image and other has_one relations
@@ -60,8 +60,8 @@ class SeoExtension extends DataExtension {
      **/
     static $defaults = array (
         'Priority'        => 0.50,
-        'ShowSocial'      => '1'
         'ChangeFrequency' => 'weekly',
+        'ShowSocial'      => 1
     );
     
     /**
@@ -71,22 +71,21 @@ class SeoExtension extends DataExtension {
      **/
     public function updateCMSFields(FieldList $fields) 
     {
-        $fields->addFieldToTab('Root.SEO', $this->preview());
-
-        $fields->addFieldToTab('Root.SEO', HeaderField::create($this->title));
-
-        $fields->addFieldToTab('Root.SEO', TextField::create('MetaTitle')); 
-        $fields->addFieldToTab('Root.SEO', TextareaField::create('MetaDescription'));
-
-        $fields->addFieldToTab('Root.SEO', TextField::create('Canonical'));
-        $fields->addFieldToTab('Root.SEO', NumericField::create('Priority'));
-        $fields->addFieldToTab('Root.SEO', DropdownField::create('ChangeFrequency', 'Change Frequency', $this->SitemapChangeFrequency())); 
-        $fields->addFieldToTab('Root.SEO', DropdownField::create('Robots', 'Robots', $this->IndexRules()));
-        $fields->addFieldToTab('Root.SEO', CheckboxField::create('ShowSocial'));
-        $fields->addFieldToTab('Root.SEO', DropdownField::create('OGtype', 'Open Graph Type', $this->OGtype()));
-        $fields->addFieldToTab('Root.SEO', DropdownField::create('OGlocale', 'Open Graph Locale', $this->OGlocale()));
-        $fields->addFieldToTab('Root.SEO', DropdownField::create('TwitterCard', 'Twitter Card', $this->TwitterCardTypes()));
-        $fields->addFieldToTab('Root.SEO', $this->SharingImage());
+        $fields->addFieldsToTab('Root.SEO', array(
+            $this->preview(),
+            HeaderField::create($this->title),
+            TextField::create('MetaTitle'),
+            TextareaField::create('MetaDescription'),
+            TextField::create('Canonical'),
+            DropdownField::create('Robots', 'Robots', $this->IndexRules()),
+            NumericField::create('Priority'),
+            DropdownField::create('ChangeFrequency', 'Change Frequency', $this->SitemapChangeFrequency()),
+            CheckboxField::create('ShowSocial'),
+            DropdownField::create('OGtype', 'Open Graph Type', $this->OGtype()),
+            DropdownField::create('OGlocale', 'Open Graph Locale', $this->OGlocale()),
+            DropdownField::create('TwitterCard', 'Twitter Card', $this->TwitterCardTypes()),
+            $this->SharingImage()
+        ));
 
         return $fields;
     }
