@@ -35,6 +35,7 @@ class SeoExtension extends DataExtension {
         'Priority'        => 'Decimal(3,2)',
         'ChangeFrequency' => 'Varchar(100)',
         'Robots'          => 'Varchar(100)',
+        'ShowSocial'      => 'Boolean',
         'OGtype'          => 'Varchar(100)',
         'OGlocale'        => 'Varchar(10)',
         'TwitterCard'     => 'Varchar(100)',
@@ -63,6 +64,7 @@ class SeoExtension extends DataExtension {
         $fields->addFieldToTab('Root.SEO', NumericField::create('Priority'));
         $fields->addFieldToTab('Root.SEO', DropdownField::create('ChangeFrequency', 'Change Frequency', $this->SitemapChangeFrequency())); 
         $fields->addFieldToTab('Root.SEO', DropdownField::create('Robots', 'Robots', $this->IndexRules()));
+        $fields->addFieldToTab('Root.SEO', CheckboxField::create('ShowSocial'));
         $fields->addFieldToTab('Root.SEO', DropdownField::create('OGtype', 'Open Graph Type', $this->OGtype()));
         $fields->addFieldToTab('Root.SEO', DropdownField::create('OGlocale', 'Open Graph Locale', $this->OGlocale()));
         $fields->addFieldToTab('Root.SEO', DropdownField::create('TwitterCard', 'Twitter Card', $this->TwitterCardTypes()));
