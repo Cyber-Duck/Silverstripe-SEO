@@ -1,13 +1,23 @@
 (function($) {
-    $(document).ready(function(){
-    	$('input[name="MetaTitle"]').on('change paste keyup',function(event) {
-    		title = $(this).val();
-    		$('.serp-title').text(title);
-		});
-
-    	$('input[name="MetaDescription"]').on('change paste keyup',function(event) {
-    		description = $(this).val();
-    		$('.serp-description').text(description);
-		});
-    })
+    $.entwine(function($) {
+        $('#Form_EditForm_MetaTitle').entwine({
+            onmatch: function() {
+                changeSerp('title',$(this).val());
+            },
+            onchange: function() {
+                changeSerp('title',$(this).val());
+            }
+        });
+        $('#Form_EditForm_MetaDescription').entwine({
+            onmatch: function() {
+                changeSerp('text',$(this).val());
+            },
+            onchange: function() {
+                changeSerp('text',$(this).val());
+            }
+        });
+        function changeSerp(name,text){
+            $('.serp-' + name).text(text);
+        }
+    });
 })(jQuery);
