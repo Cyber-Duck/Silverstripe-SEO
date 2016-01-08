@@ -84,7 +84,8 @@ class SeoExtension extends DataExtension {
             DropdownField::create('OGtype', 'Open Graph Type', $this->OGtype()),
             DropdownField::create('OGlocale', 'Open Graph Locale', $this->OGlocale()),
             DropdownField::create('TwitterCard', 'Twitter Card', $this->TwitterCardTypes()),
-            $this->SharingImage()
+            $this->SharingImage(),
+            $this->OtherHeadTags()
         ));
 
         return $fields;
@@ -121,6 +122,22 @@ class SeoExtension extends DataExtension {
         $image->setAllowedFileCategories('image');
 
         return $image;
+    }
+    
+    /**
+     * Creates our social sharing upload field
+     *
+     * @return UploadField
+     **/
+    private function OtherHeadTags()
+    {
+        $grid = new GridField(
+            'HeadTags',
+            'Other Meta Tags',
+            $this->HeadTags(),
+            GridFieldConfig_RelationEditor::create()
+        );
+        return $grid;
     }
     
     /**
