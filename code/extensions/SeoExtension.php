@@ -47,6 +47,14 @@ class SeoExtension extends DataExtension {
     private static $has_one = array(
         'SocialImage'     => 'Image'
     );
+
+    /**
+     * @static array $has_many Class relations
+     **/
+    private static $has_many = array(
+        'HeadTags'        => 'HeadTag'
+    );
+
     
     /**
      * Adds our SEO meta fields to the page field list
