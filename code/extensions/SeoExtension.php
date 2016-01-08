@@ -11,7 +11,9 @@
 class SeoExtension extends DataExtension {
 
     /**
+     * @var string $priority The admin SEO panel heading
      **/
+    private $title = 'Meta Tags and SEO';
 
     /**
      * @var float $priority The default page sitemap page priority
@@ -61,7 +63,7 @@ class SeoExtension extends DataExtension {
      **/
     public function updateCMSFields(FieldList $fields) 
     {
-        $fields->addFieldToTab('Root.SEO', HeaderField::create('Meta Tags'));
+        $fields->addFieldToTab('Root.SEO', HeaderField::create($this->title));
 
         $fields->addFieldToTab('Root.SEO', TextField::create('MetaTitle')); 
         $fields->addFieldToTab('Root.SEO', TextareaField::create('MetaDescription'));
