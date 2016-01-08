@@ -90,11 +90,21 @@ class SeoExtension extends DataExtension {
     {
         $image = new UploadField('SocialImage');
 
-        $image->getValidator()->setAllowedMaxFileSize($this->image_size);
+        $image->getValidator()->setAllowedMaxFileSize($this->ImageSize());
         $image->setFolderName($this->image_folder);
         $image->setAllowedFileCategories('image');
 
         return $image;
+    }
+    
+    /**
+     * Returns the max upload image size
+     *
+     * @return Int
+     **/
+    private function ImageSize()
+    {
+        return $this->image_size * 1024;
     }
     
     /**
