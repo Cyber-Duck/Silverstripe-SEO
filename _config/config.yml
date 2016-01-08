@@ -1,8 +1,6 @@
 LeftAndMain:
   extra_requirements_css:
     - seo/css/seo.css
-
-LeftAndMain:
   extra_requirements_javascript:
     - seo/javascript/serp.js
 
