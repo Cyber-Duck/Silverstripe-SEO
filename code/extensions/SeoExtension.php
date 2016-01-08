@@ -60,7 +60,7 @@ class SeoExtension extends DataExtension {
         $fields->addFieldToTab('Root.SEO', TextareaField::create('MetaDescription'));
 
         $fields->addFieldToTab('Root.SEO', TextField::create('Canonical'));
-        $fields->addFieldToTab('Root.SEO', $this->PriorityField());
+        $fields->addFieldToTab('Root.SEO', NumericField::create('Priority'));
         $fields->addFieldToTab('Root.SEO', DropdownField::create('ChangeFrequency', 'Change Frequency', $this->SitemapChangeFrequency())); 
         $fields->addFieldToTab('Root.SEO', DropdownField::create('Robots', 'Robots', $this->IndexRules()));
         $fields->addFieldToTab('Root.SEO', DropdownField::create('OGtype', 'Open Graph Type', $this->OGtype()));
@@ -81,16 +81,6 @@ class SeoExtension extends DataExtension {
         parent::populateDefaults();
 
         $this->Priority = $this->default_priority;
-    }
-    
-    /**
-     * Creates our page priority sitemap field
-     *
-     * @return NumericField
-     **/
-    private function PriorityField()
-    {
-        return NumericField::create('Priority', 'Priority')->setValue($this->priority);
     }
     
     /**
