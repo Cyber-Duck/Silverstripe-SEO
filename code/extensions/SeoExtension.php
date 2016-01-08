@@ -11,9 +11,7 @@
 class SeoExtension extends DataExtension {
 
     /**
-     * @var float $priority The default page sitemap page priority
      **/
-    private $default_priority = 0.50;
 
     /**
      * @var float $priority The default page sitemap page priority
