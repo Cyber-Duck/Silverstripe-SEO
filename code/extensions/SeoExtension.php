@@ -55,6 +55,13 @@ class SeoExtension extends DataExtension {
         'HeadTags'        => 'HeadTag'
     );
 
+    /**
+     * @static array $defaults Default values for fields in this class
+     **/
+    static $defaults = array (
+        'Priority'        => 0.50,
+        'ShowSocial'      => '1'
+    );
     
     /**
      * Adds our SEO meta fields to the page field list
