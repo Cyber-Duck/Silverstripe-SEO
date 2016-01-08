@@ -70,6 +70,8 @@ class SeoExtension extends DataExtension {
      **/
     public function updateCMSFields(FieldList $fields) 
     {
+        $fields->addFieldToTab('Root.SEO', $this->preview());
+
         $fields->addFieldToTab('Root.SEO', HeaderField::create($this->title));
 
         $fields->addFieldToTab('Root.SEO', TextField::create('MetaTitle')); 
@@ -86,6 +88,11 @@ class SeoExtension extends DataExtension {
         $fields->addFieldToTab('Root.SEO', $this->SharingImage());
 
         return $fields;
+    }
+
+    private function preview()
+    {
+        return LiteralField::create('Preview', Controller::curr()->renderWith('MetaPreview'));
     }
     
     /**
