@@ -80,7 +80,7 @@ class SeoExtension extends DataExtension {
             DropdownField::create('Robots', 'Robots', $this->IndexRules()),
             NumericField::create('Priority'),
             DropdownField::create('ChangeFrequency', 'Change Frequency', $this->SitemapChangeFrequency()),
-            CheckboxField::create('ShowSocial'),
+            CheckboxField::create('ShowSocial','Show Social Meta?'),
             DropdownField::create('OGtype', 'Open Graph Type', $this->OGtype()),
             DropdownField::create('OGlocale', 'Open Graph Locale', $this->OGlocale()),
             DropdownField::create('TwitterCard', 'Twitter Card', $this->TwitterCardTypes()),
@@ -125,8 +125,8 @@ class SeoExtension extends DataExtension {
             $this->owner->HeadTags(),
             GridFieldConfig_RelationEditor::create()
         );
-        $grid->getConfig()->removeComponentsByType('GridFieldToolbarHeader');
         $grid->getConfig()->removeComponentsByType('GridFieldAddExistingAutocompleter');
+        $grid->getConfig()->removeComponentsByType('GridFieldToolbarHeader');
         return $grid;
     }
     
