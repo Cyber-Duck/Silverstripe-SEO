@@ -97,18 +97,6 @@ class SeoExtension extends DataExtension {
     }
     
     /**
-     * Set some default values for the fields
-     *
-     * @return void
-     **/
-    public function populateDefaults()
-    {
-        parent::populateDefaults();
-
-        $this->Priority = $this->default_priority;
-    }
-    
-    /**
      * Creates our social sharing upload field
      *
      * @return UploadField
