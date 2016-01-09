@@ -126,7 +126,6 @@ class SeoExtension extends DataExtension {
             GridFieldConfig_RelationEditor::create()
         );
         $grid->getConfig()->removeComponentsByType('GridFieldAddExistingAutocompleter');
-        $grid->getConfig()->removeComponentsByType('GridFieldToolbarHeader');
         return $grid;
     }
     
