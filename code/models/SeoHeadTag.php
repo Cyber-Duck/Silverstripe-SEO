@@ -8,7 +8,7 @@ class SeoMetaTag extends DataObject {
         'Type'      => 'Varchar(512)'
     );
 
-    private static $has_one = array(
+    private static $belongs_many_many = array(
         'Page'      => 'Page',
     );
 

@@ -51,7 +51,7 @@ class SeoExtension extends DataExtension {
     /**
      * @static array $has_many Class relations
      **/
-    private static $has_many = array(
+    private static $many_many = array(
         'HeadTags'        => 'SeoMetaTag'
     );
 
