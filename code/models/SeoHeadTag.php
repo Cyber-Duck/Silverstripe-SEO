@@ -44,8 +44,8 @@ class SeoMetaTag extends DataObject {
     private function tagTypes()
     {
         return array(
-            1 => '<meta name="name" content="value">',
-            2 => '<meta property="name" content="value">',
+            'name'     => '<meta name="name" content="value">',
+            'property' => '<meta property="name" content="value">'
         );
     }
 }
