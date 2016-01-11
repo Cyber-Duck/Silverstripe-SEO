@@ -1,0 +1,3 @@
+Director:
+  rules:
+    'sitemap.xml' : 'SitemapXML_Controller'

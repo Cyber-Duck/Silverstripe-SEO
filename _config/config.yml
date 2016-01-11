@@ -1,0 +1,9 @@
+LeftAndMain:
+  extra_requirements_css:
+    - seo/css/seo.css
+  extra_requirements_javascript:
+    - seo/javascript/serp.js
+
+Page:
+  extensions:
+    - SeoExtension
