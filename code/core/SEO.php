@@ -8,4 +8,11 @@ class SEO {
 
 		return $sitemap->get();
 	}
+
+	public static function HeadTags()
+	{
+		$tags = new HeadTags();
+		
+		return $tags->get();
+	}
 }
