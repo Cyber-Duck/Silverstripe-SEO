@@ -4,39 +4,35 @@ class SitemapHTML {
 
 	private $html;
 
-	private $indent = 10;
+	public function get()
+	{
+		$pages = SiteTree::get()->filter(array(
+			'ClassName:not' => 'ErrorPage',
+			'ParentID'      => 0
+		))->Sort('Sort','ASC');
 
-	private $currentIndent;
+		$this->getPages($pages);
+		
+		return $this->html;
+	}
 
-	public function sitemap()
+	private function getPages($pages)
 	{
 		$this->html .= '<ul>';
 
-		$pages = DataObject::get_one('Page',"URLSegment = 'home'")->getChildren();
-
-		$this->html .= '<li>'.Director::absoluteURL();
-
-		$this->getPageChildren($pages);
-
-		$this->html .= '</li>';
-
-		$this->html .= '</ul>';
-	}
-
-	private function getPageChildren($pages)
-	{
 		foreach($pages as $page):
-			$this->html .= '<ul>';
-			$this->html .= '<li>'.$page->URLSegment;
+			$this->html .= '<li><a href="'.$page->URLSegment.'">'.$page->Title.'</a>';
 
-			$children = DataObject::get_one('Page',"ParentID = '".$page->ID."'");
+			$children = SiteTree::get()->filter(array(
+				'ParentID' => $page->ID
+			))->Sort('ID','ASC');
 
-			if($children):
-				$this->getPageChildren($children);
-			endif;
+			$this->getPages($children);
 
 			$this->html .= '</li>';
-			$this->html .= '</ul>';
 		endforeach;
+
+		$this->html .= '</ul>';
+
 	}
 }

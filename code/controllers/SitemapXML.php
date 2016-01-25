@@ -12,15 +12,14 @@ class SitemapXML_Controller extends Page_Controller {
 
     public function init()
     {
-        $this->response->addHeader("Content-Type", "application/xml");
-        
         parent::init();
-
-        $this->getSiteTree();
     }
 
     public function GetSitemapXML()
     {
+        $this->response->addHeader("Content-Type", "application/xml");
+        $this->getSiteTree();
+
         $sitemap = new ArrayData(array(
             'Pages' => $this->pages
         ));

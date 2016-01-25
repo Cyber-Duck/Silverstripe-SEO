@@ -6,6 +6,9 @@
             },
             onchange: function() {
                 changeSerp('title',$(this).val());
+            },
+            onkeyup: function() {
+                changeSerp('title',$(this).val());
             }
         });
         $('#Form_EditForm_MetaDescription').entwine({
@@ -13,6 +16,9 @@
                 changeSerp('text',$(this).val());
             },
             onchange: function() {
+                changeSerp('text',$(this).val());
+            },
+            onkeyup: function() {
                 changeSerp('text',$(this).val());
             }
         });
