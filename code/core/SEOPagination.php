@@ -1,6 +1,6 @@
 <?php
 
-class PaginationMetaTags {
+class SEOPagination {
 
 	private $param;
 
@@ -8,7 +8,7 @@ class PaginationMetaTags {
 
 	private $perPage;
 
-	function __construct($param, $total, $perPage)
+	function __construct($param = 'start', $total = 0, $perPage = 12)
 	{
 		$this->param = $param;
 		$this->total = $total;

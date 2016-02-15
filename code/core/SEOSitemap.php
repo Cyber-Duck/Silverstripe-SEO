@@ -1,6 +1,6 @@
 <?php
 
-class SitemapHTML {
+class SEOSitemap {
 
 	private $html;
 

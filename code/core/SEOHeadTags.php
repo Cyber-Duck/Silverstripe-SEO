@@ -1,6 +1,6 @@
 <?php
 
-class HeadTags {
+class SEOHeadTags {
 
 	private $controller;
 

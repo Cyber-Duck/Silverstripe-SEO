@@ -1,6 +1,6 @@
 <?php
 
-class SeoMetaTag extends DataObject {
+class SEOHeadTag extends DataObject {
 
     private static $db = array(
         'Name'      => 'Varchar(512)',

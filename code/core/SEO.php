@@ -4,7 +4,7 @@ class SEO {
 
 	public static function SitemapHTML()
 	{
-		$sitemap = new SitemapHTML();
+		$sitemap = new SEOSitemap();
 
 		return $sitemap->get();
 	}
