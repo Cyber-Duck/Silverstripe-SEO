@@ -20,19 +20,21 @@ class SEOHeadTags {
 
 	public function get()
 	{
-		foreach($this->model->HeadTags() as $tag){
+		if(method_exists($this->model,'HeadTags')){
+			foreach($this->model->HeadTags() as $tag){
 
-			if($tag->Type == 'name'){
-				$this->getMetaTag($tag->Name,$tag->Value);
-				break;
-			}
-			if($tag->Type == 'link'){
-				$this->getLinkTag($tag->Name,$tag->Value);
-				break;
-			}
-			if($tag->Type == 'property'){
-				$this->getPropertyTag($tag->Name,$tag->Value);
-				break;
+				if($tag->Type == 'name'){
+					$this->getMetaTag($tag->Name,$tag->Value);
+					break;
+				}
+				if($tag->Type == 'link'){
+					$this->getLinkTag($tag->Name,$tag->Value);
+					break;
+				}
+				if($tag->Type == 'property'){
+					$this->getPropertyTag($tag->Name,$tag->Value);
+					break;
+				}
 			}
 		}
 		return $this;
