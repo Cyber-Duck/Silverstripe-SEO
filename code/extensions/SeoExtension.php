@@ -58,10 +58,9 @@ class SEOExtension extends DataExtension {
     /**
      * @static array $defaults Default values for fields in this class
      **/
-    static $defaults = array (
+    private static $defaults = array(
         'Priority'        => 0.50,
-        'ChangeFrequency' => 'weekly',
-        'ShowSocial'      => 1
+        'ChangeFrequency' => 'weekly'
     );
     
     /**
@@ -76,10 +75,13 @@ class SEOExtension extends DataExtension {
             $this->preview(),
             TextField::create('MetaTitle'),
             TextareaField::create('MetaDescription'),
+            HeaderField::create('Indexing'),
             TextField::create('Canonical'),
             DropdownField::create('Robots', 'Robots', $this->IndexRules()),
+            HeaderField::create('Sitemap'),
             NumericField::create('Priority'),
             DropdownField::create('ChangeFrequency', 'Change Frequency', $this->SitemapChangeFrequency()),
+            HeaderField::create('Social'),
             CheckboxField::create('HideSocial','Hide Social Meta?'),
             DropdownField::create('OGtype', 'Open Graph Type', $this->OGtype()),
             DropdownField::create('OGlocale', 'Open Graph Locale', $this->OGlocale()),
@@ -173,6 +175,19 @@ class SEOExtension extends DataExtension {
     }
     
     /**
+     * Return an array of Facebook Open Graph locales
+     *
+     * @return array
+     **/
+    private function OGlocale()
+    {
+        return array(
+            'en_GB' => 'en_GB',
+            'en_US' => 'en_US'
+        );
+    }
+    
+    /**
      * Return an array of Facebook Open Graph Types
      *
      * @return array
@@ -186,19 +201,6 @@ class SEOExtension extends DataExtension {
             'profile' => 'Profile',
             'music'   => 'Music',
             'video'   => 'Video'
-        );
-    }
-    
-    /**
-     * Return an array of Facebook Open Graph locales
-     *
-     * @return array
-     **/
-    private function OGlocale()
-    {
-        return array(
-            'en_GB' => 'en_GB',
-            'en_US' => 'en_US'
         );
     }
     

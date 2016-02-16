@@ -8,10 +8,6 @@ class SEOHeadTag extends DataObject {
         'Type'      => 'Varchar(512)'
     );
 
-    private static $belongs_many_many = array(
-        'Page'      => 'Page',
-    );
-
     private static $summary_fields = array(
         'Name'      => 'Name',
         'Value'     => 'Value',
@@ -45,6 +41,7 @@ class SEOHeadTag extends DataObject {
     {
         return array(
             'name'     => '<meta name="name" content="value">',
+            'link'     => '<link rel="name" href="value">',
             'property' => '<meta property="name" content="value">'
         );
     }

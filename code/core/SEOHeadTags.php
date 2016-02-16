@@ -2,29 +2,15 @@
 
 class SEOHeadTags {
 
-	private $url;
-
 	private $model;
 
 	private $html;
 
-	function __construct($object = null)
-	{
-		if($object === null){
-			$this->model = Controller::curr();
-		} else {
-			$this->model = $object;
-		}
-	}
-
-	public function setURL($url)
-	{
-		$this->url = $url;
-	}
-
 	public function setPage(object $page)
 	{
 		$this->model = $page;
+
+		return $this;
 	}
 
 	public function html()
@@ -34,49 +20,22 @@ class SEOHeadTags {
 
 	public function get()
 	{
-		if($this->model->MetaTitle):
-			$title = $this->model->MetaTitle;
+		foreach($this->model->HeadTags() as $tag){
 
-			$this->getTitleTag($title);
-
-			if(!$this->model->HideSocial):
-				$this->getMetaTag('twitter:title',$title);
-				$this->getPropertyTag('og:title',$title);
-			endif;
-		endif;
-
-		if($this->model->MetaDescription):
-			$description = $this->model->MetaDescription;
-
-			$this->getMetaTag('description',$description);
-
-			if(!$this->model->HideSocial):
-				$this->getMetaTag('twitter:description',$description);
-				$this->getPropertyTag('og:description',$description);
-			endif;
-		endif;
-
-		if($this->model->Canonical):
-			$canonical = $this->model->Canonical;
-
-			$this->getLinkTag('canonical',$canonical);
-			$this->getPropertyTag('og:url',$canonical);
-		else:
-			$this->getLinkTag('canonical',$this->url);
-		endif;
-
-		if($this->model->Robots):
-			$robots = $this->model->Robots;
-
-			$this->getMetaTag('robots',$robots);
-		endif;
-
-		return $this->html;
-	}
-
-	private function getTitleTag($title)
-	{
-		$this->html .= '<title>'.$title.'</title>'.PHP_EOL;
+			if($tag->Type == 'name'){
+				$this->getMetaTag($tag->Name,$tag->Value);
+				break;
+			}
+			if($tag->Type == 'link'){
+				$this->getLinkTag($tag->Name,$tag->Value);
+				break;
+			}
+			if($tag->Type == 'property'){
+				$this->getPropertyTag($tag->Name,$tag->Value);
+				break;
+			}
+		}
+		return $this;
 	}
 
 	private function getMetaTag($name,$value)
