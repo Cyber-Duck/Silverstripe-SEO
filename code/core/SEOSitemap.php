@@ -9,6 +9,8 @@ class SEOSitemap {
 	public function setURL($url)
 	{
 		$this->url = $url;
+
+		return $this;
 	}
 
 	public function html()
@@ -24,6 +26,8 @@ class SEOSitemap {
 		))->Sort('Sort','ASC');
 
 		$this->getPages($pages);
+
+		return $this;
 	}
 
 	private function getPages($pages)

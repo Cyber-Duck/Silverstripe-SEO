@@ -8,39 +8,42 @@ class SEOPagination {
 
 	private $total = 0;
 
-	private $perPage = 0;
+	private $perPage;
 
 	private $param;
 
 	private $countParam;
 
-	private $currentPage = 0;
+	private $currentPage;
 
-	private $pages = 0;
-
-	function __construct()
-	{
-		$this->html = $html;
-	}
+	private $pages;
 
 	public function setURL($url)
 	{
 		$this->url = $url;
+
+		return $this;
 	}
 
-	public function setTotal()
+	public function setTotal($total)
 	{
 		$this->total = $total;
+
+		return $this;
 	}
 
-	public function setPerPage()
+	public function setPerPage($perPage)
 	{
 		$this->perPage = $perPage;
+
+		return $this;
 	}
 
-	public function setParam()
+	public function setParam($param)
 	{
 		$this->param = $param;
+
+		return $this;
 	}
 
 	public function html()
@@ -50,6 +53,8 @@ class SEOPagination {
 
 	public function get()
 	{
+		if($this->total === 0) return $this;
+
 		$this->checkModulus();
 
 		$this->setCountParam();
@@ -58,6 +63,8 @@ class SEOPagination {
 
 		$this->getPrev();
 		$this->getNext();
+
+		return $this;
 	}
 
 	private function checkModulus()
@@ -97,14 +104,14 @@ class SEOPagination {
 	{
 		if($this->pages > 1){
             if($this->currentPage < $this->pages) {
-                $next = '?'.$param.'='.($this->currentPage + $this->perPage);
+                $next = '?'.$this->param.'='.($this->currentPage * $this->perPage);
 
-                $meta .= '<link rel="next" href="'.$this->getURL($next).'" />'.PHP_EOL;
+                $this->html .= '<link rel="next" href="'.$this->getURL($next).'" />'.PHP_EOL;
             }
         }
 	}
 
-	private function getURL($param)
+	private function getURL($param = '')
 	{
 		return $this->url.$param;
 	}

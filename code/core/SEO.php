@@ -23,8 +23,8 @@ final class SEO {
 
             self::setPageURL(Director::AbsoluteBaseURL().substr(parse_url($_SERVER['REQUEST_URI'],PHP_URL_PATH),1));
 
-            self::$tags = new HeadTags($html);
-            self::$paginaton = new SEOPaginaton($html);
+            self::$tags = new SEOHeadTags();
+            self::$paginaton = new SEOPagination();
         }
         return static::$instance;
     }
@@ -36,7 +36,7 @@ final class SEO {
 
     public static function setPageURL($url, $escape = true)
     {
-    	self::$pageURL = $escap === true ? htmlspecialchars($url) : $url;;
+    	self::$pageURL = $escape === true ? htmlspecialchars($url) : $url;;
     }
 
     public static function setPage(object $page)
@@ -51,40 +51,28 @@ final class SEO {
 
 	public static function HeadTags()
 	{
-		return 
-		self::$tags
-			->setURL(self::$pageURL)
-			->setPage(self::$page)
-			->get()
-			->html().
-		self::$paginaton
-			->setURL(self::$pageURL)
-			->get()
-			->html();
-	}
+		self::getCurrentPage();
 
-	public static function MetaTags()
-	{
-		return self::$tags
+		$pagination = self::$paginaton
 			->setURL(self::$pageURL)
-			->setPage(self::$page)
 			->get()
 			->html();
-	}
 
-	public static function PaginationTags()
-	{
-		return self::$paginaton
-			->setURL(self::$pageURL)
-			->get()
-			->html();
+		$tags = new ArrayData(array(
+			'PageURL'    => self::$pageURL,
+            'PageSEO'    => self::$page,
+            'Pagination' => $pagination,
+            'OtherTags'  => self::$tags->setPage(self::$page)->get()->html()
+        ));
+        return $tags->renderWith('HeadTags');
 	}
 
 	public static function Pagination($total = 0, $perPage = 12, $param = 'start')
 	{
-		self::$paginaton->setTotal($total);
-		self::$paginaton->perPage($perPage);
-		self::$paginaton->setParam($param);
+		self::$paginaton
+			->setTotal($total)
+			->setPerPage($perPage)
+			->setParam($param);
 	}
 
 	public static function SitemapHTML()
@@ -92,6 +80,11 @@ final class SEO {
 		$sitemap = new SEOSitemap();
 
 		return $sitemap->get()->html();
+	}
+
+	private static function getCurrentPage()
+	{
+		if(self::$page == null) self::$page = Controller::curr();
 	}
 
     private function __construct(){}

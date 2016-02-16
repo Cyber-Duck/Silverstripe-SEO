@@ -12,7 +12,7 @@ class SEOAdminExtension extends DataExtension {
 		'InstagramURL'          => 'Varchar(512)',
 		'SoundcloudURL'         => 'Varchar(512)',
 		'YoutubeURL'            => 'Varchar(512)'
-		);
+	);
 
 	public static $has_one = array(
 		'SocialImage'          => 'Image'
