@@ -1,8 +1,20 @@
 <?php
 
-class SitemapHTML {
+class SEOSitemap {
+
+	private $url;
 
 	private $html;
+
+	public function setURL($url)
+	{
+		$this->url = $url;
+	}
+
+	public function html()
+	{
+		return $this->html;
+	}
 
 	public function get()
 	{
@@ -12,8 +24,6 @@ class SitemapHTML {
 		))->Sort('Sort','ASC');
 
 		$this->getPages($pages);
-		
-		return $this->html;
 	}
 
 	private function getPages($pages)
@@ -21,7 +31,7 @@ class SitemapHTML {
 		$this->html .= '<ul>';
 
 		foreach($pages as $page):
-			$this->html .= '<li><a href="'.$page->URLSegment.'">'.$page->Title.'</a>';
+			$this->html .= '<li><a href="'.$this->URL.$page->URLSegment.'">'.$page->Title.'</a>';
 
 			$children = SiteTree::get()->filter(array(
 				'ParentID' => $page->ID

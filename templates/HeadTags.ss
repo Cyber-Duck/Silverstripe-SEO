@@ -39,3 +39,17 @@
 <% end_if %>
 
 <% end_with %>
+
+	<% if $SiteConfig.FBappID %>
+	<meta property="fb:app_id" content="$SiteConfig.FBappID">
+	<meta name="twitter:site" content="@$SiteConfig.TwitterHandle">
+	<meta name="twitter:creator" content="@$SiteConfig.TwitterHandle">
+	<meta property="og:site_name" content="$SiteConfig.Title">
+	<% end_if %>
+	<% if $SocialImage %>
+	<meta property="og:image" content="$SocialImage">
+	<meta name="twitter:image" content="$SocialImage">
+	<% end_if %>
+	<meta property="og:locale" content='$OGlocale'>
+	<meta name="twitter:card" content="$TwitterCard">
+	<meta property="og:type" content="$OGtype">
