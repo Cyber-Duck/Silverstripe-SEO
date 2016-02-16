@@ -2,48 +2,71 @@
 
 class SEOHeadTags {
 
-	private $controller;
+	private $url;
+
+	private $model;
 
 	private $html;
 
-	function __construct()
+	function __construct($object = null)
 	{
-		$this->controller = Controller::curr();
+		if($object === null){
+			$this->model = Controller::curr();
+		} else {
+			$this->model = $object;
+		}
+	}
+
+	public function setURL($url)
+	{
+		$this->url = $url;
+	}
+
+	public function setPage(object $page)
+	{
+		$this->model = $page;
+	}
+
+	public function html()
+	{
+		return $this->html;
 	}
 
 	public function get()
 	{
-		if($this->controller->MetaTitle):
-			$title = $this->controller->MetaTitle;
+		if($this->model->MetaTitle):
+			$title = $this->model->MetaTitle;
 
 			$this->getTitleTag($title);
 
-			if(!$this->controller->HideSocial):
+			if(!$this->model->HideSocial):
 				$this->getMetaTag('twitter:title',$title);
 				$this->getPropertyTag('og:title',$title);
 			endif;
 		endif;
 
-		if($this->controller->MetaDescription):
-			$description = $this->controller->MetaDescription;
+		if($this->model->MetaDescription):
+			$description = $this->model->MetaDescription;
 
 			$this->getMetaTag('description',$description);
 
-			if(!$this->controller->HideSocial):
+			if(!$this->model->HideSocial):
 				$this->getMetaTag('twitter:description',$description);
 				$this->getPropertyTag('og:description',$description);
 			endif;
 		endif;
 
-		if($this->controller->Canonical):
-			$canonical = $this->controller->Canonical;
+		if($this->model->Canonical):
+			$canonical = $this->model->Canonical;
 
 			$this->getLinkTag('canonical',$canonical);
 			$this->getPropertyTag('og:url',$canonical);
+		else:
+			$this->getLinkTag('canonical',$this->url);
 		endif;
 
-		if($this->controller->Robots):
-			$robots = $this->controller->Robots;
+		if($this->model->Robots):
+			$robots = $this->model->Robots;
 
 			$this->getMetaTag('robots',$robots);
 		endif;

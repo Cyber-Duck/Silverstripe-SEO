@@ -8,7 +8,7 @@
  * @license MIT License https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SeoExtension extends DataExtension {
+class SEOExtension extends DataExtension {
 
     /**
      * @var string $priority The admin SEO panel heading
@@ -52,7 +52,7 @@ class SeoExtension extends DataExtension {
      * @static array $has_many Class relations
      **/
     private static $many_many = array(
-        'HeadTags'        => 'SeoMetaTag'
+        'HeadTags'        => 'SEOHeadTag'
     );
 
     /**
