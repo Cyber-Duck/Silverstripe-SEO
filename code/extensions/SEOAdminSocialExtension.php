@@ -1,6 +1,6 @@
 <?php
 
-class AdminSettings extends DataExtension {
+class SEOAdminExtension extends DataExtension {
 
 	private static $db = array(
 		'FacebookURL'           => 'Varchar(512)',
