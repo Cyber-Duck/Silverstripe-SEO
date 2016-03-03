@@ -33,6 +33,21 @@ final class SEO {
         return static::$instance;
     }
 
+	public static function HeadTags()
+	{
+		self::getCurrentPage();
+
+		$tags = new ArrayData(array(
+			'MetaTitle'       => self::getTitle(),
+			'MetaDescription' => self::getDescription(),
+			'PageURL'         => self::getPageURL(),
+            'PageSEO'         => self::getPage(),
+            'Pagination'      => self::getPaginationHTML(),
+            'OtherTags'       => self::getOtherHTML()
+        ));
+        return $tags->renderWith('HeadTags');
+	}
+
     public static function setPageURL($url, $escape = true)
     {
     	self::$pageURL = $escape === false ? $url : htmlspecialchars($url);
@@ -53,6 +68,36 @@ final class SEO {
     	self::$description = $description;
 	}
 
+	public static function setDynamicTitle($placeholder, $object)
+	{
+    	self::$title = self::setDynamic($placeholder, $object);
+	}
+
+	public static function setDynamicDescription($placeholder, $object)
+	{
+    	self::$description = self::setDynamic($placeholder, $object);
+	}
+
+	public static function Pagination($total = 0, $perPage = 12, $param = 'start')
+	{
+		self::$paginaton
+			->setTotal($total)
+			->setPerPage($perPage)
+			->setParam($param);
+	}
+
+	public static function SitemapHTML()
+	{
+		$sitemap = new SEOSitemap();
+
+		return $sitemap->get()->html();
+	}
+
+    public static function setSubsites($subsites = false)
+    {
+    	self::$subsites = $subsites;
+    }
+
     public static function getPageURL()
     {
     	return self::$pageURL;
@@ -65,76 +110,21 @@ final class SEO {
 
 	public static function getTitle()
 	{
-    	return self::$title;
-	}
-
-	public static function getDescription()
-	{
-    	return self::$description;
-	}
-
-	public static function Pagination($total = 0, $perPage = 12, $param = 'start')
-	{
-		self::$paginaton
-			->setTotal($total)
-			->setPerPage($perPage)
-			->setParam($param);
-	}
-
-    public static function setSubsites($subsites = false)
-    {
-    	self::$subsites = $subsites;
-    }
-
-	public static function HeadTags()
-	{
-		self::getCurrentPage();
-
-		$tags = new ArrayData(array(
-			'MetaTitle'       => self::runTitle(),
-			'MetaDescription' => self::runDescription(),
-			'PageURL'         => self::runPageURL(),
-            'PageSEO'         => self::runPage(),
-            'Pagination'      => self::runPagination(),
-            'OtherTags'       => self::runOtherMeta()
-        ));
-        return $tags->renderWith('HeadTags');
-	}
-
-	private static function getCurrentPage()
-	{
-		if(self::$page == null) self::$page = Controller::curr();
-	}
-
-	private static function runTitle()
-	{
-		if(self::$dynamicTitle === true){
-			return self::runDynamicMeta();
+		if(isset(self::$title)){
+			return self::$title;
 		}
 		return self::$page->MetaTitle;
 	}
 
-	private static function runDescription()
+	public static function getDescription()
 	{
-		return self::$description;
+		if(isset(self::$description)){
+			return self::$description;
+		}
+		return self::$page->MetaDescription;
 	}
 
-	private static function runDynamicMeta()
-	{
-		return self::$description;
-	}
-
-	private static function runPageURL()
-	{
-		return self::$pageURL;
-	}
-
-	private static function runPage()
-	{
-		return self::$page;
-	}
-
-	private static function runPagination()
+	public static function getPaginationHTML()
 	{
 		return self::$paginaton
 			->setURL(self::$pageURL)
@@ -142,16 +132,46 @@ final class SEO {
 			->html();
 	}
 
-	private static function runOtherMeta()
+	public static function getOtherHTML()
 	{
 		return self::$tags->setPage(self::$page)->get()->html();
 	}
 
-	public static function SitemapHTML()
+	private static function getCurrentPage()
 	{
-		$sitemap = new SEOSitemap();
+		if(self::$page == null) self::$page = Controller::curr();
+	}
 
-		return $sitemap->get()->html();
+	private static function setDynamic($text, $object, $and = ' and ')
+	{
+		preg_match_all("/\[([^\]]*)\]/",$text,$matches, PREG_PATTERN_ORDER);
+
+		$placeholders = $matches[1];
+
+		foreach($placeholders as $value){
+			if(strpos($value,".") !== false){
+				$relations = explode('.',$value);
+
+				$many = $relations[0];
+				$property = $relations[1];
+
+				foreach($object->$many() as $one){
+					$values[] = trim($one->$property);
+				}
+				$last = array_pop($values);
+				$first = implode(', ',$values);
+
+				$result = array();
+				$result[] = $first;
+				$result[] = ','.$and;
+				$result[] = $last;
+				$result = implode($result);
+			} else {
+				$result = trim($object->$value);
+			}
+			$text = trim(str_replace('['.$value.']', $result, $text));
+		}
+		return $text;
 	}
 
     private function __construct(){}

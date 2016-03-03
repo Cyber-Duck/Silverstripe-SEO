@@ -115,6 +115,29 @@ $list = MyObject::get();
 SEO::pagination($list->Count(), 20, 'page');
 ```
 
+### Setting Dynamic Meta 
+You can use an objects properties to populate a dynamic title or description Meta tag using placeholders [Property].
+
+The setDynamicTitle and setDynamicDescription functions take 2 arguments, the Meta text and the object.
+
+Lets assume we have a member object. We can use the properties from it to populate matching placeholders.
+
+```php
+$member = Member::currentUser();
+
+SEO::setDynamicTitle("[FirstName] [Surname] - Site Member", $member);
+```
+
+You can also access realtions using the dot syntax. If a member had a has_many relation to an Areas object and it had a class property Name we could access it as below.
+Relations are looped with seperators and a closing "and"
+
+FirstAreaName, SecondAreaName, ThirdAreaName, and FourthAreaName
+
+```php
+SEO::setDynamicDescription("[FirstName] [Surname] is a member of the team since
+[Created] and specialises in [Areas.Name].", $member);
+```
+
 ## About Me
 My name is Andy and I work for [Cyber Duck](https://www.cyber-duck.co.uk/)
 
