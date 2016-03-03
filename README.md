@@ -97,7 +97,8 @@ SEO::setPageURL('http://www.cyber-duck.co.uk/catalogue');
 
 ### Setting Pagination Meta
 
-To add rel="prev" and rel="next" Meta to a page just pass in the total number of items in the entire data set (the total of all pages items), you can use the SilverStripe Count function.
+To add rel="prev" and rel="next" Meta to a page just pass in the total number of items in the entire data set (the total of all pages items).
+You can use the SilverStripe Count function.
 
 ```php
 $list = MyObject::get();
@@ -105,7 +106,7 @@ $list = MyObject::get();
 SEO::pagination($list->Count());
 ```
 
-The pagination method accepts 3 parameters, total (required), per page(default: 12), and page param (default: start)
+The pagination method accepts 3 parameters, the total (required), items per page (default: 12), and pagination URL parameter (default: start)
 
 You can use custom values by passing them as arguments.
 
@@ -116,7 +117,7 @@ SEO::pagination($list->Count(), 20, 'page');
 ```
 
 ### Setting Dynamic Meta 
-You can use an objects properties to populate a dynamic title or description Meta tag using placeholders [Property].
+You can use an objects properties to populate a dynamic Meta title or description tag using placeholders [].
 
 The setDynamicTitle and setDynamicDescription functions take 2 arguments, the Meta text and the object.
 
@@ -128,14 +129,14 @@ $member = Member::currentUser();
 SEO::setDynamicTitle("[FirstName] [Surname] - Site Member", $member);
 ```
 
-You can also access realtions using the dot syntax. If a member had a has_many relation to an Areas object and it had a class property Name we could access it as below.
+You can also access relations using the dot syntax. If a member had a has_many relation to an Areas object and it had a class property Name we could access it as below.
 
 ```php
 SEO::setDynamicDescription(
 "[FirstName] [Surname] is a member of the team and specialises in [Areas.Name].", $member);
 ```
 
-Relations are looped with seperators and a closing "and"
+Relations are looped with separators (, ) and with an "and" before the last entry
 
 ```
 FirstAreaName, SecondAreaName, ThirdAreaName, and FourthAreaName
