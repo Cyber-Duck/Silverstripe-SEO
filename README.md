@@ -131,8 +131,8 @@ SEO::setDynamicTitle("[FirstName] [Surname] - Site Member", $member);
 You can also access realtions using the dot syntax. If a member had a has_many relation to an Areas object and it had a class property Name we could access it as below.
 
 ```php
-SEO::setDynamicDescription("[FirstName] [Surname] is a member of the team since
-[Created] and specialises in [Areas.Name].", $member);
+SEO::setDynamicDescription(
+"[FirstName] [Surname] is a member of the team and specialises in [Areas.Name].", $member);
 ```
 
 Relations are looped with seperators and a closing "and"
