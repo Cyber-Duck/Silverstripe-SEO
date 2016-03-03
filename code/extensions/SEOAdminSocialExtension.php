@@ -1,7 +1,18 @@
 <?php
 
+/**
+ * Page SEO fields
+ * Creates our page meta tags to deal with content, crawling, indexing, sitemap, and social sharing
+ *
+ * @package silverstripe-seo
+ * @license MIT License https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO/blob/master/LICENSE
+ * @author  <andrewm@cyber-duck.co.uk>
+ **/
 class SEOAdminExtension extends DataExtension {
 
+    /**
+     * @static array $db CMS social settings fields
+     **/
 	private static $db = array(
 		'FacebookURL'           => 'Varchar(512)',
 		'FBappID'               => 'Varchar(512)',
@@ -14,10 +25,18 @@ class SEOAdminExtension extends DataExtension {
 		'YoutubeURL'            => 'Varchar(512)'
 	);
 
+    /**
+     * @static array $has_one CMS social settings image
+     **/
 	public static $has_one = array(
 		'SocialImage'          => 'Image'
 	);
-
+    
+    /**
+     * Attach the fields to CMS settings
+     *
+     * @return FieldList
+     **/
 	public function updateCMSFields(FieldList $fields)
 	{
 		$fields->addFieldToTab('Root.SocialMedia', HeaderField::create('Social Settings'));
