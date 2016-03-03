@@ -30,15 +30,15 @@ Add the following to your composer.json file
 
 ```json
 {  
-  "require": {  
-    "Andrew-Mc-Cormack/Silverstripe-SEO": "dev-master"
-  },  
-  "repositories": [  
-    {  
-      "type": "vcs",  
-      "url": "https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO"  
-    }  
-  ]  
+    "require": {  
+        "Andrew-Mc-Cormack/Silverstripe-SEO": "dev-master"
+    },  
+    "repositories": [  
+        {  
+            "type": "vcs",  
+            "url": "https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO"  
+        }  
+    ]  
 }
 ```
 
@@ -50,17 +50,17 @@ And also add the MetaTags method to the Page Controller.
 ```php
 class Page_Controller extends ContentController {
 
-  public function init()
-  {
-    parent::init();
+    public function init()
+    {
+        parent::init();
 
-    SEO::init();
-  }
+        SEO::init();
+    }
 
-  public function MetaTags()
-  {
-    return SEO::HeadTags();
-  }
+    public function MetaTags()
+    {
+        return SEO::HeadTags();
+    }
 }
 ```
 
@@ -70,7 +70,37 @@ The URL ```/sitemap.xml``` will now also respond and generate your XML sitemap
 
 ## Features
 
-### Pagination Meta
+### Setting the current page
+
+By default the page Meta will be generated off the current Page object. If you wish to have an object as a Page and render out its Meta attach the SEO extension to it.
+
+In your config.yml file add an entry for an object you wish to have as a page.
+
+```yml
+MyObject:
+  extensions:
+    - SEOExtension
+```
+
+Within the current controller get your object and pass it into the setPage function;
+
+```php
+$page = MyObject::get()->First();
+
+SEO::setPage($page);
+```
+
+If you look at the HTML meta tags within your current page you will see they will be populated with the tags from your object record.
+
+### Setting the page URL
+
+By default the canonical and pagination meta tags will use the current page protocol, domain, and path (no query string) for their URL. If you wish to use a custom URL on the current page you can set one.
+
+```php
+SEO::setPageURL('http://www.cyber-duck.co.uk/catalogue');
+```
+
+### Setting Pagination Meta
 
 To add rel="prev" and rel="next" Meta to a page just pass in the total number of items in the entire data set (the total of all pages items), you can use the SilverStripe Count function.
 
