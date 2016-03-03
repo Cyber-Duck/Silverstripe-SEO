@@ -1,8 +1,70 @@
 # Silverstripe SEO
 A Silverstripe module to optimise the Meta, crawling, indexing, and sharing of your website content
 
-## About
-I'm a Web Developer based in London and work for a digital agency specialising in user-experience called [Cyber Duck](https://www.cyber-duck.co.uk/)
+Author: Andrew Mc Cormack
+
+## Features
+
+# CMS fields (for pages and objects)
+  - Meta Title
+  - Meta Description
+  - Canonical
+  - Robots
+  - Open graph and twitter meta
+  - Page image
+
+  - Sitemap priority
+  - Sitemap change frequency
+
+# Features
+  - Extra Meta Grid Field (Create link, property, or Meta head tags)
+  - SERP Preview
+  - Dynamic placeholder meta
+  - Subsite aware
+  - XML sitemap generator
+  - HTML sitemap generator
+
+## Installation
+
+Add the following to your composer.json file
+
+```json
+{  
+  "require": {  
+    "Andrew-Mc-Cormack/Silverstripe-SEO": "dev-master"
+  },  
+  "repositories": [  
+    {  
+      "type": "vcs",  
+      "url": "https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO"  
+    }  
+  ]  
+}
+```
+
+```php
+class Page_Controller extends ContentController {
+
+  public function init()
+  {
+    parent::init();
+
+    SEO::init();
+  }
+
+  public function MetaTags()
+  {
+    return SEO::HeadTags();
+  }
+}
+```
+
+After you composer update / install the module the extra meta fields will be available in the CMS within a page under the SEO tab.
+
+The URL /sitemap.xml will now also respond and generate your XML sitemap
+
+## About Me
+My name is Andy and I work for [Cyber Duck](https://www.cyber-duck.co.uk/)
 
 ## License
 
