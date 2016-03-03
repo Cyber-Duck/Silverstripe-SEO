@@ -3,21 +3,6 @@ A Silverstripe module to optimise the Meta, crawling, indexing, and sharing of y
 
 Author: Andrew Mc Cormack
 
-## Features
-
-### CMS fields
-  - SERP Preview
-  - Meta Title, Meta Description, Canonical, Robots, Open Graph, Twitter Meta
-  - Page social sharing image
-  - Sitemap priority and change frequency
-  - Extra Meta Grid Field (Create link, property, or Meta head tags)
-  - Dynamic placeholder meta
-  - Subsite aware
-
-### Sitemap
-  - XML sitemap generator
-  - HTML sitemap generator
-
 ## Installation
 
 Add the following to your composer.json file
@@ -63,6 +48,22 @@ This will complete the setup of the SEO module and make the module functionality
 The URL ```/sitemap.xml``` will now also respond and generate your XML sitemap
 
 ## Features
+
+- Subsite aware
+
+### CMS features
+  - SERP Preview
+  - Meta Title, Description, Canonical, Robots, Open Graph, Twitter fields
+  - Page social sharing image
+  - Sitemap priority and change frequency fields
+  - Extra Meta Grid Field (Create link, property, or Meta head tags)
+  - Dynamic placeholder meta
+
+### Sitemap
+  - XML sitemap generator
+  - HTML sitemap generator
+
+## Usage
 
 ### Setting the current page Meta
 
