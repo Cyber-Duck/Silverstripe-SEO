@@ -4,9 +4,13 @@ final class SEO {
 
 	private static $instance;
 
-	private static $page;
+	private static $title;
+
+	private static $description;
 
 	private static $pageURL;
+
+	private static $page;
 
 	private static $subsites;
 
@@ -29,14 +33,9 @@ final class SEO {
         return static::$instance;
     }
 
-    public static function subsites($subsites = false)
-    {
-    	self::$subsites = $subsites;
-    }
-
     public static function setPageURL($url, $escape = true)
     {
-    	self::$pageURL = $escape === true ? htmlspecialchars($url) : $url;;
+    	self::$pageURL = $escape === false ? $url : htmlspecialchars($url);
     }
 
     public static function setPage(object $page)
@@ -44,27 +43,34 @@ final class SEO {
     	self::$page = $page;
     }
 
-    public static function pageURL()
+	public static function setTitle($string)
+	{
+    	self::$title = $title;
+	}
+
+	public static function setDescription($string)
+	{
+    	self::$description = $description;
+	}
+
+    public static function getPageURL()
     {
     	return self::$pageURL;
     }
 
-	public static function HeadTags()
+    public static function getPage()
+    {
+    	return self::$page;
+    }
+
+	public static function getTitle()
 	{
-		self::getCurrentPage();
+    	return self::$title;
+	}
 
-		$pagination = self::$paginaton
-			->setURL(self::$pageURL)
-			->get()
-			->html();
-
-		$tags = new ArrayData(array(
-			'PageURL'    => self::$pageURL,
-            'PageSEO'    => self::$page,
-            'Pagination' => $pagination,
-            'OtherTags'  => self::$tags->setPage(self::$page)->get()->html()
-        ));
-        return $tags->renderWith('HeadTags');
+	public static function getDescription()
+	{
+    	return self::$description;
 	}
 
 	public static function Pagination($total = 0, $perPage = 12, $param = 'start')
@@ -75,16 +81,77 @@ final class SEO {
 			->setParam($param);
 	}
 
-	public static function SitemapHTML()
-	{
-		$sitemap = new SEOSitemap();
+    public static function setSubsites($subsites = false)
+    {
+    	self::$subsites = $subsites;
+    }
 
-		return $sitemap->get()->html();
+	public static function HeadTags()
+	{
+		self::getCurrentPage();
+
+		$tags = new ArrayData(array(
+			'MetaTitle'       => self::runTitle(),
+			'MetaDescription' => self::runDescription(),
+			'PageURL'         => self::runPageURL(),
+            'PageSEO'         => self::runPage(),
+            'Pagination'      => self::runPagination(),
+            'OtherTags'       => self::runOtherMeta()
+        ));
+        return $tags->renderWith('HeadTags');
 	}
 
 	private static function getCurrentPage()
 	{
 		if(self::$page == null) self::$page = Controller::curr();
+	}
+
+	private static function runTitle()
+	{
+		if(self::$dynamicTitle === true){
+			return self::runDynamicMeta();
+		}
+		return self::$page->MetaTitle;
+	}
+
+	private static function runDescription()
+	{
+		return self::$description;
+	}
+
+	private static function runDynamicMeta()
+	{
+		return self::$description;
+	}
+
+	private static function runPageURL()
+	{
+		return self::$pageURL;
+	}
+
+	private static function runPage()
+	{
+		return self::$page;
+	}
+
+	private static function runPagination()
+	{
+		return self::$paginaton
+			->setURL(self::$pageURL)
+			->get()
+			->html();
+	}
+
+	private static function runOtherMeta()
+	{
+		return self::$tags->setPage(self::$page)->get()->html();
+	}
+
+	public static function SitemapHTML()
+	{
+		$sitemap = new SEOSitemap();
+
+		return $sitemap->get()->html();
 	}
 
     private function __construct(){}
