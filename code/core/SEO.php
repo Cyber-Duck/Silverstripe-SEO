@@ -13,54 +13,54 @@ final class SEO {
     /**
      * @static object $instance The SEO instance
      **/
-	private static $instance;
+    private static $instance;
 
     /**
      * @static object $title Page Meta title
      **/
-	private static $title;
+    private static $title;
 
     /**
      * @static object $description Page Meta description
      **/
-	private static $description;
+    private static $description;
 
     /**
      * @static object $pageURL Page URL
      **/
-	private static $pageURL;
+    private static $pageURL;
 
     /**
      * @static object $page Current Page object
      **/
-	private static $page;
+    private static $page;
 
     /**
      * @static object $subsites Has subsites
      **/
-	private static $subsites;
+    private static $subsites;
 
     /**
      * @static object $tags Other head tags object
      **/
-	private static $tags;
+    private static $tags;
 
     /**
      * @static object $paginaton Pagination Meta object
      **/
-	private static $paginaton;
+    private static $paginaton;
 
     /**
      * @static object $html SEO instance
      **/
-	private static $html;
+    private static $html;
 
     /**
      * Initialise the SEO object
      *
      * @return object
      **/
-	public static function init()
+    public static function init()
     {
         if (null === static::$instance) {
             static::$instance = new static();
@@ -78,20 +78,20 @@ final class SEO {
      *
      * @return string
      **/
-	public static function HeadTags()
-	{
-		self::getCurrentPage();
+    public static function HeadTags()
+    {
+        self::getCurrentPage();
 
-		$tags = new ArrayData(array(
-			'MetaTitle'       => self::getTitle(),
-			'MetaDescription' => self::getDescription(),
-			'PageURL'         => self::getPageURL(),
+        $tags = new ArrayData(array(
+            'MetaTitle'       => self::getTitle(),
+            'MetaDescription' => self::getDescription(),
+            'PageURL'         => self::getPageURL(),
             'PageSEO'         => self::getPage(),
             'Pagination'      => self::getPaginationHTML(),
             'OtherTags'       => self::getOtherHTML()
         ));
         return $tags->renderWith('HeadTags');
-	}
+    }
 
     /**
      * Set the current page URL
@@ -103,7 +103,7 @@ final class SEO {
      **/
     public static function setPageURL($url, $escape = true)
     {
-    	self::$pageURL = $escape === false ? $url : htmlspecialchars($url);
+        self::$pageURL = $escape === false ? $url : htmlspecialchars($url);
     }
 
     /**
@@ -115,7 +115,7 @@ final class SEO {
      **/
     public static function setPage(object $page)
     {
-    	self::$page = $page;
+        self::$page = $page;
     }
 
     /**
@@ -125,10 +125,10 @@ final class SEO {
      *
      * @return void
      **/
-	public static function setTitle($title)
-	{
-    	self::$title = $title;
-	}
+    public static function setTitle($title)
+    {
+        self::$title = $title;
+    }
 
     /**
      * Set the current Meta description
@@ -137,10 +137,10 @@ final class SEO {
      *
      * @return void
      **/
-	public static function setDescription($description)
-	{
-    	self::$description = $description;
-	}
+    public static function setDescription($description)
+    {
+        self::$description = $description;
+    }
 
     /**
      * Set a dynamic Meta title tag using an object and placeholders
@@ -150,10 +150,10 @@ final class SEO {
      *
      * @return void
      **/
-	public static function setDynamicTitle($text, $object)
-	{
-    	self::$title = self::setDynamic($text, $object);
-	}
+    public static function setDynamicTitle($text, $object)
+    {
+        self::$title = self::setDynamic($text, $object);
+    }
 
     /**
      * Set a dynamic Meta description tag using an object and placeholders
@@ -163,10 +163,10 @@ final class SEO {
      *
      * @return void
      **/
-	public static function setDynamicDescription($text, $object)
-	{
-    	self::$description = self::setDynamic($text, $object);
-	}
+    public static function setDynamicDescription($text, $object)
+    {
+        self::$description = self::setDynamic($text, $object);
+    }
 
     /**
      * Set rel and prev Meta tags
@@ -177,25 +177,25 @@ final class SEO {
      *
      * @return void
      **/
-	public static function Pagination($total = 0, $perPage = 12, $param = 'start')
-	{
-		self::$paginaton
-			->setTotal($total)
-			->setPerPage($perPage)
-			->setParam($param);
-	}
+    public static function Pagination($total = 0, $perPage = 12, $param = 'start')
+    {
+        self::$paginaton
+            ->setTotal($total)
+            ->setPerPage($perPage)
+            ->setParam($param);
+    }
 
     /**
      * Get an HTML list of the current site pages
      *
      * @return string
      **/
-	public static function SitemapHTML()
-	{
-		$sitemap = new SEOSitemap();
+    public static function SitemapHTML()
+    {
+        $sitemap = new SEOSitemap();
 
-		return $sitemap->get()->html();
-	}
+        return $sitemap->get()->html();
+    }
 
     /**
      * Set whether this is a subsite
@@ -204,7 +204,7 @@ final class SEO {
      **/
     public static function setSubsites($subsites = false)
     {
-    	self::$subsites = $subsites;
+        self::$subsites = $subsites;
     }
 
     /**
@@ -214,7 +214,7 @@ final class SEO {
      **/
     public static function getPageURL()
     {
-    	return self::$pageURL;
+        return self::$pageURL;
     }
 
     /**
@@ -224,7 +224,7 @@ final class SEO {
      **/
     public static function getPage()
     {
-    	return self::$page;
+        return self::$page;
     }
 
     /**
@@ -232,96 +232,96 @@ final class SEO {
      *
      * @return string
      **/
-	public static function getTitle()
-	{
-		if(isset(self::$title)){
-			return self::$title;
-		}
-		return self::$page->MetaTitle;
-	}
+    public static function getTitle()
+    {
+        if(isset(self::$title)){
+            return self::$title;
+        }
+        return self::$page->MetaTitle;
+    }
 
     /**
      * Get the current page description
      *
      * @return string
      **/
-	public static function getDescription()
-	{
-		if(isset(self::$description)){
-			return self::$description;
-		}
-		return self::$page->MetaDescription;
-	}
+    public static function getDescription()
+    {
+        if(isset(self::$description)){
+            return self::$description;
+        }
+        return self::$page->MetaDescription;
+    }
 
     /**
      * Get the page pagination Meta tags
      *
      * @return string
      **/
-	public static function getPaginationHTML()
-	{
-		return self::$paginaton
-			->setURL(self::$pageURL)
-			->get()
-			->html();
-	}
+    public static function getPaginationHTML()
+    {
+        return self::$paginaton
+            ->setURL(self::$pageURL)
+            ->get()
+            ->html();
+    }
 
     /**
      * Get the current Grid Field Meta tags
      *
      * @return string
      **/
-	public static function getOtherHTML()
-	{
-		return self::$tags->setPage(self::$page)->get()->html();
-	}
+    public static function getOtherHTML()
+    {
+        return self::$tags->setPage(self::$page)->get()->html();
+    }
 
     /**
      * Check for instance of current page and return
      *
      * @return object
      **/
-	private static function getCurrentPage()
-	{
-		if(self::$page == null) self::$page = Controller::curr();
-	}
+    private static function getCurrentPage()
+    {
+        if(self::$page == null) self::$page = Controller::curr();
+    }
 
     /**
      * Set a dynamic meta tag
      *
      * @return string
      **/
-	private static function setDynamic($text, $object, $and = ' and ')
-	{
-		preg_match_all("/\[([^\]]*)\]/",$text,$matches, PREG_PATTERN_ORDER);
+    private static function setDynamic($text, $object, $and = ' and ')
+    {
+        preg_match_all("/\[([^\]]*)\]/",$text,$matches, PREG_PATTERN_ORDER);
 
-		$placeholders = $matches[1];
+        $placeholders = $matches[1];
 
-		foreach($placeholders as $value){
-			if(strpos($value,".") !== false){
-				$relations = explode('.',$value);
+        foreach($placeholders as $value){
+            if(strpos($value,".") !== false){
+                $relations = explode('.',$value);
 
-				$many = $relations[0];
-				$property = $relations[1];
+                $many = $relations[0];
+                $property = $relations[1];
 
-				foreach($object->$many() as $one){
-					$values[] = trim($one->$property);
-				}
-				$last = array_pop($values);
-				$first = implode(', ',$values);
+                foreach($object->$many() as $one){
+                    $values[] = trim($one->$property);
+                }
+                $last = array_pop($values);
+                $first = implode(', ',$values);
 
-				$result = array();
-				$result[] = $first;
-				$result[] = ','.$and;
-				$result[] = $last;
-				$result = implode($result);
-			} else {
-				$result = trim($object->$value);
-			}
-			$text = trim(str_replace('['.$value.']', $result, $text));
-		}
-		return $text;
-	}
+                $result = array();
+                $result[] = $first;
+                $result[] = ','.$and;
+                $result[] = $last;
+                $result = implode($result);
+            } else {
+                $result = trim($object->$value);
+            }
+            $text = trim(str_replace('['.$value.']', $result, $text));
+        }
+        return $text;
+    }
 
     private function __construct(){}
 
