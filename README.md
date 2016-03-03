@@ -6,21 +6,15 @@ Author: Andrew Mc Cormack
 ## Features
 
 ### CMS fields
-  - Meta Title
-  - Meta Description
-  - Canonical
-  - Robots
-  - Open graph and twitter meta
-  - Page image
-
-  - Sitemap priority
-  - Sitemap change frequency
-
-### Other Features
-  - Extra Meta Grid Field (Create link, property, or Meta head tags)
   - SERP Preview
+  - Meta Title, Meta Description, Canonical, Robots, Open Graph, Twitter Meta
+  - Page social sharing image
+  - Sitemap priority and change frequency
+  - Extra Meta Grid Field (Create link, property, or Meta head tags)
   - Dynamic placeholder meta
   - Subsite aware
+
+### Sitemap
   - XML sitemap generator
   - HTML sitemap generator
 
@@ -70,7 +64,7 @@ The URL ```/sitemap.xml``` will now also respond and generate your XML sitemap
 
 ## Features
 
-### Setting the current page
+### Setting the current page Meta
 
 By default the page Meta will be generated off the current Page object. If you wish to have an object as a Page and render out its Meta attach the SEO extension to it.
 
