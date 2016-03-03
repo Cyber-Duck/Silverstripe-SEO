@@ -5,7 +5,7 @@ Author: Andrew Mc Cormack
 
 ## Features
 
-# CMS fields (for pages and objects)
+### CMS fields
   - Meta Title
   - Meta Description
   - Canonical
@@ -16,7 +16,7 @@ Author: Andrew Mc Cormack
   - Sitemap priority
   - Sitemap change frequency
 
-# Features
+### Other Features
   - Extra Meta Grid Field (Create link, property, or Meta head tags)
   - SERP Preview
   - Dynamic placeholder meta
@@ -42,6 +42,11 @@ Add the following to your composer.json file
 }
 ```
 
+After you composer update / install the module the extra meta fields will be available in the CMS within a page under the SEO tab.
+
+Next add the SEO::init() function to your Page Controller init function.
+And also add the MetaTags method to the Page Controller.
+
 ```php
 class Page_Controller extends ContentController {
 
@@ -59,9 +64,31 @@ class Page_Controller extends ContentController {
 }
 ```
 
-After you composer update / install the module the extra meta fields will be available in the CMS within a page under the SEO tab.
+This will complete the setup of the SEO module and make the module functionality available throughout your site.
 
-The URL /sitemap.xml will now also respond and generate your XML sitemap
+The URL ```/sitemap.xml``` will now also respond and generate your XML sitemap
+
+## Features
+
+### Pagination Meta
+
+To add rel="prev" and rel="next" Meta to a page just pass in the total number of items in the entire data set (the total of all pages items), you can use the SilverStripe Count function.
+
+```php
+$list = MyObject::get();
+
+SEO::pagination($list->Count());
+```
+
+The pagination method accepts 3 parameters, total (required), per page(default: 12), and page param (default: start)
+
+You can use custom values by passing them as arguments.
+
+```php
+$list = MyObject::get();
+
+SEO::pagination($list->Count(), 20, 'page');
+```
 
 ## About Me
 My name is Andy and I work for [Cyber Duck](https://www.cyber-duck.co.uk/)
