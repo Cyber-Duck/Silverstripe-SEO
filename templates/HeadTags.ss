@@ -3,7 +3,7 @@
 <title>$Up.MetaTitle</title>
 <meta name="description" content="$Up.MetaDescription">
 
-<link rel="canonical" href="<% if $Canonical %>$Canonical<% else %>$Up.PageURL">
+<link rel="canonical" href="<% if $Canonical %>$Canonical<% else %>$Up.PageURL<% end_if %>">
 <meta name="robots" content="<% if $Robots %>$Robots<% else %>index,follow<% end_if %>">
 
 <% if not $HideSocial %>
