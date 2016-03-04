@@ -103,7 +103,7 @@ You can use the SilverStripe Count function.
 ```php
 $list = MyObject::get();
 
-SEO::pagination($list->Count());
+SEO::setPagination($list->Count());
 ```
 
 The pagination method accepts 3 parameters, the total (required), items per page (default: 12), and pagination URL parameter (default: start)
@@ -113,7 +113,7 @@ You can use custom values by passing them as arguments.
 ```php
 $list = MyObject::get();
 
-SEO::pagination($list->Count(), 20, 'page');
+SEO::setPagination($list->Count(), 20, 'page');
 ```
 
 ### Setting Dynamic Meta 
