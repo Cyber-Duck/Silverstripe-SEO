@@ -177,7 +177,7 @@ final class SEO {
      *
      * @return void
      **/
-    public static function Pagination($total = 0, $perPage = 12, $param = 'start')
+    public static function setPagination($total = 0, $perPage = 12, $param = 'start')
     {
         self::$paginaton
             ->setTotal($total)
@@ -310,11 +310,16 @@ final class SEO {
                 $last = array_pop($values);
                 $first = implode(', ',$values);
 
-                $result = array();
-                $result[] = $first;
-                $result[] = ','.$and;
-                $result[] = $last;
-                $result = implode($result);
+                
+                if($first == NULL){
+                    $result = $last;
+                } else {
+                    $result = array();
+                    $result[] = $first;
+                    $result[] = ','.$and;
+                    $result[] = $last;
+                    $result = implode($result);
+                }
             } else {
                 $result = trim($object->$value);
             }
