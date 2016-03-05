@@ -16,7 +16,7 @@ class SEOExtension extends DataExtension {
     private $title = 'Meta Tags and SEO';
 
     /**
-     * @var int $image_size The max image size for the social image
+     * @var int $image_size The maximum image size for the social image
      **/
     private $image_size = 1024;
 
@@ -132,7 +132,7 @@ class SEOExtension extends DataExtension {
     }
     
     /**
-     * Returns the max upload image size
+     * Returns the maximum upload image size
      *
      * @return Int
      **/
