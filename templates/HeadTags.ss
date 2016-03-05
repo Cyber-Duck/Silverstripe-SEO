@@ -1,26 +1,22 @@
 <% with $PageSEO %>
 
-<title>$MetaTitle</title>
-<meta name="description" content="$MetaDescription">
+<title>$Up.MetaTitle</title>
+<meta name="description" content="$Up.MetaDescription">
 
-<% if $Canonical %>
-<link rel="canonical" href="$Canonical">
-<% else %>
-<link rel="canonical" href="$Up.PageURL">
-<% end_if %>
-<meta name="robots" content="$Robots">
+<link rel="canonical" href="<% if $Canonical %>$Canonical<% else %>$Up.PageURL<% end_if %>">
+<meta name="robots" content="<% if $Robots %>$Robots<% else %>index,follow<% end_if %>">
 
 <% if not $HideSocial %>
 
-<meta property="og:title" content="$MetaTitle">
-<meta property="og:description" content="$MetaDescription">
-<meta property="og:type" content="$OGtype">
+<meta property="og:title" content="$Up.MetaTitle">
+<meta property="og:description" content="$Up.MetaDescription">
+<meta property="og:type" content="<% if $OGtype %>$OGtype<% else %>website<% end_if %>">
 <meta property="og:url" content="$Up.PageURL">
-<meta property="og:locale" content='$OGlocale'>
+<meta property="og:locale" content='<% if $OGtype %>$OGtype<% else %>en_GB<% end_if %>'>
 
-<meta name="twitter:title" content="$MetaTitle">
-<meta name="twitter:description" content="$MetaDescription">
-<meta name="twitter:card" content="$TwitterCard">
+<meta name="twitter:title" content="$Up.MetaTitle">
+<meta name="twitter:description" content="$Up.MetaDescription">
+<meta name="twitter:card" content="<% if $TwitterCard %>$TwitterCard<% else %>summary<% end_if %>">
 
 <% if $SocialImage %>
 <meta property="og:image" content="$SocialImage">

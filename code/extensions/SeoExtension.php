@@ -11,17 +11,17 @@
 class SEOExtension extends DataExtension {
 
     /**
-     * @var string $priority The admin SEO panel heading
+     * @var string $title The CMS page SEO panel heading
      **/
     private $title = 'Meta Tags and SEO';
 
     /**
-     * @var float $priority The default page sitemap page priority
+     * @var int $image_size The max image size for the social image
      **/
     private $image_size = 1024;
 
     /**
-     * @var float $priority The default page sitemap page priority
+     * @var string $image_folder The social image folder
      **/
     private $image_folder = 'Social';
 
@@ -42,21 +42,21 @@ class SEOExtension extends DataExtension {
     );
 
     /**
-     * @static array $db Social image and other has_one relations
+     * @static array $has_one Social image and other has_one relations
      **/
     private static $has_one = array(
         'SocialImage'     => 'Image'
     );
 
     /**
-     * @static array $has_many Class relations
+     * @static array $many_many Has many extra meta tags
      **/
     private static $many_many = array(
         'HeadTags'        => 'SEOHeadTag'
     );
 
     /**
-     * @static array $defaults Default values for fields in this class
+     * @static array $defaults Sitemap defaults
      **/
     private static $defaults = array(
         'Priority'        => 0.50,
