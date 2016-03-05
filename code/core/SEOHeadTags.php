@@ -10,10 +10,23 @@
  **/
 class SEOHeadTags {
 
+    /**
+     * @var object $model The current object
+     **/
     private $model;
 
+    /**
+     * @var string $html The head tag HTML
+     **/
     private $html;
 
+    /**
+     * Set the current page object
+     *
+     * @param object $page
+     *
+     * @return object
+     **/
     public function setPage(object $page)
     {
         $this->model = $page;
@@ -21,11 +34,21 @@ class SEOHeadTags {
         return $this;
     }
 
+    /**
+     * Get the Meta tag HTML
+     *
+     * @return string
+     **/
     public function html()
     {
         return $this->html;
     }
 
+    /**
+     * Build the Meta tag HTML
+     *
+     * @return object
+     **/
     public function get()
     {
         if(method_exists($this->model,'HeadTags')){
@@ -48,16 +71,40 @@ class SEOHeadTags {
         return $this;
     }
 
+    /**
+     * Initialise the SEO object
+     *
+     * @param string $name
+     * @param string $value
+     *
+     * @return void
+     **/
     private function getMetaTag($name,$value)
     {
         $this->html .= '<meta name="'.$name.'" content="'.$value.'">'.PHP_EOL;
     }
 
+    /**
+     * Initialise the SEO object
+     *
+     * @param string $name
+     * @param string $value
+     *
+     * @return void
+     **/
     private function getLinkTag($name,$value)
     {
         $this->html .= '<link rel="'.$name.'" href="'.$value.'">'.PHP_EOL;
     }
 
+    /**
+     * Initialise the SEO object
+     *
+     * @param string $name
+     * @param string $value
+     *
+     * @return void
+     **/
     private function getPropertyTag($name,$value)
     {
         $this->html .= '<meta property="'.$name.'" content="'.$value.'">'.PHP_EOL;
