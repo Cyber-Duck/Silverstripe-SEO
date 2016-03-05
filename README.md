@@ -49,8 +49,6 @@ The URL ```/sitemap.xml``` will now also respond and generate your XML sitemap
 
 ## Features
 
-- Subsite aware
-
 ### CMS features
   - SERP Preview
   - Meta Title, Description, Canonical, Robots, Open Graph, Twitter fields
