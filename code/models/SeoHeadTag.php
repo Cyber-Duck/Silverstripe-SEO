@@ -34,12 +34,12 @@ class SEOHeadTag extends DataObject {
     private static $default_sort = 'Name';
 
     /**
-     * @static string $singular_name Singular english name
+     * @static string $singular_name Singular English name
      **/
     private static $singular_name = 'Meta Tag';
 
     /**
-     * @static string $plural_name Plural english name
+     * @static string $plural_name Plural English name
      **/
     private static $plural_name = 'Meta Tags';
     

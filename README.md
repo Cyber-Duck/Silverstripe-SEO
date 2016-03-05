@@ -45,8 +45,6 @@ class Page_Controller extends ContentController {
 
 This will complete the setup of the SEO module and make the module functionality available throughout your site.
 
-The URL ```/sitemap.xml``` will now also respond and generate your XML sitemap
-
 ## Features
 
 ### CMS features
@@ -91,7 +89,7 @@ SEO::setPageURL('http://www.cyber-duck.co.uk/catalogue');
 
 ### Setting Pagination Meta
 
-To add rel="prev" and rel="next" Meta to a page just pass in the total number of items in the entire data set (the total of all pages items).
+To add rel="prev" and rel="next" Meta to a page just pass in the total number of items in the paginated page collection.
 You can use the SilverStripe Count function.
 
 ```php
