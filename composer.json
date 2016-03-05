@@ -21,8 +21,8 @@
         "issues": "http://github.com/Andrew-Mc-Cormack/Silverstripe-SEO/issues"
     },
     "require": {
-        "silverstripe/cms": "3.1.*",
-        "silverstripe/framework": "3.1.*"
+        "silverstripe/cms": "3.*",
+        "silverstripe/framework": "3.*"
     },
     "require-dev": {
         "phpunit/phpunit": "4.7.*"
@@ -30,6 +30,5 @@
     "extra": {
         "installer-name": "seo"
     },
-    "minimum-stability": "dev",
     "prefer-stable": true
 }
