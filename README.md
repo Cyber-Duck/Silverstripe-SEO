@@ -57,10 +57,6 @@ The URL ```/sitemap.xml``` will now also respond and generate your XML sitemap
   - Extra Meta Grid Field (Create link, property, or Meta head tags)
   - Dynamic placeholder meta
 
-### Sitemap
-  - XML sitemap generator
-  - HTML sitemap generator
-
 ## Usage
 
 ### Setting the current page Meta
