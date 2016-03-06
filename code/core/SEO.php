@@ -186,28 +186,6 @@ final class SEO {
     }
 
     /**
-     * Get an HTML list of the current site pages
-     *
-     * @return string
-     **/
-    public static function SitemapHTML()
-    {
-        $sitemap = new SEOSitemap();
-
-        return $sitemap->get()->html();
-    }
-
-    /**
-     * Set whether this is a subsite
-     *
-     * @return void
-     **/
-    public static function setSubsites($subsites = false)
-    {
-        self::$subsites = $subsites;
-    }
-
-    /**
      * Get the current page SEO URL
      *
      * @return string
