@@ -94,7 +94,14 @@ class SEOExtension extends DataExtension {
 
         return $fields;
     }
-
+    
+    /**
+     * Render the Meta preview template for the CMS SEO panel
+     *
+     * @since version 1.0
+     *
+     * @return string
+     **/
     private function preview()
     {
         return LiteralField::create('Preview', Controller::curr()->renderWith('MetaPreview'));
