@@ -77,6 +77,28 @@ class SEOHeadTags {
                 }
             }
         }
+        // Add SilverStripe generated tags
+
+        // generator tag
+        $generator = trim(Config::inst()->get('SiteTree', 'meta_generator'));
+
+        if(!empty($generator)) {
+            $this->getMetaTag('generator', Convert::raw2att($generator));
+        }
+        // charset tag
+        $charset = Config::inst()->get('ContentNegotiator', 'encoding');
+
+        $this->getHttpEquivTag('Content-type', 'text/html; charset='.$charset);
+
+        // CMS preview
+        if(Permission::check('CMS_ACCESS_CMSMain')
+            && in_array('CMSPreviewable', class_implements($this))
+            && !$this instanceof ErrorPage
+            && $this->ID > 0
+        ) {
+            $this->getMetaTag('x-page-id', $this->ID);
+            $this->getMetaTag('x-cms-edit-link', Controller::curr()->CMSEditLink());
+        }
         return $this;
     }
 
@@ -123,5 +145,20 @@ class SEOHeadTags {
     private function getPropertyTag($name,$value)
     {
         $this->html .= '<meta property="'.$name.'" content="'.htmlspecialchars($value).'">'.PHP_EOL;
+    }
+
+    /**
+     * Create a <meta> tag with a http-equiv attribute
+     *
+     * @since version 1.2
+     *
+     * @param string $name  The name of the tag
+     * @param string $value The value of the tag
+     *
+     * @return void
+     **/
+    private function getHttpEquivTag($name,$value)
+    {
+        $this->html .= '<meta http-equiv="'.$name.'" content="'.htmlspecialchars($value).'">'.PHP_EOL;
     }
 }
