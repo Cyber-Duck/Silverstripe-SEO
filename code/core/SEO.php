@@ -179,7 +179,7 @@ final class SEO {
      **/
     public static function setPagination($total = 0, $perPage = 12, $param = 'start')
     {
-        self::$paginaton
+        return self::$paginaton
             ->setTotal($total)
             ->setPerPage($perPage)
             ->setParam($param);
