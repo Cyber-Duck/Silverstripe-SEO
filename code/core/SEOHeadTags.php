@@ -27,7 +27,7 @@ class SEOHeadTags {
      *
      * @return object
      **/
-    public function setPage(object $page)
+    public function setPage($page)
     {
         $this->model = $page;
 

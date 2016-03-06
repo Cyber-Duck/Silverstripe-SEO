@@ -113,7 +113,7 @@ final class SEO {
      *
      * @return void
      **/
-    public static function setPage(object $page)
+    public static function setPage($page)
     {
         self::$page = $page;
     }
