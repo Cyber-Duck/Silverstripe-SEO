@@ -203,8 +203,36 @@ class SEOExtension extends DataExtension {
     private function OGlocale()
     {
         return array(
-            'en_GB' => 'en_GB',
-            'en_US' => 'en_US'
+            'en_GB' => 'English - United Kingdom',
+            'en_US' => 'English - United States',
+            'da_DK' => 'Danish - Denmark',
+            'nl_NL' => 'Dutch - Netherlands',
+            'fr_FR' => 'French - France',
+            'de_DE' => 'German - Germany',
+            'el_GR' => 'Greek - Greece',
+            'hu_HU' => 'Hungarian - Hungary',
+            'is_IS' => 'Icelandic - Iceland',
+            'id_ID' => 'Indonesian - Indonesia',
+            'it_IT' => 'Italian - Italy',
+            'ja_JP' => 'Japanese - Japan',
+            'ko_KR' => 'Korean - Korea',
+            'lv_LV' => 'Latvian - Latvia',
+            'lt_LT' => 'Lithuanian - Lithuania',
+            'mk_MK' => 'Macedonian - Macedonia',
+            'no_NO' => 'Norwegian - Norway',
+            'fa_IN' => 'Persian - India',
+            'fa_IR' => 'Persian - Iran',
+            'pl_PL' => 'Polish - Poland',
+            'pt_PT' => 'Portuguese - Portugal',
+            'ro_RO' => 'Romanian - Romania',
+            'ru_RU' => 'Russian - Russia',
+            'sk_SK' => 'Slovak - Slovakia',
+            'sl_SI' => 'Slovenian - Slovenia',
+            'es_ES' => 'Spanish - Spain',
+            'sv_SE' => 'Swedish - Sweden',
+            'tr_TR' => 'Turkish - Turkey',
+            'uk_UA' => 'Ukrainian - Ukraine',
+            'vi_VN' => 'Vietnamese - Vietnam'
         );
     }
     
