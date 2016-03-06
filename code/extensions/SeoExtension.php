@@ -66,6 +66,8 @@ class SEOExtension extends DataExtension {
     /**
      * Adds our SEO meta fields to the page field list
      *
+     * @since version 1.0
+     *
      * @return FieldList
      **/
     public function updateCMSFields(FieldList $fields) 
@@ -101,6 +103,8 @@ class SEOExtension extends DataExtension {
     /**
      * Creates our social sharing upload field
      *
+     * @since version 1.0
+     *
      * @return UploadField
      **/
     private function SharingImage()
@@ -116,6 +120,8 @@ class SEOExtension extends DataExtension {
     
     /**
      * Creates our social sharing upload field
+     *
+     * @since version 1.0
      *
      * @return UploadField
      **/
@@ -134,6 +140,8 @@ class SEOExtension extends DataExtension {
     /**
      * Returns the maximum upload image size
      *
+     * @since version 1.0
+     *
      * @return Int
      **/
     private function ImageSize()
@@ -143,6 +151,8 @@ class SEOExtension extends DataExtension {
     
     /**
      * Returns an array of sitemap change frequencies used in a sitemap.xml file
+     *
+     * @since version 1.0
      *
      * @return array
      **/
@@ -162,6 +172,8 @@ class SEOExtension extends DataExtension {
     /**
      * Returns an array of robots crawling rules used in a robots meta tag
      *
+     * @since version 1.0
+     *
      * @return array
      **/
     private function IndexRules()
@@ -177,6 +189,8 @@ class SEOExtension extends DataExtension {
     /**
      * Return an array of Facebook Open Graph locales
      *
+     * @since version 1.0
+     *
      * @return array
      **/
     private function OGlocale()
@@ -189,6 +203,8 @@ class SEOExtension extends DataExtension {
     
     /**
      * Return an array of Facebook Open Graph Types
+     *
+     * @since version 1.0
      *
      * @return array
      **/
@@ -206,6 +222,8 @@ class SEOExtension extends DataExtension {
     
     /**
      * Returns an array of Twitter card types
+     *
+     * @since version 1.0
      *
      * @return array
      **/

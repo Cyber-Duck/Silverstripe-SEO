@@ -46,6 +46,8 @@ class SEOHeadTag extends DataObject {
     /**
      * Add the Head tag object properties
      *
+     * @since version 1.0
+     *
      * @return object
      **/
     public function getCMSFields() 
@@ -67,6 +69,8 @@ class SEOHeadTag extends DataObject {
     
     /**
      * Return an array of Meta tag types
+     *
+     * @since version 1.0
      *
      * @return array
      **/

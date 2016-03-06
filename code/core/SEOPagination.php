@@ -55,6 +55,8 @@ class SEOPagination {
      *
      * @param string $url
      *
+     * @since version 1.0
+     *
      * @return object
      **/
     public function setURL($url)
@@ -66,6 +68,8 @@ class SEOPagination {
 
     /**
      * Set the pagination total
+     *
+     * @since version 1.0
      *
      * @param int $total
      *
@@ -81,6 +85,8 @@ class SEOPagination {
     /**
      * Set the pagination items per page
      *
+     * @since version 1.0
+     *
      * @param int $perPage
      *
      * @return object
@@ -94,6 +100,8 @@ class SEOPagination {
 
     /**
      * Set the pagination URL paramater
+     *
+     * @since version 1.0
      *
      * @param string $param
      *
@@ -109,6 +117,8 @@ class SEOPagination {
     /**
      * Get the pagination HTML
      *
+     * @since version 1.0
+     *
      * @return string
      **/
     public function html()
@@ -118,6 +128,8 @@ class SEOPagination {
 
     /**
      * Build the pagination
+     *
+     * @since version 1.0
      *
      * @return object
      **/
@@ -141,6 +153,8 @@ class SEOPagination {
     /**
      * Validate and set the pagination GET URL page parameter
      *
+     * @since version 1.0
+     *
      * @return SS_HTTPResponse | void
      **/
     private function setCountParam()
@@ -161,6 +175,8 @@ class SEOPagination {
     /**
      * Set the current pagination page
      *
+     * @since version 1.0
+     *
      * @return void
      **/
     private function setCurrentPage()
@@ -171,6 +187,8 @@ class SEOPagination {
     /**
      * Set the total number of pages
      *
+     * @since version 1.0
+     *
      * @return void
      **/
     private function setPages()
@@ -180,6 +198,8 @@ class SEOPagination {
 
     /**
      * Check the current page is not greater than the total pages
+     *
+     * @since version 1.0
      *
      * @return SS_HTTPResponse | void
      **/
@@ -193,6 +213,8 @@ class SEOPagination {
     /**
      * Check the modules of the URL param
      *
+     * @since version 1.0
+     *
      * @return SS_HTTPResponse | void
      **/
     private function checkModulus()
@@ -205,6 +227,8 @@ class SEOPagination {
     /**
      * 404 redirect
      *
+     * @since version 1.0
+     *
      * @throws SS_HTTPResponse_Exception
      **/
     private function redirect404()
@@ -216,6 +240,8 @@ class SEOPagination {
 
     /**
      * Set the pagination rel prev Meta tag
+     *
+     * @since version 1.0
      *
      * @return void
      **/
@@ -235,6 +261,8 @@ class SEOPagination {
     /**
      * Set the pagination rel next Meta tag
      *
+     * @since version 1.0
+     *
      * @return void
      **/
     private function setNext()
@@ -250,6 +278,8 @@ class SEOPagination {
 
     /**
      * Build the pagination URL
+     *
+     * @since version 1.0
      *
      * @return string
      **/

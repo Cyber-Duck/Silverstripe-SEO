@@ -58,6 +58,8 @@ final class SEO {
     /**
      * Initialise the SEO object
      *
+     * @since version 1.0
+     *
      * @return object
      **/
     public static function init()
@@ -75,6 +77,8 @@ final class SEO {
 
     /**
      * Render and return all head tags
+     *
+     * @since version 1.0
      *
      * @return string
      **/
@@ -96,6 +100,8 @@ final class SEO {
     /**
      * Set the current page URL
      *
+     * @since version 1.0
+     *
      * @param string  $url The URL to set
      * @param boolean $url Escape the output
      *
@@ -109,6 +115,8 @@ final class SEO {
     /**
      * Set the current page
      *
+     * @since version 1.0
+     *
      * @param object $page The object to set as the current page
      *
      * @return void
@@ -120,6 +128,8 @@ final class SEO {
 
     /**
      * Set the current Meta title
+     *
+     * @since version 1.0
      *
      * @param string $title The Meta title to set
      *
@@ -133,6 +143,8 @@ final class SEO {
     /**
      * Set the current Meta description
      *
+     * @since version 1.0
+     *
      * @param string $description The Meta description to set
      *
      * @return void
@@ -144,6 +156,8 @@ final class SEO {
 
     /**
      * Set a dynamic Meta title tag using an object and placeholders
+     *
+     * @since version 1.0
      *
      * @param string $text   The meta text string
      * @param object $object The object to use
@@ -158,6 +172,8 @@ final class SEO {
     /**
      * Set a dynamic Meta description tag using an object and placeholders
      *
+     * @since version 1.0
+     *
      * @param string $text   The meta text string
      * @param object $object The object to use
      *
@@ -170,6 +186,8 @@ final class SEO {
 
     /**
      * Set rel and prev Meta tags
+     *
+     * @since version 1.0
      *
      * @param string $total   Pagination total
      * @param object $perPage Pagination items per page
@@ -188,6 +206,8 @@ final class SEO {
     /**
      * Get the current page SEO URL
      *
+     * @since version 1.0
+     *
      * @return string
      **/
     public static function getPageURL()
@@ -198,6 +218,8 @@ final class SEO {
     /**
      * Get the current page object
      *
+     * @since version 1.0
+     *
      * @return object
      **/
     public static function getPage()
@@ -207,6 +229,8 @@ final class SEO {
 
     /**
      * Get the current page title
+     *
+     * @since version 1.0
      *
      * @return string
      **/
@@ -221,6 +245,8 @@ final class SEO {
     /**
      * Get the current page description
      *
+     * @since version 1.0
+     *
      * @return string
      **/
     public static function getDescription()
@@ -233,6 +259,8 @@ final class SEO {
 
     /**
      * Get the page pagination Meta tags
+     *
+     * @since version 1.0
      *
      * @return string
      **/
@@ -247,6 +275,8 @@ final class SEO {
     /**
      * Get the current Grid Field Meta tags
      *
+     * @since version 1.0
+     *
      * @return string
      **/
     public static function getOtherHTML()
@@ -257,6 +287,8 @@ final class SEO {
     /**
      * Check for instance of current page and return
      *
+     * @since version 1.0
+     *
      * @return object
      **/
     private static function getCurrentPage()
@@ -266,6 +298,8 @@ final class SEO {
 
     /**
      * Set a dynamic meta tag
+     *
+     * @since version 1.0
      *
      * @return string
      **/

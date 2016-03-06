@@ -25,6 +25,8 @@ class SEOHeadTags {
      *
      * @param object $page
      *
+     * @since version 1.0
+     *
      * @return object
      **/
     public function setPage($page)
@@ -37,6 +39,8 @@ class SEOHeadTags {
     /**
      * Get the Meta tag HTML
      *
+     * @since version 1.0
+     *
      * @return string
      **/
     public function html()
@@ -46,6 +50,8 @@ class SEOHeadTags {
 
     /**
      * Build the Meta tag HTML
+     *
+     * @since version 1.0
      *
      * @return object
      **/
@@ -74,6 +80,8 @@ class SEOHeadTags {
     /**
      * Initialise the SEO object
      *
+     * @since version 1.0
+     *
      * @param string $name
      * @param string $value
      *
@@ -87,6 +95,8 @@ class SEOHeadTags {
     /**
      * Initialise the SEO object
      *
+     * @since version 1.0
+     *
      * @param string $name
      * @param string $value
      *
@@ -99,6 +109,8 @@ class SEOHeadTags {
 
     /**
      * Initialise the SEO object
+     *
+     * @since version 1.0
      *
      * @param string $name
      * @param string $value
