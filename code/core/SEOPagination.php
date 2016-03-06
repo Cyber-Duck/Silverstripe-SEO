@@ -1,8 +1,7 @@
 <?php
 
 /**
- * Page SEO fields
- * Creates our page meta tags to deal with content, crawling, indexing, sitemap, and social sharing
+ * Created pagiantion rel and prev Meta tags and validates their values
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO/blob/master/LICENSE
@@ -11,53 +10,69 @@
 class SEOPagination {
 
     /**
+     * @since version 1.0
+     *
      * @var string $url The pagination URL
      **/
     private $url;
 
     /**
+     * @since version 1.0
+     *
      * @var string $html The admin SEO panel heading
      **/
     private $html;
 
     /**
-     * @var int $total The total numebr of items across all pages
+     * @since version 1.0
+     *
+     * @var int $total The total number of items across all pages
      **/
     private $total = 0;
 
     /**
-     * @var string $perPage The number of paginated items per page
+     * @since version 1.0
+     *
+     * @var int $perPage The number of paginated items per page
      **/
     private $perPage = 12;
 
     /**
+     * @since version 1.0
+     *
      * @var string $param The admin SEO panel heading
      **/
     private $param = 'start';
 
     /**
-     * @var string $countParam The URL pagination param value
+     * @since version 1.0
+     *
+     * @var int $countParam The URL pagination param value
      **/
     private $countParam = 0;
 
     /**
+     * @since version 1.0
+     *
      * @var int $currentPage The current pagination page number
      **/
     private $currentPage = 1;
 
     /**
-     * @var string $pages The admin SEO panel heading
+     * @since version 1.0
+     *
+     * @var int $pages The number of paginated pages
      **/
-    private $pages;
+    private $pages = 0;
 
     /**
      * Set the pagination URL
      *
-     * @param string $url
-     *
      * @since version 1.0
      *
-     * @return object
+     * @param string $url
+     *
+     * @return self Returns the current class instance
      **/
     public function setURL($url)
     {
@@ -71,9 +86,9 @@ class SEOPagination {
      *
      * @since version 1.0
      *
-     * @param int $total
+     * @param int $total The total number of pages to set
      *
-     * @return object
+     * @return self Returns the current class instance
      **/
     public function setTotal($total)
     {
@@ -87,9 +102,9 @@ class SEOPagination {
      *
      * @since version 1.0
      *
-     * @param int $perPage
+     * @param int $perPage The number of items per page to set
      *
-     * @return object
+     * @return self Returns the current class instance
      **/
     public function setPerPage($perPage)
     {
@@ -103,9 +118,9 @@ class SEOPagination {
      *
      * @since version 1.0
      *
-     * @param string $param
+     * @param string $param The pagination URL param to set
      *
-     * @return object
+     * @return self Returns the current class instance
      **/
     public function setParam($param)
     {
@@ -119,7 +134,7 @@ class SEOPagination {
      *
      * @since version 1.0
      *
-     * @return string
+     * @return self Returns the pagination Meta tags HTML
      **/
     public function html()
     {
@@ -127,11 +142,11 @@ class SEOPagination {
     }
 
     /**
-     * Build the pagination
+     * Set values, check validation, and build the pagination
      *
      * @since version 1.0
      *
-     * @return object
+     * @return self Returns the current class instance
      **/
     public function get()
     {
@@ -155,7 +170,7 @@ class SEOPagination {
      *
      * @since version 1.0
      *
-     * @return SS_HTTPResponse | void
+     * @return void | SS_HTTPResponse Set the count value of 404 if the value is not valid
      **/
     private function setCountParam()
     {
@@ -201,7 +216,7 @@ class SEOPagination {
      *
      * @since version 1.0
      *
-     * @return SS_HTTPResponse | void
+     * @return void | SS_HTTPResponse Redirect to a 404 if the current value is not as expected
      **/
     private function checkCeiling()
     {
@@ -215,7 +230,7 @@ class SEOPagination {
      *
      * @since version 1.0
      *
-     * @return SS_HTTPResponse | void
+     * @return void | SS_HTTPResponse Redirect to a 404 if the current value is not as expected
      **/
     private function checkModulus()
     {
@@ -229,7 +244,7 @@ class SEOPagination {
      *
      * @since version 1.0
      *
-     * @throws SS_HTTPResponse_Exception
+     * @throws SS_HTTPResponse_Exception Return a 404 response
      **/
     private function redirect404()
     {
@@ -281,7 +296,7 @@ class SEOPagination {
      *
      * @since version 1.0
      *
-     * @return string
+     * @return string Return the URL string to use in the pagination Meta tags
      **/
     private function getURL($param = '')
     {

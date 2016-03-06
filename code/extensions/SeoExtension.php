@@ -1,8 +1,7 @@
 <?php
 
 /**
- * Page SEO fields
- * Creates our page meta tags to deal with content, crawling, indexing, sitemap, and social sharing
+ * Creates an SEO admin panel within the CMS for an object / page
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO/blob/master/LICENSE
@@ -11,21 +10,29 @@
 class SEOExtension extends DataExtension {
 
     /**
+     * @since version 1.0
+     *
      * @var string $title The CMS page SEO panel heading
      **/
     private $title = 'Meta Tags and SEO';
 
     /**
+     * @since version 1.0
+     *
      * @var int $image_size The maximum image size for the social image
      **/
     private $image_size = 1024;
 
     /**
+     * @since version 1.0
+     *
      * @var string $image_folder The social image folder
      **/
     private $image_folder = 'Social';
 
     /**
+     * @since version 1.0
+     *
      * @static array $db Our page fields
      **/
     private static $db = array(
@@ -42,6 +49,8 @@ class SEOExtension extends DataExtension {
     );
 
     /**
+     * @since version 1.0
+     *
      * @static array $has_one Social image and other has_one relations
      **/
     private static $has_one = array(
@@ -49,13 +58,17 @@ class SEOExtension extends DataExtension {
     );
 
     /**
-     * @static array $many_many Has many extra meta tags
+     * @since version 1.0
+     *
+     * @static array $many_many Has many extra Meta tags
      **/
     private static $many_many = array(
         'HeadTags'        => 'SEOHeadTag'
     );
 
     /**
+     * @since version 1.0
+     *
      * @static array $defaults Sitemap defaults
      **/
     private static $defaults = array(
@@ -64,11 +77,13 @@ class SEOExtension extends DataExtension {
     );
     
     /**
-     * Adds our SEO meta fields to the page field list
+     * Adds our SEO Meta fields to the page field list
      *
      * @since version 1.0
      *
-     * @return FieldList
+     * @param string $fields The current FieldList object
+     *
+     * @return FieldList Return the FieldList object
      **/
     public function updateCMSFields(FieldList $fields) 
     {
@@ -112,13 +127,13 @@ class SEOExtension extends DataExtension {
      *
      * @since version 1.0
      *
-     * @return UploadField
+     * @return UploadField Return the Social image UploadField object
      **/
     private function SharingImage()
     {
         $image = new UploadField('SocialImage');
 
-        $image->getValidator()->setAllowedMaxFileSize($this->ImageSize());
+        $image->getValidator()->setAllowedMaxFileSize($this->getMaxImageSize());
         $image->setFolderName($this->image_folder);
         $image->setAllowedFileCategories('image');
 
@@ -130,7 +145,7 @@ class SEOExtension extends DataExtension {
      *
      * @since version 1.0
      *
-     * @return UploadField
+     * @return GridField Return the Social image GridField object
      **/
     private function OtherHeadTags()
     {
@@ -140,7 +155,10 @@ class SEOExtension extends DataExtension {
             $this->owner->HeadTags(),
             GridFieldConfig_RelationEditor::create()
         );
+
+        // remove the autocompleter so existing tags cannot be attached to the current page
         $grid->getConfig()->removeComponentsByType('GridFieldAddExistingAutocompleter');
+
         return $grid;
     }
     
@@ -149,9 +167,9 @@ class SEOExtension extends DataExtension {
      *
      * @since version 1.0
      *
-     * @return Int
+     * @return Int Returns the maximum image size in KB
      **/
-    private function ImageSize()
+    private function getMaxImageSize()
     {
         return $this->image_size * 1024;
     }
@@ -161,7 +179,7 @@ class SEOExtension extends DataExtension {
      *
      * @since version 1.0
      *
-     * @return array
+     * @return array Returns an array of change frequency values
      **/
     private function SitemapChangeFrequency()
     {
@@ -177,11 +195,11 @@ class SEOExtension extends DataExtension {
     }
     
     /**
-     * Returns an array of robots crawling rules used in a robots meta tag
+     * Returns an array of robots crawling rules used in a robots Meta tag
      *
      * @since version 1.0
      *
-     * @return array
+     * @return array Returns an array of robots index rule values
      **/
     private function IndexRules()
     {
@@ -198,7 +216,7 @@ class SEOExtension extends DataExtension {
      *
      * @since version 1.0
      *
-     * @return array
+     * @return array Returns an array of open graph locale values
      **/
     private function OGlocale()
     {
@@ -241,7 +259,7 @@ class SEOExtension extends DataExtension {
      *
      * @since version 1.0
      *
-     * @return array
+     * @return array Returns an array of open graph type values
      **/
     private function OGtype()
     {
@@ -260,7 +278,7 @@ class SEOExtension extends DataExtension {
      *
      * @since version 1.0
      *
-     * @return array
+     * @return array Returns an array of twitter card type values
      **/
     private function TwitterCardTypes()
     {
@@ -274,3 +292,5 @@ class SEOExtension extends DataExtension {
         );
     }
 }
+
+

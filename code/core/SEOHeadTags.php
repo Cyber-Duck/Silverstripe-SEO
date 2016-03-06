@@ -1,8 +1,7 @@
 <?php
 
 /**
- * Page SEO fields
- * Creates our page meta tags to deal with content, crawling, indexing, sitemap, and social sharing
+ * Responsible for creating Meta tags with user generated names and values
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO/blob/master/LICENSE
@@ -11,23 +10,27 @@
 class SEOHeadTags {
 
     /**
-     * @var object $model The current object
+     * @since version 1.0
+     *
+     * @var object $model The current page object
      **/
     private $model;
 
     /**
-     * @var string $html The head tag HTML
+     * @since version 1.0
+     *
+     * @var string $html The Meta tag HTML
      **/
     private $html;
 
     /**
      * Set the current page object
      *
-     * @param object $page
-     *
      * @since version 1.0
      *
-     * @return object
+     * @param object $page A page object to set
+     *
+     * @return self Returns the current instance
      **/
     public function setPage($page)
     {
@@ -41,7 +44,7 @@ class SEOHeadTags {
      *
      * @since version 1.0
      *
-     * @return string
+     * @return string Returns the other Meta tags GridField HTMl
      **/
     public function html()
     {
@@ -49,11 +52,11 @@ class SEOHeadTags {
     }
 
     /**
-     * Build the Meta tag HTML
+     * Build the Meta tags HTML
      *
      * @since version 1.0
      *
-     * @return object
+     * @return self Returns the current instance
      **/
     public function get()
     {
@@ -78,12 +81,12 @@ class SEOHeadTags {
     }
 
     /**
-     * Initialise the SEO object
+     * Create a <meta> tag with a name attribute
      *
      * @since version 1.0
      *
-     * @param string $name
-     * @param string $value
+     * @param string $name  The name of the tag
+     * @param string $value The value of the tag
      *
      * @return void
      **/
@@ -93,12 +96,12 @@ class SEOHeadTags {
     }
 
     /**
-     * Initialise the SEO object
+     * Create a <link> tag
      *
      * @since version 1.0
      *
-     * @param string $name
-     * @param string $value
+     * @param string $name  The name of the tag
+     * @param string $value The value of the tag
      *
      * @return void
      **/
@@ -108,12 +111,12 @@ class SEOHeadTags {
     }
 
     /**
-     * Initialise the SEO object
+     * Create a <meta> tag with a property attribute
      *
      * @since version 1.0
      *
-     * @param string $name
-     * @param string $value
+     * @param string $name  The name of the tag
+     * @param string $value The value of the tag
      *
      * @return void
      **/
