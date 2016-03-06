@@ -36,9 +36,9 @@ class SEOPagination {
     private $param = 'start';
 
     /**
-     * @var string $countParam The admin SEO panel heading
+     * @var string $countParam The URL pagination param value
      **/
-    private $countParam;
+    private $countParam = 0;
 
     /**
      * @var int $currentPage The current pagination page number
@@ -125,11 +125,12 @@ class SEOPagination {
     {
         if($this->total === 0) return $this;
 
-        $this->checkModulus();
-
         $this->setCountParam();
         $this->setCurrentPage();
         $this->setPages();
+
+        $this->checkModulus();
+        $this->checkCeiling();
 
         $this->setPrev();
         $this->setNext();
@@ -138,24 +139,23 @@ class SEOPagination {
     }
 
     /**
-     * 
+     * Validate and set the pagination GET URL page parameter
      *
-     * @return object
-     * @todo
-     **/
-    private function checkModulus()
-    {
-
-    }
-
-    /**
-     * Set the pagination GET URL page parameter
-     *
-     * @return void
+     * @return SS_HTTPResponse | void
      **/
     private function setCountParam()
     {
-        $this->countParam = isset($_GET[$this->param]) ? $_GET[$this->param] : 0;
+        $param = Controller::curr()->request->getVar($this->param);
+
+        if($param === NULL){
+            $this->countParam = 0;
+            return;
+        }
+        if(is_string($param) && $param > 0){
+            $this->countParam = (int) $param;
+            return;
+        }
+        $this->redirect404();
     }
 
     /**
@@ -176,6 +176,42 @@ class SEOPagination {
     private function setPages()
     {
         $this->pages = ceil($this->total / $this->perPage);
+    }
+
+    /**
+     * Check the current page is not greater than the total pages
+     *
+     * @return SS_HTTPResponse | void
+     **/
+    private function checkCeiling()
+    {
+        if($this->currentPage > $this->pages){
+            $this->redirect404();
+        }
+    }
+
+    /**
+     * Check the modules of the URL param
+     *
+     * @return SS_HTTPResponse | void
+     **/
+    private function checkModulus()
+    {
+        if($this->countParam % $this->perPage !== 0){
+            $this->redirect404();
+        }
+    }
+
+    /**
+     * 404 redirect
+     *
+     * @throws SS_HTTPResponse_Exception
+     **/
+    private function redirect404()
+    {
+        Controller::curr()->response->removeHeader('Location');
+
+        throw new SS_HTTPResponse_Exception(ErrorPage::response_for(404), 404);
     }
 
     /**
@@ -207,7 +243,7 @@ class SEOPagination {
             if($this->currentPage < $this->pages) {
                 $next = '?'.$this->param.'='.($this->currentPage * $this->perPage);
 
-                $this->html .= '<link rel="next" href="'.$this->getURL($next).'" />'.PHP_EOL;
+                $this->html .= '<link rel="next" href="'.$this->getURL($next).'">'.PHP_EOL;
             }
         }
     }

@@ -113,7 +113,7 @@ final class SEO {
      *
      * @return void
      **/
-    public static function setPage(object $page)
+    public static function setPage($page)
     {
         self::$page = $page;
     }
@@ -179,32 +179,10 @@ final class SEO {
      **/
     public static function setPagination($total = 0, $perPage = 12, $param = 'start')
     {
-        self::$paginaton
+        return self::$paginaton
             ->setTotal($total)
             ->setPerPage($perPage)
             ->setParam($param);
-    }
-
-    /**
-     * Get an HTML list of the current site pages
-     *
-     * @return string
-     **/
-    public static function SitemapHTML()
-    {
-        $sitemap = new SEOSitemap();
-
-        return $sitemap->get()->html();
-    }
-
-    /**
-     * Set whether this is a subsite
-     *
-     * @return void
-     **/
-    public static function setSubsites($subsites = false)
-    {
-        self::$subsites = $subsites;
     }
 
     /**
