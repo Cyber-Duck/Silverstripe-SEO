@@ -9,7 +9,7 @@ class SEOPaginationTest extends FunctionalTest {
     {
         parent::setUp();
 
-        $page = new Page(array(
+        $page = new SiteTree(array(
             'Title' => "Test Page",
             'URLSegment' => 'test'
         ));
