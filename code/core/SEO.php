@@ -215,7 +215,7 @@ final class SEO {
         if(isset(self::$title)){
             return self::$title;
         }
-        return self::$page->MetaTitle;
+        return htmlspecialchars(self::$page->MetaTitle);
     }
 
     /**
@@ -228,7 +228,7 @@ final class SEO {
         if(isset(self::$description)){
             return self::$description;
         }
-        return self::$page->MetaDescription;
+        return htmlspecialchars(self::$page->MetaDescription);
     }
 
     /**
@@ -301,7 +301,7 @@ final class SEO {
             } else {
                 $result = trim($object->$value);
             }
-            $text = trim(str_replace('['.$value.']', $result, $text));
+            $text = trim(str_replace('['.htmlspecialchars($value).']', $result, $text));
         }
         return $text;
     }

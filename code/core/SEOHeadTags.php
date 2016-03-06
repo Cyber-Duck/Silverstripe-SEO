@@ -81,7 +81,7 @@ class SEOHeadTags {
      **/
     private function getMetaTag($name,$value)
     {
-        $this->html .= '<meta name="'.$name.'" content="'.$value.'">'.PHP_EOL;
+        $this->html .= '<meta name="'.$name.'" content="'.htmlspecialchars($value).'">'.PHP_EOL;
     }
 
     /**
@@ -94,7 +94,7 @@ class SEOHeadTags {
      **/
     private function getLinkTag($name,$value)
     {
-        $this->html .= '<link rel="'.$name.'" href="'.$value.'">'.PHP_EOL;
+        $this->html .= '<link rel="'.$name.'" href="'.htmlspecialchars($value).'">'.PHP_EOL;
     }
 
     /**
@@ -107,6 +107,6 @@ class SEOHeadTags {
      **/
     private function getPropertyTag($name,$value)
     {
-        $this->html .= '<meta property="'.$name.'" content="'.$value.'">'.PHP_EOL;
+        $this->html .= '<meta property="'.$name.'" content="'.htmlspecialchars($value).'">'.PHP_EOL;
     }
 }
