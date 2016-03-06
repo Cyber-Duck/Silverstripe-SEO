@@ -12,7 +12,7 @@
 <meta property="og:description" content="$Up.MetaDescription">
 <meta property="og:type" content="<% if $OGtype %>$OGtype<% else %>website<% end_if %>">
 <meta property="og:url" content="$Up.PageURL">
-<meta property="og:locale" content='<% if $OGtype %>$OGtype<% else %>en_GB<% end_if %>'>
+<meta property="og:locale" content="<% if $OGlocale %>$OGlocale<% else %>en_GB<% end_if %>">
 
 <meta name="twitter:title" content="$Up.MetaTitle">
 <meta name="twitter:description" content="$Up.MetaDescription">
