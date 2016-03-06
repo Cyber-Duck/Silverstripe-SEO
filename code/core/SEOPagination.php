@@ -243,7 +243,7 @@ class SEOPagination {
             if($this->currentPage < $this->pages) {
                 $next = '?'.$this->param.'='.($this->currentPage * $this->perPage);
 
-                $this->html .= '<link rel="next" href="'.$this->getURL($next).'" />'.PHP_EOL;
+                $this->html .= '<link rel="next" href="'.$this->getURL($next).'">'.PHP_EOL;
             }
         }
     }
