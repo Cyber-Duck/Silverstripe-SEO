@@ -61,10 +61,10 @@ This will complete the setup of the SEO module and make the module functionality
 
 By default the page Meta will be generated off the current Page object. If you wish to have an object as a Page and render out its Meta attach the SEO extension to it.
 
-In your config.yml file add an entry for an object you wish to have as a page.
+In your config.yml file add an entry for an object you wish to have as a page. To add the SEO extension to every page add a Page entry.
 
 ```yml
-MyObject:
+Page:
   extensions:
     - SEOExtension
 ```
