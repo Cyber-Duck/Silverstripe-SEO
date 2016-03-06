@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Page SEO fields
- * Creates our page meta tags to deal with content, crawling, indexing, sitemap, and social sharing
+ * The core SEO class is where module methods are called from. 
+ * Creates our page Meta tags to deal with content, crawling, indexing, sitemap, and social sharing
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO/blob/master/LICENSE
@@ -11,62 +11,77 @@
 final class SEO {
 
     /**
-     * @static object $instance The SEO instance
+     * @since version 1.0
+     *
+     * @static self $instance The SEO instance
      **/
     private static $instance;
 
     /**
-     * @static object $title Page Meta title
+     * @since version 1.0
+     *
+     * @static string $title Page Meta title
      **/
     private static $title;
 
     /**
-     * @static object $description Page Meta description
+     * @since version 1.0
+     *
+     * @static string $description Page Meta description
      **/
     private static $description;
 
     /**
-     * @static object $pageURL Page URL
+     * @since version 1.0
+     *
+     * @static string $pageURL Page URL
      **/
     private static $pageURL;
 
     /**
+     * @since version 1.0
+     *
      * @static object $page Current Page object
      **/
     private static $page;
 
     /**
-     * @static object $subsites Has subsites
-     **/
-    private static $subsites;
-
-    /**
-     * @static object $tags Other head tags object
+     * @since version 1.0
+     *
+     * @static SEOHeadTags $tags Other head tags object
      **/
     private static $tags;
 
     /**
-     * @static object $paginaton Pagination Meta object
+     * @since version 1.0
+     *
+     * @static SEOPagination $paginaton Pagination Meta object
      **/
     private static $paginaton;
 
     /**
-     * @static object $html SEO instance
+     * @since version 1.0
+     *
+     * @static string $html The Meta tags HTML output
      **/
     private static $html;
 
     /**
-     * Initialise the SEO object
+     * Initialise and return the SEO object
      *
-     * @return object
+     * @since version 1.0
+     *
+     * @return self Return the SEO instance
      **/
     public static function init()
     {
         if (null === static::$instance) {
             static::$instance = new static();
 
+            // set the default URL for Meta tags like canonical
             self::setPageURL(Director::AbsoluteBaseURL().substr(parse_url($_SERVER['REQUEST_URI'],PHP_URL_PATH),1));
 
+            // Initialise coe objects
             self::$tags = new SEOHeadTags();
             self::$paginaton = new SEOPagination();
         }
@@ -74,9 +89,12 @@ final class SEO {
     }
 
     /**
-     * Render and return all head tags
+     * Render and return all head tags. All the different Meta tags are populated
+     * into the HeadTags .ss template
      *
-     * @return string
+     * @since version 1.0
+     *
+     * @return string The render Meta tags HTML
      **/
     public static function HeadTags()
     {
@@ -94,7 +112,9 @@ final class SEO {
     }
 
     /**
-     * Set the current page URL
+     * Set the current page URL for use within tags
+     *
+     * @since version 1.0
      *
      * @param string  $url The URL to set
      * @param boolean $url Escape the output
@@ -107,7 +127,9 @@ final class SEO {
     }
 
     /**
-     * Set the current page
+     * Set the current page object
+     *
+     * @since version 1.0
      *
      * @param object $page The object to set as the current page
      *
@@ -119,7 +141,9 @@ final class SEO {
     }
 
     /**
-     * Set the current Meta title
+     * Set the current Meta title value
+     *
+     * @since version 1.0
      *
      * @param string $title The Meta title to set
      *
@@ -131,7 +155,9 @@ final class SEO {
     }
 
     /**
-     * Set the current Meta description
+     * Set the current Meta description value
+     *
+     * @since version 1.0
      *
      * @param string $description The Meta description to set
      *
@@ -145,7 +171,9 @@ final class SEO {
     /**
      * Set a dynamic Meta title tag using an object and placeholders
      *
-     * @param string $text   The meta text string
+     * @since version 1.0
+     *
+     * @param string $text   The Meta text string
      * @param object $object The object to use
      *
      * @return void
@@ -158,7 +186,9 @@ final class SEO {
     /**
      * Set a dynamic Meta description tag using an object and placeholders
      *
-     * @param string $text   The meta text string
+     * @since version 1.0
+     *
+     * @param string $text   The Meta text string
      * @param object $object The object to use
      *
      * @return void
@@ -171,11 +201,13 @@ final class SEO {
     /**
      * Set rel and prev Meta tags
      *
-     * @param string $total   Pagination total
-     * @param object $perPage Pagination items per page
-     * @param object $param   Pagination URL param
+     * @since version 1.0
      *
-     * @return void
+     * @param string $total   Pagination total
+     * @param int    $perPage Pagination items per page
+     * @param string $param   Pagination URL param
+     *
+     * @return SEOPagination Returns the pagination class
      **/
     public static function setPagination($total = 0, $perPage = 12, $param = 'start')
     {
@@ -186,9 +218,11 @@ final class SEO {
     }
 
     /**
-     * Get the current page SEO URL
+     * Get the current page URL
      *
-     * @return string
+     * @since version 1.0
+     *
+     * @return string Returns the full page URL
      **/
     public static function getPageURL()
     {
@@ -198,7 +232,9 @@ final class SEO {
     /**
      * Get the current page object
      *
-     * @return object
+     * @since version 1.0
+     *
+     * @return object Returns the current page object
      **/
     public static function getPage()
     {
@@ -208,12 +244,14 @@ final class SEO {
     /**
      * Get the current page title
      *
-     * @return string
+     * @since version 1.0
+     *
+     * @return string Returns an escaped Meta title value
      **/
     public static function getTitle()
     {
         if(isset(self::$title)){
-            return self::$title;
+            return htmlspecialchars(self::$title);
         }
         return htmlspecialchars(self::$page->MetaTitle);
     }
@@ -221,12 +259,14 @@ final class SEO {
     /**
      * Get the current page description
      *
-     * @return string
+     * @since version 1.0
+     *
+     * @return string Returns an escaped Meta description value
      **/
     public static function getDescription()
     {
         if(isset(self::$description)){
-            return self::$description;
+            return htmlspecialchars(self::$description);
         }
         return htmlspecialchars(self::$page->MetaDescription);
     }
@@ -234,7 +274,9 @@ final class SEO {
     /**
      * Get the page pagination Meta tags
      *
-     * @return string
+     * @since version 1.0
+     *
+     * @return string Returns the rel prev and next Meta tags HTML
      **/
     public static function getPaginationHTML()
     {
@@ -247,7 +289,9 @@ final class SEO {
     /**
      * Get the current Grid Field Meta tags
      *
-     * @return string
+     * @since version 1.0
+     *
+     * @return string Returns tags generated from the other Meta tags Grid Field
      **/
     public static function getOtherHTML()
     {
@@ -255,9 +299,11 @@ final class SEO {
     }
 
     /**
-     * Check for instance of current page and return
+     * Check if there is a current page object, if not use the current controller page
      *
-     * @return object
+     * @since version 1.0
+     *
+     * @return void
      **/
     private static function getCurrentPage()
     {
@@ -265,30 +311,43 @@ final class SEO {
     }
 
     /**
-     * Set a dynamic meta tag
+     * Set a dynamic Meta tag populated with an object properties
      *
-     * @return string
+     * @since version 1.0
+     *
+     * @param string $text   Meta text with placeholders [Value]
+     * @param object $object The object to use
+     * @param string $and    Separator to use before the last value when using multiple values
+     *
+     * @return string Returns text with the placeholders replaced with object properties
      **/
     private static function setDynamic($text, $object, $and = ' and ')
     {
         preg_match_all("/\[([^\]]*)\]/",$text,$matches, PREG_PATTERN_ORDER);
 
+        // get all matching placeholders
         $placeholders = $matches[1];
 
+        // loop through placeholders
         foreach($placeholders as $value){
+            // check for relation placeholders with a .
             if(strpos($value,".") !== false){
                 $relations = explode('.',$value);
 
+                // get the relation name
                 $many = $relations[0];
+
+                // get the relation property name
                 $property = $relations[1];
 
+                // loop the relation and assign the necessary property to an array
                 foreach($object->$many() as $one){
                     $values[] = trim($one->$property);
                 }
                 $last = array_pop($values);
                 $first = implode(', ',$values);
 
-                
+                // if only one property use it otherwise add the "and" separator
                 if($first == NULL){
                     $result = $last;
                 } else {
@@ -301,14 +360,36 @@ final class SEO {
             } else {
                 $result = trim($object->$value);
             }
+            // replace the placeholder with the new value
             $text = trim(str_replace('['.htmlspecialchars($value).']', $result, $text));
         }
         return $text;
     }
 
+    /**
+     * Private constructor
+     *
+     * @since version 1.0
+     *
+     * @return void
+     **/
     private function __construct(){}
 
+    /**
+     * Private clone
+     *
+     * @since version 1.0
+     *
+     * @return void
+     **/
     private function __clone(){}
 
+    /**
+     * Private wakeup
+     *
+     * @since version 1.0
+     *
+     * @return void
+     **/
     private function __wakeup(){}
 }

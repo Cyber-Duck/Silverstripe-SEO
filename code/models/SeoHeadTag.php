@@ -1,8 +1,7 @@
 <?php
 
 /**
- * Page SEO fields
- * Creates our page meta tags to deal with content, crawling, indexing, sitemap, and social sharing
+ * Creates an Other Meta Tags GridField within the CMS for an object / page
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO/blob/master/LICENSE
@@ -11,7 +10,9 @@
 class SEOHeadTag extends DataObject {
 
     /**
-     * @static array $db The admin SEO panel heading
+     * @since version 1.0
+     *
+     * @static array $db Simple name, value, and type fields for a Meta tag
      **/
     private static $db = array(
         'Name'      => 'Varchar(512)',
@@ -20,6 +21,8 @@ class SEOHeadTag extends DataObject {
     );
 
     /**
+     * @since version 1.0
+     *
      * @static array $summary_fields Show all fields in the Grid field
      **/
     private static $summary_fields = array(
@@ -29,24 +32,32 @@ class SEOHeadTag extends DataObject {
     );
 
     /**
+     * @since version 1.0
+     *
      * @static string $default_sort Sort tags by name by default
      **/
     private static $default_sort = 'Name';
 
     /**
+     * @since version 1.0
+     *
      * @static string $singular_name Singular English name
      **/
     private static $singular_name = 'Meta Tag';
 
     /**
+     * @since version 1.0
+     *
      * @static string $plural_name Plural English name
      **/
     private static $plural_name = 'Meta Tags';
     
     /**
-     * Add the Head tag object properties
+     * Add the Meta tag CMS fields
      *
-     * @return object
+     * @since version 1.0
+     *
+     * @return FieldList Return the current page fields
      **/
     public function getCMSFields() 
     {
@@ -66,9 +77,11 @@ class SEOHeadTag extends DataObject {
     }
     
     /**
-     * Return an array of Meta tag types
+     * Return an array of Meta tag type values
      *
-     * @return array
+     * @since version 1.0
+     *
+     * @return array Returns an array of name value Meta tags
      **/
     private function tagTypes()
     {

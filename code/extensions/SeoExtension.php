@@ -1,8 +1,7 @@
 <?php
 
 /**
- * Page SEO fields
- * Creates our page meta tags to deal with content, crawling, indexing, sitemap, and social sharing
+ * Creates an SEO admin panel within the CMS for an object / page
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO/blob/master/LICENSE
@@ -11,21 +10,29 @@
 class SEOExtension extends DataExtension {
 
     /**
+     * @since version 1.0
+     *
      * @var string $title The CMS page SEO panel heading
      **/
     private $title = 'Meta Tags and SEO';
 
     /**
+     * @since version 1.0
+     *
      * @var int $image_size The maximum image size for the social image
      **/
     private $image_size = 1024;
 
     /**
+     * @since version 1.0
+     *
      * @var string $image_folder The social image folder
      **/
     private $image_folder = 'Social';
 
     /**
+     * @since version 1.0
+     *
      * @static array $db Our page fields
      **/
     private static $db = array(
@@ -42,6 +49,8 @@ class SEOExtension extends DataExtension {
     );
 
     /**
+     * @since version 1.0
+     *
      * @static array $has_one Social image and other has_one relations
      **/
     private static $has_one = array(
@@ -49,13 +58,17 @@ class SEOExtension extends DataExtension {
     );
 
     /**
-     * @static array $many_many Has many extra meta tags
+     * @since version 1.0
+     *
+     * @static array $many_many Has many extra Meta tags
      **/
     private static $many_many = array(
         'HeadTags'        => 'SEOHeadTag'
     );
 
     /**
+     * @since version 1.0
+     *
      * @static array $defaults Sitemap defaults
      **/
     private static $defaults = array(
@@ -64,9 +77,13 @@ class SEOExtension extends DataExtension {
     );
     
     /**
-     * Adds our SEO meta fields to the page field list
+     * Adds our SEO Meta fields to the page field list
      *
-     * @return FieldList
+     * @since version 1.0
+     *
+     * @param string $fields The current FieldList object
+     *
+     * @return FieldList Return the FieldList object
      **/
     public function updateCMSFields(FieldList $fields) 
     {
@@ -92,7 +109,14 @@ class SEOExtension extends DataExtension {
 
         return $fields;
     }
-
+    
+    /**
+     * Render the Meta preview template for the CMS SEO panel
+     *
+     * @since version 1.0
+     *
+     * @return string
+     **/
     private function preview()
     {
         return LiteralField::create('Preview', Controller::curr()->renderWith('MetaPreview'));
@@ -101,13 +125,15 @@ class SEOExtension extends DataExtension {
     /**
      * Creates our social sharing upload field
      *
-     * @return UploadField
+     * @since version 1.0
+     *
+     * @return UploadField Return the Social image UploadField object
      **/
     private function SharingImage()
     {
         $image = new UploadField('SocialImage');
 
-        $image->getValidator()->setAllowedMaxFileSize($this->ImageSize());
+        $image->getValidator()->setAllowedMaxFileSize($this->getMaxImageSize());
         $image->setFolderName($this->image_folder);
         $image->setAllowedFileCategories('image');
 
@@ -117,7 +143,9 @@ class SEOExtension extends DataExtension {
     /**
      * Creates our social sharing upload field
      *
-     * @return UploadField
+     * @since version 1.0
+     *
+     * @return GridField Return the Social image GridField object
      **/
     private function OtherHeadTags()
     {
@@ -127,16 +155,21 @@ class SEOExtension extends DataExtension {
             $this->owner->HeadTags(),
             GridFieldConfig_RelationEditor::create()
         );
+
+        // remove the autocompleter so existing tags cannot be attached to the current page
         $grid->getConfig()->removeComponentsByType('GridFieldAddExistingAutocompleter');
+
         return $grid;
     }
     
     /**
      * Returns the maximum upload image size
      *
-     * @return Int
+     * @since version 1.0
+     *
+     * @return Int Returns the maximum image size in KB
      **/
-    private function ImageSize()
+    private function getMaxImageSize()
     {
         return $this->image_size * 1024;
     }
@@ -144,7 +177,9 @@ class SEOExtension extends DataExtension {
     /**
      * Returns an array of sitemap change frequencies used in a sitemap.xml file
      *
-     * @return array
+     * @since version 1.0
+     *
+     * @return array Returns an array of change frequency values
      **/
     private function SitemapChangeFrequency()
     {
@@ -160,9 +195,11 @@ class SEOExtension extends DataExtension {
     }
     
     /**
-     * Returns an array of robots crawling rules used in a robots meta tag
+     * Returns an array of robots crawling rules used in a robots Meta tag
      *
-     * @return array
+     * @since version 1.0
+     *
+     * @return array Returns an array of robots index rule values
      **/
     private function IndexRules()
     {
@@ -177,20 +214,52 @@ class SEOExtension extends DataExtension {
     /**
      * Return an array of Facebook Open Graph locales
      *
-     * @return array
+     * @since version 1.0
+     *
+     * @return array Returns an array of open graph locale values
      **/
     private function OGlocale()
     {
         return array(
-            'en_GB' => 'en_GB',
-            'en_US' => 'en_US'
+            'en_GB' => 'English - United Kingdom',
+            'en_US' => 'English - United States',
+            'da_DK' => 'Danish - Denmark',
+            'nl_NL' => 'Dutch - Netherlands',
+            'fr_FR' => 'French - France',
+            'de_DE' => 'German - Germany',
+            'el_GR' => 'Greek - Greece',
+            'hu_HU' => 'Hungarian - Hungary',
+            'is_IS' => 'Icelandic - Iceland',
+            'id_ID' => 'Indonesian - Indonesia',
+            'it_IT' => 'Italian - Italy',
+            'ja_JP' => 'Japanese - Japan',
+            'ko_KR' => 'Korean - Korea',
+            'lv_LV' => 'Latvian - Latvia',
+            'lt_LT' => 'Lithuanian - Lithuania',
+            'mk_MK' => 'Macedonian - Macedonia',
+            'no_NO' => 'Norwegian - Norway',
+            'fa_IN' => 'Persian - India',
+            'fa_IR' => 'Persian - Iran',
+            'pl_PL' => 'Polish - Poland',
+            'pt_PT' => 'Portuguese - Portugal',
+            'ro_RO' => 'Romanian - Romania',
+            'ru_RU' => 'Russian - Russia',
+            'sk_SK' => 'Slovak - Slovakia',
+            'sl_SI' => 'Slovenian - Slovenia',
+            'es_ES' => 'Spanish - Spain',
+            'sv_SE' => 'Swedish - Sweden',
+            'tr_TR' => 'Turkish - Turkey',
+            'uk_UA' => 'Ukrainian - Ukraine',
+            'vi_VN' => 'Vietnamese - Vietnam'
         );
     }
     
     /**
      * Return an array of Facebook Open Graph Types
      *
-     * @return array
+     * @since version 1.0
+     *
+     * @return array Returns an array of open graph type values
      **/
     private function OGtype()
     {
@@ -207,7 +276,9 @@ class SEOExtension extends DataExtension {
     /**
      * Returns an array of Twitter card types
      *
-     * @return array
+     * @since version 1.0
+     *
+     * @return array Returns an array of twitter card type values
      **/
     private function TwitterCardTypes()
     {
@@ -221,3 +292,5 @@ class SEOExtension extends DataExtension {
         );
     }
 }
+
+
