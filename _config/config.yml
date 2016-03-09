@@ -3,3 +3,7 @@ LeftAndMain:
     - seo/css/seo.css
   extra_requirements_javascript:
     - seo/javascript/serp.js
+
+SiteTree:
+  extensions:
+    - SEOSitetreeExtension
