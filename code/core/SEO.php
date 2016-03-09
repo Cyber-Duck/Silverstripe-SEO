@@ -341,22 +341,27 @@ final class SEO {
                 $property = $relations[1];
 
                 // loop the relation and assign the necessary property to an array
-                foreach($object->$many() as $one){
-                    $values[] = trim($one->$property);
-                }
-                $last = array_pop($values);
-                $first = implode(', ',$values);
+                if($object->hasMany($many) || $object->manyMany($many)){
+                    foreach($object->$many() as $one){
+                        $values[] = trim($one->$property);
+                    }
+                    $last = array_pop($values);
+                    $first = implode(', ',$values);
 
-                // if only one property use it otherwise add the "and" separator
-                if($first == NULL){
-                    $result = $last;
+                    // if only one property use it otherwise add the "and" separator
+                    if($first == NULL){
+                        $result = $last;
+                    } else {
+                        $result = array();
+                        $result[] = $first;
+                        $result[] = ','.$and;
+                        $result[] = $last;
+                        $result = implode($result);
+                    }
                 } else {
-                    $result = array();
-                    $result[] = $first;
-                    $result[] = ','.$and;
-                    $result[] = $last;
-                    $result = implode($result);
+                    user_error('Invalid relations in dynamic SEO tag');
                 }
+                
             } else {
                 $result = trim($object->$value);
             }
