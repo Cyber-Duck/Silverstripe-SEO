@@ -152,8 +152,8 @@ class SEOPagination {
     {
         if($this->total === 0) return $this;
 
-        $this->setCountParam();
         $this->setCurrentPage();
+        $this->setCountParam();
         $this->setPages();
 
         $this->checkModulus();
@@ -176,7 +176,7 @@ class SEOPagination {
     {
         $param = Controller::curr()->request->getVar($this->param);
 
-        if($param === NULL){
+        if($param === NULL || $param == 0){
             $this->countParam = 0;
             return;
         }
