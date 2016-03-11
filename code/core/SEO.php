@@ -173,12 +173,13 @@ final class SEO {
      *
      * @since version 1.0
      *
-     * @param string $text   The Meta text string
-     * @param object $object The object to use
+     * @param string $text      The Meta text string
+     * @param object $object    The object to use
+     * @param string $separator Separates the last 2 items
      *
      * @return void
      **/
-    public static function setDynamicTitle($text, $object)
+    public static function setDynamicTitle($text, $object, $separator = 'and')
     {
         self::$title = self::setDynamic($text, $object);
     }
@@ -188,12 +189,13 @@ final class SEO {
      *
      * @since version 1.0
      *
-     * @param string $text   The Meta text string
-     * @param object $object The object to use
+     * @param string $text      The Meta text string
+     * @param object $object    The object to use
+     * @param string $separator Separates the last 2 items
      *
      * @return void
      **/
-    public static function setDynamicDescription($text, $object)
+    public static function setDynamicDescription($text, $object, $separator = 'and')
     {
         self::$description = self::setDynamic($text, $object);
     }
@@ -317,11 +319,11 @@ final class SEO {
      *
      * @param string $text   Meta text with placeholders [Value]
      * @param object $object The object to use
-     * @param string $and    Separator to use before the last value when using multiple values
+     * @param string $seperator    Separator to use before the last value when using multiple values
      *
      * @return string Returns text with the placeholders replaced with object properties
      **/
-    private static function setDynamic($text, $object, $and = ' and ')
+    private static function setDynamic($text, $object, $seperator)
     {
         preg_match_all("/\[([^\]]*)\]/",$text,$matches, PREG_PATTERN_ORDER);
 
@@ -354,7 +356,7 @@ final class SEO {
                     } else {
                         $result = array();
                         $result[] = $first;
-                        $result[] = ','.$and;
+                        $result[] = ', '.$seperator;
                         $result[] = $last;
                         $result = implode($result);
                     }
