@@ -10,12 +10,12 @@ Add the following to your composer.json file
 ```json
 {  
     "require": {  
-        "Andrew-Mc-Cormack/Silverstripe-SEO": "dev-master"
+        "cyber-duck/silverstripe-seo": "dev-master"
     },  
     "repositories": [  
         {  
             "type": "vcs",  
-            "url": "https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO"  
+            "url": "https://github.com/cyber-duck/silverstripe-seo"  
         }  
     ]  
 }
