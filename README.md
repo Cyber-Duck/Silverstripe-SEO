@@ -111,7 +111,7 @@ SEO::setPagination($list->Count(), 20, 'page');
 ### Setting Dynamic Meta 
 You can use an objects properties to populate a dynamic Meta title or description tag using placeholders [].
 
-The setDynamicTitle and setDynamicDescription functions take 3 arguments, the Meta text (required), the object (required), and the seperator (default: and).
+The setDynamicTitle and setDynamicDescription functions take 3 arguments, the Meta text (required), the object (required), and the separator (default: and).
 
 Lets assume we have a member object. We can use the properties from it to populate matching placeholders.
 
@@ -128,15 +128,19 @@ SEO::setDynamicDescription(
 "[FirstName] [Surname] is a member of the team and specialises in [Areas.Name].", $member);
 ```
 
-Relations are looped with separators (, ) and with an "and" before the last entry although you can use another sperator if you want, & for example
+```
+Andrew Mc Cormack is a member of the team and specialises in FirstArea, SecondArea, ThirdArea, and FourthArea
+```
 
-```
-Andrew Mc Cormack is a member of the team and specialises in FirstAreaName, SecondAreaName, ThirdAreaName, and FourthAreaName
-```
+Relations are looped with separators (, ) and with an "and" before the last entry although you can use another separator if you want, & for example
 
 ```php
 SEO::setDynamicDescription(
 "[FirstName] [Surname] is a member of the team and specialises in [Areas.Name].", $member, '&');
+```
+
+```
+Andrew Mc Cormack is a member of the team and specialises in FirstArea, SecondArea, ThirdArea, & FourthArea
 ```
 
 ## License
