@@ -1,6 +1,6 @@
 (function($) {
     $.entwine(function($) {
-        $('#Form_EditForm_MetaTitle').entwine({
+        $('input[name="MetaTitle"]').entwine({
             onmatch: function() {
                 changeSerp('title',$(this).val());
             },
@@ -11,7 +11,7 @@
                 changeSerp('title',$(this).val());
             }
         });
-        $('#Form_EditForm_MetaDescription').entwine({
+        $('textarea[name="MetaDescription"]').entwine({
             onmatch: function() {
                 changeSerp('text',$(this).val());
             },

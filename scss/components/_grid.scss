@@ -1,0 +1,21 @@
+.seo-light {
+    border: 2px solid #FFF;
+    display: block;
+    height: 10px;
+    width: 10px;
+
+    @include radius(7px);
+    @include box-shadow;
+
+    &.true {
+        background-color: #08C518;
+    }
+
+    &.false {
+        background-color: #C50808;
+    }
+}
+
+.seo-pagename {
+    color: #F00;
+}
