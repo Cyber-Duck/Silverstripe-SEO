@@ -25,21 +25,78 @@ class SEOAdmin extends ModelAdmin {
 
 	public function getExportFields()
 	{
-		return array();
+		return array(
+			'ID'              => 'ID',
+			'Created'         => 'Created',
+			'Title'           => 'Title',
+			'Robots'          => 'Robots',
+			'Priority'        => 'Priority',
+			'ChangeFrequency' => 'ChangeFrequency'
+		);
 	}
 
     public function getEditForm($id = null, $fields = null)
     {
         $form = parent::getEditForm($id, $fields);
 
+        $form
+            ->Fields()
+            ->fieldByName($this->sanitiseClassName($this->modelClass))
+            ->getConfig()
+            ->getComponentByType('GridFieldDetailForm')
+            ->setItemRequestClass('SEOPublishPageRequest');
+
         $grid = $form->Fields()->fieldByName($this->sanitiseClassName($this->modelClass));
 
         $grid->getConfig()->removeComponentsByType('GridFieldAddNewButton');
 
-        $list = $grid->getList();
-
-        $grid->setList($list->sort('Priority', 'DESC'));
+        $this->extend('updateEditForm',  $grid);
         
         return $form;
     }
+
+	public function getSearchContext()
+	{
+		$context = parent::getSearchContext();
+
+		$context->getFields()->fieldByName('q[Robots]')
+			->setEmptyString('- select -')
+			->setSource(SEOFieldValues::IndexRules());
+
+		$context->getFields()->fieldByName('q[ChangeFrequency]')
+			->setEmptyString('- select -')
+			->setSource(SEOFieldValues::SitemapChangeFrequency());
+
+		$context->getFields()->fieldByName('q[HideSocial]')
+			->setTitle('Social Meta hidden:')
+			->setEmptyString('- select -')
+			->setSource(SEOFieldValues::YesNo());
+
+		return $context;
+	}
+
+	public function getList()
+	{
+		$list = parent::getList();
+
+		$params = $this->getRequest()->requestVar('q'); // use this to access search parameters
+
+		$filters = array();
+
+		if(isset($params['Robots']) && $params['Robots']){
+			$filters['Robots'] = $params['Robots'];
+		}
+
+		if(isset($params['ChangeFrequency']) && $params['ChangeFrequency']){
+			$filters['ChangeFrequency'] = $params['ChangeFrequency'];
+		}
+
+		if(isset($params['HideSocial']) && $params['HideSocial']){
+			$filters['HideSocial'] = $params['HideSocial'];
+		}
+
+		$list = Versioned::get_by_stage('Page', 'Live')->filter($filters)->sort('Priority', 'DESC');
+
+		return $list;
+	}
 }
