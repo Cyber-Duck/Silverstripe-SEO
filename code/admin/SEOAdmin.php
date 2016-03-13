@@ -7,28 +7,28 @@ class SEOAdmin extends ModelAdmin {
      *
      * @static boolean $showImportForm Hide the import form for SEO admin
      **/
-	public $showImportForm = false;
+    public $showImportForm = false;
 
     /**
      * @since version 1.2
      *
      * @static string $menu_title The main menu title
      **/
-	private static $menu_title = 'SEO';
+    private static $menu_title = 'SEO';
 
     /**
      * @since version 1.2
      *
      * @static string $url_segment The CMS SEO admin URL segment
      **/
-	private static $url_segment = 'seo-admin';
+    private static $url_segment = 'seo-admin';
 
     /**
      * @since version 1.2
      *
      * @static string $menu_icon The main menu icon
      **/
-	private static $menu_icon = 'seo/images/menu-icons/16x16/seo.png';
+    private static $menu_icon = 'seo/images/menu-icons/16x16/seo.png';
 
     /**
      * @since version 1.2
@@ -42,21 +42,21 @@ class SEOAdmin extends ModelAdmin {
      *
      * @static int $page_length Set to 50 to easily examine a large set of pages
      **/
-	private static $page_length = 50;
+    private static $page_length = 50;
 
     /**
      * @since version 1.2
      *
      * @static string $managed_models Use the page object
      **/
-	private static $managed_models = array('Page');
+    private static $managed_models = array('Page');
 
     /**
      * @since version 1.2
      *
      * @static string $model_importers Disable model imports in SEO admin
      **/
-	private static $model_importers = null;
+    private static $model_importers = null;
 
     /**
      * 
@@ -65,10 +65,10 @@ class SEOAdmin extends ModelAdmin {
      *
      * @return 
      **/
-	public function init()
-	{
-		parent::init();
-	}
+    public function init()
+    {
+        parent::init();
+    }
 
     /**
      * 
@@ -77,17 +77,17 @@ class SEOAdmin extends ModelAdmin {
      *
      * @return 
      **/
-	public function getExportFields()
-	{
-		return array(
-			'ID'              => 'ID',
-			'Created'         => 'Created',
-			'Title'           => 'Title',
-			'Robots'          => 'Robots',
-			'Priority'        => 'Priority',
-			'ChangeFrequency' => 'ChangeFrequency'
-		);
-	}
+    public function getExportFields()
+    {
+        return array(
+            'ID'              => 'ID',
+            'Created'         => 'Created',
+            'Title'           => 'Title',
+            'Robots'          => 'Robots',
+            'Priority'        => 'Priority',
+            'ChangeFrequency' => 'ChangeFrequency'
+        );
+    }
 
     /**
      * 
@@ -123,25 +123,25 @@ class SEOAdmin extends ModelAdmin {
      *
      * @return 
      **/
-	public function getSearchContext()
-	{
-		$context = parent::getSearchContext();
+    public function getSearchContext()
+    {
+        $context = parent::getSearchContext();
 
-		$context->getFields()->fieldByName('q[Robots]')
-			->setEmptyString('- select -')
-			->setSource(SEOFieldValues::IndexRules());
+        $context->getFields()->fieldByName('q[Robots]')
+            ->setEmptyString('- select -')
+            ->setSource(SEOFieldValues::IndexRules());
 
-		$context->getFields()->fieldByName('q[ChangeFrequency]')
-			->setEmptyString('- select -')
-			->setSource(SEOFieldValues::SitemapChangeFrequency());
+        $context->getFields()->fieldByName('q[ChangeFrequency]')
+            ->setEmptyString('- select -')
+            ->setSource(SEOFieldValues::SitemapChangeFrequency());
 
-		$context->getFields()->fieldByName('q[HideSocial]')
-			->setTitle('Social Meta hidden:')
-			->setEmptyString('- select -')
-			->setSource(SEOFieldValues::YesNo());
+        $context->getFields()->fieldByName('q[HideSocial]')
+            ->setTitle('Social Meta hidden:')
+            ->setEmptyString('- select -')
+            ->setSource(SEOFieldValues::YesNo());
 
-		return $context;
-	}
+        return $context;
+    }
 
     /**
      * 
@@ -150,28 +150,28 @@ class SEOAdmin extends ModelAdmin {
      *
      * @return 
      **/
-	public function getList()
-	{
-		$list = parent::getList();
+    public function getList()
+    {
+        $list = parent::getList();
 
-		$params = $this->getRequest()->requestVar('q');
+        $params = $this->getRequest()->requestVar('q');
 
-		$filters = array();
+        $filters = array();
 
-		if(isset($params['Robots']) && $params['Robots']){
-			$filters['Robots'] = $params['Robots'];
-		}
+        if(isset($params['Robots']) && $params['Robots']){
+            $filters['Robots'] = $params['Robots'];
+        }
 
-		if(isset($params['ChangeFrequency']) && $params['ChangeFrequency']){
-			$filters['ChangeFrequency'] = $params['ChangeFrequency'];
-		}
+        if(isset($params['ChangeFrequency']) && $params['ChangeFrequency']){
+            $filters['ChangeFrequency'] = $params['ChangeFrequency'];
+        }
 
-		if(isset($params['HideSocial']) && $params['HideSocial']){
-			$filters['HideSocial'] = $params['HideSocial'];
-		}
+        if(isset($params['HideSocial']) && $params['HideSocial']){
+            $filters['HideSocial'] = $params['HideSocial'];
+        }
 
-		$list = Versioned::get_by_stage('Page', 'Live')->filter($filters)->sort('Priority', 'DESC');
+        $list = Versioned::get_by_stage('Page', 'Live')->filter($filters)->sort('Priority', 'DESC');
 
-		return $list;
-	}
+        return $list;
+    }
 }
