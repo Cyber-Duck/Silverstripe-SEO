@@ -108,6 +108,25 @@ $list = MyObject::get();
 SEO::setPagination($list->Count(), 20, 'page');
 ```
 
+#### Whitelisting URL parameters
+If for some crazy reason you are using URL GET parameters to generate unique content and not filter or sort it, you can use the allowedParams method to whitelist parameters and their values for inclusion in pagination URLs.
+
+```php
+SEO::setPagination($list->Count())->allowedParams(array('first','third'));
+```
+
+If we were on the following page in the browser.
+
+```
+https://www.cyber-duck.co.uk/catalogue?page=12&start=1&second=2&third=3
+```
+
+The pagination URL the would be generated would be as follows.
+
+```
+<link rel="next" href="https://www.cyber-duck.co.uk/catalogue?start=24&first=1&third=3">
+```
+
 ### Setting Dynamic Meta 
 You can use an objects properties to populate a dynamic Meta title or description tag using placeholders [].
 
