@@ -10,12 +10,12 @@ Add the following to your composer.json file
 ```json
 {  
     "require": {  
-        "Andrew-Mc-Cormack/Silverstripe-SEO": "dev-master"
+        "cyber-duck/silverstripe-seo": "dev-master"
     },  
     "repositories": [  
         {  
             "type": "vcs",  
-            "url": "https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO"  
+            "url": "https://github.com/cyber-duck/silverstripe-seo"  
         }  
     ]  
 }
@@ -84,7 +84,7 @@ If you look at the HTML meta tags within your current page you will see they wil
 By default the canonical and pagination meta tags will use the current page protocol, domain, and path (no query string) for their URL. If you wish to use a custom URL on the current page you can set one.
 
 ```php
-SEO::setPageURL('http://www.cyber-duck.co.uk/catalogue');
+SEO::setPageURL('https://www.cyber-duck.co.uk/catalogue');
 ```
 
 ### Setting Pagination Meta
@@ -108,10 +108,29 @@ $list = MyObject::get();
 SEO::setPagination($list->Count(), 20, 'page');
 ```
 
+#### Whitelisting URL parameters
+If for some crazy reason you are using URL GET parameters to generate unique content and not filter or sort it, you can use the allowedParams method to whitelist parameters and their values for inclusion in pagination URLs.
+
+```php
+SEO::setPagination($list->Count())->allowedParams(array('first','third'));
+```
+
+If we were on the following page in the browser.
+
+```
+https://www.cyber-duck.co.uk/catalogue?page=12&start=1&second=2&third=3
+```
+
+The pagination URL the would be generated would be as follows.
+
+```
+<link rel="next" href="https://www.cyber-duck.co.uk/catalogue?start=24&first=1&third=3">
+```
+
 ### Setting Dynamic Meta 
 You can use an objects properties to populate a dynamic Meta title or description tag using placeholders [].
 
-The setDynamicTitle and setDynamicDescription functions take 2 arguments, the Meta text and the object.
+The setDynamicTitle and setDynamicDescription functions take 3 arguments, the Meta text (required), the object (required), and the separator (default: and).
 
 Lets assume we have a member object. We can use the properties from it to populate matching placeholders.
 
@@ -128,10 +147,19 @@ SEO::setDynamicDescription(
 "[FirstName] [Surname] is a member of the team and specialises in [Areas.Name].", $member);
 ```
 
-Relations are looped with separators (, ) and with an "and" before the last entry
+```
+Andrew Mc Cormack is a member of the team and specialises in FirstArea, SecondArea, ThirdArea, and FourthArea
+```
+
+Relations are looped with separators (, ) and with an "and" before the last entry although you can use another separator if you want, & for example
+
+```php
+SEO::setDynamicDescription(
+"[FirstName] [Surname] is a member of the team and specialises in [Areas.Name].", $member, '&');
+```
 
 ```
-FirstAreaName, SecondAreaName, ThirdAreaName, and FourthAreaName
+Andrew Mc Cormack is a member of the team and specialises in FirstArea, SecondArea, ThirdArea, & FourthArea
 ```
 
 ## License

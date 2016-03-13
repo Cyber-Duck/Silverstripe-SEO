@@ -47,9 +47,9 @@ class SEOPagination {
     /**
      * @since version 1.0
      *
-     * @var int $countParam The URL pagination param value
+     * @var int $paramCount The URL pagination param value
      **/
-    private $countParam = 0;
+    private $paramCount = 0;
 
     /**
      * @since version 1.0
@@ -64,6 +64,20 @@ class SEOPagination {
      * @var int $pages The number of paginated pages
      **/
     private $pages = 0;
+
+    /**
+     * @since version 1.2
+     *
+     * @var array $allowed An array of URL params to whitelist for inclusion use within pagination URLs
+     **/
+    private $allowed = array();
+
+    /**
+     * @since version 1.2
+     *
+     * @var array $queryStrings An array of query strings to use within pagination URLs
+     **/
+    private $queryStrings = array();
 
     /**
      * Set the pagination URL
@@ -130,6 +144,24 @@ class SEOPagination {
     }
 
     /**
+     * Set URL parameters and their values to whitelist and include in pagination URLs
+     *
+     * @since version 1.2
+     *
+     * @param string | array $param The pagination URL param(s) name(s)
+     *
+     * @return void
+     **/
+    public function allowedParams($param)
+    {
+        if(is_array($param)){
+            $this->allowed = array_merge($this->allowed,$param);
+        } else {
+            $this->allowed[$param] = '';
+        }
+    }
+
+    /**
      * Get the pagination HTML
      *
      * @since version 1.0
@@ -152,39 +184,32 @@ class SEOPagination {
     {
         if($this->total === 0) return $this;
 
+        $this->setParamCount();
         $this->setCurrentPage();
-        $this->setCountParam();
         $this->setPages();
 
-        $this->checkModulus();
-        $this->checkCeiling();
+        if($this->checkParams() === true){
+            $this->paramCount = (int) $this->paramCount;
 
-        $this->setPrev();
-        $this->setNext();
-
+            $this->setQueryString();
+            $this->setPrev();
+            $this->setNext();
+        } else {
+            $this->redirect404();
+        }
         return $this;
     }
 
     /**
-     * Validate and set the pagination GET URL page parameter
+     * Set the pagination GET URL page parameter
      *
-     * @since version 1.0
+     * @since version 1.2
      *
-     * @return void | SS_HTTPResponse Set the count value of 404 if the value is not valid
+     * @return void
      **/
-    private function setCountParam()
+    private function setParamCount()
     {
-        $param = Controller::curr()->request->getVar($this->param);
-
-        if($param === NULL || $param == 0){
-            $this->countParam = 0;
-            return;
-        }
-        if(is_string($param) && $param > 0){
-            $this->countParam = (int) $param;
-            return;
-        }
-        $this->redirect404();
+        $this->paramCount = Controller::curr()->request->getVar($this->param);
     }
 
     /**
@@ -196,7 +221,7 @@ class SEOPagination {
      **/
     private function setCurrentPage()
     {
-        $this->currentPage = ($this->countParam / $this->perPage) + 1;
+        $this->currentPage = ($this->paramCount / $this->perPage) + 1;
     }
 
     /**
@@ -212,45 +237,57 @@ class SEOPagination {
     }
 
     /**
-     * Check the current page is not greater than the total pages
+     * Validate and set the pagination GET URL page parameter
      *
-     * @since version 1.0
+     * Protects against unexpected values in the page pagination URL parameter. 
+     * Checks: 
+     * If the count URL param is NULL or "0" (we are on the first page)
+     * If the count param number is not greater than the total pages
+     * If the count param number is a multiple of the per page number
+     * If the count param is a number
      *
-     * @return void | SS_HTTPResponse Redirect to a 404 if the current value is not as expected
+     * @since version 1.2
+     *
+     * @return boolean True for success or false to initiate 404 redirect
      **/
-    private function checkCeiling()
-    {
+    private function checkParams()
+    { 
+        if($this->paramCount === NULL){
+            return true;
+        }
+        if($this->paramCount === "0"){
+            return true;
+        }
         if($this->currentPage > $this->pages){
-            $this->redirect404();
+            return false;
         }
+        if($this->paramCount % $this->perPage !== 0){
+            return false;
+        }
+        if(!preg_match('/^[0-9]+$/', $this->paramCount)){
+            return false;
+        }
+        return true;
     }
 
     /**
-     * Check the modules of the URL param
+     * Set the pagination URL query string
      *
-     * @since version 1.0
+     * @since version 1.2
      *
-     * @return void | SS_HTTPResponse Redirect to a 404 if the current value is not as expected
+     * @return void
      **/
-    private function checkModulus()
+    private function setQueryString()
     {
-        if($this->countParam % $this->perPage !== 0){
-            $this->redirect404();
+        foreach($this->allowed as $param => $value){
+            $getVar = Controller::curr()->request->getVar($param);
+
+            if($getVar !== NULL){
+                if(is_string($getVar)){
+                    $this->queryStrings[] = $param.'='.htmlspecialchars($getVar);
+                }
+            }
         }
-    }
-
-    /**
-     * 404 redirect
-     *
-     * @since version 1.0
-     *
-     * @throws SS_HTTPResponse_Exception Return a 404 response
-     **/
-    private function redirect404()
-    {
-        Controller::curr()->response->removeHeader('Location');
-
-        throw new SS_HTTPResponse_Exception(ErrorPage::response_for(404), 404);
     }
 
     /**
@@ -266,7 +303,7 @@ class SEOPagination {
             if($this->currentPage == 2){
                 $this->html .= '<link rel="prev" href="'. $this->getURL().'">'.PHP_EOL;
             } else {
-                $prev = '?'.$this->param.'='.(($this->currentPage - 2) * $this->perPage);
+                $prev = $this->param.'='.(($this->currentPage - 2) * $this->perPage);
 
                 $this->html .= '<link rel="prev" href="'. $this->getURL($prev).'">'.PHP_EOL;
             }
@@ -284,7 +321,7 @@ class SEOPagination {
     {
         if($this->pages > 1){
             if($this->currentPage < $this->pages) {
-                $next = '?'.$this->param.'='.($this->currentPage * $this->perPage);
+                $next = $this->param.'='.($this->currentPage * $this->perPage);
 
                 $this->html .= '<link rel="next" href="'.$this->getURL($next).'">'.PHP_EOL;
             }
@@ -294,12 +331,35 @@ class SEOPagination {
     /**
      * Build the pagination URL
      *
+     * @param string $param The pagination URL query string
+     *
      * @since version 1.0
      *
      * @return string Return the URL string to use in the pagination Meta tags
      **/
     private function getURL($param = '')
     {
-        return $this->url.$param;
+        if($param == '' && empty($this->allowed)){
+            return $this->url;
+        }
+        $qs = $this->queryStrings;
+
+        if($param != '') array_unshift($qs,$param);
+
+        return $this->url . '?' . implode('&amp;',$qs);
+    }
+
+    /**
+     * 404 redirect
+     *
+     * @since version 1.0
+     *
+     * @throws SS_HTTPResponse_Exception Return a 404 response
+     **/
+    private function redirect404()
+    {
+        Controller::curr()->response->removeHeader('Location');
+
+        throw new SS_HTTPResponse_Exception(ErrorPage::response_for(404), 404);
     }
 }
