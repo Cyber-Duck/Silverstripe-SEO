@@ -79,7 +79,12 @@ class SEOExtension extends DataExtension {
         'ChangeFrequency' => 'weekly'
     );
 
-    private $summary_fields = array(
+    /**
+     * @since version 1.2
+     *
+     * @static 
+     **/
+    private static $summary_fields = array(
         'GridCreated'          => 'Created',
         'GridTitle'            => 'Title',
         'Robots'               => 'Robots',
@@ -90,6 +95,11 @@ class SEOExtension extends DataExtension {
         'GridSocial'           => 'S'
     );
 
+    /**
+     * @since version 1.2
+     *
+     * @static 
+     **/
     private static $searchable_fields = array(
         'Title' => array(
             'title'  => 'Title:',
@@ -152,6 +162,13 @@ class SEOExtension extends DataExtension {
         return $fields;
     }
 
+    /**
+     * 
+     *
+     * @since version 1.2
+     *
+     * @return 
+     **/
     public function updateSummaryFields(&$fields)
     {
         if(Controller::curr() instanceof SEOAdmin){
@@ -225,11 +242,25 @@ class SEOExtension extends DataExtension {
         return $this->image_size * 1024;
     }
 
+    /**
+     * 
+     *
+     * @since version 1.2
+     *
+     * @return 
+     **/
     public function GridCreated()
     {
         return date('dS M Y', strtotime($this->owner->Created));
     }
 
+    /**
+     * 
+     *
+     * @since version 1.2
+     *
+     * @return 
+     **/
     public function GridTitle()
     {
         $meta = HTMLText::create();
@@ -237,6 +268,13 @@ class SEOExtension extends DataExtension {
         return $meta;
     }
 
+    /**
+     * 
+     *
+     * @since version 1.2
+     *
+     * @return 
+     **/
     public function GridMetaTitle()
     {
         $color = $this->owner->MetaTitle != NULL ? 'true' : 'false';
@@ -246,6 +284,13 @@ class SEOExtension extends DataExtension {
         return $meta;
     }
 
+    /**
+     * 
+     *
+     * @since version 1.2
+     *
+     * @return 
+     **/
     public function GridMetaDescription()
     {
         $color = $this->owner->MetaDescription != NULL ? 'true' : 'false';
@@ -255,6 +300,13 @@ class SEOExtension extends DataExtension {
         return $meta;
     }
 
+    /**
+     * 
+     *
+     * @since version 1.2
+     *
+     * @return 
+     **/
     public function GridSocial()
     {
         $color = $this->owner->HideSocial != 1 ? 'true' : 'false';

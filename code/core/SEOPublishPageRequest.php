@@ -4,6 +4,13 @@ class SEOPublishPageRequest extends GridFieldDetailForm_ItemRequest
 {
     private static $allowed_actions = array('ItemEditForm');
 
+    /**
+     * 
+     *
+     * @since version 1.2
+     *
+     * @return 
+     **/
     function ItemEditForm()
     {
         $form = parent::ItemEditForm();
@@ -22,7 +29,14 @@ class SEOPublishPageRequest extends GridFieldDetailForm_ItemRequest
 
         return $form;
     }
-    
+
+    /**
+     * 
+     *
+     * @since version 1.2
+     *
+     * @return 
+     **/
     public function doPublish($data, $form)
     {
         $page = DataObject::get_by_id($this->record->ClassName, $this->record->ID);
