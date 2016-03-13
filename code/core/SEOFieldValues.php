@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Creates an SEO admin panel within the CMS for an object / page
+ * Returns array values used in the SEO admin search and CMS form field dropdowns
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO/blob/master/LICENSE

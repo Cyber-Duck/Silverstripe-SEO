@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Adds the save button to the SEO admin CMS form
+ *
+ * @package silverstripe-seo
+ * @license MIT License https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO/blob/master/LICENSE
+ * @author  <andrewm@cyber-duck.co.uk>
+ **/
 class SEOPublishPageRequest extends GridFieldDetailForm_ItemRequest
 {
     private static $allowed_actions = array('ItemEditForm');

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Creates an SEO admin panel within the CMS for an object / page
+ * Add fields to the Page object and changes the CMS GridField
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO/blob/master/LICENSE

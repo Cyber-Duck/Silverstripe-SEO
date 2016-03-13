@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Build the CMS SEO admin panel
+ *
+ * @package silverstripe-seo
+ * @license MIT License https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO/blob/master/LICENSE
+ * @author  <andrewm@cyber-duck.co.uk>
+ **/
 class SEOAdmin extends ModelAdmin {
 
     /**
