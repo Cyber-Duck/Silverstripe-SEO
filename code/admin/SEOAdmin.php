@@ -12,56 +12,56 @@ class SEOAdmin extends ModelAdmin {
     /**
      * @since version 1.2
      *
-     * @static boolean $showImportForm Hide the import form for SEO admin
+     * @config boolean $showImportForm Hide the import form for SEO admin
      **/
     public $showImportForm = false;
 
     /**
      * @since version 1.2
      *
-     * @static string $menu_title The main menu title
+     * @config string $menu_title The main menu title
      **/
     private static $menu_title = 'SEO';
 
     /**
      * @since version 1.2
      *
-     * @static string $url_segment The CMS SEO admin URL segment
+     * @config string $url_segment The CMS SEO admin URL segment
      **/
     private static $url_segment = 'seo-admin';
 
     /**
      * @since version 1.2
      *
-     * @static string $menu_icon The main menu icon
+     * @config string $menu_icon The main menu icon
      **/
     private static $menu_icon = 'seo/images/menu-icons/16x16/seo.png';
 
     /**
      * @since version 1.2
      *
-     * @static int $menu_priority Menu priority
+     * @config int $menu_priority Menu priority
      **/
     private static $menu_priority = 80;
 
     /**
      * @since version 1.2
      *
-     * @static int $page_length Set to 50 to easily examine a large set of pages
+     * @config int $page_length Set to 50 to easily examine a large set of pages
      **/
     private static $page_length = 50;
 
     /**
      * @since version 1.2
      *
-     * @static string $managed_models Default Page and ErrorPage
+     * @config string $managed_models Default Page and ErrorPage
      **/
     private static $managed_models = array();
 
     /**
      * @since version 1.2
      *
-     * @static string $model_importers Disable model imports in SEO admin
+     * @config string $model_importers Disable model imports in SEO admin
      **/
     private static $model_importers = null;
 
