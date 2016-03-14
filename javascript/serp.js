@@ -8,7 +8,9 @@
             onmatch: function() {
                 createCountInput('title',title);
                 changeSerpCount('title',title);
-                changeSerp('title',$(this).val());
+                if($(this).val() != ''){
+                    changeSerp('title',$(this).val());
+                }
             },
             onchange: function() {
                 changeSerp('title',$(this).val());
@@ -23,7 +25,9 @@
             onmatch: function() {
                 createCountInput('description',description);
                 changeSerpCount('description',description);
-                changeSerp('description',$(this).val());
+                if($(this).val() != ''){
+                    changeSerp('description',$(this).val());
+                }
             },
             onchange: function() {
                 changeSerp('description',$(this).val());

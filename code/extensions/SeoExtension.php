@@ -12,27 +12,6 @@ class SEOExtension extends DataExtension {
     /**
      * @since version 1.0
      *
-     * @var string $title The CMS page SEO panel heading
-     **/
-    private $title = 'Meta Tags and SEO';
-
-    /**
-     * @since version 1.0
-     *
-     * @var int $image_size The maximum image size for the social image
-     **/
-    private $image_size = 1024;
-
-    /**
-     * @since version 1.0
-     *
-     * @var string $image_folder The social image folder
-     **/
-    private $image_folder = 'Social';
-
-    /**
-     * @since version 1.0
-     *
      * @static array $db Our page fields
      **/
     private static $db = array(
@@ -140,7 +119,7 @@ class SEOExtension extends DataExtension {
     public function updateCMSFields(FieldList $fields) 
     {
         $fields->addFieldsToTab('Root.SEO', array(
-            HeaderField::create($this->title),
+            HeaderField::create(Config::inst()->get('SEOExtension','title')),
             $this->preview(),
             TextField::create('MetaTitle'),
             TextareaField::create('MetaDescription'),
@@ -187,7 +166,15 @@ class SEOExtension extends DataExtension {
      **/
     private function preview()
     {
-        return LiteralField::create('Preview', Controller::curr()->renderWith('MetaPreview'));
+        $title = Config::inst()->get('SEOAdmin','meta_title');
+        $description = Config::inst()->get('SEOAdmin','meta_description');
+
+        $preview = Controller::curr()->customise(array(
+            'DefaultTitle' => $title['default'],
+            'DefaultDescription' => $description['default']
+        ))->renderWith('MetaPreview');
+
+        return LiteralField::create('Preview', $preview);
     }
     
     /**
@@ -201,8 +188,8 @@ class SEOExtension extends DataExtension {
     {
         $image = new UploadField('SocialImage');
 
-        $image->getValidator()->setAllowedMaxFileSize($this->getMaxImageSize());
-        $image->setFolderName($this->image_folder);
+        $image->getValidator()->setAllowedMaxFileSize($this->getMaxSocialImageSize());
+        $image->setFolderName(Config::inst()->get('SEOExtension','social_image_folder'));
         $image->setAllowedFileCategories('image');
 
         return $image;
@@ -237,9 +224,9 @@ class SEOExtension extends DataExtension {
      *
      * @return Int Returns the maximum image size in KB
      **/
-    private function getMaxImageSize()
+    private function getMaxSocialImageSize()
     {
-        return $this->image_size * 1024;
+        return Config::inst()->get('SEOExtension','social_image_size') * 1024;
     }
 
     /**
@@ -263,9 +250,7 @@ class SEOExtension extends DataExtension {
      **/
     public function GridTitle()
     {
-        $meta = HTMLText::create();
-        $meta->setValue('<span class="seo-pagename">'.$this->owner->Title.'</span>');
-        return $meta;
+        return $this->getGridSpan('<span class="seo-pagename">'.$this->owner->Title.'</span>');
     }
 
     /**
@@ -277,7 +262,9 @@ class SEOExtension extends DataExtension {
      **/
     public function GridMetaTitle()
     {
-        return $this->getGridLight($this->owner->MetaTitle, 40, 70);
+        $meta = Config::inst()->get('SEOAdmin','meta_title');
+
+        return $this->getGridLight($this->owner->MetaTitle, $meta['min'], $meta['max']);
     }
 
     /**
@@ -289,7 +276,9 @@ class SEOExtension extends DataExtension {
      **/
     public function GridMetaDescription()
     {
-        return $this->getGridLight($this->owner->MetaDescription, 120, 170);
+        $meta = Config::inst()->get('SEOAdmin','meta_description');
+
+        return $this->getGridLight($this->owner->MetaDescription, $meta['min'], $meta['max']);
     }
 
     /**
@@ -301,11 +290,9 @@ class SEOExtension extends DataExtension {
      **/
     public function GridSocial()
     {
-        $color = $this->owner->HideSocial != 1 ? 'true' : 'false';
+        $class = $this->owner->HideSocial != 1 ? 'true' : 'false';
 
-        $meta = HTMLText::create();
-        $meta->setValue('<span class="seo-light '.$color.'"></span>');
-        return $meta;
+        return $this->getGridSpan('<span class="seo-light '.$class.'"></span>');
     }
 
     /**
@@ -319,12 +306,24 @@ class SEOExtension extends DataExtension {
     {
         $characters = strlen($text);
 
-        $color = $characters > $min && $characters < $max ? 'true' : 'warning';
+        $class = $characters > $min && $characters < $max ? 'true' : 'warning';
 
-        if(trim($text) == '' || $characters > $max) $color = 'false';
+        if(trim($text) == '' || $characters > $max) $class = 'false';
 
-        $meta = HTMLText::create();
-        $meta->setValue('<span class="seo-light '.$color.'"></span>');
-        return $meta;
+        return $this->getGridSpan('<span class="seo-light '.$class.'"></span>');
+    }
+
+    /**
+     * 
+     *
+     * @since version 1.2
+     *
+     * @return 
+     **/
+    private function getGridSpan($span)
+    {
+        $html = HTMLText::create();
+        $html->setValue($span);
+        return $html;
     }
 }
