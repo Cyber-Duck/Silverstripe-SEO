@@ -3,164 +3,24 @@ A Silverstripe module to optimise the Meta, crawling, indexing, and sharing of y
 
 Author: [Andrew Mc Cormack](https://github.com/Andrew-Mc-Cormack)
 
-## Installation
-
-Add the following to your composer.json file
-
-```json
-{  
-    "require": {  
-        "cyber-duck/silverstripe-seo": "dev-master"
-    },  
-    "repositories": [  
-        {  
-            "type": "vcs",  
-            "url": "https://github.com/cyber-duck/silverstripe-seo"  
-        }  
-    ]  
-}
-```
-
-After you composer update / install the module the extra meta fields will be available in the CMS within a page under the SEO tab.
-
-Next add the SEO::init() function to your Page Controller init function.
-And also add the MetaTags method to the Page Controller.
-
-```php
-class Page_Controller extends ContentController {
-
-    public function init()
-    {
-        parent::init();
-
-        SEO::init();
-    }
-
-    public function MetaTags()
-    {
-        return SEO::HeadTags();
-    }
-}
-```
-
-This will complete the setup of the SEO module and make the module functionality available throughout your site.
-
 ## Features
 
-### CMS features
+  - SEO admin areas
   - SERP Preview
   - Meta Title, Description, Canonical, Robots, Open Graph, Twitter fields
+  - Meta length optimisation detection
   - Page social sharing image
   - Sitemap priority and change frequency fields
   - Extra Meta Grid Field (Create link, property, or Meta head tags)
   - Dynamic placeholder meta
 
-## Usage
-
-### Setting the current page Meta
-
-By default the page Meta will be generated off the current Page object. If you wish to have an object as a Page and render out its Meta attach the SEO extension to it.
-
-In your config.yml file add an entry for an object you wish to have as a page. To add the SEO extension to every page add a Page entry.
-
-```yml
-Page:
-  extensions:
-    - SEOExtension
-```
-
-Within the current controller get your object and pass it into the setPage function;
-
-```php
-$page = MyObject::get()->First();
-
-SEO::setPage($page);
-```
-
-If you look at the HTML meta tags within your current page you will see they will be populated with the tags from your object record.
-
-### Setting the page URL
-
-By default the canonical and pagination meta tags will use the current page protocol, domain, and path (no query string) for their URL. If you wish to use a custom URL on the current page you can set one.
-
-```php
-SEO::setPageURL('https://www.cyber-duck.co.uk/catalogue');
-```
-
-### Setting Pagination Meta
-
-To add rel="prev" and rel="next" Meta to a page just pass in the total number of items in the paginated page collection.
-You can use the SilverStripe Count function.
-
-```php
-$list = MyObject::get();
-
-SEO::setPagination($list->Count());
-```
-
-The pagination method accepts 3 parameters, the total (required), items per page (default: 12), and pagination URL parameter (default: start)
-
-You can use custom values by passing them as arguments.
-
-```php
-$list = MyObject::get();
-
-SEO::setPagination($list->Count(), 20, 'page');
-```
-
-#### Whitelisting URL parameters
-If for some crazy reason you are using URL GET parameters to generate unique content and not filter or sort it, you can use the allowedParams method to whitelist parameters and their values for inclusion in pagination URLs.
-
-```php
-SEO::setPagination($list->Count())->allowedParams(array('first','third'));
-```
-
-If we were on the following page in the browser.
-
-```
-https://www.cyber-duck.co.uk/catalogue?page=12&start=1&second=2&third=3
-```
-
-The pagination URL the would be generated would be as follows.
-
-```
-<link rel="next" href="https://www.cyber-duck.co.uk/catalogue?start=24&first=1&third=3">
-```
-
-### Setting Dynamic Meta 
-You can use an objects properties to populate a dynamic Meta title or description tag using placeholders [].
-
-The setDynamicTitle and setDynamicDescription functions take 3 arguments, the Meta text (required), the object (required), and the separator (default: and).
-
-Lets assume we have a member object. We can use the properties from it to populate matching placeholders.
-
-```php
-$member = Member::currentUser();
-
-SEO::setDynamicTitle("[FirstName] [Surname] - Site Member", $member);
-```
-
-You can also access relations using the dot syntax. If a member had a has_many relation to an Areas object and it had a class property Name we could access it as below.
-
-```php
-SEO::setDynamicDescription(
-"[FirstName] [Surname] is a member of the team and specialises in [Areas.Name].", $member);
-```
-
-```
-Andrew Mc Cormack is a member of the team and specialises in FirstArea, SecondArea, ThirdArea, and FourthArea
-```
-
-Relations are looped with separators (, ) and with an "and" before the last entry although you can use another separator if you want, & for example
-
-```php
-SEO::setDynamicDescription(
-"[FirstName] [Surname] is a member of the team and specialises in [Areas.Name].", $member, '&');
-```
-
-```
-Andrew Mc Cormack is a member of the team and specialises in FirstArea, SecondArea, ThirdArea, & FourthArea
-```
+## Guides
+  
+  - [Installation](/docs/installation)
+  - [Setting Meta](/docs/setting-meta)
+  - [Setting Pagination](/docs/setting-pagination)
+  - [Custom objects](/docs/custom-objects)
+  - [SEO Admin](/docs/seo-admin)
 
 ## License
 
