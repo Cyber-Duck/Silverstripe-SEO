@@ -277,11 +277,7 @@ class SEOExtension extends DataExtension {
      **/
     public function GridMetaTitle()
     {
-        $color = $this->owner->MetaTitle != NULL ? 'true' : 'false';
-
-        $meta = HTMLText::create();
-        $meta->setValue('<span class="seo-light '.$color.'"></span>');
-        return $meta;
+        return $this->getGridLight($this->owner->MetaTitle, 40, 70);
     }
 
     /**
@@ -293,11 +289,7 @@ class SEOExtension extends DataExtension {
      **/
     public function GridMetaDescription()
     {
-        $color = $this->owner->MetaDescription != NULL ? 'true' : 'false';
-
-        $meta = HTMLText::create();
-        $meta->setValue('<span class="seo-light '.$color.'"></span>');
-        return $meta;
+        return $this->getGridLight($this->owner->MetaDescription, 120, 170);
     }
 
     /**
@@ -310,6 +302,26 @@ class SEOExtension extends DataExtension {
     public function GridSocial()
     {
         $color = $this->owner->HideSocial != 1 ? 'true' : 'false';
+
+        $meta = HTMLText::create();
+        $meta->setValue('<span class="seo-light '.$color.'"></span>');
+        return $meta;
+    }
+
+    /**
+     * 
+     *
+     * @since version 1.2
+     *
+     * @return 
+     **/
+    private function getGridLight($text, $min, $max)
+    {
+        $characters = strlen($text);
+
+        $color = $characters > $min && $characters < $max ? 'true' : 'warning';
+
+        if(trim($text) == '' || $characters > $max) $color = 'false';
 
         $meta = HTMLText::create();
         $meta->setValue('<span class="seo-light '.$color.'"></span>');
