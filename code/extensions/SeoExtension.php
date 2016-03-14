@@ -172,7 +172,7 @@ class SEOExtension extends DataExtension {
     public function updateSummaryFields(&$fields)
     {
         if(Controller::curr() instanceof SEOAdmin){
-            Config::inst()->update($this->owner->class, 'summary_fields', $this->summary_fields);
+            Config::inst()->update($this->owner->class, 'summary_fields', self::$summary_fields);
 
             $fields = Config::inst()->get($this->owner->class, 'summary_fields');
         }
