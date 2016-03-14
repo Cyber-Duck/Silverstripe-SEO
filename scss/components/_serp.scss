@@ -1,4 +1,4 @@
-.serp-preview {
+.seo-serp-preview {
     background: #fff;
     border: 1px solid #b3b3b3;
     padding: 7px 7px;
@@ -17,26 +17,32 @@
     padding: 30px 0;
     width: 694px;
 
-    .inside {
+    .seo-serp-inside {
         height: 76px;
         margin: 0 auto;
         width: 520px;
 
-        .serp-title {
+        .seo-serp-text {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .seo-serp-title {
             color: #1A0DAB;
             font-size: 18px;
             height: 21px;
             line-height: 21px;
         }
 
-        .serp-link {
+        .seo-serp-link {
             color: #006621;
             font-size: 14px;
             height: 17px;
             line-height: 16px;
         }
 
-        .serp-text {
+        .seo-serp-description {
             color: #545454;
             font-family: arial, sans-serif;
             font-size: 13px;
