@@ -50,3 +50,5 @@ class Page_Controller extends ContentController {
 ```
 
 Run dev/build and flush to initialise the module
+
+Next: [Setting Meta](../setting-meta)

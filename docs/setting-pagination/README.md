@@ -40,3 +40,5 @@ The pagination URL the would be generated would be as follows.
 ```
 <link rel="next" href="https://www.cyber-duck.co.uk/catalogue?start=24&first=1&third=3">
 ```
+
+Next: [Custom objects](../custom-objects)

@@ -35,3 +35,5 @@ If you wish to use a custom URL across these various tags you can set one.
 ```php
 SEO::setPageURL('https://www.cyber-duck.co.uk/catalogue2');
 ```
+
+Next: [SEO Admin](../seo-admin)

@@ -34,3 +34,5 @@ SEO::setDynamicDescription(
 ```
 Andrew Mc Cormack is a member of the team and specialises in FirstArea, SecondArea, ThirdArea, & FourthArea
 ```
+
+Next: [Setting Pagination](../setting-pagination)
