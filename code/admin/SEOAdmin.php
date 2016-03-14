@@ -74,6 +74,10 @@ class SEOAdmin extends ModelAdmin {
      **/
     public function init()
     {
+        $models = Config::inst()->get($this->class, 'models');
+
+        Config::inst()->update($this->class, 'managed_models', $models);
+
         parent::init();
     }
 
@@ -176,8 +180,11 @@ class SEOAdmin extends ModelAdmin {
         if(isset($params['HideSocial']) && $params['HideSocial']){
             $filters['HideSocial'] = $params['HideSocial'];
         }
+        if($this->modelClass !== "Page"){
+            $filters['ClassName'] = $this->modelClass;
+        }
 
-        $list = Versioned::get_by_stage('Page', 'Live')->filter($filters)->sort('Priority', 'DESC');
+        $list = Page::get()->filter($filters)->sort('Priority', 'DESC');
 
         return $list;
     }
