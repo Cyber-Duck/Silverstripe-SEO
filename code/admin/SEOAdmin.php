@@ -54,9 +54,9 @@ class SEOAdmin extends ModelAdmin {
     /**
      * @since version 1.2
      *
-     * @static string $managed_models Use the page object
+     * @static string $managed_models Default Page and ErrorPage
      **/
-    private static $managed_models = array('Page');
+    private static $managed_models = array();
 
     /**
      * @since version 1.2
