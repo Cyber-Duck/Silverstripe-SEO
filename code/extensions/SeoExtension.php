@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Creates an SEO admin panel within the CMS for an object / page
+ * Add fields to the Page object and changes the CMS GridField
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO/blob/master/LICENSE
@@ -66,6 +66,9 @@ class SEOExtension extends DataExtension {
         'HeadTags'        => 'SEOHeadTag'
     );
 
+
+    private static $default_sort = 'Priority DESC';
+
     /**
      * @since version 1.0
      *
@@ -74,6 +77,55 @@ class SEOExtension extends DataExtension {
     private static $defaults = array(
         'Priority'        => 0.50,
         'ChangeFrequency' => 'weekly'
+    );
+
+    /**
+     * @since version 1.2
+     *
+     * @static 
+     **/
+    private static $summary_fields = array(
+        'GridCreated'          => 'Created',
+        'GridTitle'            => 'Title',
+        'Robots'               => 'Robots',
+        'Priority'             => 'Priority',
+        'ChangeFrequency'      => 'Change Freq',
+        'GridMetaTitle'        => 'T',
+        'GridMetaDescription'  => 'D',
+        'GridSocial'           => 'S'
+    );
+
+    /**
+     * @since version 1.2
+     *
+     * @static 
+     **/
+    private static $searchable_fields = array(
+        'Title' => array(
+            'title'  => 'Title:',
+            'field'  => 'TextField',
+            'filter' => 'PartialMatchFilter'
+        ),
+        'URLSegment' => array(
+            'title'  => 'URL segment:',
+            'field'  => 'TextField',
+            'filter' => 'PartialMatchFilter'
+        ),
+        'Robots' => array(
+            'title'  => 'Robots:',
+            'field'  => 'DropdownField',
+            'filter' => 'ExactMatchFilter'
+        ),
+        'ChangeFrequency' => array(
+            'title'  => 'Change frequency:',
+            'field'  => 'DropdownField',
+            'filter' => 'ExactMatchFilter'
+        ),
+        'HideSocial' => array(
+            'title'  => 'Social Meta:',
+            'field'  => 'DropdownField',
+            'filter' => 'ExactMatchFilter'
+        )
     );
     
     /**
@@ -94,20 +146,36 @@ class SEOExtension extends DataExtension {
             TextareaField::create('MetaDescription'),
             HeaderField::create('Indexing'),
             TextField::create('Canonical'),
-            DropdownField::create('Robots', 'Robots', $this->IndexRules()),
+            DropdownField::create('Robots', 'Robots', SEOFieldValues::IndexRules()),
             HeaderField::create('Sitemap'),
             NumericField::create('Priority'),
-            DropdownField::create('ChangeFrequency', 'Change Frequency', $this->SitemapChangeFrequency()),
+            DropdownField::create('ChangeFrequency', 'Change Frequency', SEOFieldValues::SitemapChangeFrequency()),
             HeaderField::create('Social'),
             CheckboxField::create('HideSocial','Hide Social Meta?'),
-            DropdownField::create('OGtype', 'Open Graph Type', $this->OGtype()),
-            DropdownField::create('OGlocale', 'Open Graph Locale', $this->OGlocale()),
-            DropdownField::create('TwitterCard', 'Twitter Card', $this->TwitterCardTypes()),
+            DropdownField::create('OGtype', 'Open Graph Type', SEOFieldValues::OGtype()),
+            DropdownField::create('OGlocale', 'Open Graph Locale', SEOFieldValues::OGlocale()),
+            DropdownField::create('TwitterCard', 'Twitter Card', SEOFieldValues::TwitterCardTypes()),
             $this->SharingImage(),
             $this->OtherHeadTags()
         ));
 
         return $fields;
+    }
+
+    /**
+     * 
+     *
+     * @since version 1.2
+     *
+     * @return 
+     **/
+    public function updateSummaryFields(&$fields)
+    {
+        if(Controller::curr() instanceof SEOAdmin){
+            Config::inst()->update($this->owner->class, 'summary_fields', self::$summary_fields);
+
+            $fields = Config::inst()->get($this->owner->class, 'summary_fields');
+        }
     }
     
     /**
@@ -173,124 +241,90 @@ class SEOExtension extends DataExtension {
     {
         return $this->image_size * 1024;
     }
-    
+
     /**
-     * Returns an array of sitemap change frequencies used in a sitemap.xml file
+     * 
      *
-     * @since version 1.0
+     * @since version 1.2
      *
-     * @return array Returns an array of change frequency values
+     * @return 
      **/
-    private function SitemapChangeFrequency()
+    public function GridCreated()
     {
-        return array(
-            'always'  => 'Always',
-            'hourly'  => 'Hourly',
-            'daily'   => 'Daily',
-            'weekly'  => 'Weekly',
-            'monthly' => 'Monthly',
-            'yearly'  => 'Yearly',
-            'never'   => 'Never'
-        );
+        return date('dS M Y', strtotime($this->owner->Created));
     }
-    
+
     /**
-     * Returns an array of robots crawling rules used in a robots Meta tag
+     * 
      *
-     * @since version 1.0
+     * @since version 1.2
      *
-     * @return array Returns an array of robots index rule values
+     * @return 
      **/
-    private function IndexRules()
+    public function GridTitle()
     {
-        return array(
-            'index,follow'     => 'index,follow',
-            'noindex,nofollow' => 'noindex,nofollow',
-            'noindex,follow'   => 'noindex,follow',
-            'index,nofollow'   => 'index,nofollow'
-        );
+        $meta = HTMLText::create();
+        $meta->setValue('<span class="seo-pagename">'.$this->owner->Title.'</span>');
+        return $meta;
     }
-    
+
     /**
-     * Return an array of Facebook Open Graph locales
+     * 
      *
-     * @since version 1.0
+     * @since version 1.2
      *
-     * @return array Returns an array of open graph locale values
+     * @return 
      **/
-    private function OGlocale()
+    public function GridMetaTitle()
     {
-        return array(
-            'en_GB' => 'English - United Kingdom',
-            'en_US' => 'English - United States',
-            'da_DK' => 'Danish - Denmark',
-            'nl_NL' => 'Dutch - Netherlands',
-            'fr_FR' => 'French - France',
-            'de_DE' => 'German - Germany',
-            'el_GR' => 'Greek - Greece',
-            'hu_HU' => 'Hungarian - Hungary',
-            'is_IS' => 'Icelandic - Iceland',
-            'id_ID' => 'Indonesian - Indonesia',
-            'it_IT' => 'Italian - Italy',
-            'ja_JP' => 'Japanese - Japan',
-            'ko_KR' => 'Korean - Korea',
-            'lv_LV' => 'Latvian - Latvia',
-            'lt_LT' => 'Lithuanian - Lithuania',
-            'mk_MK' => 'Macedonian - Macedonia',
-            'no_NO' => 'Norwegian - Norway',
-            'fa_IN' => 'Persian - India',
-            'fa_IR' => 'Persian - Iran',
-            'pl_PL' => 'Polish - Poland',
-            'pt_PT' => 'Portuguese - Portugal',
-            'ro_RO' => 'Romanian - Romania',
-            'ru_RU' => 'Russian - Russia',
-            'sk_SK' => 'Slovak - Slovakia',
-            'sl_SI' => 'Slovenian - Slovenia',
-            'es_ES' => 'Spanish - Spain',
-            'sv_SE' => 'Swedish - Sweden',
-            'tr_TR' => 'Turkish - Turkey',
-            'uk_UA' => 'Ukrainian - Ukraine',
-            'vi_VN' => 'Vietnamese - Vietnam'
-        );
+        return $this->getGridLight($this->owner->MetaTitle, 40, 70);
     }
-    
+
     /**
-     * Return an array of Facebook Open Graph Types
+     * 
      *
-     * @since version 1.0
+     * @since version 1.2
      *
-     * @return array Returns an array of open graph type values
+     * @return 
      **/
-    private function OGtype()
+    public function GridMetaDescription()
     {
-        return array(
-            'website' => 'Website',
-            'article' => 'Article',
-            'book'    => 'Book',
-            'profile' => 'Profile',
-            'music'   => 'Music',
-            'video'   => 'Video'
-        );
+        return $this->getGridLight($this->owner->MetaDescription, 120, 170);
     }
-    
+
     /**
-     * Returns an array of Twitter card types
+     * 
      *
-     * @since version 1.0
+     * @since version 1.2
      *
-     * @return array Returns an array of twitter card type values
+     * @return 
      **/
-    private function TwitterCardTypes()
+    public function GridSocial()
     {
-        return array(
-            'summary'             => 'Summary',
-            'summary_large_image' => 'Summary Large Image',
-            'photo'               => 'Photo',
-            'gallery'             => 'Gallery',
-            'app'                 => 'App',
-            'product'             => 'Product'
-        );
+        $color = $this->owner->HideSocial != 1 ? 'true' : 'false';
+
+        $meta = HTMLText::create();
+        $meta->setValue('<span class="seo-light '.$color.'"></span>');
+        return $meta;
+    }
+
+    /**
+     * 
+     *
+     * @since version 1.2
+     *
+     * @return 
+     **/
+    private function getGridLight($text, $min, $max)
+    {
+        $characters = strlen($text);
+
+        $color = $characters > $min && $characters < $max ? 'true' : 'warning';
+
+        if(trim($text) == '' || $characters > $max) $color = 'false';
+
+        $meta = HTMLText::create();
+        $meta->setValue('<span class="seo-light '.$color.'"></span>');
+        return $meta;
     }
 }
-
-
