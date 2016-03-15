@@ -32,11 +32,13 @@ class SEO_SitemapFileExtension extends DataExtension {
     );
 
     /**
-     * 
+     * Add extra fields to a File object if in SEO Admin
      *
      * @since version 1.2
      *
-     * @return 
+     * @param string $fields The current FieldList object
+     *
+     * @return FieldList
      **/
     public function updateCMSFields(FieldList $fields) 
     {
@@ -51,11 +53,13 @@ class SEO_SitemapFileExtension extends DataExtension {
     }
 
     /**
-     * 
+     * Change the class summary fields when in SEO Admin
+     *
+     * @param array $fields The current summary fields
      *
      * @since version 1.2
      *
-     * @return 
+     * @return void
      **/
     public function updateSummaryFields(&$fields)
     {
@@ -67,11 +71,11 @@ class SEO_SitemapFileExtension extends DataExtension {
     }
 
     /**
-     * 
+     * Add an image preview to the grid field
      *
      * @since version 1.2
      *
-     * @return 
+     * @return string
      **/
     public function getThumbnail()
     {

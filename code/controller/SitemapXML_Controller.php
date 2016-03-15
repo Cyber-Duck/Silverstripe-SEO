@@ -40,11 +40,11 @@ class SitemapXML_Controller extends Page_Controller {
     private $url;
 
     /**
-     * 
+     * Set properties for this class and call the sitemap render method
      *
      * @since version 1.2
      *
-     * @return
+     * @return void
      **/
     public function init()
     {
@@ -63,13 +63,13 @@ class SitemapXML_Controller extends Page_Controller {
     }
 
     /**
-     * 
+     * Return an encoded string compliant with XML sitemap standards
      *
      * @since version 1.2
      *
-     * @param 
+     * @param string $value A sitemap value to encode
      *
-     * @return
+     * @return string
      **/
     public function Encode($value)
     {
@@ -77,11 +77,11 @@ class SitemapXML_Controller extends Page_Controller {
     }
 
     /**
-     * 
+     * Loops through the various page objects and sets the sitemap XML
      *
      * @since version 1.2
      *
-     * @return
+     * @return void
      **/
     private function getSitemap()
     {
@@ -96,11 +96,14 @@ class SitemapXML_Controller extends Page_Controller {
     }
 
     /**
-     * 
+     * Checks if this page should be indexed, if so renders a page object SEO 
+     * values into a XML sitemap entry 
      *
      * @since version 1.2
      *
-     * @return
+     * @param object $page An object with the SEO extension attached
+     *
+     * @return string
      **/
     private function getPageXML($page)
     {

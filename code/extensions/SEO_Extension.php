@@ -147,11 +147,13 @@ class SEO_Extension extends DataExtension {
     }
 
     /**
+     * Change the grid summary field structure is currently in SEO admin
      * 
+     * @param array $fields The current summary fields
      *
      * @since version 1.2
      *
-     * @return 
+     * @return void
      **/
     public function updateSummaryFields(&$fields)
     {
@@ -167,7 +169,7 @@ class SEO_Extension extends DataExtension {
      *
      * @since version 1.0
      *
-     * @return string
+     * @return LiteralField
      **/
     private function preview()
     {
@@ -248,7 +250,7 @@ class SEO_Extension extends DataExtension {
      *
      * @since version 1.0
      *
-     * @return Int Returns the maximum image size in KB
+     * @return int Returns the maximum image size in KB
      **/
     private function getMaxSocialImageSize()
     {
@@ -256,11 +258,11 @@ class SEO_Extension extends DataExtension {
     }
 
     /**
-     * 
+     * Return a formatted current date
      *
      * @since version 1.2
      *
-     * @return 
+     * @return string
      **/
     public function GridCreated()
     {
@@ -268,11 +270,11 @@ class SEO_Extension extends DataExtension {
     }
 
     /**
-     * 
+     * Return a styled span containing a title value
      *
      * @since version 1.2
      *
-     * @return 
+     * @return HTMLText
      **/
     public function GridTitle()
     {
@@ -280,11 +282,11 @@ class SEO_Extension extends DataExtension {
     }
 
     /**
-     * 
+     * Return a span styled reflecting Meta title length validation
      *
      * @since version 1.2
      *
-     * @return 
+     * @return HTMLText
      **/
     public function GridMetaTitle()
     {
@@ -294,11 +296,11 @@ class SEO_Extension extends DataExtension {
     }
 
     /**
-     * 
+     * Return a span styled reflecting Meta description length validation
      *
      * @since version 1.2
      *
-     * @return 
+     * @return HTMLText
      **/
     public function GridMetaDescription()
     {
@@ -308,11 +310,11 @@ class SEO_Extension extends DataExtension {
     }
 
     /**
-     * 
+     * Return a span styled reflecting the current status of social meta
      *
      * @since version 1.2
      *
-     * @return 
+     * @return HTMLText
      **/
     public function GridSocial()
     {
@@ -322,11 +324,15 @@ class SEO_Extension extends DataExtension {
     }
 
     /**
+     * Check the length of a string and generates a span styled reflecting Meta status
      * 
+     * @param string $text The text to check
+     * @param int    $min  The minimum string length
+     * @param int    $max  The maximum string length
      *
      * @since version 1.2
      *
-     * @return 
+     * @return HTMLText
      **/
     private function getGridLight($text, $min, $max)
     {
@@ -340,11 +346,13 @@ class SEO_Extension extends DataExtension {
     }
 
     /**
+     * Return a HTMLText object for use within a grid field 
      * 
+     * @param string $span The HTML span
      *
      * @since version 1.2
      *
-     * @return 
+     * @return HTMLText
      **/
     private function getGridSpan($span)
     {

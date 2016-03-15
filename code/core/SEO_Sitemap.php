@@ -21,7 +21,7 @@ class SEO_Sitemap {
      *
      * @since version 1.2
      *
-     * @return
+     * @return string The sitemap HTML
      **/
     public function getSitemapHTML()
     {
@@ -40,9 +40,9 @@ class SEO_Sitemap {
      *
      * @since version 1.2
      *
-     * @param 
+     * @param $pages
      *
-     * @return
+     * @return void
      **/
     private function getChildPages($pages)
     {

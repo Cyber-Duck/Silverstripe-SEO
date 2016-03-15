@@ -17,7 +17,7 @@ class SEO_PublishPageRequest extends GridFieldDetailForm_ItemRequest {
     private static $allowed_actions = array('ItemEditForm');
 
     /**
-     * 
+     * Remove default actions and add publish
      *
      * @since version 1.2
      *
@@ -43,7 +43,7 @@ class SEO_PublishPageRequest extends GridFieldDetailForm_ItemRequest {
     }
 
     /**
-     * 
+     * Publish a page
      *
      * @since version 1.2
      *

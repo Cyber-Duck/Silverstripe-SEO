@@ -66,7 +66,7 @@ class SEO_ModelAdmin extends ModelAdmin {
     private static $model_importers = null;
 
     /**
-     * 
+     * Update the managed models array with objects listed in the YML config files
      *
      * @since version 1.2
      *
@@ -82,7 +82,7 @@ class SEO_ModelAdmin extends ModelAdmin {
     }
 
     /**
-     * 
+     * Key SEO fields are contained within the CSV export
      *
      * @since version 1.2
      *
@@ -101,8 +101,12 @@ class SEO_ModelAdmin extends ModelAdmin {
     }
 
     /**
-     * 
+     * The SEO admin area is for managing page SEO, not for page creation. Some grid
+     * field components are removed from the SEO admin by default.
      *
+     * @param mixed $id
+     * @param mixed $fields
+     * 
      * @since version 1.2
      *
      * @return FieldList
@@ -128,7 +132,8 @@ class SEO_ModelAdmin extends ModelAdmin {
     }
 
     /**
-     * 
+     * Using this method we can populate the SEO grid search filters with various
+     * SEO options
      *
      * @since version 1.2
      *
@@ -155,7 +160,8 @@ class SEO_ModelAdmin extends ModelAdmin {
     }
 
     /**
-     * 
+     * Using getList you can filter the grid by any passed GET param filters or
+     * you can filter by model class
      *
      * @since version 1.2
      *

@@ -128,7 +128,7 @@ class SEO_Pagination {
     }
 
     /**
-     * Set the pagination URL paramater
+     * Set the pagination URL parameter
      *
      * @since version 1.0
      *
