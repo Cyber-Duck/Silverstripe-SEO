@@ -4,7 +4,29 @@ LeftAndMain:
   extra_requirements_javascript:
     - seo/javascript/serp.js
 
-SEOAdmin:
+File:
+  extensions:
+    - SEO_SitemapFileExtension
+
+SEO_ModelAdmin:
   models:
     - Page
     - ErrorPage
+
+  meta_title:
+      min: 50
+      max: 70
+      default: 'Your Meta Title Here - What Your Page is About'
+  meta_description:
+      min: 100
+      max: 170
+      default: 'This is a preview of your Meta description and how it will look in the Search Engine Results Page. Always try to keep it short and make it fit into the space provided.'
+
+SEO_Extension:
+  title: 'Meta Tags and SEO'
+  social_image_size: 1024
+  social_image_folder: 'Social'
+
+SitemapXML_Controller:
+  objects:
+    - Page

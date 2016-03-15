@@ -4,10 +4,10 @@
  * Responsible for creating Meta tags with user generated names and values
  *
  * @package silverstripe-seo
- * @license MIT License https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO/blob/master/LICENSE
+ * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEOHeadTags {
+class SEO_HeadTags {
 
     /**
      * @since version 1.0

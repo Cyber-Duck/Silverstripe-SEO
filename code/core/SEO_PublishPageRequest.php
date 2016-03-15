@@ -4,19 +4,24 @@
  * Adds the save button to the SEO admin CMS form
  *
  * @package silverstripe-seo
- * @license MIT License https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO/blob/master/LICENSE
+ * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEOPublishPageRequest extends GridFieldDetailForm_ItemRequest
-{
+class SEO_PublishPageRequest extends GridFieldDetailForm_ItemRequest {
+
+    /**
+     * @since version 1.2
+     *
+     * @config array $allowed_actions Allow requests to ItemEditForm
+     **/
     private static $allowed_actions = array('ItemEditForm');
 
     /**
-     * 
+     * Remove default actions and add publish
      *
      * @since version 1.2
      *
-     * @return 
+     * @return CMSForm
      **/
     function ItemEditForm()
     {
@@ -38,11 +43,14 @@ class SEOPublishPageRequest extends GridFieldDetailForm_ItemRequest
     }
 
     /**
-     * 
+     * Publish a page
      *
      * @since version 1.2
      *
-     * @return 
+     * @param array  $data
+     * @param object $form
+     *
+     * @return void
      **/
     public function doPublish($data, $form)
     {

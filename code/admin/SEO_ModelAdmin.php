@@ -1,76 +1,76 @@
 <?php
 
 /**
- * Build the CMS SEO admin panel
+ * SEO Model Admin class which creates the SEO CMS section for SEO management across pages
  *
  * @package silverstripe-seo
- * @license MIT License https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO/blob/master/LICENSE
+ * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEOAdmin extends ModelAdmin {
+class SEO_ModelAdmin extends ModelAdmin {
 
     /**
      * @since version 1.2
      *
-     * @static boolean $showImportForm Hide the import form for SEO admin
+     * @config boolean $showImportForm Hide the import form for SEO admin
      **/
     public $showImportForm = false;
 
     /**
      * @since version 1.2
      *
-     * @static string $menu_title The main menu title
+     * @config string $menu_title The main menu title
      **/
     private static $menu_title = 'SEO';
 
     /**
      * @since version 1.2
      *
-     * @static string $url_segment The CMS SEO admin URL segment
+     * @config string $url_segment The CMS SEO admin URL segment
      **/
     private static $url_segment = 'seo-admin';
 
     /**
      * @since version 1.2
      *
-     * @static string $menu_icon The main menu icon
+     * @config string $menu_icon The main menu icon
      **/
     private static $menu_icon = 'seo/images/menu-icons/16x16/seo.png';
 
     /**
      * @since version 1.2
      *
-     * @static int $menu_priority Menu priority
+     * @config int $menu_priority Menu priority
      **/
     private static $menu_priority = 80;
 
     /**
      * @since version 1.2
      *
-     * @static int $page_length Set to 50 to easily examine a large set of pages
+     * @config int $page_length Set to 50 to easily examine a large set of pages
      **/
     private static $page_length = 50;
 
     /**
      * @since version 1.2
      *
-     * @static string $managed_models Default Page and ErrorPage
+     * @config array $managed_models Default none as they are set later
      **/
     private static $managed_models = array();
 
     /**
      * @since version 1.2
      *
-     * @static string $model_importers Disable model imports in SEO admin
+     * @config string $model_importers Disable model imports in SEO admin
      **/
     private static $model_importers = null;
 
     /**
-     * 
+     * Update the managed models array with objects listed in the YML config files
      *
      * @since version 1.2
      *
-     * @return 
+     * @return void
      **/
     public function init()
     {
@@ -82,11 +82,11 @@ class SEOAdmin extends ModelAdmin {
     }
 
     /**
-     * 
+     * Key SEO fields are contained within the CSV export
      *
      * @since version 1.2
      *
-     * @return 
+     * @return array
      **/
     public function getExportFields()
     {
@@ -101,11 +101,15 @@ class SEOAdmin extends ModelAdmin {
     }
 
     /**
-     * 
+     * The SEO admin area is for managing page SEO, not for page creation. Some grid
+     * field components are removed from the SEO admin by default.
      *
+     * @param mixed $id
+     * @param mixed $fields
+     * 
      * @since version 1.2
      *
-     * @return 
+     * @return FieldList
      **/
     public function getEditForm($id = null, $fields = null)
     {
@@ -116,7 +120,7 @@ class SEOAdmin extends ModelAdmin {
             ->fieldByName($this->sanitiseClassName($this->modelClass))
             ->getConfig()
             ->getComponentByType('GridFieldDetailForm')
-            ->setItemRequestClass('SEOPublishPageRequest');
+            ->setItemRequestClass('SEO_PublishPageRequest');
 
         $grid = $form->Fields()->fieldByName($this->sanitiseClassName($this->modelClass));
 
@@ -128,11 +132,12 @@ class SEOAdmin extends ModelAdmin {
     }
 
     /**
-     * 
+     * Using this method we can populate the SEO grid search filters with various
+     * SEO options
      *
      * @since version 1.2
      *
-     * @return 
+     * @return object
      **/
     public function getSearchContext()
     {
@@ -140,26 +145,27 @@ class SEOAdmin extends ModelAdmin {
 
         $context->getFields()->fieldByName('q[Robots]')
             ->setEmptyString('- select -')
-            ->setSource(SEOFieldValues::IndexRules());
+            ->setSource(SEO_FieldValues::IndexRules());
 
         $context->getFields()->fieldByName('q[ChangeFrequency]')
             ->setEmptyString('- select -')
-            ->setSource(SEOFieldValues::SitemapChangeFrequency());
+            ->setSource(SEO_FieldValues::SitemapChangeFrequency());
 
         $context->getFields()->fieldByName('q[HideSocial]')
             ->setTitle('Social Meta hidden:')
             ->setEmptyString('- select -')
-            ->setSource(SEOFieldValues::YesNo());
+            ->setSource(SEO_FieldValues::YesNo());
 
         return $context;
     }
 
     /**
-     * 
+     * Using getList you can filter the grid by any passed GET param filters or
+     * you can filter by model class
      *
      * @since version 1.2
      *
-     * @return 
+     * @return object
      **/
     public function getList()
     {

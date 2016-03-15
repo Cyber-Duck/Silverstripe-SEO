@@ -4,15 +4,15 @@
  * Creates an Other Meta Tags GridField within the CMS for an object / page
  *
  * @package silverstripe-seo
- * @license MIT License https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO/blob/master/LICENSE
+ * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEOHeadTag extends DataObject {
+class SEO_HeadTag extends DataObject {
 
     /**
      * @since version 1.0
      *
-     * @static array $db Simple name, value, and type fields for a Meta tag
+     * @config array $db Simple name, value, and type fields for a Meta tag
      **/
     private static $db = array(
         'Name'      => 'Varchar(512)',
@@ -23,7 +23,7 @@ class SEOHeadTag extends DataObject {
     /**
      * @since version 1.0
      *
-     * @static array $summary_fields Show all fields in the Grid field
+     * @config array $summary_fields Show all fields in the Grid field
      **/
     private static $summary_fields = array(
         'Name'      => 'Name',
@@ -34,21 +34,21 @@ class SEOHeadTag extends DataObject {
     /**
      * @since version 1.0
      *
-     * @static string $default_sort Sort tags by name by default
+     * @config string $default_sort Sort tags by name by default
      **/
     private static $default_sort = 'Name';
 
     /**
      * @since version 1.0
      *
-     * @static string $singular_name Singular English name
+     * @config string $singular_name Singular English name
      **/
     private static $singular_name = 'Meta Tag';
 
     /**
      * @since version 1.0
      *
-     * @static string $plural_name Plural English name
+     * @config string $plural_name Plural English name
      **/
     private static $plural_name = 'Meta Tags';
     

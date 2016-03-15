@@ -1,0 +1,7 @@
+---
+Name: seo_routes
+After: framework/routes#coreroutes
+---
+Director:
+  rules:
+    'sitemap.xml' : 'SitemapXML_Controller'

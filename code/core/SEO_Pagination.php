@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Created pagiantion rel and prev Meta tags and validates their values
+ * Creates pagination rel and prev Meta tags and validates their values
  *
  * @package silverstripe-seo
- * @license MIT License https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO/blob/master/LICENSE
+ * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEOPagination {
+class SEO_Pagination {
 
     /**
      * @since version 1.0
@@ -128,7 +128,7 @@ class SEOPagination {
     }
 
     /**
-     * Set the pagination URL paramater
+     * Set the pagination URL parameter
      *
      * @since version 1.0
      *
