@@ -41,9 +41,9 @@ class SEO_SitemapFileExtension extends DataExtension {
     public function updateCMSFields(FieldList $fields) 
     {
         if(Controller::curr() instanceof SEO_ModelAdmin){
-        	$fields->removeByName('Name');
-        	$fields->removeByName('ParentID');
-        	$fields->removeByName('OwnerID');
+            $fields->removeByName('Name');
+            $fields->removeByName('ParentID');
+            $fields->removeByName('OwnerID');
 
             $fields->addFieldToTab('Root.Main', TextField::create('Caption'));
         }

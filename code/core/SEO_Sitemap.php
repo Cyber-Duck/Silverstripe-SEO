@@ -14,7 +14,7 @@ class SEO_Sitemap {
      *
      * @var string $html The sitemap HTML output
      **/
-	private $html;
+    private $html;
 
     /**
      * 
@@ -23,7 +23,7 @@ class SEO_Sitemap {
      *
      * @return
      **/
-	public function getSitemapHTML()
+    public function getSitemapHTML()
     {
         $pages = SiteTree::get()->filter(array(
             'ClassName:not' => 'ErrorPage',

@@ -1,13 +1,13 @@
 <% with $Page %>
 <url>
-	
-	<loc>$Up.URL{$Link}</loc>
-	<lastmod>$LastEdited</lastmod>
-	<changefreq>$ChangeFrequency</changefreq>
-	<priority>$Priority</priority>
+    
+    <loc>$Up.URL{$Link}</loc>
+    <lastmod>$LastEdited</lastmod>
+    <changefreq>$ChangeFrequency</changefreq>
+    <priority>$Priority</priority>
 
-	<% loop $SitemapImages %>
-	
+    <% loop $SitemapImages %>
+    
     <image:image>
         <image:loc>$Top.URL/{$Filename}</image:loc>
         <image:title>$Top.Encode($Title)</image:title>
@@ -16,7 +16,7 @@
         <% end_if %>
     </image:image>
 
-	<% end_loop %>
+    <% end_loop %>
 
 </url>
 <% end_with %>
