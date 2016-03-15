@@ -53,6 +53,13 @@ final class SEO {
     private static $tags;
 
     /**
+     * @since version 1.2
+     *
+     * @static SEO_Sitemap $sitemap Sitemap object
+     **/
+    private static $sitemap;
+
+    /**
      * @since version 1.0
      *
      * @static SEO_Pagination $pagination Pagination Meta object
@@ -83,6 +90,7 @@ final class SEO {
 
             // Initialise coe objects
             self::$tags = new SEO_HeadTags();
+            self::$sitemap = new SEO_Sitemap();
             self::$paginaton = new SEO_Pagination();
         }
         return static::$instance;
@@ -109,6 +117,16 @@ final class SEO {
             'OtherTags'       => self::getOtherHTML()
         ));
         return $tags->renderWith('HeadTags');
+    }
+
+    public static function getSitemapHTML()
+    {
+        return self::$sitemap->getSitemapHTML();
+    }
+
+    public static function getSitemapXML()
+    {
+        return self::$sitemap->getSitemapXML();
     }
 
     /**
@@ -181,7 +199,7 @@ final class SEO {
      **/
     public static function setDynamicTitle($text, $object, $separator = 'and')
     {
-        self::$title = self::setDynamic($text, $object);
+        self::$title = self::setDynamic($text, $object, $separator);
     }
 
     /**
@@ -197,7 +215,7 @@ final class SEO {
      **/
     public static function setDynamicDescription($text, $object, $separator = 'and')
     {
-        self::$description = self::setDynamic($text, $object);
+        self::$description = self::setDynamic($text, $object, $separator);
     }
 
     /**

@@ -27,6 +27,6 @@ SEO_Extension:
   social_image_size: 1024
   social_image_folder: 'Social'
 
-SitemapXML_Controller:
+SEO_Sitemap:
   objects:
     - Page
