@@ -4,6 +4,10 @@ LeftAndMain:
   extra_requirements_javascript:
     - seo/javascript/serp.js
 
+File:
+  extensions:
+    - SEO_SitemapFileExtension
+
 SEO_ModelAdmin:
   models:
     - Page

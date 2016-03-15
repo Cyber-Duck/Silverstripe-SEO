@@ -12,7 +12,7 @@ class SEO_Extension extends DataExtension {
     /**
      * @since version 1.0
      *
-     * @static array $db Our page fields
+     * @config array $db Our page fields
      **/
     private static $db = array(
         'MetaTitle'       => 'Varchar(512)',
@@ -30,7 +30,7 @@ class SEO_Extension extends DataExtension {
     /**
      * @since version 1.0
      *
-     * @static array $has_one Social image and other has_one relations
+     * @config array $has_one Social image and other has_one relations
      **/
     private static $has_one = array(
         'SocialImage'     => 'Image'
@@ -39,10 +39,11 @@ class SEO_Extension extends DataExtension {
     /**
      * @since version 1.0
      *
-     * @static array $many_many Has many extra Meta tags
+     * @config array $many_many Has many extra Meta tags
      **/
     private static $many_many = array(
-        'HeadTags'        => 'SEO_HeadTag'
+        'HeadTags'        => 'SEO_HeadTag',
+        'SitemapImages'   => 'File'
     );
 
 
@@ -51,7 +52,7 @@ class SEO_Extension extends DataExtension {
     /**
      * @since version 1.0
      *
-     * @static array $defaults Sitemap defaults
+     * @config array $defaults Sitemap defaults
      **/
     private static $defaults = array(
         'Priority'        => 0.50,
@@ -61,7 +62,7 @@ class SEO_Extension extends DataExtension {
     /**
      * @since version 1.2
      *
-     * @static 
+     * @config 
      **/
     private static $summary_fields = array(
         'GridCreated'          => 'Created',
@@ -77,7 +78,7 @@ class SEO_Extension extends DataExtension {
     /**
      * @since version 1.2
      *
-     * @static 
+     * @config 
      **/
     private static $searchable_fields = array(
         'Title' => array(
@@ -118,25 +119,29 @@ class SEO_Extension extends DataExtension {
      **/
     public function updateCMSFields(FieldList $fields) 
     {
-        $fields->addFieldsToTab('Root.SEO', array(
-            HeaderField::create(Config::inst()->get('SEO_Extension','title')),
-            $this->preview(),
-            TextField::create('MetaTitle'),
-            TextareaField::create('MetaDescription'),
-            HeaderField::create('Indexing'),
-            TextField::create('Canonical'),
-            DropdownField::create('Robots', 'Robots', SEO_FieldValues::IndexRules()),
-            HeaderField::create('Sitemap'),
-            NumericField::create('Priority'),
-            DropdownField::create('ChangeFrequency', 'Change Frequency', SEO_FieldValues::SitemapChangeFrequency()),
-            HeaderField::create('Social'),
-            CheckboxField::create('HideSocial','Hide Social Meta?'),
-            DropdownField::create('OGtype', 'Open Graph Type', SEO_FieldValues::OGtype()),
-            DropdownField::create('OGlocale', 'Open Graph Locale', SEO_FieldValues::OGlocale()),
-            DropdownField::create('TwitterCard', 'Twitter Card', SEO_FieldValues::TwitterCardTypes()),
-            $this->SharingImage(),
-            $this->OtherHeadTags()
-        ));
+        $fields->addFieldToTab('Root.SEO', HeaderField::create(Config::inst()->get('SEO_Extension','title')));
+        $fields->addFieldToTab('Root.SEO', $this->preview());
+        $fields->addFieldToTab('Root.SEO', TextField::create('MetaTitle'));
+        $fields->addFieldToTab('Root.SEO', TextareaField::create('MetaDescription'));
+
+        $fields->addFieldToTab('Root.SEO', HeaderField::create('Indexing'));
+        $fields->addFieldToTab('Root.SEO', TextField::create('Canonical'));
+        $fields->addFieldToTab('Root.SEO', DropdownField::create('Robots', 'Robots', SEO_FieldValues::IndexRules()));
+
+        $fields->addFieldToTab('Root.SEO', HeaderField::create('Social Meta'));
+        $fields->addFieldToTab('Root.SEO', CheckboxField::create('HideSocial','Hide Social Meta?'));
+        $fields->addFieldToTab('Root.SEO', DropdownField::create('OGtype', 'Open Graph Type', SEO_FieldValues::OGtype()));
+        $fields->addFieldToTab('Root.SEO', DropdownField::create('OGlocale', 'Open Graph Locale', SEO_FieldValues::OGlocale()));
+        $fields->addFieldToTab('Root.SEO', DropdownField::create('TwitterCard', 'Twitter Card', SEO_FieldValues::TwitterCardTypes()));
+        $fields->addFieldToTab('Root.SEO', $this->SharingImage());
+
+        $fields->addFieldToTab('Root.SEO', HeaderField::create('Other Meta'));
+        $fields->addFieldToTab('Root.SEO', $this->OtherHeadTags());
+
+        $fields->addFieldToTab('Root.SEO', HeaderField::create('Sitemap'));
+        $fields->addFieldToTab('Root.SEO', NumericField::create('Priority'));
+        $fields->addFieldToTab('Root.SEO', DropdownField::create('ChangeFrequency', 'Change Frequency', SEO_FieldValues::SitemapChangeFrequency()));
+        $fields->addFieldToTab('Root.SEO', $this->SitemapImagesGrid());
 
         return $fields;
     }
@@ -213,6 +218,27 @@ class SEO_Extension extends DataExtension {
 
         // remove the autocompleter so existing tags cannot be attached to the current page
         $grid->getConfig()->removeComponentsByType('GridFieldAddExistingAutocompleter');
+
+        return $grid;
+    }
+    
+    /**
+     * Creates our social sharing upload field
+     *
+     * @since version 1.0
+     *
+     * @return GridField Return the Social image GridField object
+     **/
+    private function SitemapImagesGrid()
+    {
+        $grid = new GridField(
+            'SitemapImages',
+            'Sitemap Images',
+            $this->owner->SitemapImages(),
+            GridFieldConfig_RelationEditor::create()
+        );
+
+        $grid->getConfig()->removeComponentsByType('GridFieldAddNewButton');
 
         return $grid;
     }
