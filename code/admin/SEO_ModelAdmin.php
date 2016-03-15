@@ -4,7 +4,7 @@
  * Build the CMS SEO admin panel
  *
  * @package silverstripe-seo
- * @license MIT License https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO/blob/master/LICENSE
+ * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
 class SEO_ModelAdmin extends ModelAdmin {
@@ -70,7 +70,7 @@ class SEO_ModelAdmin extends ModelAdmin {
      *
      * @since version 1.2
      *
-     * @return 
+     * @return void
      **/
     public function init()
     {
@@ -86,7 +86,7 @@ class SEO_ModelAdmin extends ModelAdmin {
      *
      * @since version 1.2
      *
-     * @return 
+     * @return array
      **/
     public function getExportFields()
     {
@@ -105,7 +105,7 @@ class SEO_ModelAdmin extends ModelAdmin {
      *
      * @since version 1.2
      *
-     * @return 
+     * @return FieldList
      **/
     public function getEditForm($id = null, $fields = null)
     {
@@ -132,7 +132,7 @@ class SEO_ModelAdmin extends ModelAdmin {
      *
      * @since version 1.2
      *
-     * @return 
+     * @return object
      **/
     public function getSearchContext()
     {
@@ -159,7 +159,7 @@ class SEO_ModelAdmin extends ModelAdmin {
      *
      * @since version 1.2
      *
-     * @return 
+     * @return object
      **/
     public function getList()
     {
