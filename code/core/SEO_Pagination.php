@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Created pagiantion rel and prev Meta tags and validates their values
+ * Creates pagination rel and prev Meta tags and validates their values
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE

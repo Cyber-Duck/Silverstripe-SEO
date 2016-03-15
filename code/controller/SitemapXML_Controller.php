@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Adds the save button to the SEO admin CMS form
+ * XML sitemap controller
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
@@ -12,7 +12,7 @@ class SitemapXML_Controller extends Page_Controller {
     /**
      * @since version 1.2
      *
-     * @var
+     * @var array $url_handlers Push requests to sitemap.xml to the getSitemap method
      **/
     private static $url_handlers = array(
         '' => 'getSitemap'
@@ -21,23 +21,23 @@ class SitemapXML_Controller extends Page_Controller {
     /**
      * @since version 1.2
      *
-     * @var
+     * @var array $objects An array of objects with pages to include in the sitemap
      **/
     private $objects;
 
     /**
      * @since version 1.2
      *
-     * @var
+     * @var string $xml The XML to return
      **/
     private $xml;
 
     /**
      * @since version 1.2
      *
-     * @var
+     * @var string $url The URL to use for the current sitemap page
      **/
-    private $URL;
+    private $url;
 
     /**
      * 
@@ -54,7 +54,7 @@ class SitemapXML_Controller extends Page_Controller {
 
         $this->objects = Config::inst()->get('SitemapXML_Controller', 'objects');
 
-        $this->URL = substr(Director::AbsoluteBaseURL(),0,-1);
+        $this->url = substr(Director::AbsoluteBaseURL(),0,-1);
 
         $this->getSitemap();
 
@@ -107,7 +107,7 @@ class SitemapXML_Controller extends Page_Controller {
         if($page->Robots !== 'noindex,nofollow'){
             return $this->customise(array(
                 'Page' => $page,
-                'URL'  => $this->URL
+                'URL'  => $this->url
             ))->renderWith('SitemapXML');
         }
     }

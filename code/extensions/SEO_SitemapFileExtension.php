@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 
+ * Extension for images which adds compatibility for XML image sitemaps
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
@@ -12,7 +12,7 @@ class SEO_SitemapFileExtension extends DataExtension {
     /**
      * @since version 1.2
      *
-     * @config
+     * @config array $db Add extra fields to the image object
      **/
     private static $db = array(
         'Caption' => 'Varchar(512)'
@@ -21,7 +21,7 @@ class SEO_SitemapFileExtension extends DataExtension {
     /**
      * @since version 1.2
      *
-     * @config
+     * @config array $summary_fields Use better custom summary fields
      **/
     private static $summary_fields = array(
         'Thumbnail' => '',

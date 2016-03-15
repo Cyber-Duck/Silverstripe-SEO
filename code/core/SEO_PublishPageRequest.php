@@ -7,8 +7,13 @@
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEO_PublishPageRequest extends GridFieldDetailForm_ItemRequest
-{
+class SEO_PublishPageRequest extends GridFieldDetailForm_ItemRequest {
+
+    /**
+     * @since version 1.2
+     *
+     * @config array $allowed_actions Allow requests to ItemEditForm
+     **/
     private static $allowed_actions = array('ItemEditForm');
 
     /**
@@ -41,6 +46,9 @@ class SEO_PublishPageRequest extends GridFieldDetailForm_ItemRequest
      * 
      *
      * @since version 1.2
+     *
+     * @param array  $data
+     * @param object $form
      *
      * @return void
      **/

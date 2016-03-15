@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Adds the save button to the SEO admin CMS form
+ * Generates an HTML sitemap list
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
@@ -12,7 +12,7 @@ class SEO_Sitemap {
     /**
      * @since version 1.2
      *
-     * @var
+     * @var string $html The sitemap HTML output
      **/
 	private $html;
 

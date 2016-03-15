@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Build the CMS SEO admin panel
+ * SEO Model Admin class which creates the SEO CMS section for SEO management across pages
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
@@ -54,7 +54,7 @@ class SEO_ModelAdmin extends ModelAdmin {
     /**
      * @since version 1.2
      *
-     * @config string $managed_models Default Page and ErrorPage
+     * @config array $managed_models Default none as they are set later
      **/
     private static $managed_models = array();
 

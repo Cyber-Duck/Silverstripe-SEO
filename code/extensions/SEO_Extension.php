@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Add fields to the Page object and changes the CMS GridField
+ * Core extension used to transform an object into an SEO object
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
@@ -62,7 +62,7 @@ class SEO_Extension extends DataExtension {
     /**
      * @since version 1.2
      *
-     * @config 
+     * @config array $summary_fields Show important formatted grid values
      **/
     private static $summary_fields = array(
         'GridCreated'          => 'Created',
@@ -78,7 +78,7 @@ class SEO_Extension extends DataExtension {
     /**
      * @since version 1.2
      *
-     * @config 
+     * @config array $searchable_fields Allow searching against important SEO fields
      **/
     private static $searchable_fields = array(
         'Title' => array(

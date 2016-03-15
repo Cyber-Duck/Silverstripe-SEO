@@ -55,7 +55,7 @@ final class SEO {
     /**
      * @since version 1.0
      *
-     * @static SEO_Pagination $paginaton Pagination Meta object
+     * @static SEO_Pagination $pagination Pagination Meta object
      **/
     private static $paginaton;
 
