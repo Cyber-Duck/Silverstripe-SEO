@@ -26,3 +26,7 @@ SEO_Extension:
   title: 'Meta Tags and SEO'
   social_image_size: 1024
   social_image_folder: 'Social'
+
+SitemapXML_Controller:
+  objects:
+    - Page
