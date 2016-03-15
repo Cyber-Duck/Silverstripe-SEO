@@ -7,7 +7,7 @@
  * @license MIT License https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEOHeadTags {
+class SEO_HeadTags {
 
     /**
      * @since version 1.0

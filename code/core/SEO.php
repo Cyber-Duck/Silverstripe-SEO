@@ -48,14 +48,14 @@ final class SEO {
     /**
      * @since version 1.0
      *
-     * @static SEOHeadTags $tags Other head tags object
+     * @static SEO_HeadTags $tags Other head tags object
      **/
     private static $tags;
 
     /**
      * @since version 1.0
      *
-     * @static SEOPagination $paginaton Pagination Meta object
+     * @static SEO_Pagination $paginaton Pagination Meta object
      **/
     private static $paginaton;
 
@@ -82,8 +82,8 @@ final class SEO {
             self::setPageURL(Director::AbsoluteBaseURL().substr(parse_url($_SERVER['REQUEST_URI'],PHP_URL_PATH),1));
 
             // Initialise coe objects
-            self::$tags = new SEOHeadTags();
-            self::$paginaton = new SEOPagination();
+            self::$tags = new SEO_HeadTags();
+            self::$paginaton = new SEO_Pagination();
         }
         return static::$instance;
     }
@@ -209,7 +209,7 @@ final class SEO {
      * @param int    $perPage Pagination items per page
      * @param string $param   Pagination URL param
      *
-     * @return SEOPagination Returns the pagination class
+     * @return SEO_Pagination Returns the pagination class
      **/
     public static function setPagination($total = 0, $perPage = 12, $param = 'start')
     {

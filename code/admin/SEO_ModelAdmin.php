@@ -7,7 +7,7 @@
  * @license MIT License https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEOAdmin extends ModelAdmin {
+class SEO_ModelAdmin extends ModelAdmin {
 
     /**
      * @since version 1.2
@@ -116,7 +116,7 @@ class SEOAdmin extends ModelAdmin {
             ->fieldByName($this->sanitiseClassName($this->modelClass))
             ->getConfig()
             ->getComponentByType('GridFieldDetailForm')
-            ->setItemRequestClass('SEOPublishPageRequest');
+            ->setItemRequestClass('SEO_PublishPageRequest');
 
         $grid = $form->Fields()->fieldByName($this->sanitiseClassName($this->modelClass));
 
@@ -140,16 +140,16 @@ class SEOAdmin extends ModelAdmin {
 
         $context->getFields()->fieldByName('q[Robots]')
             ->setEmptyString('- select -')
-            ->setSource(SEOFieldValues::IndexRules());
+            ->setSource(SEO_FieldValues::IndexRules());
 
         $context->getFields()->fieldByName('q[ChangeFrequency]')
             ->setEmptyString('- select -')
-            ->setSource(SEOFieldValues::SitemapChangeFrequency());
+            ->setSource(SEO_FieldValues::SitemapChangeFrequency());
 
         $context->getFields()->fieldByName('q[HideSocial]')
             ->setTitle('Social Meta hidden:')
             ->setEmptyString('- select -')
-            ->setSource(SEOFieldValues::YesNo());
+            ->setSource(SEO_FieldValues::YesNo());
 
         return $context;
     }

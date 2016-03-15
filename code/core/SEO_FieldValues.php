@@ -8,7 +8,7 @@
  * @author  <andrewm@cyber-duck.co.uk>
  **/
 
-class SEOFieldValues extends DataExtension {
+class SEO_FieldValues {
     /**
      * Returns an array of sitemap change frequencies used in a sitemap.xml file
      *

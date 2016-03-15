@@ -4,7 +4,7 @@ LeftAndMain:
   extra_requirements_javascript:
     - seo/javascript/serp.js
 
-SEOAdmin:
+SEO_ModelAdmin:
   models:
     - Page
     - ErrorPage
@@ -18,7 +18,7 @@ SEOAdmin:
       max: 170
       default: 'This is a preview of your Meta description and how it will look in the Search Engine Results Page. Always try to keep it short and make it fit into the space provided.'
 
-SEOExtension:
+SEO_Extension:
   title: 'Meta Tags and SEO'
   social_image_size: 1024
   social_image_folder: 'Social'

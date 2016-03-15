@@ -7,7 +7,7 @@
  * @license MIT License https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEOHeadTag extends DataObject {
+class SEO_HeadTag extends DataObject {
 
     /**
      * @since version 1.0

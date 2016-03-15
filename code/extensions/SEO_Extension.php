@@ -7,7 +7,7 @@
  * @license MIT License https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEOExtension extends DataExtension {
+class SEO_Extension extends DataExtension {
 
     /**
      * @since version 1.0
@@ -42,7 +42,7 @@ class SEOExtension extends DataExtension {
      * @static array $many_many Has many extra Meta tags
      **/
     private static $many_many = array(
-        'HeadTags'        => 'SEOHeadTag'
+        'HeadTags'        => 'SEO_HeadTag'
     );
 
 
@@ -119,21 +119,21 @@ class SEOExtension extends DataExtension {
     public function updateCMSFields(FieldList $fields) 
     {
         $fields->addFieldsToTab('Root.SEO', array(
-            HeaderField::create(Config::inst()->get('SEOExtension','title')),
+            HeaderField::create(Config::inst()->get('SEO_Extension','title')),
             $this->preview(),
             TextField::create('MetaTitle'),
             TextareaField::create('MetaDescription'),
             HeaderField::create('Indexing'),
             TextField::create('Canonical'),
-            DropdownField::create('Robots', 'Robots', SEOFieldValues::IndexRules()),
+            DropdownField::create('Robots', 'Robots', SEO_FieldValues::IndexRules()),
             HeaderField::create('Sitemap'),
             NumericField::create('Priority'),
-            DropdownField::create('ChangeFrequency', 'Change Frequency', SEOFieldValues::SitemapChangeFrequency()),
+            DropdownField::create('ChangeFrequency', 'Change Frequency', SEO_FieldValues::SitemapChangeFrequency()),
             HeaderField::create('Social'),
             CheckboxField::create('HideSocial','Hide Social Meta?'),
-            DropdownField::create('OGtype', 'Open Graph Type', SEOFieldValues::OGtype()),
-            DropdownField::create('OGlocale', 'Open Graph Locale', SEOFieldValues::OGlocale()),
-            DropdownField::create('TwitterCard', 'Twitter Card', SEOFieldValues::TwitterCardTypes()),
+            DropdownField::create('OGtype', 'Open Graph Type', SEO_FieldValues::OGtype()),
+            DropdownField::create('OGlocale', 'Open Graph Locale', SEO_FieldValues::OGlocale()),
+            DropdownField::create('TwitterCard', 'Twitter Card', SEO_FieldValues::TwitterCardTypes()),
             $this->SharingImage(),
             $this->OtherHeadTags()
         ));
@@ -150,7 +150,7 @@ class SEOExtension extends DataExtension {
      **/
     public function updateSummaryFields(&$fields)
     {
-        if(Controller::curr() instanceof SEOAdmin){
+        if(Controller::curr() instanceof SEO_ModelAdmin){
             Config::inst()->update($this->owner->class, 'summary_fields', self::$summary_fields);
 
             $fields = Config::inst()->get($this->owner->class, 'summary_fields');
@@ -166,8 +166,8 @@ class SEOExtension extends DataExtension {
      **/
     private function preview()
     {
-        $title = Config::inst()->get('SEOAdmin','meta_title');
-        $description = Config::inst()->get('SEOAdmin','meta_description');
+        $title = Config::inst()->get('SEO_ModelAdmin','meta_title');
+        $description = Config::inst()->get('SEO_ModelAdmin','meta_description');
 
         $preview = Controller::curr()->customise(array(
             'DefaultTitle' => $title['default'],
@@ -189,7 +189,7 @@ class SEOExtension extends DataExtension {
         $image = new UploadField('SocialImage');
 
         $image->getValidator()->setAllowedMaxFileSize($this->getMaxSocialImageSize());
-        $image->setFolderName(Config::inst()->get('SEOExtension','social_image_folder'));
+        $image->setFolderName(Config::inst()->get('SEO_Extension','social_image_folder'));
         $image->setAllowedFileCategories('image');
 
         return $image;
@@ -226,7 +226,7 @@ class SEOExtension extends DataExtension {
      **/
     private function getMaxSocialImageSize()
     {
-        return Config::inst()->get('SEOExtension','social_image_size') * 1024;
+        return Config::inst()->get('SEO_Extension','social_image_size') * 1024;
     }
 
     /**
@@ -262,7 +262,7 @@ class SEOExtension extends DataExtension {
      **/
     public function GridMetaTitle()
     {
-        $meta = Config::inst()->get('SEOAdmin','meta_title');
+        $meta = Config::inst()->get('SEO_ModelAdmin','meta_title');
 
         return $this->getGridLight($this->owner->MetaTitle, $meta['min'], $meta['max']);
     }
@@ -276,7 +276,7 @@ class SEOExtension extends DataExtension {
      **/
     public function GridMetaDescription()
     {
-        $meta = Config::inst()->get('SEOAdmin','meta_description');
+        $meta = Config::inst()->get('SEO_ModelAdmin','meta_description');
 
         return $this->getGridLight($this->owner->MetaDescription, $meta['min'], $meta['max']);
     }

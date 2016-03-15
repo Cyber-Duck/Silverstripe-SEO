@@ -7,7 +7,7 @@
  * @license MIT License https://github.com/Andrew-Mc-Cormack/Silverstripe-SEO/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEOPagination {
+class SEO_Pagination {
 
     /**
      * @since version 1.0

@@ -7,7 +7,7 @@ Add the following to your composer.json file
 ```json
 {  
     "require": {  
-        "cyber-duck/silverstripe-seo": "dev-master"
+        "cyber-duck/silverstripe-seo": "v1.1"
     },  
     "repositories": [  
         {  
@@ -25,7 +25,7 @@ In your config.yml file add the SEO extension to your Page object
 ```yml
 Page:
   extensions:
-    - SEOExtension
+    - SEO_Extension
 ```
 
 ## Controller
