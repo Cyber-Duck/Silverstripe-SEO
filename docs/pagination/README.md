@@ -1,6 +1,6 @@
-# Setting Pagination
+# Pagination
 
-## Setting Meta rel tags
+## Setting Rel pagination Meta tags
 
 To add rel="prev" and rel="next" Meta to a page just pass in the total number of items in the paginated page collection.
 You can use the SilverStripe Count function.
@@ -41,4 +41,4 @@ The pagination URL the would be generated would be as follows.
 <link rel="next" href="https://www.cyber-duck.co.uk/catalogue?start=24&first=1&third=3">
 ```
 
-Next: [Custom objects](../custom-objects)
+Next: [SEO Admin](../seo-admin)
