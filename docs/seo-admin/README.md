@@ -15,3 +15,9 @@ SEOAdmin:
 ```
 
 Segmenting your different page types and objects here allows you to keep track of your meta easier across a large set of pages.
+
+## SERP preview
+
+## Field breakdown
+
+Next: [Sitemap](../sitemap)
