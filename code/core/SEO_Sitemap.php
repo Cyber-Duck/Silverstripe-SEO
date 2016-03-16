@@ -37,6 +37,13 @@ class SEO_Sitemap {
      **/
     private $html;
 
+    /**
+     * Initialise config
+     *
+     * @since version 1.2
+     *
+     * @return void
+     **/
     public function __construct()
     {
         $this->objects = Config::inst()->get('SEO_Sitemap', 'objects');
@@ -59,7 +66,7 @@ class SEO_Sitemap {
     }
 
     /**
-     * Loops through the various page objects and sets the sitemap XML
+     * Return the sitemap XML
      *
      * @since version 1.2
      *
@@ -74,7 +81,7 @@ class SEO_Sitemap {
     }
 
     /**
-     * 
+     * Return the sitemap HTML
      *
      * @since version 1.2
      *
@@ -99,16 +106,12 @@ class SEO_Sitemap {
     }
 
     /**
-     * Checks if this page should be indexed, if so renders a page object SEO 
-     * values into a XML sitemap entry 
+     * Merge an objects pages to the current page set
      *
      * @since version 1.2
      *
-     * @param object $page An object with the SEO extension attached
-     *
      * @return string
      **/
-
     private function getPages()
     {
         $pages = new ArrayList();
@@ -125,7 +128,7 @@ class SEO_Sitemap {
     }
 
     /**
-     * 
+     * Iterate through child pages
      *
      * @since version 1.2
      *

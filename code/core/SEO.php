@@ -119,11 +119,25 @@ final class SEO {
         return $tags->renderWith('HeadTags');
     }
 
+    /**
+     * Return the HTML sitemap
+     *
+     * @since version 1.2
+     *
+     * @return string
+     **/
     public static function getSitemapHTML()
     {
         return self::$sitemap->getSitemapHTML();
     }
 
+    /**
+     * Return the XML sitemap
+     *
+     * @since version 1.2
+     *
+     * @return string
+     **/
     public static function getSitemapXML()
     {
         return self::$sitemap->getSitemapXML();

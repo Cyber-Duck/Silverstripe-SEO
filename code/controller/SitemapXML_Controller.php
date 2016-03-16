@@ -9,6 +9,11 @@
  **/
 class SitemapXML_Controller extends Page_Controller {
 
+    /**
+     * @since version 1.2
+     *
+     * @var array $allowed_actions Only one action allowed here
+     **/
     private static $allowed_actions = array('getSitemap');
 
     /**
@@ -34,6 +39,13 @@ class SitemapXML_Controller extends Page_Controller {
         parent::init();
     }
 
+    /**
+     * Return the XML sitemap
+     *
+     * @since version 1.2
+     *
+     * @return string
+     **/
     public function getSitemap()
     {
         return SEO::getSitemapXML();

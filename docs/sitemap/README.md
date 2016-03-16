@@ -1,7 +1,9 @@
 # Sitemap
 
-## Adding sitemap pages
-
 ## XML sitemap
 
 ## HTML sitemap
+
+## Adding sitemap pages
+
+## Adding sitemap images
