@@ -15,6 +15,7 @@ class SEO_Extension extends DataExtension {
      * @config array $db Our page fields
      **/
     private static $db = array(
+        'Title'           => 'Varchar(512)',
         'MetaTitle'       => 'Varchar(512)',
         'MetaDescription' => 'Varchar(512)',
         'Canonical'       => 'Varchar(512)',
