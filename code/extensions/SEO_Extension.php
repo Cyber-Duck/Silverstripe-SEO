@@ -15,6 +15,7 @@ class SEO_Extension extends DataExtension {
      * @config array $db Our page fields
      **/
     private static $db = array(
+        'Title'           => 'Varchar(512)',
         'MetaTitle'       => 'Varchar(512)',
         'MetaDescription' => 'Varchar(512)',
         'Canonical'       => 'Varchar(512)',
@@ -62,22 +63,6 @@ class SEO_Extension extends DataExtension {
     /**
      * @since version 1.2
      *
-     * @config array $summary_fields Show important formatted grid values
-     **/
-    private static $summary_fields = array(
-        'GridCreated'          => 'Created',
-        'GridTitle'            => 'Title',
-        'Robots'               => 'Robots',
-        'Priority'             => 'Priority',
-        'ChangeFrequency'      => 'Change Freq',
-        'GridMetaTitle'        => 'T',
-        'GridMetaDescription'  => 'D',
-        'GridSocial'           => 'S'
-    );
-
-    /**
-     * @since version 1.2
-     *
      * @config array $searchable_fields Allow searching against important SEO fields
      **/
     private static $searchable_fields = array(
@@ -119,6 +104,8 @@ class SEO_Extension extends DataExtension {
      **/
     public function updateCMSFields(FieldList $fields) 
     {
+        $fields->addFieldToTab('Root.SEO', TextField::create('Title'));
+
         $fields->addFieldToTab('Root.SEO', HeaderField::create(Config::inst()->get('SEO_Extension','title')));
         $fields->addFieldToTab('Root.SEO', $this->preview());
         $fields->addFieldToTab('Root.SEO', TextField::create('MetaTitle'));
@@ -158,7 +145,17 @@ class SEO_Extension extends DataExtension {
     public function updateSummaryFields(&$fields)
     {
         if(Controller::curr() instanceof SEO_ModelAdmin){
-            Config::inst()->update($this->owner->class, 'summary_fields', self::$summary_fields);
+            $summary_fields = array(
+                'GridCreated'          => 'Created',
+                'GridTitle'            => 'Title',
+                'Robots'               => 'Robots',
+                'Priority'             => 'Priority',
+                'ChangeFrequency'      => 'Change Freq',
+                'GridMetaTitle'        => 'T',
+                'GridMetaDescription'  => 'D',
+                'GridSocial'           => 'S'
+            );
+            Config::inst()->update($this->owner->class, 'summary_fields', $summary_fields);
 
             $fields = Config::inst()->get($this->owner->class, 'summary_fields');
         }

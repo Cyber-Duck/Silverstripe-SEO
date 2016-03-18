@@ -376,6 +376,7 @@ final class SEO {
 
                 // loop the relation and assign the necessary property to an array
                 if($object->hasMany($many) || $object->manyMany($many)){
+                    $values = array();
                     foreach($object->$many() as $one){
                         $values[] = trim($one->$property);
                     }
@@ -388,7 +389,7 @@ final class SEO {
                     } else {
                         $result = array();
                         $result[] = $first;
-                        $result[] = ', '.$seperator;
+                        $result[] = ', '.$seperator.' ';
                         $result[] = $last;
                         $result = implode($result);
                     }
