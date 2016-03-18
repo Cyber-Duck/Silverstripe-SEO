@@ -39,7 +39,7 @@ class SEO_DynamicMeta {
     public function create()
     {
     	$object = $this->object;
-    	
+
         foreach($this->placeholders() as $value){
             // check for relation placeholders with a .
             if(strpos($value,".") !== false){
@@ -78,7 +78,7 @@ class SEO_DynamicMeta {
                 $result = trim($object->$value);
             }
             // replace the placeholder with the new value
-            $this->text = trim(str_replace('['.$value.']', htmlspecialchars($result), $text));
+            $this->text = trim(str_replace('['.$value.']', htmlspecialchars($result), $this->text));
         }
         return $this->text;
     }
