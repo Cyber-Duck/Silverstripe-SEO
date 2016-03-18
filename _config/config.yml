@@ -29,4 +29,5 @@ SEO_Extension:
 
 SEO_Sitemap:
   objects:
-    - Page
+    Page:
+      parent_id: 0

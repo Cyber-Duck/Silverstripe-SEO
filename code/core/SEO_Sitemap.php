@@ -89,19 +89,14 @@ class SEO_Sitemap {
      **/
     public function getSitemapHTML()
     {
-        foreach($this->objects as $object){
-            if($object == 'Page'){
-                $pages = Page::get()->filter(array(
-                    'ParentID'      => 0
-                ))->Sort('Sort','ASC');
+        $pages = Page::get()->filter(array(
+            'ClassName:not' => 'ErrorPage',
+            'Robots:not' => 'noindex,nofollow',
+            'ParentID' => 0
+        ))->Sort('Sort','ASC');
 
-                $this->getChildPages($pages);
-            } else {
-                $pages = $object::get()->sort('Priority DESC');
+        $this->getChildPages($pages);
 
-                $this->getObjectPages($pages);
-            }
-        }
         return $this->html;
     }
 
@@ -115,7 +110,7 @@ class SEO_Sitemap {
     private function getPages()
     {
         $pages = new ArrayList();
-        foreach($this->objects as $object){
+        foreach($this->objects as $object => $value){
 
             $object = $object::get();
 
@@ -140,17 +135,24 @@ class SEO_Sitemap {
     {
         $this->html .= '<ul>';
 
-        foreach($pages as $page):
+        foreach($pages as $page){
             $this->html .= '<li><a href="'.$this->url.$page->Link().'">'.$page->Title.'</a>';
 
+            foreach($this->objects as $className => $config){
+                if($config['parent_id'] == $page->ID && $config['parent_id'] !== 0){
+                    $pages = $className::get()->sort('Priority DESC');
+                    $prefix = isset($config['prefix']) ? $config['prefix'] : false;
+                    $this->getObjectPages($pages, $prefix);
+                }
+            }
             $children = Page::get()->filter(array(
                 'ParentID' => $page->ID
             ))->Sort('ID','ASC');
 
-            $this->getChildPages($children);
+            if($children) $this->getChildPages($children);
 
             $this->html .= '</li>';
-        endforeach;
+        }
 
         $this->html .= '</ul>';
 
@@ -165,12 +167,14 @@ class SEO_Sitemap {
      *
      * @return void
      **/
-    private function getObjectPages($pages)
+    private function getObjectPages($pages, $prefix = false)
     {
         $this->html .= '<ul>';
 
+        $prefix = $prefix !== false ? '/'.$prefix.'/' : '';
+
         foreach($pages as $page):
-            $this->html .= '<li><a href="'.$this->url.$page->URLSegment.'">'.$page->Title.'</a></li>';
+            $this->html .= '<li><a href="'.$this->url.$prefix.$page->URLSegment.'">'.$page->Title.'</a></li>';
         endforeach;
 
         $this->html .= '</ul>';
