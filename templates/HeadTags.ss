@@ -4,7 +4,7 @@
 <meta name="description" content="$Up.MetaDescription">
 
 <link rel="canonical" href="<% if $Canonical %>$AbsoluteBaseURL{$Canonical}/<% else %>$Up.PageURL<% end_if %>">
-<meta name="robots" content="<% if $Robots %>$Robots<% else %>index,follow<% end_if %>">
+<meta name="robots" content="<% if $Robots %>$Robots<% else %>noindex,nofollow<% end_if %>">
 
 <% if not $HideSocial %>
 
