@@ -42,7 +42,7 @@ class SEO_ModelAdmin extends ModelAdmin {
      *
      * @config int $menu_priority Menu priority
      **/
-    private static $menu_priority = 80;
+    private static $menu_priority = 101;
 
     /**
      * @since version 1.2
