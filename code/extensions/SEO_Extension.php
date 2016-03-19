@@ -104,31 +104,31 @@ class SEO_Extension extends DataExtension {
      **/
     public function updateCMSFields(FieldList $fields) 
     {
-        $fields->addFieldToTab('Root.SEO', TextField::create('Title'));
+        $fields->addFieldToTab('Root.PageSEO', $this->preview());
+        $fields->addFieldToTab('Root.PageSEO', TextField::create('MetaTitle'));
+        $fields->addFieldToTab('Root.PageSEO', TextareaField::create('MetaDescription'));
+        $fields->addFieldToTab('Root.PageSEO', TextField::create('Title'));
 
-        $fields->addFieldToTab('Root.SEO', HeaderField::create(Config::inst()->get('SEO_Extension','title')));
-        $fields->addFieldToTab('Root.SEO', $this->preview());
-        $fields->addFieldToTab('Root.SEO', TextField::create('MetaTitle'));
-        $fields->addFieldToTab('Root.SEO', TextareaField::create('MetaDescription'));
+        $fields->addFieldToTab('Root.PageSEO', HeaderField::create(false, 'Indexing', 2));
+        $fields->addFieldToTab('Root.PageSEO', TextField::create('Canonical'));
+        $fields->addFieldToTab('Root.PageSEO', DropdownField::create('Robots', 'Robots', SEO_FieldValues::IndexRules()));
+        $fields->addFieldToTab('Root.PageSEO', NumericField::create('Priority'));
+        $fields->addFieldToTab('Root.PageSEO', DropdownField::create('ChangeFrequency', 'Change Frequency', SEO_FieldValues::SitemapChangeFrequency()));
 
-        $fields->addFieldToTab('Root.SEO', HeaderField::create('Indexing'));
-        $fields->addFieldToTab('Root.SEO', TextField::create('Canonical'));
-        $fields->addFieldToTab('Root.SEO', DropdownField::create('Robots', 'Robots', SEO_FieldValues::IndexRules()));
+        $fields->addFieldToTab('Root.PageSEO', HeaderField::create('Social Meta'));
+        $fields->addFieldToTab('Root.PageSEO', CheckboxField::create('HideSocial','Hide Social Meta?'));
+        $fields->addFieldToTab('Root.PageSEO', DropdownField::create('OGtype', 'Open Graph Type', SEO_FieldValues::OGtype()));
+        $fields->addFieldToTab('Root.PageSEO', DropdownField::create('OGlocale', 'Open Graph Locale', SEO_FieldValues::OGlocale()));
+        $fields->addFieldToTab('Root.PageSEO', DropdownField::create('TwitterCard', 'Twitter Card', SEO_FieldValues::TwitterCardTypes()));
+        $fields->addFieldToTab('Root.PageSEO', $this->SharingImage());
 
-        $fields->addFieldToTab('Root.SEO', HeaderField::create('Social Meta'));
-        $fields->addFieldToTab('Root.SEO', CheckboxField::create('HideSocial','Hide Social Meta?'));
-        $fields->addFieldToTab('Root.SEO', DropdownField::create('OGtype', 'Open Graph Type', SEO_FieldValues::OGtype()));
-        $fields->addFieldToTab('Root.SEO', DropdownField::create('OGlocale', 'Open Graph Locale', SEO_FieldValues::OGlocale()));
-        $fields->addFieldToTab('Root.SEO', DropdownField::create('TwitterCard', 'Twitter Card', SEO_FieldValues::TwitterCardTypes()));
-        $fields->addFieldToTab('Root.SEO', $this->SharingImage());
+        $fields->addFieldToTab('Root.PageSEO', HeaderField::create('Other Meta Tags'));
+        $fields->addFieldToTab('Root.PageSEO', $this->OtherHeadTags());
 
-        $fields->addFieldToTab('Root.SEO', HeaderField::create('Other Meta'));
-        $fields->addFieldToTab('Root.SEO', $this->OtherHeadTags());
+        $fields->addFieldToTab('Root.PageSEO', HeaderField::create('Sitemap Images'));
+        $fields->addFieldToTab('Root.PageSEO', $this->SitemapImagesGrid());
 
-        $fields->addFieldToTab('Root.SEO', HeaderField::create('Sitemap'));
-        $fields->addFieldToTab('Root.SEO', NumericField::create('Priority'));
-        $fields->addFieldToTab('Root.SEO', DropdownField::create('ChangeFrequency', 'Change Frequency', SEO_FieldValues::SitemapChangeFrequency()));
-        $fields->addFieldToTab('Root.SEO', $this->SitemapImagesGrid());
+        $fields->addFieldToTab('Root.PageSEO', LiteralField::create(false, '<br><br>Silverstripe SEO v1.0'));
 
         return $fields;
     }
@@ -216,6 +216,7 @@ class SEO_Extension extends DataExtension {
         );
 
         // remove the autocompleter so existing tags cannot be attached to the current page
+        $grid->getConfig()->removeComponentsByType('GridFieldToolbarHeader');
         $grid->getConfig()->removeComponentsByType('GridFieldAddExistingAutocompleter');
 
         return $grid;
@@ -238,6 +239,7 @@ class SEO_Extension extends DataExtension {
         );
 
         $grid->getConfig()->removeComponentsByType('GridFieldAddNewButton');
+        $grid->getConfig()->removeComponentsByType('GridFieldToolbarHeader');
 
         return $grid;
     }

@@ -213,7 +213,8 @@ final class SEO {
      **/
     public static function setDynamicTitle($text, $object, $separator = 'and')
     {
-        self::$title = self::setDynamic($text, $object, $separator);
+        $meta = new SEO_DynamicMeta($text, $object, $separator);
+        return $meta->create();
     }
 
     /**
@@ -229,7 +230,8 @@ final class SEO {
      **/
     public static function setDynamicDescription($text, $object, $separator = 'and')
     {
-        self::$description = self::setDynamic($text, $object, $separator);
+        $meta = new SEO_DynamicMeta($text, $object, $separator);
+        return $meta->create();
     }
 
     /**
@@ -342,68 +344,6 @@ final class SEO {
     private static function getCurrentPage()
     {
         if(self::$page == null) self::$page = Controller::curr();
-    }
-
-    /**
-     * Set a dynamic Meta tag populated with an object properties
-     *
-     * @since version 1.0
-     *
-     * @param string $text   Meta text with placeholders [Value]
-     * @param object $object The object to use
-     * @param string $seperator    Separator to use before the last value when using multiple values
-     *
-     * @return string Returns text with the placeholders replaced with object properties
-     **/
-    private static function setDynamic($text, $object, $seperator)
-    {
-        preg_match_all("/\[([^\]]*)\]/",$text,$matches, PREG_PATTERN_ORDER);
-
-        // get all matching placeholders
-        $placeholders = $matches[1];
-
-        // loop through placeholders
-        foreach($placeholders as $value){
-            // check for relation placeholders with a .
-            if(strpos($value,".") !== false){
-                $relations = explode('.',$value);
-
-                // get the relation name
-                $many = $relations[0];
-
-                // get the relation property name
-                $property = $relations[1];
-
-                // loop the relation and assign the necessary property to an array
-                if($object->hasMany($many) || $object->manyMany($many)){
-                    $values = array();
-                    foreach($object->$many() as $one){
-                        $values[] = trim($one->$property);
-                    }
-                    $last = array_pop($values);
-                    $first = implode(', ',$values);
-
-                    // if only one property use it otherwise add the "and" separator
-                    if($first == NULL){
-                        $result = $last;
-                    } else {
-                        $result = array();
-                        $result[] = $first;
-                        $result[] = ', '.$seperator.' ';
-                        $result[] = $last;
-                        $result = implode($result);
-                    }
-                } else {
-                    user_error('Invalid relations in dynamic SEO tag');
-                }
-                
-            } else {
-                $result = trim($object->$value);
-            }
-            // replace the placeholder with the new value
-            $text = trim(str_replace('['.htmlspecialchars($value).']', $result, $text));
-        }
-        return $text;
     }
 
     /**

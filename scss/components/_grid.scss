@@ -5,18 +5,18 @@
     width: 8px;
 
     @include radius(6px);
-    @include box-shadow;
+    @include box-shadow(0 0 4px 0 #8C8C8C);
 
     &.true {
-        background-color: #08C518;
+        background-color: #3EFF57;
     }
 
     &.false {
-        background-color: #C50808;
+        background-color: #7D7D7D;
     }
 
     &.warning {
-        background-color: #FF9D00;
+        background-color: #1798C1;
     }
 }
 
