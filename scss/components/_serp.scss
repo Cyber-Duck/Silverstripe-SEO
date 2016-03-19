@@ -5,17 +5,11 @@
     line-height: 16px;
     margin: 0;
     outline: none;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
-    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgi…gd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
-    background-size: 100%;
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #eaeaea), color-stop(5%, #ffffff));
-    background-image: -moz-linear-gradient(#eaeaea, #ffffff 5%);
-    background-image: -webkit-linear-gradient(#eaeaea, #ffffff 5%);
-    background-image: linear-gradient(#eaeaea, #ffffff 5%);
+    background-image: none;
     padding: 30px 0;
     width: 694px;
+
+    @include radius(0px);
 
     .seo-serp-inside {
         height: 76px;
