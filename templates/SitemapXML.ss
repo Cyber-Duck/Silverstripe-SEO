@@ -16,11 +16,6 @@
     <image:image>
         <image:loc>$Top.URL/{$Filename}</image:loc>
         <image:title>$Top.Encode($Title)</image:title>
-
-        <% if $Caption %>
-        <image:caption>$Top.Encode($Caption)</image:caption>
-        <% end_if %>
-        
     </image:image>
 
     <% end_loop %>

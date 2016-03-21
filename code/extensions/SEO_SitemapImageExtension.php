@@ -7,16 +7,14 @@
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEO_SitemapFileExtension extends DataExtension {
+class SEO_SitemapImageExtension extends DataExtension {
 
     /**
      * @since version 1.2
      *
      * @config array $db Add extra fields to the image object
      **/
-    private static $db = array(
-        'Caption' => 'Varchar(512)'
-    );
+    private static $db = array();
 
     /**
      * @since version 1.2
@@ -27,8 +25,7 @@ class SEO_SitemapFileExtension extends DataExtension {
         'Thumbnail' => '',
         'Name'      => 'Name',
         'Created'   => 'Created',
-        'Title'     => 'Title',
-        'Caption'   => 'Caption'
+        'Title'     => 'Title'
     );
 
     /**
@@ -46,8 +43,6 @@ class SEO_SitemapFileExtension extends DataExtension {
             $fields->removeByName('Name');
             $fields->removeByName('ParentID');
             $fields->removeByName('OwnerID');
-
-            $fields->addFieldToTab('Root.Main', TextField::create('Caption'));
         }
         return $fields;
     }
