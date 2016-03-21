@@ -104,6 +104,9 @@ class SEO_Extension extends DataExtension {
      **/
     public function updateCMSFields(FieldList $fields) 
     {
+        $fields->removeByName('HeadTags');
+        $fields->removeByName('SitemapImages');
+
         $fields->addFieldToTab('Root.PageSEO', $this->preview());
         $fields->addFieldToTab('Root.PageSEO', TextField::create('MetaTitle'));
         $fields->addFieldToTab('Root.PageSEO', TextareaField::create('MetaDescription'));
@@ -239,7 +242,9 @@ class SEO_Extension extends DataExtension {
         );
 
         $grid->getConfig()->removeComponentsByType('GridFieldAddNewButton');
+        $grid->getConfig()->removeComponentsByType('GridFieldAddExistingAutocompleter');
         $grid->getConfig()->removeComponentsByType('GridFieldToolbarHeader');
+        $grid->getConfig()->addComponent(new SEO_SitemapImageAutocompleter('before'));
 
         return $grid;
     }
