@@ -7,7 +7,7 @@
 <url>
     
     <loc>$Top.URL{$Link}</loc>
-    <lastmod>$LastEdited</lastmod>
+    <lastmod>$Top.SitemapDate($LastEdited)</lastmod>
     <changefreq>$ChangeFrequency</changefreq>
     <priority>$Priority</priority>
 
