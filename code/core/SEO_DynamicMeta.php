@@ -40,6 +40,8 @@ class SEO_DynamicMeta {
     {
     	$object = $this->object;
 
+        if(!is_object($object)) return;
+
         foreach($this->placeholders() as $value){
             // check for relation placeholders with a .
             if(strpos($value,".") !== false){

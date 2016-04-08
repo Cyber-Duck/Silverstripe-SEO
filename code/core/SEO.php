@@ -214,7 +214,7 @@ final class SEO {
     public static function setDynamicTitle($text, $object, $separator = 'and')
     {
         $meta = new SEO_DynamicMeta($text, $object, $separator);
-        return $meta->create();
+        self::setTitle($meta->create());
     }
 
     /**
@@ -231,7 +231,7 @@ final class SEO {
     public static function setDynamicDescription($text, $object, $separator = 'and')
     {
         $meta = new SEO_DynamicMeta($text, $object, $separator);
-        return $meta->create();
+        self::setDescription($meta->create());
     }
 
     /**
