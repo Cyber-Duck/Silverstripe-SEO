@@ -4,33 +4,8 @@
     width: 60px;
 }
 
-li[aria-controls="Root_PageSEO"] {
-	height: 40px !important;
-	line-height: 40px !important;
-	padding: 0 !important;
-	position: absolute !important;
-	right: 0 !important;
-	top: 60px !important;
-
-	&.ui-state-active {
-		font-size: 0px;
-
-		a {
-			padding: 0;
-			width: 40px;
-		}
-	}
-
-	a {
-		background: #000 url(/seo/images/menu-icons/16x16/seo.png) no-repeat 10px center !important;
-		color: #FFF !important;
-		font-weight: normal !important;
-		height: 40px;
-		line-height: 40px !important;
-		padding: 0;
-		position: absolute;
-		right: 0 !important;
-		text-align: right;
-		width: 75px;
+#Root_PageSEO .ss-gridfield-table {
+	tr.title {
+		display: none;
 	}
 }
