@@ -219,7 +219,6 @@ class SEO_Extension extends DataExtension {
         );
 
         // remove the autocompleter so existing tags cannot be attached to the current page
-        $grid->getConfig()->removeComponentsByType('GridFieldToolbarHeader');
         $grid->getConfig()->removeComponentsByType('GridFieldAddExistingAutocompleter');
 
         return $grid;
@@ -243,7 +242,6 @@ class SEO_Extension extends DataExtension {
 
         $grid->getConfig()->removeComponentsByType('GridFieldAddNewButton');
         $grid->getConfig()->removeComponentsByType('GridFieldAddExistingAutocompleter');
-        $grid->getConfig()->removeComponentsByType('GridFieldToolbarHeader');
         $grid->getConfig()->addComponent(new SEO_SitemapImageAutocompleter('before'));
 
         return $grid;
