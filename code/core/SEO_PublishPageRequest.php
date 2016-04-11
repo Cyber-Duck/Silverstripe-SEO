@@ -27,18 +27,20 @@ class SEO_PublishPageRequest extends GridFieldDetailForm_ItemRequest {
     {
         $form = parent::ItemEditForm();
 
-        $actions = $form->Actions();
+        if($this->record instanceof Page){
 
-        $actions->removeByName('action_doSave');
-        $actions->removeByName('action_doDelete');
+            $actions = $form->Actions();
 
-        $button = FormAction::create('doPublish');
-        $button->setTitle('Save Live Page');
-        $button->addExtraClass('ss-ui-action-constructive ui-button-text-icon-primary');
-        $actions->push($button);
+            $actions->removeByName('action_doSave');
+            $actions->removeByName('action_doDelete');
 
-        $form->setActions($actions);
+            $button = FormAction::create('doPublish');
+            $button->setTitle('Save Page');
+            $button->addExtraClass('ss-ui-action-constructive ui-button-text-icon-primary');
+            $actions->push($button);
 
+            $form->setActions($actions);
+        }
         return $form;
     }
 
