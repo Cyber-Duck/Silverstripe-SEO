@@ -149,14 +149,14 @@ class SEO_Extension extends DataExtension {
     {
         if(Controller::curr() instanceof SEO_ModelAdmin){
             $summary_fields = array(
+                'GridMetaTitle'        => 'T',
+                'GridMetaDescription'  => 'D',
+                'GridSocial'           => 'S',
                 'GridCreated'          => 'Created',
                 'GridTitle'            => 'Title',
                 'Robots'               => 'Robots',
                 'Priority'             => 'Priority',
-                'ChangeFrequency'      => 'Change Freq',
-                'GridMetaTitle'        => 'T',
-                'GridMetaDescription'  => 'D',
-                'GridSocial'           => 'S'
+                'ChangeFrequency'      => 'Change Freq'
             );
             Config::inst()->update($this->owner->class, 'summary_fields', $summary_fields);
 
