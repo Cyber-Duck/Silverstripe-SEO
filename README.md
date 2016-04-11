@@ -3,6 +3,22 @@ A Silverstripe module to optimise the Meta, crawling, indexing, and sharing of y
 
 Author: [Andrew Mc Cormack](https://github.com/Andrew-Mc-Cormack)
 
+The SEO extension adds the following fields to a Page or model object
+  - Google SERP preview
+  - Meta Title
+  - Meta Description
+  - Title
+  - Canonical
+  - Robots
+  - Sitemap priority
+  - Sitemap change frequency
+  - Facebook open graph type
+  - Facebook open graph locale
+  - Twitter card type
+  - Social sharing image
+  - Other Meta tags (gridfield)
+  - XML sitemap images (gridfield)
+
 ## Guides
   
   - [Installation](/docs/installation)
