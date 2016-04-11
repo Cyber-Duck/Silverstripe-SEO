@@ -18,8 +18,8 @@ SEO_ModelAdmin:
     - ErrorPage
 
   meta_title:
-      min: 50
-      max: 70
+      min: 40
+      max: 60
       default: 'Your Meta Title Here - What Your Page is About'
   meta_description:
       min: 100
