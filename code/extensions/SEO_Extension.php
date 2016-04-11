@@ -178,10 +178,26 @@ class SEO_Extension extends DataExtension {
 
         $preview = Controller::curr()->customise(array(
             'DefaultTitle' => $title['default'],
+            'DefaultPath' => $this->SERPLink(),
             'DefaultDescription' => $description['default']
         ))->renderWith('MetaPreview');
 
         return LiteralField::create('Preview', $preview);
+    }
+    
+    /**
+     * Get the SERP link
+     *
+     * @since version 1.0
+     *
+     * @return string
+     **/
+    private function SERPLink()
+    {
+        if($this->owner instanceof Page){
+            return Director::absoluteBaseURL().substr($this->owner->link(),1);
+        }
+        return Director::absoluteBaseURL().$this->owner->URLSegment;
     }
     
     /**
