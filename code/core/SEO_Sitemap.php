@@ -110,16 +110,38 @@ class SEO_Sitemap {
     private function getPages()
     {
         $pages = new ArrayList();
-        foreach($this->objects as $object => $value){
+        $config = Config::inst()->get('SEO_Sitemap','objects');
 
-            $object = $object::get();
+        foreach($this->objects as $className => $value){
+
+            $object = $className::get();
 
             foreach($object as $page){
-                $pages->push($page);
+
+                if($page->Robots != 'noindex,nofollow'){
+                    if(!$page instanceof Page){
+                        $page->Link = $this->getPrefix($className, $page);
+                    }
+                    $pages->push($page);
+                }
             }
         }
         $pages->Sort('Priority DESC');
         return $pages;
+    }
+
+    /**
+     * Get the URL link prefix from the YML config setting
+     *
+     * @since version 1.2
+     *
+     * @return string
+     **/
+    private function getPrefix($name, $page)
+    {
+        if(isset($this->objects[$name]['prefix'])){
+            return "/".$this->objects[$name]['prefix']."/".$page->URLSegment."/";
+        }
     }
 
     /**
@@ -141,8 +163,7 @@ class SEO_Sitemap {
             foreach($this->objects as $className => $config){
                 if($config['parent_id'] == $page->ID && $config['parent_id'] !== 0){
                     $pages = $className::get()->sort('Priority DESC');
-                    $prefix = isset($config['prefix']) ? $config['prefix'] : false;
-                    $this->getObjectPages($pages, $prefix);
+                    $this->getObjectPages($pages);
                 }
             }
             $children = Page::get()->filter(array(
@@ -167,14 +188,12 @@ class SEO_Sitemap {
      *
      * @return void
      **/
-    private function getObjectPages($pages, $prefix = false)
+    private function getObjectPages($pages)
     {
         $this->html .= '<ul>';
 
-        $prefix = $prefix !== false ? '/'.$prefix.'/' : '';
-
         foreach($pages as $page):
-            $this->html .= '<li><a href="'.$this->url.$prefix.$page->URLSegment.'">'.$page->Title.'</a></li>';
+            $this->html .= '<li><a href="'.$this->url.$this->getPrefix($page->ClassName, $page).'">'.$page->Title.'</a></li>';
         endforeach;
 
         $this->html .= '</ul>';
