@@ -336,9 +336,9 @@ class SEO_Extension extends DataExtension {
      **/
     public function GridSocial()
     {
-        $class = $this->owner->HideSocial != 1 ? 'true' : 'false';
+        $class = $this->owner->HideSocial != 1 ? 'delete' : 'accept';
 
-        return $this->getGridSpan('<span class="seo-light '.$class.'"></span>');
+        return $this->getGridSpan('<span class="ui-button-icon-primary ui-icon btn-icon-'.$class.'"></span>');
     }
 
     /**
@@ -356,11 +356,14 @@ class SEO_Extension extends DataExtension {
     {
         $characters = strlen($text);
 
-        $class = $characters > $min && $characters < $max ? 'true' : 'warning';
-
-        if(trim($text) == '' || $characters > $max) $class = 'false';
-
-        return $this->getGridSpan('<span class="seo-light '.$class.'"></span>');
+        if(trim($text) == ''){
+            $class = "cross";
+        } elseif($characters < $min || $characters > $max) {
+            $class = "delete";
+        } else {
+            $class = "accept";
+        }
+        return $this->getGridSpan('<span class="ui-button-icon-primary ui-icon btn-icon-'.$class.'"></span>');
     }
 
     /**
