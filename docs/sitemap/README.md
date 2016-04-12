@@ -28,7 +28,7 @@ class SitemapPage_Controller extends ContentController {
 }
 ```
 
-In your template you can call this function to generate a <ul> list containing all your sitemap pages nested correctly.
+In your template you can call this function to generate a ul list containing all your sitemap pages nested correctly.
 
 ```html
 <div id="sitemap">
