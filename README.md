@@ -1,4 +1,7 @@
 # Silverstripe SEO
+
+![stability-stable](https://img.shields.io/badge/stability-stable-green.svg)
+
 A Silverstripe module to optimise the Meta, crawling, indexing, and sharing of your website content
 
 Author: [Andrew Mc Cormack](https://github.com/Andrew-Mc-Cormack)
