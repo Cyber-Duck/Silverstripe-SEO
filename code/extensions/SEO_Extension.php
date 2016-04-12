@@ -47,9 +47,6 @@ class SEO_Extension extends DataExtension {
         'SitemapImages'   => 'File'
     );
 
-
-    private static $default_sort = 'Priority DESC';
-
     /**
      * @since version 1.0
      *
