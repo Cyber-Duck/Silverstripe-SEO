@@ -20,28 +20,21 @@
 		input {
 
 			&.text {
-				background: #EAEAEA;
-
 				@include radius(2px);
 			}
 		}
 
 		textarea {
-			background: #EAEAEA;
-
 			@include radius(0px);
 		}
 
 		.chzn-container-single {
 			.chzn-single {
-				background: #EAEAEA;
-
 				@include radius(2px);
 			}
 		}
 
 		.ss-ui-button {
-
 			@include radius(0px);
 
 			&.ss-ui-action-constructive {
