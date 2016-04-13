@@ -104,10 +104,14 @@ class SEO_Extension extends DataExtension {
         $fields->removeByName('HeadTags');
         $fields->removeByName('SitemapImages');
 
+        if(!$this->owner instanceof Page) {
+            $fields->addFieldToTab('Root.Page', HeaderField::create('Page'));
+            $fields->addFieldToTab('Root.Page', TextField::create('Title','Page name'));
+        }
+
         $fields->addFieldToTab('Root.PageSEO', $this->preview());
         $fields->addFieldToTab('Root.PageSEO', TextField::create('MetaTitle'));
         $fields->addFieldToTab('Root.PageSEO', TextareaField::create('MetaDescription'));
-        $fields->addFieldToTab('Root.PageSEO', TextField::create('Title'));
 
         $fields->addFieldToTab('Root.PageSEO', HeaderField::create(false, 'Indexing', 2));
         $fields->addFieldToTab('Root.PageSEO', TextField::create('Canonical'));
