@@ -10,7 +10,7 @@
 class SEO_HeadTag extends DataObject {
 
     /**
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @config array $db Simple name, value, and type fields for a Meta tag
      **/
@@ -21,7 +21,7 @@ class SEO_HeadTag extends DataObject {
     );
 
     /**
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @config array $summary_fields Show all fields in the Grid field
      **/
@@ -32,21 +32,21 @@ class SEO_HeadTag extends DataObject {
     );
 
     /**
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @config string $default_sort Sort tags by name by default
      **/
     private static $default_sort = 'Name';
 
     /**
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @config string $singular_name Singular English name
      **/
     private static $singular_name = 'Meta Tag';
 
     /**
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @config string $plural_name Plural English name
      **/
@@ -55,7 +55,7 @@ class SEO_HeadTag extends DataObject {
     /**
      * Add the Meta tag CMS fields
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return FieldList Return the current page fields
      **/
@@ -79,7 +79,7 @@ class SEO_HeadTag extends DataObject {
     /**
      * Return an array of Meta tag type values
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return array Returns an array of name value Meta tags
      **/

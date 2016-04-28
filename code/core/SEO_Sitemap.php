@@ -10,28 +10,28 @@
 class SEO_Sitemap {
 
     /**
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @var array $objects An array of objects with pages to include in the sitemap
      **/
     private $objects;
 
     /**
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @var string $url The URL to use for the current sitemap page
      **/
     private $url;
 
     /**
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @var string $xml The XML to output
      **/
     private $xml;
 
     /**
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @var string $html The HTML to output
      **/
@@ -40,7 +40,7 @@ class SEO_Sitemap {
     /**
      * Initialise config
      *
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @return void
      **/
@@ -54,7 +54,7 @@ class SEO_Sitemap {
     /**
      * Return an encoded string compliant with XML sitemap standards
      *
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @param string $value A sitemap value to encode
      *
@@ -68,7 +68,7 @@ class SEO_Sitemap {
     /**
      * Return the sitemap XML
      *
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @return void
      **/
@@ -83,7 +83,7 @@ class SEO_Sitemap {
     /**
      * Return the sitemap HTML
      *
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @return string The sitemap HTML
      **/
@@ -103,7 +103,7 @@ class SEO_Sitemap {
     /**
      * Merge an objects pages to the current page set
      *
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @return string
      **/
@@ -133,7 +133,7 @@ class SEO_Sitemap {
     /**
      * Get the URL link prefix from the YML config setting
      *
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @return string
      **/
@@ -147,7 +147,7 @@ class SEO_Sitemap {
     /**
      * Iterate through child pages
      *
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @param $pages
      *
@@ -182,7 +182,7 @@ class SEO_Sitemap {
     /**
      * 
      *
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @param $pages
      *

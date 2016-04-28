@@ -11,63 +11,63 @@
 final class SEO {
 
     /**
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @static self $instance The SEO instance
      **/
     private static $instance;
 
     /**
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @static string $title Page Meta title
      **/
     private static $title;
 
     /**
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @static string $description Page Meta description
      **/
     private static $description;
 
     /**
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @static string $pageURL Page URL
      **/
     private static $pageURL;
 
     /**
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @static object $page Current Page object
      **/
     private static $page;
 
     /**
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @static SEO_HeadTags $tags Other head tags object
      **/
     private static $tags;
 
     /**
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @static SEO_Sitemap $sitemap Sitemap object
      **/
     private static $sitemap;
 
     /**
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @static SEO_Pagination $pagination Pagination Meta object
      **/
     private static $paginaton;
 
     /**
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @static string $html The Meta tags HTML output
      **/
@@ -76,7 +76,7 @@ final class SEO {
     /**
      * Initialise and return the SEO object
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return self Return the SEO instance
      **/
@@ -100,7 +100,7 @@ final class SEO {
      * Render and return all head tags. All the different Meta tags are populated
      * into the HeadTags .ss template
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return string The render Meta tags HTML
      **/
@@ -122,7 +122,7 @@ final class SEO {
     /**
      * Return the HTML sitemap
      *
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @return string
      **/
@@ -134,7 +134,7 @@ final class SEO {
     /**
      * Return the XML sitemap
      *
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @return string
      **/
@@ -146,7 +146,7 @@ final class SEO {
     /**
      * Set the current page URL for use within tags
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @param string  $url The URL to set
      * @param boolean $url Escape the output
@@ -161,7 +161,7 @@ final class SEO {
     /**
      * Set the current page object
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @param object $page The object to set as the current page
      *
@@ -175,7 +175,7 @@ final class SEO {
     /**
      * Set the current Meta title value
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @param string $title The Meta title to set
      *
@@ -189,7 +189,7 @@ final class SEO {
     /**
      * Set the current Meta description value
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @param string $description The Meta description to set
      *
@@ -203,7 +203,7 @@ final class SEO {
     /**
      * Set a dynamic Meta title tag using an object and placeholders
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @param string $text      The Meta text string
      * @param object $object    The object to use
@@ -220,7 +220,7 @@ final class SEO {
     /**
      * Set a dynamic Meta description tag using an object and placeholders
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @param string $text      The Meta text string
      * @param object $object    The object to use
@@ -237,7 +237,7 @@ final class SEO {
     /**
      * Set rel and prev Meta tags
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @param string $total   Pagination total
      * @param int    $perPage Pagination items per page
@@ -256,7 +256,7 @@ final class SEO {
     /**
      * Get the current page URL
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return string Returns the full page URL
      **/
@@ -268,7 +268,7 @@ final class SEO {
     /**
      * Get the current page object
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return object Returns the current page object
      **/
@@ -280,7 +280,7 @@ final class SEO {
     /**
      * Get the current page title
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return string Returns an escaped Meta title value
      **/
@@ -295,7 +295,7 @@ final class SEO {
     /**
      * Get the current page description
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return string Returns an escaped Meta description value
      **/
@@ -310,7 +310,7 @@ final class SEO {
     /**
      * Get the page pagination Meta tags
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return string Returns the rel prev and next Meta tags HTML
      **/
@@ -325,7 +325,7 @@ final class SEO {
     /**
      * Get the current Grid Field Meta tags
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return string Returns tags generated from the other Meta tags Grid Field
      **/
@@ -337,7 +337,7 @@ final class SEO {
     /**
      * Check if there is a current page object, if not use the current controller page
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return void
      **/
@@ -349,7 +349,7 @@ final class SEO {
     /**
      * Private constructor
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return void
      **/
@@ -358,7 +358,7 @@ final class SEO {
     /**
      * Private clone
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return void
      **/
@@ -367,7 +367,7 @@ final class SEO {
     /**
      * Private wakeup
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return void
      **/

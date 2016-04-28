@@ -10,70 +10,70 @@
 class SEO_Pagination {
 
     /**
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @var string $url The pagination URL
      **/
     private $url;
 
     /**
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @var string $html The admin SEO panel heading
      **/
     private $html;
 
     /**
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @var int $total The total number of items across all pages
      **/
     private $total = 0;
 
     /**
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @var int $perPage The number of paginated items per page
      **/
     private $perPage = 12;
 
     /**
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @var string $param The admin SEO panel heading
      **/
     private $param = 'start';
 
     /**
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @var int $paramCount The URL pagination param value
      **/
     private $paramCount = 0;
 
     /**
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @var int $currentPage The current pagination page number
      **/
     private $currentPage = 1;
 
     /**
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @var int $pages The number of paginated pages
      **/
     private $pages = 0;
 
     /**
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @var array $allowed An array of URL params to whitelist for inclusion use within pagination URLs
      **/
     private $allowed = array();
 
     /**
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @var array $queryStrings An array of query strings to use within pagination URLs
      **/
@@ -82,7 +82,7 @@ class SEO_Pagination {
     /**
      * Set the pagination URL
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @param string $url
      *
@@ -98,7 +98,7 @@ class SEO_Pagination {
     /**
      * Set the pagination total
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @param int $total The total number of pages to set
      *
@@ -114,7 +114,7 @@ class SEO_Pagination {
     /**
      * Set the pagination items per page
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @param int $perPage The number of items per page to set
      *
@@ -130,7 +130,7 @@ class SEO_Pagination {
     /**
      * Set the pagination URL parameter
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @param string $param The pagination URL param to set
      *
@@ -146,7 +146,7 @@ class SEO_Pagination {
     /**
      * Set URL parameters and their values to whitelist and include in pagination URLs
      *
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @param string | array $param The pagination URL param(s) name(s)
      *
@@ -164,7 +164,7 @@ class SEO_Pagination {
     /**
      * Get the pagination HTML
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return self Returns the pagination Meta tags HTML
      **/
@@ -176,7 +176,7 @@ class SEO_Pagination {
     /**
      * Set values, check validation, and build the pagination
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return self Returns the current class instance
      **/
@@ -203,7 +203,7 @@ class SEO_Pagination {
     /**
      * Set the pagination GET URL page parameter
      *
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @return void
      **/
@@ -215,7 +215,7 @@ class SEO_Pagination {
     /**
      * Set the current pagination page
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return void
      **/
@@ -227,7 +227,7 @@ class SEO_Pagination {
     /**
      * Set the total number of pages
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return void
      **/
@@ -246,7 +246,7 @@ class SEO_Pagination {
      * If the count param number is a multiple of the per page number
      * If the count param is a number
      *
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @return boolean True for success or false to initiate 404 redirect
      **/
@@ -273,7 +273,7 @@ class SEO_Pagination {
     /**
      * Set the pagination URL query string
      *
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @return void
      **/
@@ -293,7 +293,7 @@ class SEO_Pagination {
     /**
      * Set the pagination rel prev Meta tag
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return void
      **/
@@ -313,7 +313,7 @@ class SEO_Pagination {
     /**
      * Set the pagination rel next Meta tag
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return void
      **/
@@ -333,7 +333,7 @@ class SEO_Pagination {
      *
      * @param string $param The pagination URL query string
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return string Return the URL string to use in the pagination Meta tags
      **/
@@ -352,7 +352,7 @@ class SEO_Pagination {
     /**
      * 404 redirect
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @throws SS_HTTPResponse_Exception Return a 404 response
      **/

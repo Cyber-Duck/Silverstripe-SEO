@@ -10,14 +10,14 @@
 class SEO_HeadTags {
 
     /**
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @var object $model The current page object
      **/
     private $model;
 
     /**
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @var string $html The Meta tag HTML
      **/
@@ -26,7 +26,7 @@ class SEO_HeadTags {
     /**
      * Set the current page object
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @param object $page A page object to set
      *
@@ -42,7 +42,7 @@ class SEO_HeadTags {
     /**
      * Get the Meta tag HTML
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return string Returns the other Meta tags GridField HTMl
      **/
@@ -54,7 +54,7 @@ class SEO_HeadTags {
     /**
      * Build the Meta tags HTML
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return self Returns the current instance
      **/
@@ -109,7 +109,7 @@ class SEO_HeadTags {
     /**
      * Create a <meta> tag with a name attribute
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @param string $name  The name of the tag
      * @param string $value The value of the tag
@@ -124,7 +124,7 @@ class SEO_HeadTags {
     /**
      * Create a <link> tag
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @param string $name  The name of the tag
      * @param string $value The value of the tag
@@ -139,7 +139,7 @@ class SEO_HeadTags {
     /**
      * Create a <meta> tag with a property attribute
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @param string $name  The name of the tag
      * @param string $value The value of the tag
@@ -154,7 +154,7 @@ class SEO_HeadTags {
     /**
      * Create a <meta> tag with a http-equiv attribute
      *
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @param string $name  The name of the tag
      * @param string $value The value of the tag

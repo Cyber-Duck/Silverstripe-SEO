@@ -10,22 +10,42 @@
 
 class SEO_DynamicMeta {
 
+    /**
+     * @since version 1.0.0
+     *
+     * @var string $text A string of Meta text
+     **/
 	private $text;
 
+    /**
+     * @since version 1.0.0
+     *
+     * @var object $object An object with the SEO extension attached
+     **/
 	private $object;
 
+    /**
+     * @since version 1.0.0
+     *
+     * @var string $seperator Seperator string between looped relations
+     **/
 	private $seperator;
 
+    /**
+     * @since version 1.0.0
+     *
+     * @var array $placeholders Extracted placeholders from Meta text string
+     **/
 	private $placeholders;
 
 	/**
      * Set a dynamic Meta tag populated with an object properties
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
-     * @param string $text   Meta text with placeholders [Value]
-     * @param object $object The object to use
-     * @param string $seperator    Separator to use before the last value when using multiple values
+     * @param string $text      Meta text with placeholders [Value]
+     * @param object $object    The object to use
+     * @param string $seperator Separator to use before the last value when using multiple values
      *
      * @return string Returns text with the placeholders replaced with object properties
      **/
@@ -36,6 +56,13 @@ class SEO_DynamicMeta {
 		$this->seperator = $seperator;
 	}
 
+    /**
+     * Replace the Meta text placeholders with object properties
+     *
+     * @since version 1.0.0
+     *
+     * @return string Returns Meta text
+     **/
     public function create()
     {
     	$object = $this->object;
@@ -85,6 +112,13 @@ class SEO_DynamicMeta {
         return $this->text;
     }
 
+    /**
+     * This method uses regex to capture any [placeholders]
+     *
+     * @since version 1.0.0
+     *
+     * @return array Returns an array of extracted placeholders
+     **/
     private function placeHolders()
     {
     	preg_match_all("/\[([^\]]*)\]/", $this->text, $matches, PREG_PATTERN_ORDER);

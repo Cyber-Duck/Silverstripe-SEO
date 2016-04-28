@@ -10,14 +10,14 @@
 class SEO_SitemapImageExtension extends DataExtension {
 
     /**
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @config array $db Add extra fields to the image object
      **/
     private static $db = array();
 
     /**
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @config array $summary_fields Use better custom summary fields
      **/
@@ -31,7 +31,7 @@ class SEO_SitemapImageExtension extends DataExtension {
     /**
      * Add extra fields to a File object if in SEO Admin
      *
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @param string $fields The current FieldList object
      *
@@ -52,7 +52,7 @@ class SEO_SitemapImageExtension extends DataExtension {
      *
      * @param array $fields The current summary fields
      *
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @return void
      **/
@@ -68,7 +68,7 @@ class SEO_SitemapImageExtension extends DataExtension {
     /**
      * Add an image preview to the grid field
      *
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @return string
      **/

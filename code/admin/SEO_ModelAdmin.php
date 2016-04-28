@@ -10,56 +10,56 @@
 class SEO_ModelAdmin extends ModelAdmin {
 
     /**
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @config boolean $showImportForm Hide the import form for SEO admin
      **/
     public $showImportForm = false;
 
     /**
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @config string $menu_title The main menu title
      **/
     private static $menu_title = 'SEO';
 
     /**
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @config string $url_segment The CMS SEO admin URL segment
      **/
     private static $url_segment = 'seo-admin';
 
     /**
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @config string $menu_icon The main menu icon
      **/
     private static $menu_icon = 'seo/images/menu-icons/16x16/seo.png';
 
     /**
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @config int $menu_priority Menu priority
      **/
     private static $menu_priority = 101;
 
     /**
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @config int $page_length Set to 50 to easily examine a large set of pages
      **/
     private static $page_length = 50;
 
     /**
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @config array $managed_models Default none as they are set later
      **/
     private static $managed_models = array();
 
     /**
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @config string $model_importers Disable model imports in SEO admin
      **/
@@ -68,7 +68,7 @@ class SEO_ModelAdmin extends ModelAdmin {
     /**
      * Update the managed models array with objects listed in the YML config files
      *
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @return void
      **/
@@ -84,7 +84,7 @@ class SEO_ModelAdmin extends ModelAdmin {
     /**
      * Key SEO fields are contained within the CSV export
      *
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @return array
      **/
@@ -107,7 +107,7 @@ class SEO_ModelAdmin extends ModelAdmin {
      * @param mixed $id
      * @param mixed $fields
      * 
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @return FieldList
      **/
@@ -150,7 +150,7 @@ class SEO_ModelAdmin extends ModelAdmin {
      * Using getList you can filter the grid by any passed GET param filters or
      * you can filter by model class
      *
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @return object
      **/
@@ -204,7 +204,7 @@ class SEO_ModelAdmin extends ModelAdmin {
      * Using this method we can populate the SEO grid search filters with various
      * SEO options
      *
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @return object
      **/

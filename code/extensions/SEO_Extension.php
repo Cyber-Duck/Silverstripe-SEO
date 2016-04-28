@@ -10,7 +10,7 @@
 class SEO_Extension extends DataExtension {
 
     /**
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @config array $db Our page fields
      **/
@@ -29,7 +29,7 @@ class SEO_Extension extends DataExtension {
     );
 
     /**
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @config array $has_one Social image and other has_one relations
      **/
@@ -38,7 +38,7 @@ class SEO_Extension extends DataExtension {
     );
 
     /**
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @config array $many_many Has many extra Meta tags
      **/
@@ -48,7 +48,7 @@ class SEO_Extension extends DataExtension {
     );
 
     /**
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @config array $defaults Sitemap defaults
      **/
@@ -60,7 +60,7 @@ class SEO_Extension extends DataExtension {
     /**
      * Adds our SEO Meta fields to the page field list
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @param string $fields The current FieldList object
      *
@@ -109,7 +109,7 @@ class SEO_Extension extends DataExtension {
      * 
      * @param array $fields The current summary fields
      *
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @return void
      **/
@@ -148,7 +148,7 @@ class SEO_Extension extends DataExtension {
     /**
      * Render the Meta preview template for the CMS SEO panel
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return LiteralField
      **/
@@ -169,7 +169,7 @@ class SEO_Extension extends DataExtension {
     /**
      * Get the SERP link
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return string
      **/
@@ -184,7 +184,7 @@ class SEO_Extension extends DataExtension {
     /**
      * Creates our social sharing upload field
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return UploadField Return the Social image UploadField object
      **/
@@ -202,7 +202,7 @@ class SEO_Extension extends DataExtension {
     /**
      * Creates our social sharing upload field
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return GridField Return the Social image GridField object
      **/
@@ -224,7 +224,7 @@ class SEO_Extension extends DataExtension {
     /**
      * Creates our social sharing upload field
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return GridField Return the Social image GridField object
      **/
@@ -247,7 +247,7 @@ class SEO_Extension extends DataExtension {
     /**
      * Returns the maximum upload image size
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return int Returns the maximum image size in KB
      **/
@@ -259,7 +259,7 @@ class SEO_Extension extends DataExtension {
     /**
      * Return a formatted current date
      *
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @return string
      **/
@@ -271,7 +271,7 @@ class SEO_Extension extends DataExtension {
     /**
      * Return a styled span containing a title value
      *
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @return HTMLText
      **/
@@ -283,7 +283,7 @@ class SEO_Extension extends DataExtension {
     /**
      * Return a span styled reflecting Meta title length validation
      *
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @return HTMLText
      **/
@@ -297,7 +297,7 @@ class SEO_Extension extends DataExtension {
     /**
      * Return a span styled reflecting Meta description length validation
      *
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @return HTMLText
      **/
@@ -311,7 +311,7 @@ class SEO_Extension extends DataExtension {
     /**
      * Return a span styled reflecting the current status of social meta
      *
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @return HTMLText
      **/
@@ -329,7 +329,7 @@ class SEO_Extension extends DataExtension {
      * @param int    $min  The minimum string length
      * @param int    $max  The maximum string length
      *
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @return HTMLText
      **/
@@ -352,7 +352,7 @@ class SEO_Extension extends DataExtension {
      * 
      * @param string $span The HTML span
      *
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @return HTMLText
      **/

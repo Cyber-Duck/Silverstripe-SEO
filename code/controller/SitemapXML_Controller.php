@@ -10,14 +10,14 @@
 class SitemapXML_Controller extends Page_Controller {
 
     /**
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @var array $allowed_actions Only one action allowed here
      **/
     private static $allowed_actions = array('getSitemap');
 
     /**
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @var array $url_handlers Push requests to sitemap.xml to the getSitemap method
      **/
@@ -28,7 +28,7 @@ class SitemapXML_Controller extends Page_Controller {
     /**
      * Set properties for this class and call the sitemap render method
      *
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @return void
      **/
@@ -42,7 +42,7 @@ class SitemapXML_Controller extends Page_Controller {
     /**
      * Return the XML sitemap
      *
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @return string
      **/

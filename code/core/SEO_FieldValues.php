@@ -12,7 +12,7 @@ class SEO_FieldValues {
     /**
      * Returns an array of sitemap change frequencies used in a sitemap.xml file
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return array Returns an array of change frequency values
      **/
@@ -32,7 +32,7 @@ class SEO_FieldValues {
     /**
      * Returns an array of robots crawling rules used in a robots Meta tag
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return array Returns an array of robots index rule values
      **/
@@ -49,7 +49,7 @@ class SEO_FieldValues {
     /**
      * Return an array of Facebook Open Graph locales
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return array Returns an array of open graph locale values
      **/
@@ -92,7 +92,7 @@ class SEO_FieldValues {
     /**
      * Return an array of Facebook Open Graph Types
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return array Returns an array of open graph type values
      **/
@@ -111,7 +111,7 @@ class SEO_FieldValues {
     /**
      * Returns an array of Twitter card types
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return array Returns an array of twitter card type values
      **/
@@ -130,7 +130,7 @@ class SEO_FieldValues {
     /**
      * Returns an array of robots crawling rules used in a robots Meta tag
      *
-     * @since version 1.0
+     * @since version 1.0.0
      *
      * @return array Returns an array of robots index rule values
      **/
@@ -141,6 +141,14 @@ class SEO_FieldValues {
             '0' => 'No'
         );
     }
+    
+    /**
+     * Returns an array of summary fields used in the SEO Admin section of the CMS
+     *
+     * @since version 1.0.2
+     *
+     * @return array Returns an array of SEO admin summary fields
+     **/
     public static function SummaryFields()
     {
         return array(
@@ -154,7 +162,14 @@ class SEO_FieldValues {
             'ChangeFrequency'      => 'Change Freq'
         );
     }
-
+    
+    /**
+     * Returns an array of searchable fields used in the SEO Admin section of the CMS
+     *
+     * @since version 1.0.2
+     *
+     * @return array Returns an array of SEO Admin searchable fields
+     **/
     public static function SearchableFields()
     {
         return array(

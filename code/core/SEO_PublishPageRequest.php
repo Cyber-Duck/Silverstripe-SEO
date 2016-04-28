@@ -10,13 +10,21 @@
 class SEO_PublishPageRequest extends GridFieldDetailForm_ItemRequest {
 
     /**
-     * @since version 1.2
+     * @since version 1.0.0
      *
      * @config array $allowed_actions Allow requests to ItemEditForm
      **/
     private static $allowed_actions = array('ItemEditForm');
-
-    function ItemEditForm()
+    
+    /**
+     * Chechs the current object in SEO Admin and creats publish and draft buttons if
+     * the current object is an instance of Page
+     *
+     * @since version 1.0.2
+     *
+     * @return FieldList Returns a record FieldList
+     **/
+    public function ItemEditForm()
     {
         $form = parent::ItemEditForm();
 
@@ -40,16 +48,48 @@ class SEO_PublishPageRequest extends GridFieldDetailForm_ItemRequest {
         return $form;
     }
     
+    /**
+     * Set a page to draft status
+     *
+     * @since version 1.0.2
+     *
+     * @param array $data Form data
+     * @param Form  $form Form object instance
+     *
+     * @return void
+     **/
     public function doDraft($data, $form)
     {
         $this->pageChange('draft', $data, $form);
     }
     
+    /**
+     * Set a page to published status
+     *
+     * @since version 1.0.2
+     *
+     * @param array $data Form data
+     * @param Form  $form Form object instance
+     *
+     * @return void
+     **/
     public function doPublish($data, $form)
     {
         $this->pageChange('published', $data, $form, true);
     }
-
+    
+    /**
+     * Sets a page status to either draft or published
+     *
+     * @since version 1.0.2
+     *
+     * @param string  $status  The page status
+     * @param array   $data    Form data
+     * @param Form    $form    Form object instance
+     * @param boolean $publish Set whether to publish the page
+     *
+     * @return void
+     **/
     private function pageChange($status, $data, $form, $publish = false)
     {
         if($this->record->ID == NULL){
@@ -86,7 +126,17 @@ class SEO_PublishPageRequest extends GridFieldDetailForm_ItemRequest {
 
         Controller::curr()->redirectBack();
     }
-
+    
+    /**
+     * Redirect after a page is published
+     *
+     * @since version 1.0.2
+     *
+     * @param Page  $page Page object
+     * @param array $data Page data
+     *
+     * @return void
+     **/
     private function pageRedirect($page, $data)
     {
         $page->flushCache();
