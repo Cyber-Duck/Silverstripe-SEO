@@ -42,35 +42,15 @@ class SEO_PublishPageRequest extends GridFieldDetailForm_ItemRequest {
     
     public function doDraft($data, $form)
     {
-        if($this->record->ID == NULL){
-            $class = $this->record->ClassName;
-
-            $page = new $class();
-
-            $form->saveInto($page);
-            $page->writeToStage('Stage');
-
-            $form->sessionMessage('Saved as draft', 'good');
-
-            return $this->pageRedirect($page, $data);
-        }
-        $page = DataObject::get_by_id($this->record->ClassName, $this->record->ID);
-
-        if($page == NULL){
-            $page = Versioned::get_by_stage($this->record->ClassName, 'Stage')->byID($this->record->ID);
-        }
-
-        $form->saveInto($page);
-        $page->write();
-        $page->writeToStage('Stage');
-        $page->doUnpublish();
-
-        $form->sessionMessage('Updated draft page', 'good');
-
-        Controller::curr()->redirectBack();
+        $this->pageChange('draft', $data, $form);
     }
     
     public function doPublish($data, $form)
+    {
+        $this->pageChange('published', $data, $form, true);
+    }
+
+    private function pageChange($status, $data, $form, $publish = false)
     {
         if($this->record->ID == NULL){
             $class = $this->record->ClassName;
@@ -79,9 +59,10 @@ class SEO_PublishPageRequest extends GridFieldDetailForm_ItemRequest {
 
             $form->saveInto($page);
             $page->writeToStage('Stage');
-            $page->doPublish();
 
-            $form->sessionMessage('Published to live', 'good');
+            if($publish === true) $page->doPublish();
+
+            $form->sessionMessage('Saved '.$status.' page', 'good');
 
             return $this->pageRedirect($page, $data);
         }
@@ -94,9 +75,14 @@ class SEO_PublishPageRequest extends GridFieldDetailForm_ItemRequest {
         $form->saveInto($page);
         $page->write();
         $page->writeToStage('Stage');
-        $page->doPublish();
+        
+        if($publish === true) {
+            $page->doPublish();
+        } else {
+            $page->doUnpublish();
+        }
 
-        $form->sessionMessage('Updated live page', 'good');
+        $form->sessionMessage('Updated '.$status.' page', 'good');
 
         Controller::curr()->redirectBack();
     }
