@@ -115,6 +115,27 @@ class SEO_ModelAdmin extends ModelAdmin {
     {
         $form = parent::getEditForm($id, $fields);
 
+        $class = new $this->modelClass;
+        if($class instanceof Page) {
+            $form = $this->setRequestHandler($form);
+        }
+        $grid = $form->Fields()->fieldByName($this->sanitiseClassName($this->modelClass));
+        $grid->getConfig()->removeComponentsByType('GridFieldAddNewButton');
+
+        $list = $this
+            ->getObjectList()
+            ->filter($this->getFilters())
+            ->sort('Priority', 'DESC');
+
+        $grid->setList($list);
+
+        $this->extend('updateEditForm',  $grid);
+        
+        return $form;
+    }
+
+    private function setRequestHandler($form)
+    {
         $form
             ->Fields()
             ->fieldByName($this->sanitiseClassName($this->modelClass))
@@ -122,13 +143,61 @@ class SEO_ModelAdmin extends ModelAdmin {
             ->getComponentByType('GridFieldDetailForm')
             ->setItemRequestClass('SEO_PublishPageRequest');
 
-        $grid = $form->Fields()->fieldByName($this->sanitiseClassName($this->modelClass));
-
-        $grid->getConfig()->removeComponentsByType('GridFieldAddNewButton');
-
-        $this->extend('updateEditForm',  $grid);
-        
         return $form;
+    }
+
+    /**
+     * Using getList you can filter the grid by any passed GET param filters or
+     * you can filter by model class
+     *
+     * @since version 1.2
+     *
+     * @return object
+     **/
+    public function getObjectList()
+    {
+        $class = new $this->modelClass;
+
+        if($class instanceof Page) {
+            return $this->getVersionedPages();
+        }
+        return parent::getList();
+    }
+
+    private function getFilters()
+    {
+        $request = $this->getRequest()->requestVar('q');
+
+        $filters = array();
+
+        if(isset($request['Robots']) && $request['Robots']){
+            $filters['Robots'] = $request['Robots'];
+        }
+        if(isset($request['ChangeFrequency']) && $request['ChangeFrequency']){
+            $filters['ChangeFrequency'] = $request['ChangeFrequency'];
+        }
+        if(isset($request['HideSocial']) && $request['HideSocial']){
+            $filters['HideSocial'] = $request['HideSocial'];
+        }
+        if($this->modelClass !== "Page"){
+            $filters['ClassName'] = $this->modelClass;
+        }
+        return $filters;
+    }
+
+    private function getVersionedPages()
+    {
+        $list = new ArrayList();
+
+        $stage = Versioned::get_by_stage($this->modelClass, 'Stage');
+        foreach($stage as $stage) $list->push($stage);
+
+        $live = Versioned::get_by_stage($this->modelClass, 'Live');
+        foreach($live as $live) $list->push($live);
+
+        $list->removeDuplicates('ID');
+
+        return $list;
     }
 
     /**
@@ -157,41 +226,5 @@ class SEO_ModelAdmin extends ModelAdmin {
             ->setSource(SEO_FieldValues::YesNo());
 
         return $context;
-    }
-
-    /**
-     * Using getList you can filter the grid by any passed GET param filters or
-     * you can filter by model class
-     *
-     * @since version 1.2
-     *
-     * @return object
-     **/
-    public function getList()
-    {
-        $list = parent::getList();
-
-        $params = $this->getRequest()->requestVar('q');
-
-        $filters = array();
-
-        if(isset($params['Robots']) && $params['Robots']){
-            $filters['Robots'] = $params['Robots'];
-        }
-
-        if(isset($params['ChangeFrequency']) && $params['ChangeFrequency']){
-            $filters['ChangeFrequency'] = $params['ChangeFrequency'];
-        }
-
-        if(isset($params['HideSocial']) && $params['HideSocial']){
-            $filters['HideSocial'] = $params['HideSocial'];
-        }
-        if($this->modelClass !== "Page"){
-            $filters['ClassName'] = $this->modelClass;
-        }
-
-        $list = Page::get()->filter($filters)->sort('Priority', 'DESC');
-
-        return $list;
     }
 }

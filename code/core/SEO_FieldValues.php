@@ -141,4 +141,17 @@ class SEO_FieldValues {
             '0' => 'No'
         );
     }
+    public static function SummaryFields()
+    {
+        return array(
+            'GridMetaTitle'        => 'T',
+            'GridMetaDescription'  => 'D',
+            'GridSocial'           => 'S',
+            'GridCreated'          => 'Created',
+            'GridTitle'            => 'Title',
+            'Robots'               => 'Robots',
+            'Priority'             => 'Priority',
+            'ChangeFrequency'      => 'Change Freq'
+        );
+    }
 }

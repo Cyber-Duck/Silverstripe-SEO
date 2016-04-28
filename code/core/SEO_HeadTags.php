@@ -60,18 +60,22 @@ class SEO_HeadTags {
      **/
     public function get()
     {
-        if(method_exists($this->model,'HeadTags')){
-            foreach($this->model->HeadTags() as $tag){
-
-                if($tag->Type == 'name'){
+        if(method_exists($this->model,'HeadTags'))
+        {
+            foreach($this->model->HeadTags() as $tag)
+            {
+                if($tag->Type == 'name')
+                {
                     $this->getMetaTag($tag->Name,$tag->Value);
                     break;
                 }
-                if($tag->Type == 'link'){
+                if($tag->Type == 'link')
+                {
                     $this->getLinkTag($tag->Name,$tag->Value);
                     break;
                 }
-                if($tag->Type == 'property'){
+                if($tag->Type == 'property')
+                {
                     $this->getPropertyTag($tag->Name,$tag->Value);
                     break;
                 }
