@@ -115,12 +115,34 @@ class SEO_Extension extends DataExtension {
      **/
     public function updateSummaryFields(&$fields)
     {
-        if(Controller::curr() instanceof SEO_ModelAdmin){
+        if(Controller::curr() instanceof SEO_ModelAdmin)
+        {
             Config::inst()->remove($this->owner->class, 'summary_fields');
-            Config::inst()->update($this->owner->class, 'summary_fields', SEO_FieldValues::SummaryFields());
+
+            $class = new $this->owner->class;
+            $fields = SEO_FieldValues::SummaryFields();
+
+            if($class instanceof Page) {
+                $fields = array_merge(array('SEOPageStatus' => 'Status'), $fields);
+            }
+            Config::inst()->update($this->owner->class, 'summary_fields', $fields);
 
             $fields = Config::inst()->get($this->owner->class, 'summary_fields');
         }
+    }
+
+    public function getSEOPageStatus()
+    {
+        if($this->owner->isPublished()){
+            $color = '#11C823';
+            $status = 'Live';
+        } else {
+            $color = '#898C89';
+            $status = 'Draft';
+        }
+        $obj= HTMLText::create();
+        $obj->setValue('<span style="color:'.$color.'">'.$status.'</span>');
+        return $obj;
     }
     
     /**

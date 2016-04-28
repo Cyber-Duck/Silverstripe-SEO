@@ -93,7 +93,7 @@ class SEO_PublishPageRequest extends GridFieldDetailForm_ItemRequest {
 
         $controller = Controller::curr();
 
-        if($this->gridField->getList()->byId($this->record->ID)) {
+        if($this->gridField->getList()->byId($this->record->ID)){
             return $this->edit(Controller::curr()->getRequest());
         } else {
             $noActionURL = $controller->removeAction($data['url']);
