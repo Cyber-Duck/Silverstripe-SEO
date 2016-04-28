@@ -60,7 +60,7 @@ class SEO_HeadTags {
      **/
     public function get()
     {
-        if(method_exists($this->model,'HeadTags'))
+        if(!Controller::curr() instanceof Security)
         {
             foreach($this->model->HeadTags() as $tag)
             {
