@@ -56,39 +56,6 @@ class SEO_Extension extends DataExtension {
         'Priority'        => 0.50,
         'ChangeFrequency' => 'weekly'
     );
-
-    /**
-     * @since version 1.2
-     *
-     * @config array $searchable_fields Allow searching against important SEO fields
-     **/
-    private static $searchable_fields = array(
-        'Title' => array(
-            'title'  => 'Title:',
-            'field'  => 'TextField',
-            'filter' => 'PartialMatchFilter'
-        ),
-        'URLSegment' => array(
-            'title'  => 'URL segment:',
-            'field'  => 'TextField',
-            'filter' => 'PartialMatchFilter'
-        ),
-        'Robots' => array(
-            'title'  => 'Robots:',
-            'field'  => 'DropdownField',
-            'filter' => 'ExactMatchFilter'
-        ),
-        'ChangeFrequency' => array(
-            'title'  => 'Change frequency:',
-            'field'  => 'DropdownField',
-            'filter' => 'ExactMatchFilter'
-        ),
-        'HideSocial' => array(
-            'title'  => 'Social Meta:',
-            'field'  => 'DropdownField',
-            'filter' => 'ExactMatchFilter'
-        )
-    );
     
     /**
      * Adds our SEO Meta fields to the page field list

@@ -45,3 +45,10 @@ The SEO extension adds the following fields to a Page or model object
     - [HTML sitemap](/docs/sitemap#html-sitemap)
     - [Adding sitemap pages](/docs/sitemap#adding-sitemap-pages)
     - [Adding sitemap images](/docs/sitemap#adding-sitemap-images)
+
+@todo
+hide in sitemap option
+versioned
+request handler
+subsite aware
+schema generator

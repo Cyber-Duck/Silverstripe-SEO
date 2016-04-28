@@ -210,6 +210,10 @@ class SEO_ModelAdmin extends ModelAdmin {
      **/
     public function getSearchContext()
     {
+        if(!Controller::curr() instanceof SEO_ModelAdmin) return parent::getSearchContext();
+
+        Config::inst()->update($this->modelClass, 'searchable_fields', SEO_FieldValues::SearchableFields());
+
         $context = parent::getSearchContext();
 
         $context->getFields()->fieldByName('q[Robots]')
@@ -224,7 +228,7 @@ class SEO_ModelAdmin extends ModelAdmin {
             ->setTitle('Social Meta hidden:')
             ->setEmptyString('- select -')
             ->setSource(SEO_FieldValues::YesNo());
-
+                
         return $context;
     }
 }

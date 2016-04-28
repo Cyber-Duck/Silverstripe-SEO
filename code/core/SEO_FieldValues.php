@@ -154,4 +154,35 @@ class SEO_FieldValues {
             'ChangeFrequency'      => 'Change Freq'
         );
     }
+
+    public static function SearchableFields()
+    {
+        return array(
+            'Title' => array(
+                'title'  => 'Title:',
+                'field'  => 'TextField',
+                'filter' => 'PartialMatchFilter'
+            ),
+            'URLSegment' => array(
+                'title'  => 'URL segment:',
+                'field'  => 'TextField',
+                'filter' => 'PartialMatchFilter'
+            ),
+            'Robots' => array(
+                'title'  => 'Robots:',
+                'field'  => 'DropdownField',
+                'filter' => 'ExactMatchFilter'
+            ),
+            'ChangeFrequency' => array(
+                'title'  => 'Change frequency:',
+                'field'  => 'DropdownField',
+                'filter' => 'ExactMatchFilter'
+            ),
+            'HideSocial' => array(
+                'title'  => 'Social Meta:',
+                'field'  => 'DropdownField',
+                'filter' => 'ExactMatchFilter'
+            )
+        );
+    }
 }
