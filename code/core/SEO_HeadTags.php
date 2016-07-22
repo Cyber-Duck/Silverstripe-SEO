@@ -60,7 +60,7 @@ class SEO_HeadTags {
      **/
     public function get()
     {
-        if(!Controller::curr() instanceof Security)
+        if(!Controller::curr() instanceof Security && !Controller::curr() instanceof CMSMain)
         {
             foreach($this->model->HeadTags() as $tag)
             {
