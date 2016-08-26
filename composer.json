@@ -4,11 +4,13 @@
     "type": "silverstripe-module",
     "homepage": "http://github.com/cyber-duck/silverstripe-seo",
     "keywords": [
+        "silverstripe-seo",
         "silverstripe",
         "seo",
         "meta",
         "crawling",
-        "indexing"
+        "indexing",
+        "xml-sitemap"
     ],
     "license": "MIT",
     "authors": [
