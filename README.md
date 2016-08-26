@@ -104,7 +104,6 @@ POSSIBILITY OF SUCH DAMAGE.
 
 ### Todo
 
-  - Hide in sitemap option
   - Versioned
   - Subsite aware
   - Schema generator
