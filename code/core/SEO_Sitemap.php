@@ -115,16 +115,16 @@ class SEO_Sitemap {
 
         foreach($this->objects as $className => $value){
 
-            $object = $className::get();
+            $object = $className::get()->filter(array(
+                'Robots:not'      => 'noindex,nofollow',
+                'SitemapHide:not' => 1
+            ));
 
             foreach($object as $page){
-
-                if($page->Robots != 'noindex,nofollow' && $page->SitemapHide != 1){
-                    if(!$page instanceof Page){
-                        $page->Link = $this->getPrefix($className, $page);
-                    }
-                    $pages->push($page);
+                if(!$page instanceof Page){
+                    $page->Link = $this->getPrefix($className, $page);
                 }
+                $pages->push($page);
             }
         }
         $pages->Sort('Priority DESC');
@@ -163,10 +163,10 @@ class SEO_Sitemap {
 
             foreach($this->objects as $className => $config){
                 if($config['parent_id'] == $page->ID && $config['parent_id'] !== 0){
-                    $pages = $className::get()->filter(
+                    $pages = $className::get()->filter(array(
                         'Robots:not'      => 'noindex,nofollow',
                         'SitemapHide:not' => 1
-                    )->sort('Priority DESC');
+                    ))->sort('Priority DESC');
                     $this->getObjectPages($pages);
                 }
             }
