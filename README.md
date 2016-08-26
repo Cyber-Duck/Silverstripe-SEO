@@ -8,9 +8,9 @@ A Silverstripe module to enhance and optimize your website SEO. This module also
 
 Author: [Andrew Mc Cormack](https://github.com/Andrew-Mc-Cormack)
 
-![Silverstripe SEO](/docs/images/seo-panel.jpg "Object SEO Panel")
+## SEO Panel
 
-## Features
+![Silverstripe SEO](/docs/images/seo-panel.jpg "Object SEO Panel")
 
 The SEO extension adds the following fields to a Page or model object
   - Google SERP preview
@@ -27,6 +27,12 @@ The SEO extension adds the following fields to a Page or model object
   - Social sharing image
   - Other Meta tags (gridfield)
   - XML sitemap images (gridfield)
+
+## SEO Admin
+
+Manage groups of specific pages or objects. Gives a quick overview of the SEO status of your objects. By default it shows all your pages.
+
+![Silverstripe SEO](/docs/images/seo-admin.jpg "Object SEO Panel")
 
 ## Guides
   
