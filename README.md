@@ -2,9 +2,11 @@
 
 ![stability-stable](https://img.shields.io/badge/stability-stable-green.svg)
 
-A Silverstripe module to optimise the Meta, crawling, indexing, and sharing of your website content
+A Silverstripe module to enhance and optimize your website SEO. This module also adds all the SEO functionality necessary for a search engine to crawl and index your website pages / content effectively. The Silverstripe SEO module works with both pages and Data Objects and allows both to have custom Meta, sitemap settings, social sharing content, among other features. Other key features include custom Meta tags and the ability to add images to your sitemap through the SEO panel gridfield.
 
 Author: [Andrew Mc Cormack](https://github.com/Andrew-Mc-Cormack)
+
+![Silverstripe SEO](/docs/images/seo-panel.jpg "Object SEO Panel")
 
 The SEO extension adds the following fields to a Page or model object
   - Google SERP preview
@@ -46,9 +48,11 @@ The SEO extension adds the following fields to a Page or model object
     - [Adding sitemap pages](/docs/sitemap#adding-sitemap-pages)
     - [Adding sitemap images](/docs/sitemap#adding-sitemap-images)
 
-@todo
-hide in sitemap option
-versioned
-request handler
-subsite aware
-schema generator
+## Todo
+
+  - Hide in sitemap option
+  - Versioned
+  - Subsite aware
+  - Schema generator
+  - SEO score
+  - Allow pages to be excluded based on class
