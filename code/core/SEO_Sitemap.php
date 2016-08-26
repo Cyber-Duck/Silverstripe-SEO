@@ -163,7 +163,10 @@ class SEO_Sitemap {
 
             foreach($this->objects as $className => $config){
                 if($config['parent_id'] == $page->ID && $config['parent_id'] !== 0){
-                    $pages = $className::get()->sort('Priority DESC');
+                    $pages = $className::get()->filter(
+                        'Robots:not'      => 'noindex,nofollow',
+                        'SitemapHide:not' => 1
+                    )->sort('Priority DESC');
                     $this->getObjectPages($pages);
                 }
             }
