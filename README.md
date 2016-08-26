@@ -30,9 +30,17 @@ The SEO extension adds the following fields to a Page or model object
 
 ## SEO Admin
 
-Manage groups of specific pages or objects. Gives a quick overview of the SEO status of your objects. By default it shows all your pages.
-
 ![Silverstripe SEO](/docs/images/seo-admin.jpg "Object SEO Panel")
+
+Manage groups of specific pages or objects. Gives a quick overview of the SEO status of your objects. By default it shows all your pages. Columns include:
+  - Title
+  - Description
+  - Social meta
+  - Created
+  - Title
+  - Robots rules
+  - Priority
+  - Change frequency
 
 ## Guides
   
