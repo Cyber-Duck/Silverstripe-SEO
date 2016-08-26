@@ -1,6 +1,8 @@
 # Silverstripe SEO
 
-![stability-stable](https://img.shields.io/badge/stability-stable-green.svg)
+[![Latest Stable Version](https://poser.pugx.org/cyber-duck/silverstripe-seo/v/stable)](https://packagist.org/packages/cyber-duck/silverstripe-seo)
+[![Total Downloads](https://poser.pugx.org/cyber-duck/silverstripe-seo/downloads)](https://packagist.org/packages/cyber-duck/silverstripe-seo)
+[![License](https://poser.pugx.org/cyber-duck/silverstripe-seo/license)](https://packagist.org/packages/cyber-duck/silverstripe-seo)
 
 A Silverstripe module to enhance and optimize your website SEO. This module also adds all the SEO functionality necessary for a search engine to crawl and index your website pages / content effectively. The Silverstripe SEO module works with both pages and Data Objects and allows both to have custom Meta, sitemap settings, social sharing content, among other features. Other key features include custom Meta tags and the ability to add images to your sitemap through the SEO panel gridfield.
 
@@ -48,7 +50,7 @@ The SEO extension adds the following fields to a Page or model object
     - [Adding sitemap pages](/docs/sitemap#adding-sitemap-pages)
     - [Adding sitemap images](/docs/sitemap#adding-sitemap-images)
 
-## Todo
+### Todo
 
   - Hide in sitemap option
   - Versioned
@@ -56,3 +58,5 @@ The SEO extension adds the following fields to a Page or model object
   - Schema generator
   - SEO score
   - Allow pages to be excluded based on class
+
+[License](/LICENSE)
