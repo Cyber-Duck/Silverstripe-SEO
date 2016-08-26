@@ -10,7 +10,7 @@ Author: [Andrew Mc Cormack](https://github.com/Andrew-Mc-Cormack)
 
 ## SEO Panel
 
-![Silverstripe SEO](/docs/images/seo-panel.jpg "Object SEO Panel")
+![Silverstripe SEO object panel](/docs/images/seo-panel.jpg "Silverstripe SEO object panel")
 
 The SEO extension adds the following fields to a Page or model object
   - Google SERP preview
@@ -30,9 +30,9 @@ The SEO extension adds the following fields to a Page or model object
 
 ## SEO Admin
 
-![Silverstripe SEO](/docs/images/seo-admin.jpg "Object SEO Panel")
+![Silverstripe SEO admin gridfield](/docs/images/seo-admin.jpg "Silverstripe SEO admin gridfield")
 
-Manage groups of specific pages or objects. Gives a quick overview of the SEO status of your objects. By default it shows all your pages. Columns include:
+Manage groups of specific pages or objects and get a quick overview of the SEO status of your objects. By default it shows all your pages. Columns include:
   - Title
   - Description
   - Social meta
