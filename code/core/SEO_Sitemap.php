@@ -76,7 +76,7 @@ class SEO_Sitemap {
     {
         return Controller::curr()->customise(array(
             'Pages' => $this->getPages(),
-            'URL'  => $this->url
+            'URL'   => $this->url
         ))->renderWith('SitemapXML');
     }
 
@@ -90,9 +90,10 @@ class SEO_Sitemap {
     public function getSitemapHTML()
     {
         $pages = Page::get()->filter(array(
-            'ClassName:not' => 'ErrorPage',
-            'Robots:not' => 'noindex,nofollow',
-            'ParentID' => 0
+            'ClassName:not'   => 'ErrorPage',
+            'Robots:not'      => 'noindex,nofollow',
+            'SitemapHide:not' => 1,
+            'ParentID'        => 0
         ))->Sort('Sort','ASC');
 
         $this->getChildPages($pages);
@@ -118,7 +119,7 @@ class SEO_Sitemap {
 
             foreach($object as $page){
 
-                if($page->Robots != 'noindex,nofollow'){
+                if($page->Robots != 'noindex,nofollow' && $page->SitemapHide != 1){
                     if(!$page instanceof Page){
                         $page->Link = $this->getPrefix($className, $page);
                     }

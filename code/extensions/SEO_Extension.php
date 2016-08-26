@@ -22,6 +22,7 @@ class SEO_Extension extends DataExtension {
         'Robots'          => 'Varchar(100)',
         'Priority'        => 'Decimal(3,2)',
         'ChangeFrequency' => 'Varchar(100)',
+        'SitemapHide'     => 'Boolean',
         'HideSocial'      => 'Boolean',
         'OGtype'          => 'Varchar(100)',
         'OGlocale'        => 'Varchar(10)',
@@ -85,6 +86,7 @@ class SEO_Extension extends DataExtension {
         $fields->addFieldToTab('Root.PageSEO', DropdownField::create('Robots', 'Robots', SEO_FieldValues::IndexRules()));
         $fields->addFieldToTab('Root.PageSEO', NumericField::create('Priority'));
         $fields->addFieldToTab('Root.PageSEO', DropdownField::create('ChangeFrequency', 'Change Frequency', SEO_FieldValues::SitemapChangeFrequency()));
+        $fields->addFieldToTab('Root.PageSEO', CheckboxField::create('SitemapHide', 'Hide in sitemap? (XML and HTML)'));
 
         $fields->addFieldToTab('Root.PageSEO', HeaderField::create('Social Meta'));
         $fields->addFieldToTab('Root.PageSEO', CheckboxField::create('HideSocial','Hide Social Meta?'));
