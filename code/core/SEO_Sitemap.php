@@ -90,10 +90,10 @@ class SEO_Sitemap {
     public function getSitemapHTML()
     {
         $pages = Page::get()->filter(array(
-            'ClassName:not'   => 'ErrorPage',
-            'Robots:not'      => 'noindex,nofollow',
-            'SitemapHide:not' => 1,
-            'ParentID'        => 0
+            'ClassName:not' => 'ErrorPage',
+            'Robots:not'    => 'noindex,nofollow',
+            'SitemapHide'   => 0,
+            'ParentID'      => 0
         ))->Sort('Sort','ASC');
 
         $this->getChildPages($pages);
@@ -116,8 +116,8 @@ class SEO_Sitemap {
         foreach($this->objects as $className => $value){
 
             $object = $className::get()->filter(array(
-                'Robots:not'      => 'noindex,nofollow',
-                'SitemapHide:not' => 1
+                'Robots:not'  => 'noindex,nofollow',
+                'SitemapHide' => 0
             ));
 
             foreach($object as $page){
@@ -164,14 +164,16 @@ class SEO_Sitemap {
             foreach($this->objects as $className => $config){
                 if($config['parent_id'] == $page->ID && $config['parent_id'] !== 0){
                     $pages = $className::get()->filter(array(
-                        'Robots:not'      => 'noindex,nofollow',
-                        'SitemapHide:not' => 1
+                        'Robots:not'  => 'noindex,nofollow',
+                        'SitemapHide' => 0
                     ))->sort('Priority DESC');
                     $this->getObjectPages($pages);
                 }
             }
             $children = Page::get()->filter(array(
-                'ParentID' => $page->ID
+                'ParentID'    => $page->ID,
+                'Robots:not'  => 'noindex,nofollow',
+                'SitemapHide' => 0
             ))->Sort('ID','ASC');
 
             if($children) $this->getChildPages($children);
