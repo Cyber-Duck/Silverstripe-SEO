@@ -155,8 +155,8 @@ class SEO_FieldValues {
             'GridMetaTitle'        => 'T',
             'GridMetaDescription'  => 'D',
             'GridSocial'           => 'S',
-            'GridCreated'          => 'Created',
-            'GridTitle'            => 'Title',
+            'MetaTitle'            => 'Title',
+            'MetaDescription'      => 'Description',
             'Robots'               => 'Robots',
             'Priority'             => 'Priority',
             'ChangeFrequency'      => 'Change Freq'

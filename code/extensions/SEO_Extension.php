@@ -259,30 +259,6 @@ class SEO_Extension extends DataExtension {
     }
 
     /**
-     * Return a formatted current date
-     *
-     * @since version 1.0.0
-     *
-     * @return string
-     **/
-    public function GridCreated()
-    {
-        return date('dS M Y', strtotime($this->owner->Created));
-    }
-
-    /**
-     * Return a styled span containing a title value
-     *
-     * @since version 1.0.0
-     *
-     * @return HTMLText
-     **/
-    public function GridTitle()
-    {
-        return $this->getGridSpan('<span class="seo-pagename">'.$this->owner->Title.'</span>');
-    }
-
-    /**
      * Return a span styled reflecting Meta title length validation
      *
      * @since version 1.0.0
