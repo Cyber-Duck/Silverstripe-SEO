@@ -319,7 +319,7 @@ class SEO_Extension extends DataExtension {
      **/
     public function GridSocial()
     {
-        $class = $this->owner->HideSocial != 1 ? 'delete' : 'accept';
+        $class = $this->owner->HideSocial == 1 ? 'delete' : 'accept';
 
         return $this->getGridSpan('<span class="ui-button-icon-primary ui-icon btn-icon-'.$class.'"></span>');
     }
