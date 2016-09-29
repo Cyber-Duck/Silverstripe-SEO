@@ -7,14 +7,8 @@ Add the following to your composer.json file
 ```json
 {  
     "require": {  
-        "cyber-duck/silverstripe-seo": "v1.1"
-    },  
-    "repositories": [  
-        {  
-            "type": "vcs",  
-            "url": "https://github.com/cyber-duck/silverstripe-seo"  
-        }  
-    ]  
+        "cyber-duck/silverstripe-seo": "1.0.*"
+    }
 }
 ```
 
