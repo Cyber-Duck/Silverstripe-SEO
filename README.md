@@ -8,40 +8,6 @@ A Silverstripe module to enhance and optimize your website SEO. This module also
 
 Author: [Andrew Mc Cormack](https://github.com/Andrew-Mc-Cormack)
 
-## SEO Panel
-
-![Silverstripe SEO object panel](/docs/images/seo-panel.jpg "Silverstripe SEO object panel")
-
-The SEO extension adds the following fields to a Page or model object
-  - Google SERP preview
-  - Meta Title
-  - Meta Description
-  - Title
-  - Canonical
-  - Robots
-  - Sitemap priority
-  - Sitemap change frequency
-  - Facebook open graph type
-  - Facebook open graph locale
-  - Twitter card type
-  - Social sharing image
-  - Other Meta tags (gridfield)
-  - XML sitemap images (gridfield)
-
-## SEO Admin
-
-![Silverstripe SEO admin gridfield](/docs/images/seo-admin.jpg "Silverstripe SEO admin gridfield")
-
-Manage groups of specific pages or objects and get a quick overview of the SEO status of your objects. By default it shows all your pages. Columns include:
-  - Title
-  - Description
-  - Social meta
-  - Created
-  - Title
-  - Robots rules
-  - Priority
-  - Change frequency
-
 ## Guides
   
   - [Installation](/docs/installation)
