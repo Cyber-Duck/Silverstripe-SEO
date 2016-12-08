@@ -4,9 +4,9 @@
 [![Total Downloads](https://poser.pugx.org/cyber-duck/silverstripe-seo/downloads)](https://packagist.org/packages/cyber-duck/silverstripe-seo)
 [![License](https://poser.pugx.org/cyber-duck/silverstripe-seo/license)](https://packagist.org/packages/cyber-duck/silverstripe-seo)
 
-A Silverstripe module to enhance and optimize your website SEO. This module also adds all the SEO functionality necessary for a search engine to crawl and index your website pages / content effectively. The Silverstripe SEO module works with both pages and Data Objects and allows both to have custom Meta, sitemap settings, social sharing content, among other features. Other key features include custom Meta tags and the ability to add images to your sitemap through the SEO panel gridfield.
-
 Author: [Andrew Mc Cormack](https://github.com/Andrew-Mc-Cormack)
+
+A Silverstripe module to enhance and optimize your website SEO. This module also adds all the SEO functionality necessary for a search engine to crawl and index your website pages / content effectively. The Silverstripe SEO module works with both pages and Data Objects and allows both to have custom Meta, sitemap settings, social sharing content, among other features. Other key features include custom Meta tags and the ability to add images to your sitemap through the SEO panel gridfield.
 
 ## Guides
   
