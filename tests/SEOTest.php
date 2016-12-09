@@ -19,7 +19,7 @@ class SEOTest extends FunctionalTest {
     {
         SEO::init();
 
-        $page = new SiteTree(array(
+        $page = new SiteTree([
             'MetaTitle'       => 'test_title',
             'MetaDescription' => 'test_description',
             'Canonical'       => 'test_canonical',
@@ -27,7 +27,7 @@ class SEOTest extends FunctionalTest {
             'OGtype'          => 'test_ogtype',
             'OGlocale'        => 'test_locale',
             'TwitterCard'     => 'test_summary'
-        ));
+        ]);
         $page->write();
         $page->publish('Stage', 'Live');
 

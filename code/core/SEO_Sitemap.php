@@ -83,10 +83,10 @@ class SEO_Sitemap
      **/
     public function getSitemapXML()
     {
-        return Controller::curr()->customise(array(
+        return Controller::curr()->customise([
             'Pages' => $this->getPages(),
             'URL'   => $this->url
-        ))->renderWith('SitemapXML');
+        ])->renderWith('SitemapXML');
     }
 
     /**
@@ -98,12 +98,12 @@ class SEO_Sitemap
      **/
     public function getSitemapHTML()
     {
-        $pages = Page::get()->filter(array(
+        $pages = Page::get()->filter([
             'ClassName:not' => 'ErrorPage',
             'Robots:not'    => 'noindex,nofollow',
             'SitemapHide'   => 0,
             'ParentID'      => 0
-        ))->Sort('Sort','ASC');
+        ])->Sort('Sort','ASC');
 
         $this->getChildPages($pages);
 
@@ -124,10 +124,10 @@ class SEO_Sitemap
 
         foreach($this->objects as $className => $value){
 
-            $object = $className::get()->filter(array(
+            $object = $className::get()->filter([
                 'Robots:not'  => 'noindex,nofollow',
                 'SitemapHide' => 0
-            ));
+            ]);
 
             foreach($object as $page){
                 if(!$page instanceof Page){
@@ -175,18 +175,18 @@ class SEO_Sitemap
 
             foreach($this->objects as $className => $config){
                 if($config['parent_id'] == $page->ID && $config['parent_id'] !== 0){
-                    $pages = $className::get()->filter(array(
+                    $pages = $className::get()->filter([
                         'Robots:not'  => 'noindex,nofollow',
                         'SitemapHide' => 0
-                    ))->sort('Priority DESC');
+                    ])->sort('Priority DESC');
                     $this->getObjectPages($pages);
                 }
             }
-            $children = Page::get()->filter(array(
+            $children = Page::get()->filter([
                 'ParentID'    => $page->ID,
                 'Robots:not'  => 'noindex,nofollow',
                 'SitemapHide' => 0
-            ))->Sort('ID','ASC');
+            ])->Sort('ID','ASC');
 
             if($children) $this->getChildPages($children);
 

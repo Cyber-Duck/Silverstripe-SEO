@@ -71,7 +71,7 @@ class SEO_ModelAdmin extends ModelAdmin
      *
      * @config array $managed_models 
      **/
-    private static $managed_models = array();
+    private static $managed_models = [];
 
     /**
      * Disable model imports in SEO admin
@@ -107,14 +107,14 @@ class SEO_ModelAdmin extends ModelAdmin
      **/
     public function getExportFields()
     {
-        return array(
+        return [
             'ID'              => 'ID',
             'Created'         => 'Created',
             'Title'           => 'Title',
             'Robots'          => 'Robots',
             'Priority'        => 'Priority',
             'ChangeFrequency' => 'ChangeFrequency'
-        );
+        ];
     }
 
     /**
@@ -200,7 +200,7 @@ class SEO_ModelAdmin extends ModelAdmin
     {
         $request = $this->getRequest()->requestVar('q');
 
-        $filters = array();
+        $filters = [];
 
         if(isset($request['Robots']) && $request['Robots']){
             $filters['Robots'] = $request['Robots'];

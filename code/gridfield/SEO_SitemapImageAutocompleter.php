@@ -52,7 +52,7 @@ class SEO_SitemapImageAutocompleter extends GridFieldAddExistingAutocompleter
 				$dataClass));
 		}
 
-		$params = array();
+		$params = [];
 		foreach($searchFields as $searchField) {
 			$name = (strpos($searchField, ':') !== FALSE) ? $searchField : "$searchField:StartsWith";
 			$params[$name] = $request->getVar('gridfield_relationsearch');
@@ -63,7 +63,7 @@ class SEO_SitemapImageAutocompleter extends GridFieldAddExistingAutocompleter
 			->sort(strtok($searchFields[0], ':'), 'ASC')
 			->limit($this->getResultsLimit());
 
-		$json = array();
+		$json = [];
 		$originalSourceFileComments = Config::inst()->get('SSViewer', 'source_file_comments');
 		Config::inst()->update('SSViewer', 'source_file_comments', false);
 		foreach($results as $result) {

@@ -17,7 +17,7 @@ class SEO_PublishPageRequest extends GridFieldDetailForm_ItemRequest
      *
      * @config array $allowed_actions 
      **/
-    private static $allowed_actions = array('ItemEditForm');
+    private static $allowed_actions = ['ItemEditForm'];
     
     /**
      * Chechs the current object in SEO Admin and creats publish and draft buttons if
@@ -151,6 +151,7 @@ class SEO_PublishPageRequest extends GridFieldDetailForm_ItemRequest
         } else {
             $noActionURL = $controller->removeAction($data['url']);
             $controller->getRequest()->addHeader('X-Pjax', 'Content');
+
             return $controller->redirect($noActionURL, 302);
         }
     }

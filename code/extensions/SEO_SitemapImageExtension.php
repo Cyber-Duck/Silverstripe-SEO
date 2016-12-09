@@ -17,12 +17,12 @@ class SEO_SitemapImageExtension extends DataExtension
      *
      * @config array $summary_fields 
      **/
-    private static $summary_fields = array(
+    private static $summary_fields = [
         'Thumbnail' => '',
         'Name'      => 'Name',
         'Created'   => 'Created',
         'Title'     => 'Title'
-    );
+    ];
 
     /**
      * Add extra fields to a File object if in SEO Admin

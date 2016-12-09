@@ -89,7 +89,7 @@ class SEO_Pagination
      *
      * @var array $allowed 
      **/
-    private $allowed = array();
+    private $allowed = [];
 
     /**
      * An array of query strings to use within pagination URLs
@@ -98,7 +98,7 @@ class SEO_Pagination
      *
      * @var array $queryStrings 
      **/
-    private $queryStrings = array();
+    private $queryStrings = [];
 
     /**
      * Set the pagination URL

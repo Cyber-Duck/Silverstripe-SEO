@@ -19,7 +19,7 @@ class SEO_FieldValues
      **/
     public static function SitemapChangeFrequency()
     {
-        return array(
+        return [
             'always'  => 'Always',
             'hourly'  => 'Hourly',
             'daily'   => 'Daily',
@@ -27,7 +27,7 @@ class SEO_FieldValues
             'monthly' => 'Monthly',
             'yearly'  => 'Yearly',
             'never'   => 'Never'
-        );
+        ];
     }
     
     /**
@@ -39,12 +39,12 @@ class SEO_FieldValues
      **/
     public static function IndexRules()
     {
-        return array(
+        return [
             'index,follow'     => 'index,follow',
             'noindex,nofollow' => 'noindex,nofollow',
             'noindex,follow'   => 'noindex,follow',
             'index,nofollow'   => 'index,nofollow'
-        );
+        ];
     }
     
     /**
@@ -56,7 +56,7 @@ class SEO_FieldValues
      **/
     public static function OGlocale()
     {
-        return array(
+        return [
             'en_GB' => 'English - United Kingdom',
             'en_US' => 'English - United States',
             'da_DK' => 'Danish - Denmark',
@@ -87,7 +87,7 @@ class SEO_FieldValues
             'tr_TR' => 'Turkish - Turkey',
             'uk_UA' => 'Ukrainian - Ukraine',
             'vi_VN' => 'Vietnamese - Vietnam'
-        );
+        ];
     }
     
     /**
@@ -99,14 +99,14 @@ class SEO_FieldValues
      **/
     public static function OGtype()
     {
-        return array(
+        return [
             'website' => 'Website',
             'article' => 'Article',
             'book'    => 'Book',
             'profile' => 'Profile',
             'music'   => 'Music',
             'video'   => 'Video'
-        );
+        ];
     }
     
     /**
@@ -118,14 +118,14 @@ class SEO_FieldValues
      **/
     public static function TwitterCardTypes()
     {
-        return array(
+        return [
             'summary'             => 'Summary',
             'summary_large_image' => 'Summary Large Image',
             'photo'               => 'Photo',
             'gallery'             => 'Gallery',
             'app'                 => 'App',
             'product'             => 'Product'
-        );
+        ];
     }
     
     /**
@@ -137,10 +137,10 @@ class SEO_FieldValues
      **/
     public static function YesNo()
     {
-        return array(
+        return [
             '1' => 'Yes',
             '0' => 'No'
-        );
+        ];
     }
     
     /**
@@ -152,7 +152,7 @@ class SEO_FieldValues
      **/
     public static function SummaryFields()
     {
-        return array(
+        return [
             'GridMetaTitle'        => 'T',
             'GridMetaDescription'  => 'D',
             'GridSocial'           => 'S',
@@ -161,7 +161,7 @@ class SEO_FieldValues
             'Robots'               => 'Robots',
             'Priority'             => 'Priority',
             'ChangeFrequency'      => 'Change Freq'
-        );
+        ];
     }
     
     /**
@@ -173,32 +173,32 @@ class SEO_FieldValues
      **/
     public static function SearchableFields()
     {
-        return array(
-            'Title' => array(
+        return [
+            'Title' => [
                 'title'  => 'Title:',
                 'field'  => 'TextField',
                 'filter' => 'PartialMatchFilter'
-            ),
-            'URLSegment' => array(
+            ],
+            'URLSegment' => [
                 'title'  => 'URL segment:',
                 'field'  => 'TextField',
                 'filter' => 'PartialMatchFilter'
-            ),
-            'Robots' => array(
+            ],
+            'Robots' => [
                 'title'  => 'Robots:',
                 'field'  => 'DropdownField',
                 'filter' => 'ExactMatchFilter'
-            ),
-            'ChangeFrequency' => array(
+            ],
+            'ChangeFrequency' => [
                 'title'  => 'Change frequency:',
                 'field'  => 'DropdownField',
                 'filter' => 'ExactMatchFilter'
-            ),
-            'HideSocial' => array(
+            ],
+            'HideSocial' => [
                 'title'  => 'Social Meta:',
                 'field'  => 'DropdownField',
                 'filter' => 'ExactMatchFilter'
-            )
-        );
+            ]
+        ];
     }
 }

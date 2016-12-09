@@ -90,7 +90,7 @@ class SEO_DynamicMeta
 
                 // loop the relation and assign the necessary property to an array
                 if($object->hasMany($many) || $object->manyMany($many)){
-                    $values = array();
+                    $values = [];
                     foreach($object->$many() as $one){
                         $values[] = trim($one->$property);
                     }
@@ -101,7 +101,7 @@ class SEO_DynamicMeta
                     if($first == NULL){
                         $result = $last;
                     } else {
-                        $result = array();
+                        $result = [];
                         $result[] = $first;
                         $result[] = ', '.$this->seperator.' ';
                         $result[] = $last;

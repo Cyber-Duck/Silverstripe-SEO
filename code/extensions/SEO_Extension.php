@@ -17,7 +17,7 @@ class SEO_Extension extends DataExtension
      *
      * @config array $db 
      **/
-    private static $db = array(
+    private static $db = [
         'Title'           => 'Varchar(512)',
         'MetaTitle'       => 'Varchar(512)',
         'MetaDescription' => 'Varchar(512)',
@@ -29,8 +29,8 @@ class SEO_Extension extends DataExtension
         'HideSocial'      => 'Boolean',
         'OGtype'          => 'Varchar(100)',
         'OGlocale'        => 'Varchar(10)',
-        'TwitterCard'     => 'Varchar(100)',
-    );
+        'TwitterCard'     => 'Varchar(100)'
+    ];
 
     /**
      * Social image and other has_one relations
@@ -39,9 +39,9 @@ class SEO_Extension extends DataExtension
      *
      * @config array $has_one 
      **/
-    private static $has_one = array(
+    private static $has_one = [
         'SocialImage'     => 'Image'
-    );
+    ];
 
     /**
      * Has many extra Meta tags
@@ -50,10 +50,10 @@ class SEO_Extension extends DataExtension
      *
      * @config array $many_many 
      **/
-    private static $many_many = array(
+    private static $many_many = [
         'HeadTags'        => 'SEO_HeadTag',
         'SitemapImages'   => 'File'
-    );
+    ];
 
     /**
      * Sitemap defaults
@@ -62,10 +62,10 @@ class SEO_Extension extends DataExtension
      *
      * @config array $defaults 
      **/
-    private static $defaults = array(
+    private static $defaults = [
         'Priority'        => 0.50,
         'ChangeFrequency' => 'weekly'
-    );
+    ];
     
     /**
      * Adds our SEO Meta fields to the page field list
@@ -175,11 +175,11 @@ class SEO_Extension extends DataExtension
         $title = Config::inst()->get('SEO_ModelAdmin','meta_title');
         $description = Config::inst()->get('SEO_ModelAdmin','meta_description');
 
-        $preview = Controller::curr()->customise(array(
+        $preview = Controller::curr()->customise([
             'DefaultTitle' => $title['default'],
             'DefaultPath' => $this->SERPLink(),
             'DefaultDescription' => $description['default']
-        ))->renderWith('MetaPreview');
+        ])->renderWith('MetaPreview');
 
         return LiteralField::create('Preview', $preview);
     }
