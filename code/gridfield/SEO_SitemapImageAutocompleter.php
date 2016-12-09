@@ -70,6 +70,7 @@ class SEO_SitemapImageAutocompleter extends GridFieldAddExistingAutocompleter
 			$json[$result->ID] = html_entity_decode(SSViewer::fromString($this->resultsFormat)->process($result));
 		}
 		Config::inst()->update('SSViewer', 'source_file_comments', $originalSourceFileComments);
+
 		return Convert::array2json($json);
 	}
 }

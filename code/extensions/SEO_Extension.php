@@ -126,15 +126,14 @@ class SEO_Extension extends DataExtension
      **/
     public function updateSummaryFields(&$fields)
     {
-        if(Controller::curr() instanceof SEO_ModelAdmin)
-        {
+        if(Controller::curr() instanceof SEO_ModelAdmin) {
             Config::inst()->remove($this->owner->class, 'summary_fields');
 
             $class = new $this->owner->class;
             $fields = SEO_FieldValues::SummaryFields();
 
             if($class instanceof Page) {
-                $fields = array_merge(array('SEOPageStatus' => 'Status'), $fields);
+                $fields = array_merge(['SEOPageStatus' => 'Status'], $fields);
             }
             Config::inst()->update($this->owner->class, 'summary_fields', $fields);
 

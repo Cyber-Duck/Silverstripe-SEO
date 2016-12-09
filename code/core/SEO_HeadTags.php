@@ -65,22 +65,17 @@ class SEO_HeadTags
      **/
     public function get()
     {
-        if(!Controller::curr() instanceof Security && !Controller::curr() instanceof CMSMain)
-        {
-            foreach($this->model->HeadTags() as $tag)
-            {
-                if($tag->Type == 'name')
-                {
+        if(!Controller::curr() instanceof Security && !Controller::curr() instanceof CMSMain) {
+            foreach($this->model->HeadTags() as $tag) {
+                if($tag->Type == 'name') {
                     $this->getMetaTag($tag->Name,$tag->Value);
                     break;
                 }
-                if($tag->Type == 'link')
-                {
+                if($tag->Type == 'link') {
                     $this->getLinkTag($tag->Name,$tag->Value);
                     break;
                 }
-                if($tag->Type == 'property')
-                {
+                if($tag->Type == 'property') {
                     $this->getPropertyTag($tag->Name,$tag->Value);
                     break;
                 }
@@ -121,7 +116,7 @@ class SEO_HeadTags
      *
      * @return void
      **/
-    private function getMetaTag($name,$value)
+    private function getMetaTag($name, $value)
     {
         $this->html .= '<meta name="'.$name.'" content="'.htmlspecialchars($value).'">'.PHP_EOL;
     }
@@ -136,7 +131,7 @@ class SEO_HeadTags
      *
      * @return void
      **/
-    private function getLinkTag($name,$value)
+    private function getLinkTag($name, $value)
     {
         $this->html .= '<link rel="'.$name.'" href="'.htmlspecialchars($value).'">'.PHP_EOL;
     }
