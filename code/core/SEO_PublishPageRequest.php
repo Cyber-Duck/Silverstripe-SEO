@@ -1,18 +1,21 @@
 <?php
-
 /**
+ * SEO_PublishPageRequest
+ *
  * Adds the save button to the SEO admin CMS form
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEO_PublishPageRequest extends GridFieldDetailForm_ItemRequest {
-
+class SEO_PublishPageRequest extends GridFieldDetailForm_ItemRequest
+{
     /**
+     * Allow requests to ItemEditForm
+     *
      * @since version 1.0.0
      *
-     * @config array $allowed_actions Allow requests to ItemEditForm
+     * @config array $allowed_actions 
      **/
     private static $allowed_actions = array('ItemEditForm');
     
@@ -22,7 +25,7 @@ class SEO_PublishPageRequest extends GridFieldDetailForm_ItemRequest {
      *
      * @since version 1.0.2
      *
-     * @return FieldList Returns a record FieldList
+     * @return object Returns a record FieldList
      **/
     public function ItemEditForm()
     {
@@ -53,8 +56,8 @@ class SEO_PublishPageRequest extends GridFieldDetailForm_ItemRequest {
      *
      * @since version 1.0.2
      *
-     * @param array $data Form data
-     * @param Form  $form Form object instance
+     * @param array  $data Form data
+     * @param object $form Form object instance
      *
      * @return void
      **/
@@ -68,8 +71,8 @@ class SEO_PublishPageRequest extends GridFieldDetailForm_ItemRequest {
      *
      * @since version 1.0.2
      *
-     * @param array $data Form data
-     * @param Form  $form Form object instance
+     * @param array  $data Form data
+     * @param object $form Form object instance
      *
      * @return void
      **/
@@ -85,7 +88,7 @@ class SEO_PublishPageRequest extends GridFieldDetailForm_ItemRequest {
      *
      * @param string  $status  The page status
      * @param array   $data    Form data
-     * @param Form    $form    Form object instance
+     * @param object  $form    Form object instance
      * @param boolean $publish Set whether to publish the page
      *
      * @return void
@@ -132,8 +135,8 @@ class SEO_PublishPageRequest extends GridFieldDetailForm_ItemRequest {
      *
      * @since version 1.0.2
      *
-     * @param Page  $page Page object
-     * @param array $data Page data
+     * @param object $page Page object
+     * @param array  $data Page data
      *
      * @return void
      **/

@@ -1,15 +1,45 @@
 <?php
-
-class SEO_SitemapImageAutocompleter extends GridFieldAddExistingAutocompleter {
-	
-	public function __construct($targetFragment = 'before', $searchFields = null) {
+/**
+ * SEO_SitemapImageAutocompleter
+ *
+ * XML sitemap image autocompleter
+ *
+ * @package silverstripe-seo
+ * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
+ * @author  <andrewm@cyber-duck.co.uk>
+ **/
+class SEO_SitemapImageAutocompleter extends GridFieldAddExistingAutocompleter
+{	
+    /**
+     * Set core properties
+     *
+     * @since version 1.0.0
+     *
+     * @param string $targetFragment
+     * @param object $searchFields
+     *
+     * @return void
+     **/
+	public function __construct($targetFragment = 'before', $searchFields = null)
+	{
 		$this->targetFragment = $targetFragment;
 		$this->searchFields = (array)$searchFields;
 
 		parent::__construct();
 	}
 
-	public function doSearch($gridField, $request) {
+    /**
+     * Perform a search and return JSON encoded results for use in autocompleter
+     *
+     * @since version 1.0.0
+     *
+     * @param object $gridField
+     * @param object $request
+     *
+     * @return void
+     **/
+	public function doSearch($gridField, $request)
+	{
 		$dataClass = $gridField->getList()->dataClass();
 		$allList = $this->searchList ? $this->searchList : DataList::create($dataClass);
 		

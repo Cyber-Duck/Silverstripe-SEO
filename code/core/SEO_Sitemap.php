@@ -1,39 +1,48 @@
 <?php
-
 /**
+ * SEO_Sitemap
+ *
  * Generates an HTML sitemap list
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEO_Sitemap {
-
+class SEO_Sitemap
+{
     /**
+     * An array of objects with pages to include in the sitemap
+     *
      * @since version 1.0.0
      *
-     * @var array $objects An array of objects with pages to include in the sitemap
+     * @var array $objects
      **/
     private $objects;
 
     /**
+     * The URL to use for the current sitemap page
+     *
      * @since version 1.0.0
      *
-     * @var string $url The URL to use for the current sitemap page
+     * @var string $url 
      **/
     private $url;
 
     /**
+     * The XML to output
+     *
      * @since version 1.0.0
      *
-     * @var string $xml The XML to output
+     * @var string $xml 
      **/
     private $xml;
 
     /**
+     * The HTML to output
+     *
      * @since version 1.0.0
      *
-     * @var string $html The HTML to output
+     * @var string $html 
      **/
     private $html;
 
@@ -136,6 +145,9 @@ class SEO_Sitemap {
      *
      * @since version 1.0.0
      *
+     * @param string $name
+     * @param object $page
+     *
      * @return string
      **/
     private function getPrefix($name, $page)
@@ -146,11 +158,11 @@ class SEO_Sitemap {
     }
 
     /**
-     * Iterate through child pages
+     * Iterate through child Page class objects
      *
      * @since version 1.0.0
      *
-     * @param $pages
+     * @param object $pages
      *
      * @return void
      **/
@@ -186,11 +198,11 @@ class SEO_Sitemap {
     }
 
     /**
-     * 
+     * Iterate through child non Page class objects
      *
      * @since version 1.0.0
      *
-     * @param $pages
+     * @param object $pages
      *
      * @return void
      **/

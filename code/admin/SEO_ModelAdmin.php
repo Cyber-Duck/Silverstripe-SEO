@@ -1,67 +1,84 @@
 <?php
-
 /**
- * SEO Model Admin class which creates the SEO CMS section for SEO management across pages
+ * SEO_ModelAdmin
+ *
+ * Class which creates the SEO CMS section for SEO management across pages
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEO_ModelAdmin extends ModelAdmin {
-
+class SEO_ModelAdmin extends ModelAdmin
+{
     /**
+     * Hide the import form for SEO admin
+     *
      * @since version 1.0.0
      *
-     * @config boolean $showImportForm Hide the import form for SEO admin
+     * @config boolean $showImportForm
      **/
     public $showImportForm = false;
 
     /**
+     * The main menu title
+     *
      * @since version 1.0.0
      *
-     * @config string $menu_title The main menu title
+     * @config string $menu_title 
      **/
     private static $menu_title = 'SEO';
 
     /**
+     * The CMS SEO admin URL segment
+     *
      * @since version 1.0.0
      *
-     * @config string $url_segment The CMS SEO admin URL segment
+     * @config string $url_segment
      **/
     private static $url_segment = 'seo-admin';
 
     /**
+     * The main menu icon
+     *
      * @since version 1.0.0
      *
-     * @config string $menu_icon The main menu icon
+     * @config string $menu_icon 
      **/
     private static $menu_icon = 'seo/images/menu-icons/16x16/seo.png';
 
     /**
+     * Menu priority
+     *
      * @since version 1.0.0
      *
-     * @config int $menu_priority Menu priority
+     * @config int $menu_priority 
      **/
     private static $menu_priority = 101;
 
     /**
+     * Set to 50 to easily examine a large set of pages
+     *
      * @since version 1.0.0
      *
-     * @config int $page_length Set to 50 to easily examine a large set of pages
+     * @config int $page_length 
      **/
     private static $page_length = 50;
 
     /**
+     * Default none as they are set later
+     *
      * @since version 1.0.0
      *
-     * @config array $managed_models Default none as they are set later
+     * @config array $managed_models 
      **/
     private static $managed_models = array();
 
     /**
+     * Disable model imports in SEO admin
+     *
      * @since version 1.0.0
      *
-     * @config string $model_importers Disable model imports in SEO admin
+     * @config string $model_importers 
      **/
     private static $model_importers = null;
 
@@ -103,11 +120,11 @@ class SEO_ModelAdmin extends ModelAdmin {
     /**
      * The SEO admin area is for managing page SEO, not for page creation. Some grid
      * field components are removed from the SEO admin by default.
+     * 
+     * @since version 1.0.0
      *
      * @param mixed $id
      * @param mixed $fields
-     * 
-     * @since version 1.0.0
      *
      * @return FieldList
      **/
@@ -134,6 +151,15 @@ class SEO_ModelAdmin extends ModelAdmin {
         return $form;
     }
 
+    /**
+     * Set the form request handler
+     *
+     * @since version 1.0.0
+     *
+     * @param object $form
+     *
+     * @return object
+     **/
     private function setRequestHandler($form)
     {
         $form
@@ -147,8 +173,7 @@ class SEO_ModelAdmin extends ModelAdmin {
     }
 
     /**
-     * Using getList you can filter the grid by any passed GET param filters or
-     * you can filter by model class
+     * Get list of CMS grid pages
      *
      * @since version 1.0.0
      *
@@ -164,6 +189,13 @@ class SEO_ModelAdmin extends ModelAdmin {
         return parent::getList();
     }
 
+    /**
+     * Get list of CMS grid filters
+     *
+     * @since version 1.0.0
+     *
+     * @return object
+     **/
     private function getFilters()
     {
         $request = $this->getRequest()->requestVar('q');
@@ -185,6 +217,13 @@ class SEO_ModelAdmin extends ModelAdmin {
         return $filters;
     }
 
+    /**
+     * Get list of CMS grid versioned pages
+     *
+     * @since version 1.0.0
+     *
+     * @return object
+     **/
     private function getVersionedPages()
     {
         $list = new ArrayList();
@@ -201,8 +240,7 @@ class SEO_ModelAdmin extends ModelAdmin {
     }
 
     /**
-     * Using this method we can populate the SEO grid search filters with various
-     * SEO options
+     * Set the CMS grid search context
      *
      * @since version 1.0.0
      *

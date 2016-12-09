@@ -1,25 +1,30 @@
 <?php
-
 /**
+ * SEO_HeadTags
+ *
  * Responsible for creating Meta tags with user generated names and values
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEO_HeadTags {
-
+class SEO_HeadTags
+{
     /**
+     * The current page object
+     *
      * @since version 1.0.0
      *
-     * @var object $model The current page object
+     * @var object $model 
      **/
     private $model;
 
     /**
+     * The Meta tag HTML
+     *
      * @since version 1.0.0
      *
-     * @var string $html The Meta tag HTML
+     * @var string $html 
      **/
     private $html;
 

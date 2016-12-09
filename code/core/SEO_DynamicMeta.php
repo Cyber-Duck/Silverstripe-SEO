@@ -1,51 +1,59 @@
 <?php
-
 /**
+ * SEO_DynamicMeta
+ *
  * Create dynamic Meta
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-
-class SEO_DynamicMeta {
-
+class SEO_DynamicMeta
+{
     /**
+     * A string of Meta text
+     *
      * @since version 1.0.0
      *
-     * @var string $text A string of Meta text
+     * @var string $text 
      **/
 	private $text;
 
     /**
+     * An object with the SEO extension attached
+     *
      * @since version 1.0.0
      *
-     * @var object $object An object with the SEO extension attached
+     * @var object $object 
      **/
 	private $object;
 
     /**
+     * Seperator string between looped relations
+     *
      * @since version 1.0.0
      *
-     * @var string $seperator Seperator string between looped relations
+     * @var string $seperator 
      **/
 	private $seperator;
 
     /**
+     * Extracted placeholders from Meta text string
+     *
      * @since version 1.0.0
      *
-     * @var array $placeholders Extracted placeholders from Meta text string
+     * @var array $placeholders 
      **/
 	private $placeholders;
 
 	/**
      * Set a dynamic Meta tag populated with an object properties
      *
-     * @since version 1.0.0
-     *
      * @param string $text      Meta text with placeholders [Value]
      * @param object $object    The object to use
      * @param string $seperator Separator to use before the last value when using multiple values
+     *
+     * @since version 1.0.0
      *
      * @return string Returns text with the placeholders replaced with object properties
      **/

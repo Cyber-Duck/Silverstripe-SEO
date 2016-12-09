@@ -1,25 +1,21 @@
 <?php
-
 /**
+ * SEO_SitemapImageExtension
+ *
  * Extension for images which adds compatibility for XML image sitemaps
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEO_SitemapImageExtension extends DataExtension {
-
+class SEO_SitemapImageExtension extends DataExtension
+{
     /**
+     * Use better custom summary fields
+     *
      * @since version 1.0.0
      *
-     * @config array $db Add extra fields to the image object
-     **/
-    private static $db = array();
-
-    /**
-     * @since version 1.0.0
-     *
-     * @config array $summary_fields Use better custom summary fields
+     * @config array $summary_fields 
      **/
     private static $summary_fields = array(
         'Thumbnail' => '',
@@ -33,9 +29,9 @@ class SEO_SitemapImageExtension extends DataExtension {
      *
      * @since version 1.0.0
      *
-     * @param string $fields The current FieldList object
+     * @param object $fields The current FieldList object
      *
-     * @return FieldList
+     * @return object
      **/
     public function updateCMSFields(FieldList $fields) 
     {
@@ -50,9 +46,9 @@ class SEO_SitemapImageExtension extends DataExtension {
     /**
      * Change the class summary fields when in SEO Admin
      *
-     * @param array $fields The current summary fields
-     *
      * @since version 1.0.0
+     *
+     * @param array $fields The current summary fields
      *
      * @return void
      **/
@@ -70,7 +66,7 @@ class SEO_SitemapImageExtension extends DataExtension {
      *
      * @since version 1.0.0
      *
-     * @return string
+     * @return object
      **/
     public function getThumbnail()
     {

@@ -1,18 +1,21 @@
 <?php
-
 /**
+ * SEO_HeadTag
+ *
  * Creates an Other Meta Tags GridField within the CMS for an object / page
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEO_HeadTag extends DataObject {
-
+class SEO_HeadTag extends DataObject
+{
     /**
+     * Simple name, value, and type fields for a Meta tag
+     *
      * @since version 1.0.0
      *
-     * @config array $db Simple name, value, and type fields for a Meta tag
+     * @config array $db 
      **/
     private static $db = array(
         'Name'      => 'Varchar(512)',
@@ -21,9 +24,11 @@ class SEO_HeadTag extends DataObject {
     );
 
     /**
+     * Show all fields in the Grid field
+     *
      * @since version 1.0.0
      *
-     * @config array $summary_fields Show all fields in the Grid field
+     * @config array $summary_fields
      **/
     private static $summary_fields = array(
         'Name'      => 'Name',
@@ -32,23 +37,29 @@ class SEO_HeadTag extends DataObject {
     );
 
     /**
+     * Sort tags by name by default
+     *
      * @since version 1.0.0
      *
-     * @config string $default_sort Sort tags by name by default
+     * @config string $default_sort 
      **/
     private static $default_sort = 'Name';
 
     /**
+     * Singular English name
+     *
      * @since version 1.0.0
      *
-     * @config string $singular_name Singular English name
+     * @config string $singular_name
      **/
     private static $singular_name = 'Meta Tag';
 
     /**
+     * Plural English name
+     *
      * @since version 1.0.0
      *
-     * @config string $plural_name Plural English name
+     * @config string $plural_name 
      **/
     private static $plural_name = 'Meta Tags';
     
@@ -57,7 +68,7 @@ class SEO_HeadTag extends DataObject {
      *
      * @since version 1.0.0
      *
-     * @return FieldList Return the current page fields
+     * @return object Return the current page fields
      **/
     public function getCMSFields() 
     {

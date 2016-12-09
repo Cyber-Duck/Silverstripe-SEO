@@ -1,18 +1,21 @@
 <?php
-
 /**
+ * SEO_Extension
+ *
  * Core extension used to transform an object into an SEO object
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEO_Extension extends DataExtension {
-
+class SEO_Extension extends DataExtension
+{
     /**
+     * Our page fields
+     *
      * @since version 1.0.0
      *
-     * @config array $db Our page fields
+     * @config array $db 
      **/
     private static $db = array(
         'Title'           => 'Varchar(512)',
@@ -30,18 +33,22 @@ class SEO_Extension extends DataExtension {
     );
 
     /**
+     * Social image and other has_one relations
+     *
      * @since version 1.0.0
      *
-     * @config array $has_one Social image and other has_one relations
+     * @config array $has_one 
      **/
     private static $has_one = array(
         'SocialImage'     => 'Image'
     );
 
     /**
+     * Has many extra Meta tags
+     *
      * @since version 1.0.0
      *
-     * @config array $many_many Has many extra Meta tags
+     * @config array $many_many 
      **/
     private static $many_many = array(
         'HeadTags'        => 'SEO_HeadTag',
@@ -49,9 +56,11 @@ class SEO_Extension extends DataExtension {
     );
 
     /**
+     * Sitemap defaults
+     *
      * @since version 1.0.0
      *
-     * @config array $defaults Sitemap defaults
+     * @config array $defaults 
      **/
     private static $defaults = array(
         'Priority'        => 0.50,
@@ -65,7 +74,7 @@ class SEO_Extension extends DataExtension {
      *
      * @param string $fields The current FieldList object
      *
-     * @return FieldList Return the FieldList object
+     * @return object Return the FieldList object
      **/
     public function updateCMSFields(FieldList $fields) 
     {
@@ -109,7 +118,7 @@ class SEO_Extension extends DataExtension {
     /**
      * Change the grid summary field structure is currently in SEO admin
      * 
-     * @param array $fields The current summary fields
+     * @param object $fields The current summary fields
      *
      * @since version 1.0.0
      *
@@ -133,6 +142,13 @@ class SEO_Extension extends DataExtension {
         }
     }
 
+    /**
+     * Get the CMS grid HTML page status icon
+     *
+     * @since version 1.0.0
+     *
+     * @return object
+     **/
     public function getSEOPageStatus()
     {
         if($this->owner->isPublished()){
@@ -152,7 +168,7 @@ class SEO_Extension extends DataExtension {
      *
      * @since version 1.0.0
      *
-     * @return LiteralField
+     * @return object
      **/
     private function preview()
     {
@@ -188,7 +204,7 @@ class SEO_Extension extends DataExtension {
      *
      * @since version 1.0.0
      *
-     * @return UploadField Return the Social image UploadField object
+     * @return object Return the Social image UploadField object
      **/
     private function SharingImage()
     {
@@ -206,7 +222,7 @@ class SEO_Extension extends DataExtension {
      *
      * @since version 1.0.0
      *
-     * @return GridField Return the Social image GridField object
+     * @return object Return the Social image GridField object
      **/
     private function OtherHeadTags()
     {
@@ -228,7 +244,7 @@ class SEO_Extension extends DataExtension {
      *
      * @since version 1.0.0
      *
-     * @return GridField Return the Social image GridField object
+     * @return object Return the Social image GridField object
      **/
     private function SitemapImagesGrid()
     {
@@ -263,7 +279,7 @@ class SEO_Extension extends DataExtension {
      *
      * @since version 1.0.0
      *
-     * @return HTMLText
+     * @return object
      **/
     public function GridMetaTitle()
     {
@@ -277,7 +293,7 @@ class SEO_Extension extends DataExtension {
      *
      * @since version 1.0.0
      *
-     * @return HTMLText
+     * @return object
      **/
     public function GridMetaDescription()
     {
@@ -291,7 +307,7 @@ class SEO_Extension extends DataExtension {
      *
      * @since version 1.0.0
      *
-     * @return HTMLText
+     * @return object
      **/
     public function GridSocial()
     {
@@ -302,14 +318,14 @@ class SEO_Extension extends DataExtension {
 
     /**
      * Check the length of a string and generates a span styled reflecting Meta status
+     *
+     * @since version 1.0.0
      * 
      * @param string $text The text to check
      * @param int    $min  The minimum string length
      * @param int    $max  The maximum string length
      *
-     * @since version 1.0.0
-     *
-     * @return HTMLText
+     * @return object
      **/
     private function getGridLight($text, $min, $max)
     {
@@ -327,12 +343,12 @@ class SEO_Extension extends DataExtension {
 
     /**
      * Return a HTMLText object for use within a grid field 
+     *
+     * @since version 1.0.0
      * 
      * @param string $span The HTML span
      *
-     * @since version 1.0.0
-     *
-     * @return HTMLText
+     * @return object
      **/
     private function getGridSpan($span)
     {

@@ -1,14 +1,15 @@
 <?php
-
 /**
+ * SEO_FieldValues
+ *
  * Returns array values used in the SEO admin search and CMS form field dropdowns
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-
-class SEO_FieldValues {
+class SEO_FieldValues
+{
     /**
      * Returns an array of sitemap change frequencies used in a sitemap.xml file
      *

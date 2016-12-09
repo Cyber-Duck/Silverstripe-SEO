@@ -1,6 +1,7 @@
 <?php
-
 /**
+ * SEO
+ *
  * The core SEO class is where module methods are called from. 
  * Creates our page Meta tags to deal with content, crawling, indexing, sitemap, and social sharing
  *
@@ -8,68 +9,86 @@
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-final class SEO {
-
+final class SEO
+{
     /**
+     * The SEO instance
+     *
      * @since version 1.0.0
      *
-     * @static self $instance The SEO instance
+     * @static self $instance 
      **/
     private static $instance;
 
     /**
+     * Page Meta title
+     *
      * @since version 1.0.0
      *
-     * @static string $title Page Meta title
+     * @static string $title
      **/
     private static $title;
 
     /**
+     * Page Meta description
+     *
      * @since version 1.0.0
      *
-     * @static string $description Page Meta description
+     * @static string $description
      **/
     private static $description;
 
     /**
+     * Page URL
+     *
      * @since version 1.0.0
      *
-     * @static string $pageURL Page URL
+     * @static string $pageURL
      **/
     private static $pageURL;
 
     /**
+     * Current Page object
+     *
      * @since version 1.0.0
      *
-     * @static object $page Current Page object
+     * @static object $page 
      **/
     private static $page;
 
     /**
+     * Other head tags object
+     *
      * @since version 1.0.0
      *
-     * @static SEO_HeadTags $tags Other head tags object
+     * @static SEO_HeadTags $tags 
      **/
     private static $tags;
 
     /**
+     * Sitemap object
+     *
      * @since version 1.0.0
      *
-     * @static SEO_Sitemap $sitemap Sitemap object
+     * @static SEO_Sitemap $sitemap 
      **/
     private static $sitemap;
 
     /**
+     * Pagination Meta object
+     *
      * @since version 1.0.0
      *
-     * @static SEO_Pagination $pagination Pagination Meta object
+     * @static SEO_Pagination $pagination 
      **/
     private static $paginaton;
 
     /**
+     * The Meta tags HTML output
+     *
      * @since version 1.0.0
      *
-     * @static string $html The Meta tags HTML output
+     * @static string $html 
      **/
     private static $html;
 
@@ -88,7 +107,7 @@ final class SEO {
             // set the default URL for Meta tags like canonical
             self::setPageURL(Director::AbsoluteBaseURL().substr(parse_url($_SERVER['REQUEST_URI'],PHP_URL_PATH),1));
 
-            // Initialise coe objects
+            // Initialise core objects
             self::$tags = new SEO_HeadTags();
             self::$sitemap = new SEO_Sitemap();
             self::$paginaton = new SEO_Pagination();
