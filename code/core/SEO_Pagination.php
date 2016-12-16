@@ -180,6 +180,7 @@ class SEO_Pagination
         } else {
             $this->allowed[$param] = '';
         }
+        return $this;
     }
 
     /**
