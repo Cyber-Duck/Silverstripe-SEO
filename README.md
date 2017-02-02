@@ -1,6 +1,7 @@
 # Silverstripe SEO
 
 [![Latest Stable Version](https://poser.pugx.org/cyber-duck/silverstripe-seo/v/stable)](https://packagist.org/packages/cyber-duck/silverstripe-seo)
+[![Latest Unstable Version](https://poser.pugx.org/cyber-duck/silverstripe-block-page/v/unstable)](https://packagist.org/packages/cyber-duck/silverstripe-block-page)
 [![Total Downloads](https://poser.pugx.org/cyber-duck/silverstripe-seo/downloads)](https://packagist.org/packages/cyber-duck/silverstripe-seo)
 [![License](https://poser.pugx.org/cyber-duck/silverstripe-seo/license)](https://packagist.org/packages/cyber-duck/silverstripe-seo)
 
