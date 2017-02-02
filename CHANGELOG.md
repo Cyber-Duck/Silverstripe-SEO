@@ -81,29 +81,3 @@ All notable changes to this project will be documented in this file.
 ### Added
   
   - Core functionality
-
-
-
-
-
-
-
-### Added
-
-  - .editorconfig
-  - .gitattributes
-  - .scrutinizer.yml
-  - CHANGELOG.md
-  - CONTRIBUTING.md
-
-### Changed
-
-  - Minor README updates
-
-## Version 1.0.4
-
-### Changed
-
-  - Show Meta title and description in SEO admin CMS grid
-  - Fix bug with CMS grid social light
-  - Remove VCS composer reference from README
