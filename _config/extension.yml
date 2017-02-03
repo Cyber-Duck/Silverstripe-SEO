@@ -1,0 +1,3 @@
+SiteConfig:
+  extensions:
+    - SEO_SiteConfigExtension
