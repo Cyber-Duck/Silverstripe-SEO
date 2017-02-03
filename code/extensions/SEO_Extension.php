@@ -63,6 +63,7 @@ class SEO_Extension extends DataExtension
      * @config array $defaults 
      **/
     private static $defaults = [
+        'Robots'          => 'index,follow',
         'Priority'        => 0.50,
         'ChangeFrequency' => 'weekly'
     ];
