@@ -19,8 +19,10 @@
 <meta name="twitter:card" content="<% if $TwitterCard %>$TwitterCard<% else %>summary<% end_if %>">
 
 <% if $SocialImage %>
-<meta property="og:image" content="$SocialImage.URL">
-<meta name="twitter:image" content="$SocialImage.URL">
+<% with $SocialImage %>
+<meta property="og:image" content="$AbsoluteURL">
+<meta name="twitter:image" content="$AbsoluteURL">
+<% end_with %>
 <% end_if %>
 
 <% if $SiteConfig.FacebookAppID %>
