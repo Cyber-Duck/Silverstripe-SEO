@@ -25,7 +25,6 @@ A Silverstripe module to enhance and optimize your website SEO. This module also
     - [Whitelisting URL parameters](/docs/pagination#whitelisting-url-parameters)
   - [SEO Admin](/docs/seo-admin)
     - [Customising the SEO Admin models](/docs/seo-admin#customising-the-seo-admin-models)
-    - [Field breakdown](/docs/seo-admin#field-breakdown)
   - [Sitemap](/docs/sitemap)
     - [XML sitemap](/docs/sitemap#xml-sitemap)
     - [HTML sitemap](/docs/sitemap#html-sitemap)
