@@ -93,16 +93,16 @@ class SEO_Extension extends DataExtension
 
         $fields->addFieldToTab('Root.PageSEO', HeaderField::create(false, 'Indexing', 2));
         $fields->addFieldToTab('Root.PageSEO', TextField::create('Canonical'));
-        $fields->addFieldToTab('Root.PageSEO', DropdownField::create('Robots', 'Robots', SEO_FieldValues::IndexRules()));
+        $fields->addFieldToTab('Root.PageSEO', DropdownField::create('Robots', 'Robots', SEO_FieldValues::IndexRules())->setEmptyString('- please select - '));
         $fields->addFieldToTab('Root.PageSEO', NumericField::create('Priority'));
-        $fields->addFieldToTab('Root.PageSEO', DropdownField::create('ChangeFrequency', 'Change Frequency', SEO_FieldValues::SitemapChangeFrequency()));
+        $fields->addFieldToTab('Root.PageSEO', DropdownField::create('ChangeFrequency', 'Change Frequency', SEO_FieldValues::SitemapChangeFrequency())->setEmptyString('- please select - '));
         $fields->addFieldToTab('Root.PageSEO', CheckboxField::create('SitemapHide', 'Hide in sitemap? (XML and HTML)'));
 
         $fields->addFieldToTab('Root.PageSEO', HeaderField::create('Social Meta'));
         $fields->addFieldToTab('Root.PageSEO', CheckboxField::create('HideSocial','Hide Social Meta?'));
-        $fields->addFieldToTab('Root.PageSEO', DropdownField::create('OGtype', 'Open Graph Type', SEO_FieldValues::OGtype()));
-        $fields->addFieldToTab('Root.PageSEO', DropdownField::create('OGlocale', 'Open Graph Locale', SEO_FieldValues::OGlocale()));
-        $fields->addFieldToTab('Root.PageSEO', DropdownField::create('TwitterCard', 'Twitter Card', SEO_FieldValues::TwitterCardTypes()));
+        $fields->addFieldToTab('Root.PageSEO', DropdownField::create('OGtype', 'Open Graph Type', SEO_FieldValues::OGtype())->setEmptyString('- please select - '));
+        $fields->addFieldToTab('Root.PageSEO', DropdownField::create('OGlocale', 'Open Graph Locale', SEO_FieldValues::OGlocale())->setEmptyString('- please select - '));
+        $fields->addFieldToTab('Root.PageSEO', DropdownField::create('TwitterCard', 'Twitter Card', SEO_FieldValues::TwitterCardTypes())->setEmptyString('- please select - '));
         $fields->addFieldToTab('Root.PageSEO', $this->SharingImage());
 
         $fields->addFieldToTab('Root.PageSEO', HeaderField::create('Other Meta Tags'));
