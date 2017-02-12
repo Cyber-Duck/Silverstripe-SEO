@@ -317,6 +317,18 @@ class SEO_Extension extends DataExtension
     }
 
     /**
+     * Formats the framework content locale string for the Open Graph protocol
+     *
+     * @since version 1.0.6
+     *
+     * @return string
+     **/
+    public function DefaultContentLocale()
+    {
+        return str_replace('-', '_', Controller::curr()->ContentLocale());
+    }
+
+    /**
      * Check the length of a string and generates a span styled reflecting Meta status
      *
      * @since version 1.0.0
