@@ -29,7 +29,7 @@ class SEO_FieldValues
             'never'   => 'Never'
         ];
     }
-    
+
     /**
      * Returns an array of robots crawling rules used in a robots Meta tag
      *
@@ -46,7 +46,7 @@ class SEO_FieldValues
             'index,nofollow'   => 'index,nofollow'
         ];
     }
-    
+
     /**
      * Return an array of Facebook Open Graph locales
      *
@@ -60,6 +60,7 @@ class SEO_FieldValues
             'en_GB' => 'English - United Kingdom',
             'en_US' => 'English - United States',
             'da_DK' => 'Danish - Denmark',
+            'hr_HR' => 'Croatian - Croatia',
             'nl_NL' => 'Dutch - Netherlands',
             'fr_FR' => 'French - France',
             'de_DE' => 'German - Germany',
@@ -89,7 +90,7 @@ class SEO_FieldValues
             'vi_VN' => 'Vietnamese - Vietnam'
         ];
     }
-    
+
     /**
      * Return an array of Facebook Open Graph Types
      *
@@ -108,7 +109,7 @@ class SEO_FieldValues
             'video'   => 'Video'
         ];
     }
-    
+
     /**
      * Returns an array of Twitter card types
      *
@@ -127,7 +128,7 @@ class SEO_FieldValues
             'product'             => 'Product'
         ];
     }
-    
+
     /**
      * Returns an array of robots crawling rules used in a robots Meta tag
      *
@@ -142,7 +143,7 @@ class SEO_FieldValues
             '0' => 'No'
         ];
     }
-    
+
     /**
      * Returns an array of summary fields used in the SEO Admin section of the CMS
      *
@@ -163,7 +164,7 @@ class SEO_FieldValues
             'ChangeFrequency'      => 'Change Freq'
         ];
     }
-    
+
     /**
      * Returns an array of searchable fields used in the SEO Admin section of the CMS
      *
