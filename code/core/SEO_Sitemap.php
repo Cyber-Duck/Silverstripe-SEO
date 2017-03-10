@@ -11,33 +11,6 @@
 class SEO_Sitemap
 {
     /**
-     * An array of objects with pages to include in the sitemap
-     *
-     * @since version 1.0.0
-     *
-     * @var array $objects
-     **/
-    private $objects;
-
-    /**
-     * The URL to use for the current sitemap page
-     *
-     * @since version 1.0.0
-     *
-     * @var string $url 
-     **/
-    private $url;
-
-    /**
-     * The XML to output
-     *
-     * @since version 1.0.0
-     *
-     * @var string $xml 
-     **/
-    private $xml;
-
-    /**
      * The HTML to output
      *
      * @since version 1.0.0
@@ -47,18 +20,13 @@ class SEO_Sitemap
     private $html;
 
     /**
-     * Initialise config
+     * The current site host and protocol
      *
-     * @since version 1.0.0
+     * @since version 1.1.0
      *
-     * @return void
+     * @var string $host 
      **/
-    public function __construct()
-    {
-        $this->objects = Config::inst()->get('SEO_Sitemap', 'objects');
-
-        $this->url = substr(Director::AbsoluteBaseURL(),0,-1);
-    }
+    private $host;
 
     /**
      * Return an encoded string compliant with XML sitemap standards
@@ -83,10 +51,54 @@ class SEO_Sitemap
      **/
     public function getSitemapXML()
     {
+        $data = ArrayList::create();
+
+        $this->host = $this->getSitemapHost();
+
+        foreach(Page::get()->filter($this->getSitemapFilters()) as $page) {
+            $page->Host = $this->host;
+            $data->push($page);
+        }
         return Controller::curr()->customise([
-            'Pages' => $this->getPages(),
-            'URL'   => $this->url
+            'Pages' => $data
         ])->renderWith('SitemapXML');
+    }
+
+    /**
+     * Get subsite domains
+     *
+     * @since version 1.1.0
+     *
+     * @return array
+     **/
+    private function getSitemapHost()
+    {
+        if(class_exists('SubSite')) {
+            $site = DataObject::get_by_id('SubsiteDomain', Subsite::currentSubSiteID());
+
+            if($site) return Director::protocol().$site->Domain;
+        }
+        return Director::protocolAndHost();
+    }
+
+    /**
+     * Get subsite domains
+     *
+     * @since version 1.1.0
+     *
+     * @return array
+     **/
+    private function getSitemapFilters()
+    {
+        $filters = [
+            'ClassName:not' => 'ErrorPage',
+            'Robots:not'    => 'noindex,nofollow',
+            'SitemapHide'   => 0
+        ];
+        if(class_exists('SubSite')) {
+            $filters['SubsiteID'] = Subsite::currentSubSiteID();
+        }
+        return $filters;
     }
 
     /**
@@ -98,63 +110,16 @@ class SEO_Sitemap
      **/
     public function getSitemapHTML()
     {
-        $pages = Page::get()->filter([
-            'ClassName:not' => 'ErrorPage',
-            'Robots:not'    => 'noindex,nofollow',
-            'SitemapHide'   => 0,
-            'ParentID'      => 0
-        ])->Sort('Sort','ASC');
+        $data = ArrayList::create();
+
+        $filters = $this->getSitemapFilters();
+        $filters['ParentID'] = 0;
+
+        $pages = Page::get()->filter($filters);
 
         $this->getChildPages($pages);
 
         return $this->html;
-    }
-
-    /**
-     * Merge an objects pages to the current page set
-     *
-     * @since version 1.0.0
-     *
-     * @return string
-     **/
-    private function getPages()
-    {
-        $pages = new ArrayList();
-        $config = Config::inst()->get('SEO_Sitemap','objects');
-
-        foreach($this->objects as $className => $value){
-
-            $object = $className::get()->filter([
-                'Robots:not'  => 'noindex,nofollow',
-                'SitemapHide' => 0
-            ]);
-
-            foreach($object as $page){
-                if(!$page instanceof Page){
-                    $page->Link = $this->getPrefix($className, $page);
-                }
-                $pages->push($page);
-            }
-        }
-        $pages->Sort('Priority DESC');
-        return $pages;
-    }
-
-    /**
-     * Get the URL link prefix from the YML config setting
-     *
-     * @since version 1.0.0
-     *
-     * @param string $name
-     * @param object $page
-     *
-     * @return string
-     **/
-    private function getPrefix($name, $page)
-    {
-        if(isset($this->objects[$name]['prefix'])){
-            return "/".$this->objects[$name]['prefix']."/".$page->URLSegment."/";
-        }
     }
 
     /**
@@ -166,54 +131,54 @@ class SEO_Sitemap
      *
      * @return void
      **/
-    private function getChildPages($pages)
+    private function getChildPages(DataList $pages)
     {
         $this->html .= '<ul>';
 
-        foreach($pages as $page){
-            $this->html .= '<li><a href="'.$this->url.$page->Link().'">'.$page->Title.'</a>';
+        foreach($pages as $page) {
+            $this->html .= sprintf('<li><a href="%s%s">%s</a>', $this->host, $page->Link(), $page->Title);
 
-            foreach($this->objects as $className => $config){
-                if($config['parent_id'] == $page->ID && $config['parent_id'] !== 0){
-                    $pages = $className::get()->filter([
-                        'Robots:not'  => 'noindex,nofollow',
-                        'SitemapHide' => 0
-                    ])->sort('Priority DESC');
-                    $this->getObjectPages($pages);
-                }
-            }
-            $children = Page::get()->filter([
-                'ParentID'    => $page->ID,
-                'Robots:not'  => 'noindex,nofollow',
-                'SitemapHide' => 0
-            ])->Sort('ID','ASC');
+            $filters = $this->getSitemapFilters();
+            $filters['ParentID'] = $page->ID;
+
+            // get page children
+            $children = Page::get()->filter($filters);
 
             if($children) $this->getChildPages($children);
 
+            // get object children
+            $this->getObjectChildren($page->ID);
+
             $this->html .= '</li>';
         }
-
         $this->html .= '</ul>';
-
     }
 
     /**
-     * Iterate through child non Page class objects
+     * Get children which are not of Page type
      *
-     * @since version 1.0.0
+     * @since version 1.1.0
      *
-     * @param object $pages
+     * @param int $id
      *
      * @return void
      **/
-    private function getObjectPages($pages)
+    private function getObjectChildren($id)
     {
-        $this->html .= '<ul>';
+        foreach(Config::inst()->get('SEO_Sitemap', 'objects') as $class => $config) {
+            if($config['parent_id'] == $id) {
+                $filters = $this->getSitemapFilters();
+                
+                $children = $class::get()->filter($filters);
 
-        foreach($pages as $page):
-            $this->html .= '<li><a href="'.$this->url.$this->getPrefix($page->ClassName, $page).'">'.$page->Title.'</a></li>';
-        endforeach;
-
-        $this->html .= '</ul>';
+                if($children) {
+                    $this->html .= '<ul>';
+                    foreach($children as $page) {
+                        $this->html .= sprintf('<li><a href="%s%s">%s</a>', $this->host, $page->Link(), $page->Title);
+                    }
+                    $this->html .= '</ul>';
+                }
+            }
+        }
     }
 }
