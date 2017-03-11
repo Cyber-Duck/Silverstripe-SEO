@@ -220,7 +220,8 @@ class SEO_Extension extends DataExtension
         );
 
         $grid->getConfig()
-            ->removeComponentsByType('GridFieldAddNewButton','GridFieldAddExistingAutocompleter')
+            ->removeComponentsByType('GridFieldAddNewButton')
+            ->removeComponentsByType('GridFieldAddExistingAutocompleter')
             ->addComponent(new SEO_SitemapImageAutocompleter('before'));
 
         return $grid;
