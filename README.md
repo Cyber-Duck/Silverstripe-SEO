@@ -15,6 +15,7 @@ A Silverstripe module to enhance and optimize your website SEO. This module also
     - [Composer](/docs/installation#composer)
     - [Extension](/docs/installation#extension)
     - [Controller](/docs/installation#controller)
+    - [Multisite](/docs/sitemap#xml-sitemap)
   - [Meta](/docs/meta)
     - [Setting Meta](/docs/meta#setting-meta)
     - [Setting dynamic Meta](/docs/meta#setting-dynamic-meta)
@@ -26,10 +27,13 @@ A Silverstripe module to enhance and optimize your website SEO. This module also
   - [SEO Admin](/docs/seo-admin)
     - [Customising the SEO Admin models](/docs/seo-admin#customising-the-seo-admin-models)
   - [Sitemap](/docs/sitemap)
+    - [Multisite Support](/docs/sitemap#multisite-support)
     - [XML sitemap](/docs/sitemap#xml-sitemap)
     - [HTML sitemap](/docs/sitemap#html-sitemap)
     - [Adding sitemap pages](/docs/sitemap#adding-sitemap-pages)
     - [Adding sitemap images](/docs/sitemap#adding-sitemap-images)
+  - [Robots File](/docs/robots)
+    - [Configuration](/docs/robots#configuration)
 
 ## License
 
