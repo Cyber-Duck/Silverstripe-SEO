@@ -255,9 +255,9 @@ class SEO_Extension extends DataExtension
             GridFieldConfig_RelationEditor::create()
         );
 
-        $grid->getConfig()->removeComponentsByType('GridFieldAddNewButton');
-        $grid->getConfig()->removeComponentsByType('GridFieldAddExistingAutocompleter');
-        $grid->getConfig()->addComponent(new SEO_SitemapImageAutocompleter('before'));
+        $grid->getConfig()
+            ->removeComponentsByType('GridFieldAddNewButton','GridFieldAddExistingAutocompleter')
+            ->addComponent(new SEO_SitemapImageAutocompleter('before'));
 
         return $grid;
     }
