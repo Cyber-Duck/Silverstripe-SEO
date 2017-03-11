@@ -15,7 +15,6 @@ A Silverstripe module to enhance and optimize your website SEO. This module also
     - [Composer](/docs/installation#composer)
     - [Extension](/docs/installation#extension)
     - [Controller](/docs/installation#controller)
-    - [Multisite](/docs/sitemap#xml-sitemap)
   - [Meta](/docs/meta)
     - [Setting Meta](/docs/meta#setting-meta)
     - [Setting dynamic Meta](/docs/meta#setting-dynamic-meta)
