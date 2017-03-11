@@ -2,9 +2,9 @@
 
 By default the Page object is used to generate the XML and HTML sitemap but any object which has the SEO Extension attached can be included. 
 
-## Multisite Support
+## Subsite Support
 
-The plugin now supports multi sites. By filtering objects using the SubsiteID column HTML and XML sitemaps which are generaetd will only return the current Subsite pages.
+The plugin now supports Subsites. By filtering objects using the SubsiteID column HTML and XML sitemaps which are generaetd will only return the current Subsite pages.
 
 ## XML sitemap
 

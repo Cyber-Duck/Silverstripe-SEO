@@ -27,7 +27,7 @@ A Silverstripe module to enhance and optimize your website SEO. This module also
   - [SEO Admin](/docs/seo-admin)
     - [Customising the SEO Admin models](/docs/seo-admin#customising-the-seo-admin-models)
   - [Sitemap](/docs/sitemap)
-    - [Multisite Support](/docs/sitemap#multisite-support)
+    - [Subsite Support](/docs/sitemap#subsite-support)
     - [XML sitemap](/docs/sitemap#xml-sitemap)
     - [HTML sitemap](/docs/sitemap#html-sitemap)
     - [Adding sitemap pages](/docs/sitemap#adding-sitemap-pages)
