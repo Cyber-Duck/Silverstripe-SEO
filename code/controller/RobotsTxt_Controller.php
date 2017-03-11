@@ -11,6 +11,6 @@ class RobotsTxt_Controller extends Page_Controller
 
     public function index(SS_HTTPRequest $request)
     {
-        return $this->renderWith('Robots');
+        return $this->customise(['Host' => Director::absoluteBaseUrl()])->renderWith('Robots');
     }
 }
