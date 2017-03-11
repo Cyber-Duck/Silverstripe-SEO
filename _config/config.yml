@@ -2,11 +2,13 @@
 Name: silverstripe-seo
 After: "*"
 ---
-LeftAndMain:
-  extra_requirements_css:
-    - seo/css/seo.css
-  extra_requirements_javascript:
-    - seo/javascript/serp.js
+SEO_Extension:
+  social_image_size: 1024
+  social_image_folder: 'Social'
+
+SiteConfig:
+  extensions:
+    - SEO_SiteConfigExtension
 
 File:
   Extensions:
@@ -17,18 +19,9 @@ SEO_ModelAdmin:
     - Page
     - ErrorPage
 
-  meta_title:
-      min: 40
-      max: 60
-      default: 'Your Meta Title Here - What Your Page is About'
-  meta_description:
-      min: 100
-      max: 170
-      default: 'This is a preview of your Meta description and how it will look in the Search Engine Results Page. Always try to keep it short and make it fit into the space provided.'
-
-SEO_Extension:
-  social_image_size: 1024
-  social_image_folder: 'Social'
+LeftAndMain:
+  extra_requirements_css:
+    - seo/css/seo.css
 
 SEO_Sitemap:
   objects:

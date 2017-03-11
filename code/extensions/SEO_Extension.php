@@ -87,7 +87,7 @@ class SEO_Extension extends DataExtension
             $fields->addFieldToTab('Root.Page', TextField::create('Title','Page name'));
         }
 
-        $fields->addFieldToTab('Root.PageSEO', $this->preview());
+        $fields->addFieldToTab('Root.PageSEO', MetaPreviewField::create($this->owner));
         $fields->addFieldToTab('Root.PageSEO', TextField::create('MetaTitle'));
         $fields->addFieldToTab('Root.PageSEO', TextareaField::create('MetaDescription'));
 
@@ -111,7 +111,7 @@ class SEO_Extension extends DataExtension
         $fields->addFieldToTab('Root.PageSEO', HeaderField::create('Sitemap Images'));
         $fields->addFieldToTab('Root.PageSEO', $this->SitemapImagesGrid());
 
-        $fields->addFieldToTab('Root.PageSEO', LiteralField::create(false, '<br><br>Silverstripe SEO v1.0'));
+        $fields->addFieldToTab('Root.PageSEO', LiteralField::create(false, '<br><br>Silverstripe SEO v1.1'));
 
         return $fields;
     }
@@ -161,42 +161,6 @@ class SEO_Extension extends DataExtension
         $obj= HTMLText::create();
         $obj->setValue('<span style="color:'.$color.'">'.$status.'</span>');
         return $obj;
-    }
-    
-    /**
-     * Render the Meta preview template for the CMS SEO panel
-     *
-     * @since version 1.0.0
-     *
-     * @return object
-     **/
-    private function preview()
-    {
-        $title = Config::inst()->get('SEO_ModelAdmin','meta_title');
-        $description = Config::inst()->get('SEO_ModelAdmin','meta_description');
-
-        $preview = Controller::curr()->customise([
-            'DefaultTitle' => $title['default'],
-            'DefaultPath' => $this->SERPLink(),
-            'DefaultDescription' => $description['default']
-        ])->renderWith('MetaPreview');
-
-        return LiteralField::create('Preview', $preview);
-    }
-    
-    /**
-     * Get the SERP link
-     *
-     * @since version 1.0.0
-     *
-     * @return string
-     **/
-    private function SERPLink()
-    {
-        if($this->owner instanceof Page){
-            return Director::absoluteBaseURL().substr($this->owner->link(),1);
-        }
-        return Director::absoluteBaseURL().$this->owner->URLSegment;
     }
     
     /**
