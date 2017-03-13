@@ -7,7 +7,7 @@ Add the following to your composer.json file
 ```json
 {  
     "require": {  
-        "cyber-duck/silverstripe-seo": "1.0.*"
+        "cyber-duck/silverstripe-seo": "1.1.*"
     }
 }
 ```
