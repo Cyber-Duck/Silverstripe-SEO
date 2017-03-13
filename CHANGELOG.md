@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file.
 
+## Version 1.1.0
+
+13th March 2017
+
+### Added
+
+  - Subsite docs section
+  - Different Robots.txt support across themes
+  - Croatian locale to Open Graph options
+  - setEmptyString on SEO tab dropdowns
+  - SEO_SiteConfigExtension
+  - Unstable badge in docs
+  - Namespace to SERP.js
+
+### Changed
+  - Modifed Sitemap class to support subsites
+  - Moved SERP to MetaPreviewField
+  - Use DefaultContentLocale when no OGLocale set
+  - Removed docs broken links
+  - Uee index,follow as default robots field value
+  - Use shorthand array syntax
+
 ## Version 1.0.5
 
 5th Decemeber 2016
