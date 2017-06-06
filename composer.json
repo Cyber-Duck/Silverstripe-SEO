@@ -1,11 +1,12 @@
 {
     "name": "cyber-duck/silverstripe-seo",
-    "description": "A Silverstripe module to optimise the Meta, crawling, indexing, and sharing of your website content",
+    "description": "A SilverStripe module to optimise the Meta, crawling, indexing, and sharing of your website content",
     "type": "silverstripe-module",
     "homepage": "http://github.com/cyber-duck/silverstripe-seo",
     "keywords": [
-        "silverstripe-seo",
+        "silverstripe SEO",
         "silverstripe",
+        "search engine optimisation",
         "seo",
         "meta",
         "crawling",
@@ -24,6 +25,12 @@
     },
     "extra": {
         "installer-name": "seo"
+    },
+    "require": {
+        "php": ">=5.4.0",
+        "composer/installers": "*",
+        "silverstripe/cms": ">=3.0.1",
+        "silverstripe/framework": ">=3.0.1"
     },
     "prefer-stable": true
 }

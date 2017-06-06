@@ -1,29 +1,34 @@
 <?php
-
 /**
+ * SitemapXML_Controller
+ *
  * XML sitemap controller
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SitemapXML_Controller extends Page_Controller {
-
+class SitemapXML_Controller extends Page_Controller
+{
     /**
+     * Only one action allowed here
+     *
      * @since version 1.0.0
      *
-     * @var array $allowed_actions Only one action allowed here
+     * @config array $allowed_actions 
      **/
-    private static $allowed_actions = array('getSitemap');
+    private static $allowed_actions = ['getSitemap'];
 
     /**
+     * Push requests to sitemap.xml to the getSitemap method
+     *
      * @since version 1.0.0
      *
-     * @var array $url_handlers Push requests to sitemap.xml to the getSitemap method
+     * @config array $url_handlers 
      **/
-    private static $url_handlers = array(
+    private static $url_handlers = [
         '' => 'getSitemap'
-    );
+    ];
 
     /**
      * Set properties for this class and call the sitemap render method

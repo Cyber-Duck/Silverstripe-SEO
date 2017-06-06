@@ -12,15 +12,17 @@
 <meta property="og:description" content="$Up.MetaDescription">
 <meta property="og:type" content="<% if $OGtype %>$OGtype<% else %>website<% end_if %>">
 <meta property="og:url" content="$Up.PageURL">
-<meta property="og:locale" content="<% if $OGlocale %>$OGlocale<% else %>en_GB<% end_if %>">
+<meta property="og:locale" content="<% if $OGlocale %>$OGlocale<% else %>$DefaultContentLocale<% end_if %>">
 
 <meta name="twitter:title" content="$Up.MetaTitle">
 <meta name="twitter:description" content="$Up.MetaDescription">
 <meta name="twitter:card" content="<% if $TwitterCard %>$TwitterCard<% else %>summary<% end_if %>">
 
 <% if $SocialImage %>
-<meta property="og:image" content="$SocialImage.URL">
-<meta name="twitter:image" content="$SocialImage.URL">
+<% with $SocialImage %>
+<meta property="og:image" content="$AbsoluteURL">
+<meta name="twitter:image" content="$AbsoluteURL">
+<% end_with %>
 <% end_if %>
 
 <% if $SiteConfig.FacebookAppID %>

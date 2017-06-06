@@ -1,25 +1,30 @@
 <?php
-
 /**
+ * SEO_HeadTags
+ *
  * Responsible for creating Meta tags with user generated names and values
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEO_HeadTags {
-
+class SEO_HeadTags
+{
     /**
+     * The current page object
+     *
      * @since version 1.0.0
      *
-     * @var object $model The current page object
+     * @var object $model 
      **/
     private $model;
 
     /**
+     * The Meta tag HTML
+     *
      * @since version 1.0.0
      *
-     * @var string $html The Meta tag HTML
+     * @var string $html 
      **/
     private $html;
 
@@ -60,22 +65,17 @@ class SEO_HeadTags {
      **/
     public function get()
     {
-        if(!Controller::curr() instanceof Security && !Controller::curr() instanceof CMSMain)
-        {
-            foreach($this->model->HeadTags() as $tag)
-            {
-                if($tag->Type == 'name')
-                {
+        if(!Controller::curr() instanceof Security && !Controller::curr() instanceof CMSMain) {
+            foreach($this->model->HeadTags() as $tag) {
+                if($tag->Type == 'name') {
                     $this->getMetaTag($tag->Name,$tag->Value);
                     break;
                 }
-                if($tag->Type == 'link')
-                {
+                if($tag->Type == 'link') {
                     $this->getLinkTag($tag->Name,$tag->Value);
                     break;
                 }
-                if($tag->Type == 'property')
-                {
+                if($tag->Type == 'property') {
                     $this->getPropertyTag($tag->Name,$tag->Value);
                     break;
                 }
@@ -116,7 +116,7 @@ class SEO_HeadTags {
      *
      * @return void
      **/
-    private function getMetaTag($name,$value)
+    private function getMetaTag($name, $value)
     {
         $this->html .= '<meta name="'.$name.'" content="'.htmlspecialchars($value).'">'.PHP_EOL;
     }
@@ -131,7 +131,7 @@ class SEO_HeadTags {
      *
      * @return void
      **/
-    private function getLinkTag($name,$value)
+    private function getLinkTag($name, $value)
     {
         $this->html .= '<link rel="'.$name.'" href="'.htmlspecialchars($value).'">'.PHP_EOL;
     }

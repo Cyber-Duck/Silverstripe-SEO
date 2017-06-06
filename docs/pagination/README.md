@@ -26,7 +26,7 @@ SEO::setPagination($list->Count(), 20, 'page');
 If for some reason you are using URL GET parameters to generate unique content and not filter or sort it, you can use the allowedParams method to whitelist parameters and their values for inclusion in pagination URLs.
 
 ```php
-SEO::setPagination($list->Count())->allowedParams(array('first','third'));
+SEO::setPagination($list->Count())->allowedParams(['first','third']);
 ```
 
 If we were on the following page in the browser.

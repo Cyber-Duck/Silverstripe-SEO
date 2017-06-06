@@ -1,5 +1,5 @@
 (function($) {
-    $.entwine(function($) {
+    $.entwine('ss', function($) {
 
         title = 'input[name="MetaTitle"]';
         description = 'textarea[name="MetaDescription"]';

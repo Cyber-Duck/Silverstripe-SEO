@@ -1,5 +1,17 @@
 # SEO Admin
 
+![Silverstripe SEO admin gridfield](/docs/images/seo-admin.jpg "Silverstripe SEO admin gridfield")
+
+Manage groups of specific pages or objects and get a quick overview of the SEO status of your objects. By default it shows all your pages. Columns include:
+  - Title
+  - Description
+  - Social meta
+  - Created
+  - Title
+  - Robots rules
+  - Priority
+  - Change frequency
+
 ## Customising the SEO Admin models
 
 By default the grid display 2 tabs, the first shows all site pages, the second shows error pages only, and is ordered by page priority descending.

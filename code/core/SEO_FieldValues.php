@@ -1,14 +1,15 @@
 <?php
-
 /**
+ * SEO_FieldValues
+ *
  * Returns array values used in the SEO admin search and CMS form field dropdowns
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-
-class SEO_FieldValues {
+class SEO_FieldValues
+{
     /**
      * Returns an array of sitemap change frequencies used in a sitemap.xml file
      *
@@ -18,7 +19,7 @@ class SEO_FieldValues {
      **/
     public static function SitemapChangeFrequency()
     {
-        return array(
+        return [
             'always'  => 'Always',
             'hourly'  => 'Hourly',
             'daily'   => 'Daily',
@@ -26,9 +27,9 @@ class SEO_FieldValues {
             'monthly' => 'Monthly',
             'yearly'  => 'Yearly',
             'never'   => 'Never'
-        );
+        ];
     }
-    
+
     /**
      * Returns an array of robots crawling rules used in a robots Meta tag
      *
@@ -38,14 +39,14 @@ class SEO_FieldValues {
      **/
     public static function IndexRules()
     {
-        return array(
+        return [
             'index,follow'     => 'index,follow',
             'noindex,nofollow' => 'noindex,nofollow',
             'noindex,follow'   => 'noindex,follow',
             'index,nofollow'   => 'index,nofollow'
-        );
+        ];
     }
-    
+
     /**
      * Return an array of Facebook Open Graph locales
      *
@@ -55,10 +56,11 @@ class SEO_FieldValues {
      **/
     public static function OGlocale()
     {
-        return array(
+        return [
             'en_GB' => 'English - United Kingdom',
             'en_US' => 'English - United States',
             'da_DK' => 'Danish - Denmark',
+            'hr_HR' => 'Croatian - Croatia',
             'nl_NL' => 'Dutch - Netherlands',
             'fr_FR' => 'French - France',
             'de_DE' => 'German - Germany',
@@ -86,9 +88,9 @@ class SEO_FieldValues {
             'tr_TR' => 'Turkish - Turkey',
             'uk_UA' => 'Ukrainian - Ukraine',
             'vi_VN' => 'Vietnamese - Vietnam'
-        );
+        ];
     }
-    
+
     /**
      * Return an array of Facebook Open Graph Types
      *
@@ -98,16 +100,16 @@ class SEO_FieldValues {
      **/
     public static function OGtype()
     {
-        return array(
+        return [
             'website' => 'Website',
             'article' => 'Article',
             'book'    => 'Book',
             'profile' => 'Profile',
             'music'   => 'Music',
             'video'   => 'Video'
-        );
+        ];
     }
-    
+
     /**
      * Returns an array of Twitter card types
      *
@@ -117,16 +119,16 @@ class SEO_FieldValues {
      **/
     public static function TwitterCardTypes()
     {
-        return array(
+        return [
             'summary'             => 'Summary',
             'summary_large_image' => 'Summary Large Image',
             'photo'               => 'Photo',
             'gallery'             => 'Gallery',
             'app'                 => 'App',
             'product'             => 'Product'
-        );
+        ];
     }
-    
+
     /**
      * Returns an array of robots crawling rules used in a robots Meta tag
      *
@@ -136,12 +138,12 @@ class SEO_FieldValues {
      **/
     public static function YesNo()
     {
-        return array(
+        return [
             '1' => 'Yes',
             '0' => 'No'
-        );
+        ];
     }
-    
+
     /**
      * Returns an array of summary fields used in the SEO Admin section of the CMS
      *
@@ -151,7 +153,7 @@ class SEO_FieldValues {
      **/
     public static function SummaryFields()
     {
-        return array(
+        return [
             'GridMetaTitle'        => 'T',
             'GridMetaDescription'  => 'D',
             'GridSocial'           => 'S',
@@ -160,9 +162,9 @@ class SEO_FieldValues {
             'Robots'               => 'Robots',
             'Priority'             => 'Priority',
             'ChangeFrequency'      => 'Change Freq'
-        );
+        ];
     }
-    
+
     /**
      * Returns an array of searchable fields used in the SEO Admin section of the CMS
      *
@@ -172,32 +174,32 @@ class SEO_FieldValues {
      **/
     public static function SearchableFields()
     {
-        return array(
-            'Title' => array(
+        return [
+            'Title' => [
                 'title'  => 'Title:',
                 'field'  => 'TextField',
                 'filter' => 'PartialMatchFilter'
-            ),
-            'URLSegment' => array(
+            ],
+            'URLSegment' => [
                 'title'  => 'URL segment:',
                 'field'  => 'TextField',
                 'filter' => 'PartialMatchFilter'
-            ),
-            'Robots' => array(
+            ],
+            'Robots' => [
                 'title'  => 'Robots:',
                 'field'  => 'DropdownField',
                 'filter' => 'ExactMatchFilter'
-            ),
-            'ChangeFrequency' => array(
+            ],
+            'ChangeFrequency' => [
                 'title'  => 'Change frequency:',
                 'field'  => 'DropdownField',
                 'filter' => 'ExactMatchFilter'
-            ),
-            'HideSocial' => array(
+            ],
+            'HideSocial' => [
                 'title'  => 'Social Meta:',
                 'field'  => 'DropdownField',
                 'filter' => 'ExactMatchFilter'
-            )
-        );
+            ]
+        ];
     }
 }

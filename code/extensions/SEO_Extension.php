@@ -1,20 +1,23 @@
 <?php
-
 /**
+ * SEO_Extension
+ *
  * Core extension used to transform an object into an SEO object
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEO_Extension extends DataExtension {
-
+class SEO_Extension extends DataExtension
+{
     /**
+     * Our page fields
+     *
      * @since version 1.0.0
      *
-     * @config array $db Our page fields
+     * @config array $db 
      **/
-    private static $db = array(
+    private static $db = [
         'Title'           => 'Varchar(512)',
         'MetaTitle'       => 'Varchar(512)',
         'MetaDescription' => 'Varchar(512)',
@@ -26,37 +29,44 @@ class SEO_Extension extends DataExtension {
         'HideSocial'      => 'Boolean',
         'OGtype'          => 'Varchar(100)',
         'OGlocale'        => 'Varchar(10)',
-        'TwitterCard'     => 'Varchar(100)',
-    );
+        'TwitterCard'     => 'Varchar(100)'
+    ];
 
     /**
+     * Social image and other has_one relations
+     *
      * @since version 1.0.0
      *
-     * @config array $has_one Social image and other has_one relations
+     * @config array $has_one 
      **/
-    private static $has_one = array(
+    private static $has_one = [
         'SocialImage'     => 'Image'
-    );
+    ];
 
     /**
+     * Has many extra Meta tags
+     *
      * @since version 1.0.0
      *
-     * @config array $many_many Has many extra Meta tags
+     * @config array $many_many 
      **/
-    private static $many_many = array(
+    private static $many_many = [
         'HeadTags'        => 'SEO_HeadTag',
         'SitemapImages'   => 'File'
-    );
+    ];
 
     /**
+     * Sitemap defaults
+     *
      * @since version 1.0.0
      *
-     * @config array $defaults Sitemap defaults
+     * @config array $defaults 
      **/
-    private static $defaults = array(
+    private static $defaults = [
+        'Robots'          => 'index,follow',
         'Priority'        => 0.50,
         'ChangeFrequency' => 'weekly'
-    );
+    ];
     
     /**
      * Adds our SEO Meta fields to the page field list
@@ -65,7 +75,7 @@ class SEO_Extension extends DataExtension {
      *
      * @param string $fields The current FieldList object
      *
-     * @return FieldList Return the FieldList object
+     * @return object Return the FieldList object
      **/
     public function updateCMSFields(FieldList $fields) 
     {
@@ -77,22 +87,22 @@ class SEO_Extension extends DataExtension {
             $fields->addFieldToTab('Root.Page', TextField::create('Title','Page name'));
         }
 
-        $fields->addFieldToTab('Root.PageSEO', $this->preview());
+        $fields->addFieldToTab('Root.PageSEO', MetaPreviewField::create($this->owner));
         $fields->addFieldToTab('Root.PageSEO', TextField::create('MetaTitle'));
         $fields->addFieldToTab('Root.PageSEO', TextareaField::create('MetaDescription'));
 
         $fields->addFieldToTab('Root.PageSEO', HeaderField::create(false, 'Indexing', 2));
         $fields->addFieldToTab('Root.PageSEO', TextField::create('Canonical'));
-        $fields->addFieldToTab('Root.PageSEO', DropdownField::create('Robots', 'Robots', SEO_FieldValues::IndexRules()));
+        $fields->addFieldToTab('Root.PageSEO', DropdownField::create('Robots', 'Robots', SEO_FieldValues::IndexRules())->setEmptyString('- please select - '));
         $fields->addFieldToTab('Root.PageSEO', NumericField::create('Priority'));
-        $fields->addFieldToTab('Root.PageSEO', DropdownField::create('ChangeFrequency', 'Change Frequency', SEO_FieldValues::SitemapChangeFrequency()));
+        $fields->addFieldToTab('Root.PageSEO', DropdownField::create('ChangeFrequency', 'Change Frequency', SEO_FieldValues::SitemapChangeFrequency())->setEmptyString('- please select - '));
         $fields->addFieldToTab('Root.PageSEO', CheckboxField::create('SitemapHide', 'Hide in sitemap? (XML and HTML)'));
 
         $fields->addFieldToTab('Root.PageSEO', HeaderField::create('Social Meta'));
         $fields->addFieldToTab('Root.PageSEO', CheckboxField::create('HideSocial','Hide Social Meta?'));
-        $fields->addFieldToTab('Root.PageSEO', DropdownField::create('OGtype', 'Open Graph Type', SEO_FieldValues::OGtype()));
-        $fields->addFieldToTab('Root.PageSEO', DropdownField::create('OGlocale', 'Open Graph Locale', SEO_FieldValues::OGlocale()));
-        $fields->addFieldToTab('Root.PageSEO', DropdownField::create('TwitterCard', 'Twitter Card', SEO_FieldValues::TwitterCardTypes()));
+        $fields->addFieldToTab('Root.PageSEO', DropdownField::create('OGtype', 'Open Graph Type', SEO_FieldValues::OGtype())->setEmptyString('- please select - '));
+        $fields->addFieldToTab('Root.PageSEO', DropdownField::create('OGlocale', 'Open Graph Locale', SEO_FieldValues::OGlocale())->setEmptyString('- please select - '));
+        $fields->addFieldToTab('Root.PageSEO', DropdownField::create('TwitterCard', 'Twitter Card', SEO_FieldValues::TwitterCardTypes())->setEmptyString('- please select - '));
         $fields->addFieldToTab('Root.PageSEO', $this->SharingImage());
 
         $fields->addFieldToTab('Root.PageSEO', HeaderField::create('Other Meta Tags'));
@@ -101,7 +111,7 @@ class SEO_Extension extends DataExtension {
         $fields->addFieldToTab('Root.PageSEO', HeaderField::create('Sitemap Images'));
         $fields->addFieldToTab('Root.PageSEO', $this->SitemapImagesGrid());
 
-        $fields->addFieldToTab('Root.PageSEO', LiteralField::create(false, '<br><br>Silverstripe SEO v1.0'));
+        $fields->addFieldToTab('Root.PageSEO', LiteralField::create(false, '<br><br>Silverstripe SEO v1.1'));
 
         return $fields;
     }
@@ -109,7 +119,7 @@ class SEO_Extension extends DataExtension {
     /**
      * Change the grid summary field structure is currently in SEO admin
      * 
-     * @param array $fields The current summary fields
+     * @param object $fields The current summary fields
      *
      * @since version 1.0.0
      *
@@ -117,15 +127,14 @@ class SEO_Extension extends DataExtension {
      **/
     public function updateSummaryFields(&$fields)
     {
-        if(Controller::curr() instanceof SEO_ModelAdmin)
-        {
+        if(Controller::curr() instanceof SEO_ModelAdmin) {
             Config::inst()->remove($this->owner->class, 'summary_fields');
 
             $class = new $this->owner->class;
             $fields = SEO_FieldValues::SummaryFields();
 
             if($class instanceof Page) {
-                $fields = array_merge(array('SEOPageStatus' => 'Status'), $fields);
+                $fields = array_merge(['SEOPageStatus' => 'Status'], $fields);
             }
             Config::inst()->update($this->owner->class, 'summary_fields', $fields);
 
@@ -133,6 +142,13 @@ class SEO_Extension extends DataExtension {
         }
     }
 
+    /**
+     * Get the CMS grid HTML page status icon
+     *
+     * @since version 1.0.0
+     *
+     * @return object
+     **/
     public function getSEOPageStatus()
     {
         if($this->owner->isPublished()){
@@ -148,47 +164,11 @@ class SEO_Extension extends DataExtension {
     }
     
     /**
-     * Render the Meta preview template for the CMS SEO panel
-     *
-     * @since version 1.0.0
-     *
-     * @return LiteralField
-     **/
-    private function preview()
-    {
-        $title = Config::inst()->get('SEO_ModelAdmin','meta_title');
-        $description = Config::inst()->get('SEO_ModelAdmin','meta_description');
-
-        $preview = Controller::curr()->customise(array(
-            'DefaultTitle' => $title['default'],
-            'DefaultPath' => $this->SERPLink(),
-            'DefaultDescription' => $description['default']
-        ))->renderWith('MetaPreview');
-
-        return LiteralField::create('Preview', $preview);
-    }
-    
-    /**
-     * Get the SERP link
-     *
-     * @since version 1.0.0
-     *
-     * @return string
-     **/
-    private function SERPLink()
-    {
-        if($this->owner instanceof Page){
-            return Director::absoluteBaseURL().substr($this->owner->link(),1);
-        }
-        return Director::absoluteBaseURL().$this->owner->URLSegment;
-    }
-    
-    /**
      * Creates our social sharing upload field
      *
      * @since version 1.0.0
      *
-     * @return UploadField Return the Social image UploadField object
+     * @return object Return the Social image UploadField object
      **/
     private function SharingImage()
     {
@@ -206,7 +186,7 @@ class SEO_Extension extends DataExtension {
      *
      * @since version 1.0.0
      *
-     * @return GridField Return the Social image GridField object
+     * @return object Return the Social image GridField object
      **/
     private function OtherHeadTags()
     {
@@ -228,7 +208,7 @@ class SEO_Extension extends DataExtension {
      *
      * @since version 1.0.0
      *
-     * @return GridField Return the Social image GridField object
+     * @return object Return the Social image GridField object
      **/
     private function SitemapImagesGrid()
     {
@@ -239,9 +219,10 @@ class SEO_Extension extends DataExtension {
             GridFieldConfig_RelationEditor::create()
         );
 
-        $grid->getConfig()->removeComponentsByType('GridFieldAddNewButton');
-        $grid->getConfig()->removeComponentsByType('GridFieldAddExistingAutocompleter');
-        $grid->getConfig()->addComponent(new SEO_SitemapImageAutocompleter('before'));
+        $grid->getConfig()
+            ->removeComponentsByType('GridFieldAddNewButton')
+            ->removeComponentsByType('GridFieldAddExistingAutocompleter')
+            ->addComponent(new SEO_SitemapImageAutocompleter('before'));
 
         return $grid;
     }
@@ -263,7 +244,7 @@ class SEO_Extension extends DataExtension {
      *
      * @since version 1.0.0
      *
-     * @return HTMLText
+     * @return object
      **/
     public function GridMetaTitle()
     {
@@ -277,7 +258,7 @@ class SEO_Extension extends DataExtension {
      *
      * @since version 1.0.0
      *
-     * @return HTMLText
+     * @return object
      **/
     public function GridMetaDescription()
     {
@@ -291,7 +272,7 @@ class SEO_Extension extends DataExtension {
      *
      * @since version 1.0.0
      *
-     * @return HTMLText
+     * @return object
      **/
     public function GridSocial()
     {
@@ -301,15 +282,27 @@ class SEO_Extension extends DataExtension {
     }
 
     /**
+     * Formats the framework content locale string for the Open Graph protocol
+     *
+     * @since version 1.0.6
+     *
+     * @return string
+     **/
+    public function DefaultContentLocale()
+    {
+        return str_replace('-', '_', Controller::curr()->ContentLocale());
+    }
+
+    /**
      * Check the length of a string and generates a span styled reflecting Meta status
+     *
+     * @since version 1.0.0
      * 
      * @param string $text The text to check
      * @param int    $min  The minimum string length
      * @param int    $max  The maximum string length
      *
-     * @since version 1.0.0
-     *
-     * @return HTMLText
+     * @return object
      **/
     private function getGridLight($text, $min, $max)
     {
@@ -327,12 +320,12 @@ class SEO_Extension extends DataExtension {
 
     /**
      * Return a HTMLText object for use within a grid field 
+     *
+     * @since version 1.0.0
      * 
      * @param string $span The HTML span
      *
-     * @since version 1.0.0
-     *
-     * @return HTMLText
+     * @return object
      **/
     private function getGridSpan($span)
     {

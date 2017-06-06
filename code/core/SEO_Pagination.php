@@ -1,83 +1,104 @@
 <?php
-
 /**
+ * SEO_Pagination
+ *
  * Creates pagination rel and prev Meta tags and validates their values
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEO_Pagination {
-
+class SEO_Pagination
+{
     /**
+     * The pagination URL
+     *
      * @since version 1.0.0
      *
-     * @var string $url The pagination URL
+     * @var string $url 
      **/
     private $url;
 
     /**
+     * The admin SEO panel heading
+     *
      * @since version 1.0.0
      *
-     * @var string $html The admin SEO panel heading
+     * @var string $html 
      **/
     private $html;
 
     /**
+     * The total number of items across all pages
+     *
      * @since version 1.0.0
      *
-     * @var int $total The total number of items across all pages
+     * @var int $total 
      **/
     private $total = 0;
 
     /**
+     * The number of paginated items per page
+     *
      * @since version 1.0.0
      *
-     * @var int $perPage The number of paginated items per page
+     * @var int $perPage 
      **/
     private $perPage = 12;
 
     /**
+     * The admin SEO panel heading
+     *
      * @since version 1.0.0
      *
-     * @var string $param The admin SEO panel heading
+     * @var string $param 
      **/
     private $param = 'start';
 
     /**
+     * The URL pagination param value
+     *
      * @since version 1.0.0
      *
-     * @var int $paramCount The URL pagination param value
+     * @var int $paramCount 
      **/
     private $paramCount = 0;
 
     /**
+     * The current pagination page number
+     *
      * @since version 1.0.0
      *
-     * @var int $currentPage The current pagination page number
+     * @var int $currentPage
      **/
     private $currentPage = 1;
 
     /**
+     * The number of paginated pages
+     *
      * @since version 1.0.0
      *
-     * @var int $pages The number of paginated pages
+     * @var int $pages 
      **/
     private $pages = 0;
 
     /**
+     * An array of URL params to whitelist for inclusion use within pagination URLs
+     *
      * @since version 1.0.0
      *
-     * @var array $allowed An array of URL params to whitelist for inclusion use within pagination URLs
+     * @var array $allowed 
      **/
-    private $allowed = array();
+    private $allowed = [];
 
     /**
+     * An array of query strings to use within pagination URLs
+     *
      * @since version 1.0.0
      *
-     * @var array $queryStrings An array of query strings to use within pagination URLs
+     * @var array $queryStrings 
      **/
-    private $queryStrings = array();
+    private $queryStrings = [];
 
     /**
      * Set the pagination URL
@@ -86,7 +107,7 @@ class SEO_Pagination {
      *
      * @param string $url
      *
-     * @return self Returns the current class instance
+     * @return object Returns the current class instance
      **/
     public function setURL($url)
     {
@@ -102,7 +123,7 @@ class SEO_Pagination {
      *
      * @param int $total The total number of pages to set
      *
-     * @return self Returns the current class instance
+     * @return object Returns the current class instance
      **/
     public function setTotal($total)
     {
@@ -118,7 +139,7 @@ class SEO_Pagination {
      *
      * @param int $perPage The number of items per page to set
      *
-     * @return self Returns the current class instance
+     * @return object Returns the current class instance
      **/
     public function setPerPage($perPage)
     {
@@ -134,7 +155,7 @@ class SEO_Pagination {
      *
      * @param string $param The pagination URL param to set
      *
-     * @return self Returns the current class instance
+     * @return object Returns the current class instance
      **/
     public function setParam($param)
     {
@@ -148,7 +169,7 @@ class SEO_Pagination {
      *
      * @since version 1.0.0
      *
-     * @param string | array $param The pagination URL param(s) name(s)
+     * @param string|array $param The pagination URL param(s) name(s)
      *
      * @return void
      **/
@@ -159,6 +180,7 @@ class SEO_Pagination {
         } else {
             $this->allowed[$param] = '';
         }
+        return $this;
     }
 
     /**
@@ -166,7 +188,7 @@ class SEO_Pagination {
      *
      * @since version 1.0.0
      *
-     * @return self Returns the pagination Meta tags HTML
+     * @return object Returns the pagination Meta tags HTML
      **/
     public function html()
     {
@@ -178,7 +200,7 @@ class SEO_Pagination {
      *
      * @since version 1.0.0
      *
-     * @return self Returns the current class instance
+     * @return object Returns the current class instance
      **/
     public function get()
     {
@@ -355,6 +377,7 @@ class SEO_Pagination {
      * @since version 1.0.0
      *
      * @throws SS_HTTPResponse_Exception Return a 404 response
+     * @return void
      **/
     private function redirect404()
     {

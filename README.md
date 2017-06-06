@@ -1,46 +1,13 @@
 # Silverstripe SEO
 
 [![Latest Stable Version](https://poser.pugx.org/cyber-duck/silverstripe-seo/v/stable)](https://packagist.org/packages/cyber-duck/silverstripe-seo)
+[![Latest Unstable Version](https://poser.pugx.org/cyber-duck/silverstripe-block-page/v/unstable)](https://packagist.org/packages/cyber-duck/silverstripe-block-page)
 [![Total Downloads](https://poser.pugx.org/cyber-duck/silverstripe-seo/downloads)](https://packagist.org/packages/cyber-duck/silverstripe-seo)
 [![License](https://poser.pugx.org/cyber-duck/silverstripe-seo/license)](https://packagist.org/packages/cyber-duck/silverstripe-seo)
 
-A Silverstripe module to enhance and optimize your website SEO. This module also adds all the SEO functionality necessary for a search engine to crawl and index your website pages / content effectively. The Silverstripe SEO module works with both pages and Data Objects and allows both to have custom Meta, sitemap settings, social sharing content, among other features. Other key features include custom Meta tags and the ability to add images to your sitemap through the SEO panel gridfield.
-
 Author: [Andrew Mc Cormack](https://github.com/Andrew-Mc-Cormack)
 
-## SEO Panel
-
-![Silverstripe SEO object panel](/docs/images/seo-panel.jpg "Silverstripe SEO object panel")
-
-The SEO extension adds the following fields to a Page or model object
-  - Google SERP preview
-  - Meta Title
-  - Meta Description
-  - Title
-  - Canonical
-  - Robots
-  - Sitemap priority
-  - Sitemap change frequency
-  - Facebook open graph type
-  - Facebook open graph locale
-  - Twitter card type
-  - Social sharing image
-  - Other Meta tags (gridfield)
-  - XML sitemap images (gridfield)
-
-## SEO Admin
-
-![Silverstripe SEO admin gridfield](/docs/images/seo-admin.jpg "Silverstripe SEO admin gridfield")
-
-Manage groups of specific pages or objects and get a quick overview of the SEO status of your objects. By default it shows all your pages. Columns include:
-  - Title
-  - Description
-  - Social meta
-  - Created
-  - Title
-  - Robots rules
-  - Priority
-  - Change frequency
+A Silverstripe module to enhance and optimize your website SEO. This module also adds all the SEO functionality necessary for a search engine to crawl and index your website pages / content effectively. The Silverstripe SEO module works with both pages and Data Objects and allows both to have custom Meta, sitemap settings, social sharing content, among other features. Other key features include custom Meta tags and the ability to add images to your sitemap through the SEO panel gridfield.
 
 ## Guides
   
@@ -58,13 +25,14 @@ Manage groups of specific pages or objects and get a quick overview of the SEO s
     - [Whitelisting URL parameters](/docs/pagination#whitelisting-url-parameters)
   - [SEO Admin](/docs/seo-admin)
     - [Customising the SEO Admin models](/docs/seo-admin#customising-the-seo-admin-models)
-    - [SERP preview](/docs/seo-admin#serp-preview)
-    - [Field breakdown](/docs/seo-admin#field-breakdown)
   - [Sitemap](/docs/sitemap)
+    - [Subsite Support](/docs/sitemap#subsite-support)
     - [XML sitemap](/docs/sitemap#xml-sitemap)
     - [HTML sitemap](/docs/sitemap#html-sitemap)
     - [Adding sitemap pages](/docs/sitemap#adding-sitemap-pages)
     - [Adding sitemap images](/docs/sitemap#adding-sitemap-images)
+  - [Robots File](/docs/robots)
+    - [Configuration](/docs/robots#configuration)
 
 ## License
 
@@ -84,10 +52,6 @@ are met:
       the documentation and/or other materials provided with the
       distribution.
 
-Neither the name of Andrew Mc Cormack nor the names of his
-contributors may be used to endorse or promote products derived
-from this software without specific prior written permission.
-
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
@@ -101,11 +65,3 @@ LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
 ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 ```
-
-### Todo
-
-  - Versioned
-  - Subsite aware
-  - Schema generator
-  - SEO score
-  - Allow pages to be excluded based on class

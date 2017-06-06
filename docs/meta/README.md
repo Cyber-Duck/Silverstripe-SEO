@@ -1,5 +1,23 @@
 # Meta
 
+![Silverstripe SEO object panel](/docs/images/seo-panel.jpg "Silverstripe SEO object panel")
+
+The SEO extension adds the following fields to a Page or model object
+  - Google SERP preview
+  - Meta Title
+  - Meta Description
+  - Title
+  - Canonical
+  - Robots
+  - Sitemap priority
+  - Sitemap change frequency
+  - Facebook open graph type
+  - Facebook open graph locale
+  - Twitter card type
+  - Social sharing image
+  - Other Meta tags (gridfield)
+  - XML sitemap images (gridfield)
+
 ## Setting Meta 
 
 You can change the current page Meta title and description tag values very easily. This can come in handy across certain unique pages throughout your site.
