@@ -1,0 +1,16 @@
+---
+Name: seo_extensions
+After: "*"
+---
+Page:
+  extensions:
+    - SEO_Extension
+Blog:
+  extensions:
+    - SEO_BlogExtension
+BlogPost:
+  extensions:
+    - SEO_BlogPostExtension
+SiteConfig:
+  extensions:
+    - SEO_SiteConfigExtension

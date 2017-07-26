@@ -4,5 +4,5 @@ After: framework/routes#coreroutes
 ---
 Director:
   rules:
-    'sitemap.xml' : 'SitemapXML_Controller'
-    'robots.txt' : 'RobotsTxt_Controller'
+    'sitemap.xml' : 'SEO_SitemapXMLController'
+    'robots.txt' : 'SEO_RobotsTxtController'

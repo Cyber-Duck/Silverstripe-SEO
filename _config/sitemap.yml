@@ -1,0 +1,8 @@
+---
+Name: seo_sitemap
+After: "*"
+---
+SEO_Sitemap:
+  objects:
+    Page:
+      parent_id: 0

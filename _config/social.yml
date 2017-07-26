@@ -1,0 +1,7 @@
+---
+Name: seo_social
+After: "*"
+---
+SocialImage:
+  image_folder: 'SocialImages'
+  image_size: 1024

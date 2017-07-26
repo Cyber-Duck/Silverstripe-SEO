@@ -1,0 +1,7 @@
+---
+Name: seo_cms
+After: "*"
+---
+LeftAndMain:
+  extra_requirements_css:
+    - seo/assets/css/seo.css

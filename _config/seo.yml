@@ -1,0 +1,6 @@
+---
+Name: seo
+After: "*"
+---
+SEO:
+  version: '2.0'
