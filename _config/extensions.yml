@@ -5,6 +5,9 @@ After: "*"
 Page:
   extensions:
     - SEO_Extension
+Blog_Controller:
+  extensions:
+    - SEO_BlogControllerExtension
 Blog:
   extensions:
     - SEO_BlogExtension
