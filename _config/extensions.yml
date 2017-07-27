@@ -11,9 +11,6 @@ Page:
 Blog:
   extensions:
     - SEO_BlogExtension
-BlogPost:
-  extensions:
-    - SEO_BlogPostExtension
 SiteConfig:
   extensions:
     - SEO_SiteConfigExtension
