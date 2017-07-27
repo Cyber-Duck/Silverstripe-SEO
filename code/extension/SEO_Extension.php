@@ -631,6 +631,9 @@ class SEO_Extension extends DataExtension
     {
         $start = (int) $this->owner->request->getPaginationGetVar();
 
+        if($start === 0) {
+            return $this->owner->httpError(404);
+        }
         if($list->CurrentPage() > $list->TotalPages()){
             return $this->owner->httpError(404);
         }
