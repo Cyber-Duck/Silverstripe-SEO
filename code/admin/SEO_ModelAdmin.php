@@ -71,7 +71,7 @@ class SEO_ModelAdmin extends ModelAdmin
      *
      * @config array $managed_models 
      **/
-    private static $managed_models = [];
+    private static $managed_models = ['Page'];
 
     /**
      * Disable model imports in SEO admin
@@ -81,4 +81,23 @@ class SEO_ModelAdmin extends ModelAdmin
      * @config string $model_importers 
      **/
     private static $model_importers = null;
+
+    /**
+     * CSV export fields
+     *
+     * @since version 1.0.0
+     *
+     * @return array
+     **/
+    public function getExportFields()
+    {
+        return [
+            'ID'              => 'ID',
+            'Created'         => 'Created',
+            'Title'           => 'Title',
+            'Robots'          => 'Robots',
+            'Priority'        => 'Priority',
+            'ChangeFrequency' => 'ChangeFrequency'
+        ];
+    }
 }
