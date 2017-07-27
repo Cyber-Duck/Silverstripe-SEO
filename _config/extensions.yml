@@ -2,6 +2,9 @@
 Name: seo_extensions
 After: "*"
 ---
+Image:
+  extensions:
+    - SEO_ImageSitemapExtension
 Page_Controller:
   extensions:
     - SEO_PageControllerExtension

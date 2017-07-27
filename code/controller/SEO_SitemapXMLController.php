@@ -35,6 +35,37 @@ class SEO_SitemapXMLController extends Page_Controller
      **/
     public function index(SS_HTTPRequest $request)
     {
-        return $this->customise([])->renderWith('SitemapXML');
+        return $this->renderWith('SitemapXML');
+    }
+
+    /**
+     * Route request to default index method
+     *
+     * @param SS_HTTPRequest $request
+     *
+     * @since version 1.0.0
+     *
+     * @return ViewableData
+     **/
+    public function getSitemapPages()
+    {
+        $pages = [];
+        foreach(Page::get() as $page) {
+            if(!$page->SitemapHide) {
+                $this->pages[] = $page;
+            }
+        }
+        $objects = (array) Config::inst()->get('SEO_Sitemap', 'objects');
+
+        if(!empty($objects)) {
+            foreach($objects as $name => $values) {
+                foreach($name::get() as $page) {
+                    if(!$page->SitemapHide) {
+                        $this->pages[] = $page;
+                    }
+                }
+            }
+        }
+        return $pages;
     }
 }
