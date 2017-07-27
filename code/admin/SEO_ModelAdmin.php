@@ -202,19 +202,24 @@ class SEO_ModelAdmin extends ModelAdmin
         Config::inst()->update($this->modelClass, 'searchable_fields', $this->getSearchableFields());
 
         $context = parent::getSearchContext();
+        $model = $this->modelClass;
+        $model = $model::create();
 
         $context->getFields()->fieldByName('q[Robots]')
             ->setEmptyString('- select -')
-            ->setSource(SEO_FieldValues::IndexRules());
+            ->setSource($model->getRobotsIndexingRules());
 
         $context->getFields()->fieldByName('q[ChangeFrequency]')
             ->setEmptyString('- select -')
-            ->setSource(SEO_FieldValues::SitemapChangeFrequency());
+            ->setSource($model->getSitemapChangeFrequency());
 
         $context->getFields()->fieldByName('q[HideSocial]')
             ->setTitle('Social Meta hidden:')
             ->setEmptyString('- select -')
-            ->setSource(SEO_FieldValues::YesNo());
+            ->setSource([
+                '1' => 'Yes',
+                '0' => 'No'
+            ]);
                 
         return $context;
     }
