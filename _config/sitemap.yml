@@ -1,6 +1,5 @@
 ---
 Name: seo_sitemap
-After: "*"
 ---
 SEO_Sitemap:
   objects:

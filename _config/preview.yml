@@ -1,6 +1,5 @@
 ---
 Name: seo_meta_preview
-After: "*"
 ---
 SEO_MetaPreviewField:
   meta_title: 'Your Meta Title Here - What Your Page is About'
