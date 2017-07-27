@@ -108,6 +108,8 @@ class SEO_ModelAdmin extends ModelAdmin
         }
         $grid = $form->Fields()->fieldByName($this->sanitiseClassName($this->modelClass));
         $grid->getConfig()->removeComponentsByType('GridFieldAddNewButton');
+        $grid->getConfig()->removeComponentsByType('GridFieldDeleteAction');
+        $grid->getConfig()->removeComponentsByType('GridFieldEditButton');
 
         $list = $this
             ->getList()
