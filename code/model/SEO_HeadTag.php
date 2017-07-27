@@ -88,7 +88,7 @@ class SEO_HeadTag extends DataObject
 
         $fields->addFieldToTab('Root.Main', HeaderField::create(false, 'Head Tag', 2));
 
-        $fields->addFieldToTab('Root.Main', DropdownField::create('Type', 'Tag type', $this->getTagTypes());
+        $fields->addFieldToTab('Root.Main', DropdownField::create('Type', 'Tag type', $this->getTagTypes()));
         $fields->addFieldToTab('Root.Main', TextField::create('Title'));
         $fields->addFieldToTab('Root.Main', TextField::create('Value'));
         $fields->addFieldToTab('Root.Main', HiddenField::create('PageID'));

@@ -65,12 +65,12 @@ class SEO_MetaPreviewField extends LiteralField
         }
         if(class_exists('BlogPost')) {
             if($this->page instanceof BlogPost) {
-                if($this->page->Blog()->DefaultPostMetaTitle == 1) {
+                if($this->page->Parent()->DefaultPostMetaTitle == 1) {
                     return $this->page->Title;
                 }
             }
         }
-        return Config::inst()->get('SEO_MetaPreviewField')->meta_title;
+        return Config::inst()->get('SEO_MetaPreviewField', 'meta_title');
     }
 
     /**
@@ -104,11 +104,11 @@ class SEO_MetaPreviewField extends LiteralField
         }
         if(class_exists('BlogPost')) {
             if($this->page instanceof BlogPost) {
-                if($this->page->Blog()->DefaultPostMetaDescription == 1) {
-                    return $this->page->Summary;
+                if($this->page->Parent()->DefaultPostMetaDescription == 1) {
+                    return strip_tags($this->page->Summary);
                 }
             }
         }
-        return Config::inst()->get('SEO_MetaPreviewField')->meta_description;
+        return Config::inst()->get('SEO_MetaPreviewField', 'meta_description');
     }
 }
