@@ -66,5 +66,5 @@
 <link rel="prev" href="$PaginationPrevTag">
 <% end_if %>
 <% if PaginationNextTag %>
-<link rel="prev" href="$PaginationNextTag">
+<link rel="next" href="$PaginationNextTag">
 <% end_if %>

@@ -32,19 +32,19 @@ class SEO_PageControllerExtension extends Extension
      **/
     public function setPaginationTags(PaginatedList $list, $params = [])
     {
-        $start = (int) $this->owner->request->getPaginationGetVar();
-
-        if($start === 0) {
-            return $this->owner->httpError(404);
-        }
-        if($list->CurrentPage() > $list->TotalPages()){
-            return $this->owner->httpError(404);
-        }
-        if($start % $list->getPageLength() !== 0){
-            return $this->owner->httpError(404);
-        }
-        if(!preg_match('/^[0-9]+$/', $start)){
-            return $this->owner->httpError(404);
+        if($this->owner->request->getVar($list->getPaginationGetVar()) !== NULL) {
+            if((int) $list->getPageStart() === 0) {
+                return $this->owner->httpError(404);
+            }
+            if($list->CurrentPage() > $list->TotalPages()){
+                return $this->owner->httpError(404);
+            }
+            if($list->getPageStart() % $list->getPageLength() !== 0){
+                return $this->owner->httpError(404);
+            }
+            if(!preg_match('/^[0-9]+$/', $list->getPageStart())){
+                return $this->owner->httpError(404);
+            }
         }
         $this->pagination = $list;
     }
@@ -59,13 +59,13 @@ class SEO_PageControllerExtension extends Extension
     public function getPaginationPrevTag()
     {
         if($this->pagination) {
-            if($this->pagination->TotalPages() > 1) {
-                if($this->pagination->CurrentPage() === 2) {
-                    return $this->getPageURL();
+            if($this->pagination->TotalPages() > 1 && $this->pagination->NotFirstPage()) {
+                if((int) $this->pagination->CurrentPage() === 2) {
+                    return $this->owner->getPageURL();
                 } else {
                     $start = $this->pagination->getPageStart() - $this->pagination->getPageLength();
 
-                    return $this->getPageURL().'?'.$this->pagination->getPaginationGetVar().'='.$start;
+                    return $this->owner->getPageURL().'?'.$this->pagination->getPaginationGetVar().'='.$start;
                 }
             }
         }
@@ -84,7 +84,7 @@ class SEO_PageControllerExtension extends Extension
             if($this->pagination->TotalPages() > 1 && $this->pagination->NotLastPage()) {
                 $start = $this->pagination->getPageStart() + $this->pagination->getPageLength();
 
-                return $this->getPageURL().'?'.$this->pagination->getPaginationGetVar().'='.$start;
+                return $this->owner->getPageURL().'?'.$this->pagination->getPaginationGetVar().'='.$start;
             }
         }
     }
