@@ -5,7 +5,7 @@
 
 <url>
     
-    <loc>{$AbsoluteBaseHref}$Link</loc>
+    <loc>{$Top.SitemapHost}$Link</loc>
     <lastmod>$LastEdited.Format('c')</lastmod>
     <changefreq>$ChangeFrequency</changefreq>
     <priority>$Priority</priority>
@@ -13,8 +13,8 @@
     <% loop $SitemapImages %>
     
     <image:image>
-        <image:loc>$Up.Host/{$Filename}</image:loc>
-        <image:title>$Top.Encode($Title)</image:title>
+        <image:loc>{$Top.SitemapHost}/{$Filename}</image:loc>
+        <image:title>$Top.EncodedValue($Title)</image:title>
     </image:image>
 
     <% end_loop %>

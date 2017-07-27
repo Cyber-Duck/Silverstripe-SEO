@@ -27,43 +27,7 @@ class SEO_Sitemap
      * @var string $host 
      **/
     private $host;
-
-    /**
-     * Return an encoded string compliant with XML sitemap standards
-     *
-     * @since version 1.0.0
-     *
-     * @param string $value A sitemap value to encode
-     *
-     * @return string
-     **/
-    public function Encode($value)
-    {
-        return trim(urlencode($value));
-    }
-
-    /**
-     * Return the sitemap XML
-     *
-     * @since version 1.0.0
-     *
-     * @return void
-     **/
-    public function getSitemapXML()
-    {
-        $data = ArrayList::create();
-
-        $this->host = $this->getSitemapHost();
-
-        foreach(Page::get()->filter($this->getSitemapFilters()) as $page) {
-            $page->Host = $this->host;
-            $data->push($page);
-        }
-        return Controller::curr()->customise([
-            'Pages' => $data
-        ])->renderWith('SitemapXML');
-    }
-
+    
     /**
      * Get subsite domains
      *

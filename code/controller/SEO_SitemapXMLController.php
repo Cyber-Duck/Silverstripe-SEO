@@ -39,6 +39,32 @@ class SEO_SitemapXMLController extends Page_Controller
     }
 
     /**
+     * Get the current site URL
+     *
+     * @since version 2.0.0
+     *
+     * @return string
+     **/
+    public function getSitemapHost()
+    {
+        return substr(Director::absoluteBaseUrl(), 0, -1);
+    }
+
+    /**
+     * Return an encoded string compliant with XML sitemap standards
+     *
+     * @since version 1.0.0
+     *
+     * @param string $value A sitemap value to encode
+     *
+     * @return string
+     **/
+    public function EncodedValue($value)
+    {
+        return trim(urlencode($value));
+    }
+
+    /**
      * Route request to default index method
      *
      * @param SS_HTTPRequest $request
@@ -49,10 +75,11 @@ class SEO_SitemapXMLController extends Page_Controller
      **/
     public function getSitemapPages()
     {
-        $pages = [];
+        $pages = ArrayList::create();
+        
         foreach(Page::get() as $page) {
             if(!$page->SitemapHide) {
-                $this->pages[] = $page;
+                $pages->push($page);
             }
         }
         $objects = (array) Config::inst()->get('SEO_Sitemap', 'objects');
@@ -61,7 +88,7 @@ class SEO_SitemapXMLController extends Page_Controller
             foreach($objects as $name => $values) {
                 foreach($name::get() as $page) {
                     if(!$page->SitemapHide) {
-                        $this->pages[] = $page;
+                        $pages->push($page);
                     }
                 }
             }
