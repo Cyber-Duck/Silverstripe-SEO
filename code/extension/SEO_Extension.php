@@ -382,7 +382,7 @@ class SEO_Extension extends DataExtension
         if(class_exists('BlogPost')) {
             if($this->owner instanceof BlogPost) {
                 if($this->owner->Parent()->DefaultPostMetaDescription == 1) {
-                    return $this->owner->Summary;
+                    return strip_tags($this->owner->Summary);
                 }
             }
         }
