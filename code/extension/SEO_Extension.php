@@ -65,7 +65,9 @@ class SEO_Extension extends DataExtension
     private static $defaults = [
         'Robots'          => 'index,follow',
         'Priority'        => 0.50,
-        'ChangeFrequency' => 'weekly'
+        'ChangeFrequency' => 'weekly',
+        'OGtype'          => 'website',
+        'TwitterCard'     => 'summary'
     ];
 
     /**
@@ -83,51 +85,95 @@ class SEO_Extension extends DataExtension
         $fields->removeByName('HeadTags');
         $fields->removeByName('SitemapImages');
 
+        // MAIN TAB
         if(!$this->owner instanceof Page) {
-            $fields->addFieldToTab('Root.Page', HeaderField::create(false, 'Page', 2));
-            $fields->addFieldToTab('Root.Page', TextField::create('Title','Page name'));
+            $fields->addFieldToTab('Root.Main', HeaderField::create(false, 'Page', 2));
+            $fields->addFieldToTab('Root.Main', TextField::create('Title'));
         }
-        // SERP
-        $fields->addFieldToTab('Root.PageSEO', MetaPreviewField::create($this->owner));
-        $fields->addFieldToTab('Root.PageSEO', TextField::create('MetaTitle'));
-        $fields->addFieldToTab('Root.PageSEO', TextareaField::create('MetaDescription'));
+
+        // META TAB
+        // Meta
+        $fields->addFieldToTab('Root.MetaTags', SEO_MetaPreviewField::create($this->owner));
+        $title = TextField::create('MetaTitle');
+        $description = TextareaField::create('MetaDescription');
+        if(class_exists('BlogPost')) {
+            if($this->owner instanceof BlogPost) {
+                if($this->owner->Parent()->DefaultPostMetaTitle == 1) {
+                    $title->setAttribute('placeholder', 'Using page title');
+                }
+                if($this->owner->Parent()->DefaultPostMetaDescription == 1) {
+                    $description->setAttribute('placeholder', 'Using page summary');
+                }
+            }
+        }
+        $fields->addFieldToTab('Root.MetaTags', $title);
+        $fields->addFieldToTab('Root.MetaTags', $description);
 
         // Indexing
-        $fields->addFieldToTab('Root.PageSEO', HeaderField::create(false, 'Indexing', 2));
-        $fields->addFieldToTab('Root.PageSEO', TextField::create('Canonical'));
-        $fields->addFieldToTab('Root.PageSEO', DropdownField::create('Robots', 'Robots')
+        $fields->addFieldToTab('Root.MetaTags', HeaderField::create(false, 'Indexing', 2));
+        $canonical = TextField::create('Canonical');
+        if(!$this->owner->Canonical) {
+            $canonical->setAttribute('placeholder', 'Using page URL');
+        }
+        $fields->addFieldToTab('Root.MetaTags', $canonical);
+        $robots = DropdownField::create('Robots', 'Robots')
             ->setSource($this->getRobotsIndexingRules())
-            ->setEmptyString('- please select - '));
+            ->setEmptyString('- please select - ');
+        if(!$this->owner->Robots) {
+            $robots->setDescription('Using default "index,follow" rule');
+        }
+        $fields->addFieldToTab('Root.MetaTags', $robots);
 
         // Social Sharing
-        $fields->addFieldToTab('Root.PageSEO', HeaderField::create(false, 'Social Sharing', 2));
-        $fields->addFieldToTab('Root.PageSEO', CheckboxField::create('HideSocial', 'Hide Social Meta?'));
-        $fields->addFieldToTab('Root.PageSEO', DropdownField::create('OGtype', 'Open Graph Type')
+        $fields->addFieldToTab('Root.MetaTags', HeaderField::create(false, 'Social Sharing', 2));
+        $fields->addFieldToTab('Root.MetaTags', CheckboxField::create('HideSocial', 'Hide Social Meta?'));
+        $og = DropdownField::create('OGtype', 'Open Graph Type')
             ->setSource($this->getOGtypes())
-            ->setEmptyString('- please select - '));
-        $fields->addFieldToTab('Root.PageSEO', DropdownField::create('OGlocale', 'Open Graph Locale')
+            ->setEmptyString('- please select - ');
+        if(!$this->owner->OGtype) {
+            $og->setDescription('Using default "website" type');
+        }
+        $fields->addFieldToTab('Root.MetaTags', $og);
+        $og = DropdownField::create('OGlocale', 'Open Graph Locale')
             ->setSource($this->getOGlocales())
-            ->setEmptyString('- please select - '));
-        $fields->addFieldToTab('Root.PageSEO', DropdownField::create('TwitterCard', 'Twitter Card')
+            ->setEmptyString('- please select - ');
+        if(!$this->owner->OGlocale) {
+            $locale = str_replace('-', '_', i18n::get_locale());
+            $og->setDescription(sprintf('Using default locale from application "%s"', $locale));
+        }
+        $fields->addFieldToTab('Root.MetaTags', $og);
+        $card = DropdownField::create('TwitterCard', 'Twitter Card')
             ->setSource($this->getTwitterCardTypes())
-            ->setEmptyString('- please select - '));
+            ->setEmptyString('- please select - ');
+        if(!$this->owner->TwitterCard) {
+            $card->setDescription('Using default twitter card "summary"');
+        }
+        $fields->addFieldToTab('Root.MetaTags', $card);
         $image = UploadField::create('SocialImage');
-        $image->getValidator()->setAllowedMaxFileSize(Config::inst()->get('SocialImage')->image_size * 1024);
-        $image->setFolderName(Config::inst()->get('SocialImage')->image_folder);
+        $image->getValidator()->setAllowedMaxFileSize(Config::inst()->get('SocialImage', 'image_size') * 1024);
+        $image->setFolderName(Config::inst()->get('SocialImage', 'image_folder'));
         $image->setAllowedFileCategories('image');
-        $fields->addFieldToTab('Root.PageSEO', $image);
+        if(class_exists('BlogPost')) {
+            if($this->owner instanceof BlogPost) {
+                if($this->owner->Parent()->UseFeaturedAsSocialImage == 1) {
+                    $image->setDescription('Using the page featured image');
+                }
+            }
+        }
+        $fields->addFieldToTab('Root.MetaTags', $image);
 
         // Extra Meta Tags
-        $fields->addFieldToTab('Root.PageSEO', HeaderField::create(false, 'Extra Meta Tags', 2));
+        $fields->addFieldToTab('Root.MetaTags', HeaderField::create(false, 'Extra Meta Tags', 2));
         $grid = GridField::create('HeadTags', 'Other Meta Tags', $this->owner->HeadTags(), GridFieldConfig_RelationEditor::create());
         $grid->getConfig()->removeComponentsByType('GridFieldAddExistingAutocompleter');
-        $fields->addFieldToTab('Root.PageSEO', $grid);
+        $fields->addFieldToTab('Root.MetaTags', $grid);
 
+        // SITEMAP TAB
         // Sitemap
-        $fields->addFieldToTab('Root.PageSEO', HeaderField::create(false, 'Sitemap', 2));
-        $fields->addFieldToTab('Root.PageSEO', CheckboxField::create('SitemapHide', 'Hide in sitemap? (XML and HTML)'));
-        $fields->addFieldToTab('Root.PageSEO', NumericField::create('Priority'));
-        $fields->addFieldToTab('Root.PageSEO', DropdownField::create('ChangeFrequency', 'Change Frequency')
+        $fields->addFieldToTab('Root.Sitemap', HeaderField::create(false, 'Sitemap', 2));
+        $fields->addFieldToTab('Root.Sitemap', CheckboxField::create('SitemapHide', 'Hide in sitemap? (XML and HTML)'));
+        $fields->addFieldToTab('Root.Sitemap', NumericField::create('Priority'));
+        $fields->addFieldToTab('Root.Sitemap', DropdownField::create('ChangeFrequency', 'Change Frequency')
             ->setSource($this->getSitemapChangeFrequency())
             ->setEmptyString('- please select - '));
         $grid = GridField::create('SitemapImages', 'Sitemap Images', $this->owner->SitemapImages(), GridFieldConfig_RelationEditor::create());
@@ -135,12 +181,50 @@ class SEO_Extension extends DataExtension
             ->removeComponentsByType('GridFieldAddNewButton')
             ->removeComponentsByType('GridFieldAddExistingAutocompleter')
             ->addComponent(new SEO_SitemapImageAutocompleter('before'));
-        $fields->addFieldToTab('Root.PageSEO', $grid);
-
-        $fields->addFieldToTab('Root.PageSEO', HeaderField::create(false, 'Version', 3));
-        $fields->addFieldToTab('Root.PageSEO', LiteralField::create(false, Config::inst()->get('SEO')->version));
+        $fields->addFieldToTab('Root.Sitemap', HeaderField::create(false, 'Sitemap', 2));
+        $fields->addFieldToTab('Root.Sitemap', $grid);
 
         return $fields;
+    }
+
+    /**
+     * Change the grid summary field structure is currently in SEO admin
+     * 
+     * @param object $fields The current summary fields
+     *
+     * @since version 1.0.0
+     *
+     * @return void
+     **/
+    public function updateSummaryFields(&$fields)
+    {
+        if(Controller::curr() instanceof SEO_ModelAdmin) {
+            Config::inst()->remove($this->owner->class, 'summary_fields');
+            Config::inst()->update($this->owner->class, 'summary_fields', $this->getSummaryFields());
+
+            $fields = Config::inst()->get($this->owner->class, 'summary_fields');
+        }
+    }
+
+    /**
+     * Returns an array of summary fields used in the SEO Admin section of the CMS
+     *
+     * @since version 1.0.2
+     *
+     * @return array
+     **/
+    public function getSummaryFields()
+    {
+        return [
+            'ID'              => 'ID',
+            'Title'           => 'Title',
+            'PageRobots'      => 'Robots',
+            'PageOgType'      => 'OGtype',
+            'PageOgLocale'    => 'OGlocale',
+            'PageTwitterCard' => 'TwitterCard',
+            'Priority'        => 'Priority',
+            'ChangeFrequency' => 'Change Freq'
+        ];
     }
 
     /**
@@ -276,7 +360,7 @@ class SEO_Extension extends DataExtension
         }
         if(class_exists('BlogPost')) {
             if($this->owner instanceof BlogPost) {
-                if($this->owner->Blog()->DefaultPostMetaTitle == 1) {
+                if($this->owner->Parent()->DefaultPostMetaTitle == 1) {
                     return $this->owner->Title;
                 }
             }
@@ -297,7 +381,7 @@ class SEO_Extension extends DataExtension
         }
         if(class_exists('BlogPost')) {
             if($this->owner instanceof BlogPost) {
-                if($this->owner->Blog()->DefaultPostMetaDescription == 1) {
+                if($this->owner->Parent()->DefaultPostMetaDescription == 1) {
                     return $this->owner->Summary;
                 }
             }
@@ -373,7 +457,7 @@ class SEO_Extension extends DataExtension
         if($this->owner->OGlocale) {
             return $this->owner->OGlocale;
         }
-        return str_replace('-', '_', Controller::curr()->ContentLocale());
+        return str_replace('-', '_', i18n::get_locale());
     }
 
     /**
@@ -405,7 +489,7 @@ class SEO_Extension extends DataExtension
         }
         if(class_exists('BlogPost')) {
             if($this->owner instanceof BlogPost) {
-                if($this->owner->FeaturedImage()) {
+                if($this->owner->Parent()->UseFeaturedAsSocialImage == true) {
                     return $this->owner->FeaturedImage();
                 }
             }
@@ -548,13 +632,13 @@ class SEO_Extension extends DataExtension
         $start = (int) $this->owner->request->getPaginationGetVar();
 
         if($list->CurrentPage() > $list->TotalPages()){
-            return $this->owner->httpError(404)
+            return $this->owner->httpError(404);
         }
         if($start % $list->getPageLength() !== 0){
-            return $this->owner->httpError(404)
+            return $this->owner->httpError(404);
         }
         if(!preg_match('/^[0-9]+$/', $start)){
-            return $this->owner->httpError(404)
+            return $this->owner->httpError(404);
         }
         $this->pagination = $list;
     }
