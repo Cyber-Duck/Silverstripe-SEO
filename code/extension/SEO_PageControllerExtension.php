@@ -4,9 +4,9 @@
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  *
- * SEO_BlogControllerExtension
+ * SEO_PageControllerExtension
  */
-class SEO_BlogControllerExtension extends Extension
+class SEO_PageControllerExtension extends Extension
 {
     /**
      * A PaginatedList instance used for rel Meta tags

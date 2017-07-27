@@ -2,12 +2,12 @@
 Name: seo_extensions
 After: "*"
 ---
+Page_Controller:
+  extensions:
+    - SEO_PageControllerExtension
 Page:
   extensions:
     - SEO_Extension
-Blog_Controller:
-  extensions:
-    - SEO_BlogControllerExtension
 Blog:
   extensions:
     - SEO_BlogExtension
