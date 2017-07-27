@@ -83,6 +83,143 @@ class SEO_ModelAdmin extends ModelAdmin
     private static $model_importers = null;
 
     /**
+     * The SEO admin area is for managing page SEO, not for page creation. Some grid
+     * field components are removed from the SEO admin by default.
+     * 
+     * @since version 1.0.0
+     *
+     * @param mixed $id
+     * @param mixed $fields
+     *
+     * @return FieldList
+     **/
+    public function getEditForm($id = null, $fields = null)
+    {
+        $form = parent::getEditForm($id, $fields);
+
+        $class = new $this->modelClass;
+        if($class instanceof Page) {
+            $form
+                ->Fields()
+                ->fieldByName($this->sanitiseClassName($this->modelClass))
+                ->getConfig()
+                ->getComponentByType('GridFieldDetailForm')
+                ->setItemRequestClass('SEO_PublishPageRequest');
+        }
+        $grid = $form->Fields()->fieldByName($this->sanitiseClassName($this->modelClass));
+        $grid->getConfig()->removeComponentsByType('GridFieldAddNewButton');
+
+        $list = $this
+            ->getList()
+            ->filter($this->getFilters())
+            ->sort('Priority', 'DESC');
+
+        $grid->setList($list);
+
+        $this->extend('updateEditForm',  $grid);
+        
+        return $form;
+    }
+
+    /**
+     * Get list of CMS grid pages
+     *
+     * @since version 1.0.0
+     *
+     * @return object
+     **/
+    public function getList()
+    {
+        $class = new $this->modelClass;
+
+        if($class instanceof Page) {
+            return $this->getVersionedPages();
+        }
+        return parent::getList();
+    }
+
+    /**
+     * Get list of CMS grid filters
+     *
+     * @since version 1.0.0
+     *
+     * @return object
+     **/
+    private function getFilters()
+    {
+        $request = $this->getRequest()->requestVar('q');
+
+        $filters = [];
+
+        if(isset($request['Robots']) && $request['Robots']){
+            $filters['Robots'] = $request['Robots'];
+        }
+        if(isset($request['ChangeFrequency']) && $request['ChangeFrequency']){
+            $filters['ChangeFrequency'] = $request['ChangeFrequency'];
+        }
+        if(isset($request['HideSocial']) && $request['HideSocial']){
+            $filters['HideSocial'] = $request['HideSocial'];
+        }
+        if($this->modelClass !== "Page"){
+            $filters['ClassName'] = $this->modelClass;
+        }
+        return $filters;
+    }
+
+    /**
+     * Get list of CMS grid versioned pages
+     *
+     * @since version 1.0.0
+     *
+     * @return object
+     **/
+    private function getVersionedPages()
+    {
+        $list = new ArrayList();
+
+        $stage = Versioned::get_by_stage($this->modelClass, 'Stage');
+        foreach($stage as $stage) $list->push($stage);
+
+        $live = Versioned::get_by_stage($this->modelClass, 'Live');
+        foreach($live as $live) $list->push($live);
+
+        $list->removeDuplicates('ID');
+
+        return $list;
+    }
+
+    /**
+     * Set the CMS grid search context
+     *
+     * @since version 1.0.0
+     *
+     * @return object
+     **/
+    public function getSearchContext()
+    {
+        if(!Controller::curr() instanceof SEO_ModelAdmin) return parent::getSearchContext();
+
+        Config::inst()->update($this->modelClass, 'searchable_fields', $this->getSearchableFields());
+
+        $context = parent::getSearchContext();
+
+        $context->getFields()->fieldByName('q[Robots]')
+            ->setEmptyString('- select -')
+            ->setSource(SEO_FieldValues::IndexRules());
+
+        $context->getFields()->fieldByName('q[ChangeFrequency]')
+            ->setEmptyString('- select -')
+            ->setSource(SEO_FieldValues::SitemapChangeFrequency());
+
+        $context->getFields()->fieldByName('q[HideSocial]')
+            ->setTitle('Social Meta hidden:')
+            ->setEmptyString('- select -')
+            ->setSource(SEO_FieldValues::YesNo());
+                
+        return $context;
+    }
+
+    /**
      * CSV export fields
      *
      * @since version 1.0.0
@@ -98,6 +235,44 @@ class SEO_ModelAdmin extends ModelAdmin
             'Robots'          => 'Robots',
             'Priority'        => 'Priority',
             'ChangeFrequency' => 'ChangeFrequency'
+        ];
+    }
+
+    /**
+     * Returns an array of searchable fields used in the SEO Admin section of the CMS
+     *
+     * @since version 1.0.2
+     *
+     * @return array Returns an array of SEO Admin searchable fields
+     **/
+    private function getSearchableFields()
+    {
+        return [
+            'Title' => [
+                'title'  => 'Title:',
+                'field'  => 'TextField',
+                'filter' => 'PartialMatchFilter'
+            ],
+            'URLSegment' => [
+                'title'  => 'URL segment:',
+                'field'  => 'TextField',
+                'filter' => 'PartialMatchFilter'
+            ],
+            'Robots' => [
+                'title'  => 'Robots:',
+                'field'  => 'DropdownField',
+                'filter' => 'ExactMatchFilter'
+            ],
+            'ChangeFrequency' => [
+                'title'  => 'Change frequency:',
+                'field'  => 'DropdownField',
+                'filter' => 'ExactMatchFilter'
+            ],
+            'HideSocial' => [
+                'title'  => 'Social Meta:',
+                'field'  => 'DropdownField',
+                'filter' => 'ExactMatchFilter'
+            ]
         ];
     }
 }
