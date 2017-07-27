@@ -34,7 +34,7 @@ class SEO_PageControllerExtension extends Extension
     {
         if($this->owner->request->getVar($list->getPaginationGetVar()) !== NULL) {
             if((int) $list->getPageStart() === 0) {
-                return $this->owner->httpError(404);
+                //return $this->owner->httpError(404); // todo
             }
             if($list->CurrentPage() > $list->TotalPages()){
                 return $this->owner->httpError(404);
