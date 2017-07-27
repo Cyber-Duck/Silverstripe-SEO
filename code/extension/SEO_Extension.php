@@ -1,12 +1,35 @@
 <?php
 /**
- * SEO_Extension
- *
- * Core extension used to attach SEO fields to a DataObject
- *
  * @package silverstripe-seo
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
+ *
+ * SEO_Extension
+ *
+ * Core extension to convert an object into a page with detailed SEO configuration.
+ * Attaches by default to the Page object but can be applied to any DataObject.
+ * Maps all properties in HeadTags.ss to methods within this class.
+ * e.g $PageMetaTitle => getPageMetaTitle()
+ * The mapped methods handle a class property and return a value based on conditions
+ * within the configuration such as returning a default value when no value is set.
+ * Whether attaching the extension to existing or new page no manual setting of
+ * properties in the CMS should be required if you want to go with a standard config.
+ * 
+ * Standard config is:
+ * Canonical       => The current full page URL
+ * Robots          => 'index,follow'
+ * Priority        => '0.5'
+ * ChangeFrequency => 'weekly'
+ * SitemapHide     => false
+ * HideSocial      => false
+ * OGtype          => 'website'
+ * OGlocale        => The current website locale
+ * TwitterCard     => 'summary'
+ *
+ * Class properties in the $db array here should not be called directly, rather
+ * the class methods should be called to take advantage of SubSite detection, Blog
+ * related DataObject detection and other features. You can subclass, override, or
+ * use YML config to compliment this class and create your own detailed Meta strategies.
  **/
 class SEO_Extension extends DataExtension
 {
