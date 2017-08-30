@@ -18,6 +18,15 @@ class SEO_PageControllerExtension extends Extension
     private $pagination;
 
     /**
+     * A DataObject instance to pull the current page SEO properties from
+     *
+     * @since version 2.0.0
+     *
+     * @var DataObject $seo 
+     **/
+    private $seo;
+
+    /**
      * Sets a Paginated list object which the prev and next rel tags will be 
      * calculated off. This method validates the current $_GET param used for 
      * pagination and will return a 404 response if the $_GET var is outside
@@ -87,5 +96,33 @@ class SEO_PageControllerExtension extends Extension
                 return $this->owner->getPageURL().'?'.$this->pagination->getPaginationGetVar().'='.$start;
             }
         }
+    }
+
+    /**
+     * Set the model to use for the current page Meta
+     *
+     * @since version 2.0.0
+     *
+     * @param DataObject $object
+     *
+     * @return void
+     **/
+    public function setSeoObject(DataObject $object)
+    {
+        $this->seo = $object;
+    }
+
+    /**
+     * Return the head tags to use for the current page
+     *
+     * @since version 2.0.0
+     *
+     * @return ViewableData
+     **/
+    public function getSeoMetaTags()
+    {
+        return Controller::curr()->customise([
+            'SEOPage' => $this->seo ? $this->seo : $this->owner
+        ])->renderWith('HeadTags');
     }
 }
