@@ -62,6 +62,7 @@ class SEOAdmin extends ModelAdmin
             ->sort('Priority', 'DESC');
 
         $grid->setList($list);
+        $grid->setModelClass($class->ClassName);
 
         $this->extend('updateEditForm',  $grid);
         
