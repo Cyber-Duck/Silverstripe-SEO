@@ -6,7 +6,7 @@ PageController:
     - CyberDuck\SEO\Model\Extension\SeoPageControllerExtension
 Page:
   extensions:
-    - CyberDuck\SEO\Model\Extension\SeoExtension
+    - CyberDuck\SEO\Model\Extension\SeoPageExtension
 SilverStripe\SiteConfig\SiteConfig:
   extensions:
     - CyberDuck\SEO\Model\Extension\SeoSiteConfigExtension
