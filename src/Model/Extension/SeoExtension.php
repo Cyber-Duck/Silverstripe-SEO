@@ -27,6 +27,7 @@ class SeoExtension extends SeoPageExtension
      **/
     private static $db = [
         'Title'           => 'Varchar(512)',
+        'URLSegment'      => 'Varchar(512)',
         'MetaDescription' => 'Varchar(512)'
     ];
 
@@ -35,6 +36,7 @@ class SeoExtension extends SeoPageExtension
         $fields = parent::updateCMSFields($fields);
 
         $fields->addFieldToTab('Root.Main', TextField::create('Title'));
+        $fields->addFieldToTab('Root.Main', TextField::create('URLSegment'));
 
         return $fields;
     }
