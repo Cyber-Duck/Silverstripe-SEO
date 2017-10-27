@@ -42,7 +42,7 @@
             $('<input>').attr({
                 type: 'text',
                 class: 'text seo-serp-count seo-serp-count-' + name,
-            }).insertAfter(input);
+            }).insertBefore(input);
         }
         function changeSerpCount(name,input){
             $('.seo-serp-count-' + name).val($(input).val().length);

@@ -5,7 +5,15 @@
     border-radius: $value;
 }
 
+#Root_MetaTags {
+    input#Form_EditForm_MetaTitle,
+    textarea#Form_EditForm_MetaDescription {
+        max-width: 440px;
+    }
+}
+
 .field input.text.seo-serp-count {
+    float: right;
     margin-left: 10px;
     vertical-align: top;
     width: 60px;
@@ -16,7 +24,7 @@
     border: 1px solid #b3b3b3;
     padding: 7px 7px;
     line-height: 16px;
-    margin: 0;
+    margin: 0 0 20px 0;
     outline: none;
     background-image: none;
     padding: 30px 0;
