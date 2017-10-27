@@ -4,6 +4,7 @@ namespace CyberDuck\SEO\Model\Extension;
 
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Forms\CheckboxField;
+use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\HeaderField;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\TextField;

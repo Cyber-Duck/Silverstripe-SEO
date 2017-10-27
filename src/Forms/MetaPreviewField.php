@@ -5,6 +5,7 @@ namespace CyberDuck\SEO\Forms;
 use SilverStripe\Blog\Model\BlogPost;
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\Director;
+use SilverStripe\Core\Config\Config;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\View\Requirements;

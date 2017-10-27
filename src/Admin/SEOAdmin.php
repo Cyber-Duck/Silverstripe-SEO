@@ -3,6 +3,7 @@
 namespace CyberDuck\SEO\Admin;
 
 use CyberDuck\SEO\Forms\GridField\PublishPageRequest;
+use SilverStripe\Admin\ModelAdmin;
 use SilverStripe\Control\Controller;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Forms\GridField\GridFieldDetailForm;
