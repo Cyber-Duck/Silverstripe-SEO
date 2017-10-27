@@ -21,6 +21,15 @@ use SilverStripe\ORM\DataObject;
 class SeoHeadTag extends DataObject
 {
     /**
+     * Table name
+     *
+     * @since version 4.0.0
+     *
+     * @config string $table_name
+     **/
+    private static $table_name = 'SeoHeadTag';
+
+    /**
      * Simple name, value, and type fields for a Meta tag
      *
      * @since version 1.0.0
