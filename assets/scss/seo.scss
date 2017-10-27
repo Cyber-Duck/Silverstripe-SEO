@@ -12,6 +12,13 @@
     }
 }
 
+#Root_MetaTags {
+    input#Form_ItemEditForm_MetaTitle,
+    textarea#Form_ItemEditForm_MetaDescription {
+        max-width: 600px;
+    }
+}
+
 .field input.text.seo-serp-count {
     float: right;
     margin-left: 10px;
