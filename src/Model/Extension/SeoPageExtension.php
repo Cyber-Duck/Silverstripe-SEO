@@ -207,7 +207,6 @@ class SeoPageExtension extends DataExtension
         $fields->addFieldToTab('Root.MetaTags', $image);
 
         // Extra Meta Tags
-        $fields->addFieldToTab('Root.MetaTags', HeaderField::create(false, 'Extra Meta Tags', 2));
         $grid = GridField::create('HeadTags', 'Other Meta Tags', $this->owner->HeadTags(), GridFieldConfig_RelationEditor::create());
         $grid->getConfig()->removeComponentsByType('GridFieldAddExistingAutocompleter');
         $fields->addFieldToTab('Root.MetaTags', $grid);
