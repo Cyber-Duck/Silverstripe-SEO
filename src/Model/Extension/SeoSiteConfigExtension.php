@@ -48,19 +48,19 @@ class SeoSiteConfigExtension extends DataExtension
      **/
     public function updateCMSFields(FieldList $fields)
     {
-        $fields->addFieldToTab('Root.SEO', HeaderField::create('SEO'));
+        $fields->addFieldToTab('Root.SEO', HeaderField::create(false, 'SEO'));
         $fields->addFieldToTab('Root.SEO', LiteralField::create(false, 'SilverStripe SEO V'.Config::inst()->get('SEO', 'version')));
 
-        $fields->addFieldToTab('Root.SEO', HeaderField::create('Social Settings'));
+        $fields->addFieldToTab('Root.SEO', HeaderField::create(false, 'Social Settings'));
         $fields->addFieldToTab('Root.SEO', TextField::create('OGSiteName', 'Open Graph Site Name'));
         $fields->addFieldToTab('Root.SEO', TextField::create('TwitterHandle', 'Twitter handle (no @)'));
         $fields->addFieldToTab('Root.SEO', TextField::create('CreatorTwitterHandle', 'Twitter creator handle (no @)'));
         $fields->addFieldToTab('Root.SEO', TextField::create('FacebookAppID', 'Facebook APP ID'));
 
-        $fields->addFieldToTab('Root.SEO', HeaderField::create('Meta'));
+        $fields->addFieldToTab('Root.SEO', HeaderField::create(false, 'Meta'));
         $fields->addFieldToTab('Root.SEO', CheckboxField::create('UseTitleAsMetaTitle', 'Default Meta title to page Title'));
 
-        $fields->addFieldToTab('Root.SEO', HeaderField::create('Sitemap'));
+        $fields->addFieldToTab('Root.SEO', HeaderField::create(false, 'Sitemap'));
         $fields->addFieldToTab('Root.SEO', CheckboxField::create('AutomapPriority', 'Automap sitemap priority based on depth'));
         
         return $fields;
