@@ -30,6 +30,7 @@ use SilverStripe\Forms\NumericField;
 use SilverStripe\i18n\i18n;
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\Security\Permission;
+use SilverStripe\SiteConfig\SiteConfig;
 
 /**
  * @package silverstripe-seo
