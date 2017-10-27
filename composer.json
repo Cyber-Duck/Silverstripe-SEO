@@ -37,7 +37,12 @@
         }
     },
     "extra": {
-        "installer-name": "seo"
+        "installer-name": "seo",
+        "expose": [
+            "assets/css",
+            "assets/img",
+            "assets/js"
+        ]
     },
     "minimum-stability": "dev",
     "prefer-stable": true
