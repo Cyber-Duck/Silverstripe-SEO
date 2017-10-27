@@ -29,6 +29,7 @@ use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\NumericField;
 use SilverStripe\i18n\i18n;
 use SilverStripe\ORM\DataExtension;
+use SilverStripe\ORM\FieldType\DBField;
 use SilverStripe\Security\Permission;
 use SilverStripe\SiteConfig\SiteConfig;
 
@@ -676,9 +677,7 @@ class SeoPageExtension extends DataExtension
         } else {
             $status = 'accept';
         }
-        $html = DBText::create(); // @todo check
-        $html->setValue(sprintf('<span class="ui-button-icon-primary ui-icon btn-icon-%s"></span>', $status));
-        return $html;
+        return DBField::create_field('HTMLText', sprintf('<span class="ui-button-icon-primary ui-icon btn-icon-%s"></span>', $status));
     }
 
     /**
