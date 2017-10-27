@@ -2,6 +2,7 @@
 
 namespace CyberDuck\SEO\Admin;
 
+use Page;
 use CyberDuck\SEO\Forms\GridField\PublishPageRequest;
 use SilverStripe\Admin\ModelAdmin;
 use SilverStripe\Control\Controller;

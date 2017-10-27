@@ -2,6 +2,7 @@
 
 namespace CyberDuck\SEO\Controller;
 
+use Page;
 use CyberDuck\SEO\Generators\SitemapGenerator;
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\Director;
