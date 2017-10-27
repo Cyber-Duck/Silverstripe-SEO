@@ -14,6 +14,8 @@ use SilverStripe\Forms\GridField\GridFieldDeleteAction;
 use SilverStripe\Forms\GridField\GridFieldEditButton;
 use SilverStripe\Forms\TextField;
 use SilverStripe\ORM\ArrayList;
+use SilverStripe\ORM\Filters\PartialMatchFilter;
+use SilverStripe\ORM\Filters\ExactMatchFilter;
 use SilverStripe\Versioned\Versioned;
 
 /**
@@ -204,27 +206,27 @@ class SEOAdmin extends ModelAdmin
             'Title' => [
                 'title'  => 'Title:',
                 'field'  => TextField::class,
-                'filter' => 'PartialMatchFilter'
+                'filter' => PartialMatchFilter::class
             ],
             'URLSegment' => [
                 'title'  => 'URL segment:',
                 'field'  => TextField::class,
-                'filter' => 'PartialMatchFilter'
+                'filter' => PartialMatchFilter::class
             ],
             'Robots' => [
                 'title'  => 'Robots:',
                 'field'  => DropdownField::class,
-                'filter' => 'ExactMatchFilter'
+                'filter' => ExactMatchFilter::class
             ],
             'ChangeFrequency' => [
                 'title'  => 'Change frequency:',
                 'field'  => DropdownField::class,
-                'filter' => 'ExactMatchFilter'
+                'filter' => ExactMatchFilter::class
             ],
             'HideSocial' => [
                 'title'  => 'Social Meta:',
                 'field'  => DropdownField::class,
-                'filter' => 'ExactMatchFilter'
+                'filter' => ExactMatchFilter::class
             ]
         ];
     }
