@@ -20,6 +20,8 @@ use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\GridField\GridFieldConfig_RelationEditor;
+use SilverStripe\Forms\GridField\GridFieldAddNewButton;
+use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 use SilverStripe\Forms\HeaderField;
 use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\TextareaField;
@@ -221,10 +223,9 @@ class SeoPageExtension extends DataExtension
             ->setEmptyString('- please select - '));
         $grid = GridField::create('SitemapImages', 'Sitemap Images', $this->owner->SitemapImages(), GridFieldConfig_RelationEditor::create());
         $grid->getConfig()
-            ->removeComponentsByType('GridFieldAddNewButton')
-            ->removeComponentsByType('GridFieldAddExistingAutocompleter')
+            ->removeComponentsByType(GridFieldAddNewButton::class)
+            ->removeComponentsByType(GridFieldAddExistingAutocompleter::class)
             ->addComponent(new SitemapImageAutocompleter('before'));
-        $fields->addFieldToTab('Root.Sitemap', HeaderField::create(false, 'Sitemap', 2));
         $fields->addFieldToTab('Root.Sitemap', $grid);
 
         return $fields;
