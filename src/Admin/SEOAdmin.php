@@ -2,8 +2,7 @@
 
 namespace CyberDuck\SEO\Admin;
 
-use CyberDuck\SEO\Helper\SEO_PublishPageRequest;
-use CyberDuck\SEO\Admin\SEO_ModelAdmin;
+use CyberDuck\SEO\Forms\GridField\PublishPageRequest;
 use SilverStripe\Control\Controller;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Forms\GridField\GridFieldDetailForm;
@@ -14,7 +13,7 @@ use SilverStripe\ORM\ArrayList;
 use SilverStripe\Versioned\Versioned;
 
 /**
- * SEO_ModelAdmin
+ * SEOAdmin
  *
  * Class which creates the SEO CMS section for SEO management across pages
  *
@@ -22,7 +21,7 @@ use SilverStripe\Versioned\Versioned;
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEO_ModelAdmin extends ModelAdmin
+class SEOAdmin extends ModelAdmin
 {
     /**
      * The SEO admin area is for managing page SEO, not for page creation. Some grid
@@ -46,7 +45,7 @@ class SEO_ModelAdmin extends ModelAdmin
                 ->fieldByName($this->sanitiseClassName($this->modelClass))
                 ->getConfig()
                 ->getComponentByType(GridFieldDetailForm::class)
-                ->setItemRequestClass(SEO_PublishPageRequest::class);
+                ->setItemRequestClass(PublishPageRequest::class);
         }
         $grid = $form->Fields()->fieldByName($this->sanitiseClassName($this->modelClass));
         $grid->getConfig()->removeComponentsByType(GridFieldAddNewButton::class);
@@ -141,7 +140,7 @@ class SEO_ModelAdmin extends ModelAdmin
      **/
     public function getSearchContext()
     {
-        if(!Controller::curr() instanceof SEO_ModelAdmin) return parent::getSearchContext();
+        if(!Controller::curr() instanceof SEOAdmin) return parent::getSearchContext();
 
         Config::inst()->update($this->modelClass, 'searchable_fields', $this->getSearchableFields());
 

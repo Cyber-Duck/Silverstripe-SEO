@@ -1,6 +1,6 @@
 <?php
 
-namespace CyberDuck\SEO\Helper;
+namespace CyberDuck\SEO\Forms\GridField;
 
 use Page;
 use SilverStripe\Control\Controller;
@@ -10,7 +10,7 @@ use SilverStripe\ORM\DataObject;
 use SilverStripe\Versioned\Versioned;
 
 /**
- * SEO_PublishPageRequest
+ * PublishPageRequest
  *
  * Adds the save button to the SEO admin CMS form
  *
@@ -18,7 +18,7 @@ use SilverStripe\Versioned\Versioned;
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEO_PublishPageRequest extends GridFieldDetailForm_ItemRequest
+class PublishPageRequest extends GridFieldDetailForm_ItemRequest
 {
     /**
      * Allow requests to ItemEditForm

@@ -1,12 +1,12 @@
 <?php
 
-namespace CyberDuck\SEO\Extension;
+namespace CyberDuck\SEO\Model\Extension;
 
 use Page;
-use CyberDuck\SEO\Form\GridField\SEO_SitemapImageAutocompleter;
-use CyberDuck\SEO\Model\SEO_HeadTag;
-use CyberDuck\SEO\Form\SEO_MetaPreviewField;
-use CyberDuck\SEO\Admin\SEO_ModelAdmin;
+use CyberDuck\SEO\Forms\GridField\SitemapImageAutocompleter;
+use CyberDuck\SEO\Model\SeoHeadTag;
+use CyberDuck\SEO\Forms\MetaPreviewField;
+use CyberDuck\SEO\Admin\SEOAdmin;
 use SilverStripe\Assets\Image;
 use SilverStripe\AssetAdmin\Forms\UploadField;
 use SilverStripe\Blog\Model\BlogPost;
@@ -33,7 +33,7 @@ use SilverStripe\Security\Permission;
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  *
- * SEO_Extension
+ * SeoExtension
  *
  * Core extension to convert an object into a page with detailed SEO configuration.
  * Attaches by default to the Page object but can be applied to any DataObject.
@@ -60,7 +60,7 @@ use SilverStripe\Security\Permission;
  * related DataObject detection and other features. You can subclass, override, or
  * use YML config to compliment this class and create your own detailed Meta strategies.
  **/
-class SEO_Extension extends DataExtension
+class SeoExtension extends DataExtension
 {
     /**
      * Our page fields
@@ -103,7 +103,7 @@ class SEO_Extension extends DataExtension
      * @config array $many_many 
      **/
     private static $many_many = [
-        'HeadTags'      => SEO_HeadTag::class,
+        'HeadTags'      => SeoHeadTag::class,
         'SitemapImages' => Image::class
     ];
 
@@ -145,7 +145,7 @@ class SEO_Extension extends DataExtension
 
         // META TAB
         // Meta
-        $fields->addFieldToTab('Root.MetaTags', SEO_MetaPreviewField::create($this->owner));
+        $fields->addFieldToTab('Root.MetaTags', MetaPreviewField::create($this->owner));
         $title = TextField::create('MetaTitle');
         $description = TextareaField::create('MetaDescription');
         if(class_exists('BlogPost')) {
@@ -232,7 +232,7 @@ class SEO_Extension extends DataExtension
         $grid->getConfig()
             ->removeComponentsByType('GridFieldAddNewButton')
             ->removeComponentsByType('GridFieldAddExistingAutocompleter')
-            ->addComponent(new SEO_SitemapImageAutocompleter('before'));
+            ->addComponent(new SitemapImageAutocompleter('before'));
         $fields->addFieldToTab('Root.Sitemap', HeaderField::create(false, 'Sitemap', 2));
         $fields->addFieldToTab('Root.Sitemap', $grid);
 
@@ -250,7 +250,7 @@ class SEO_Extension extends DataExtension
      **/
     public function updateSummaryFields(&$fields)
     {
-        if(Controller::curr() instanceof SEO_ModelAdmin) {
+        if(Controller::curr() instanceof SEOAdmin) {
             Config::inst()->remove($this->owner->class, 'summary_fields');
             Config::inst()->update($this->owner->class, 'summary_fields', $this->getSummaryFields());
 

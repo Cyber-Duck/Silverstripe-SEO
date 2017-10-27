@@ -2,6 +2,6 @@
 ---
 Name: seo meta preview config
 ---
-CyberDuck\SEO\Forms\SEO_MetaPreviewField:
+CyberDuck\SEO\Forms\MetaPreviewField:
   meta_title: 'Your Meta Title Here - What Your Page is About'
   meta_description: 'This is a preview of your Meta description and how it will look in the Search Engine Results Page. Always try to keep it short and make it fit into the space provided.'

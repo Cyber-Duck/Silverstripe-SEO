@@ -15,7 +15,7 @@ use SilverStripe\Control\HTTPRequest;
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEO_RobotsTxtController extends Controller 
+class RobotsTxtController extends Controller 
 {
     /**
      * Set the required content type header

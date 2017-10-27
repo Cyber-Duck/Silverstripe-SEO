@@ -1,9 +1,8 @@
 <?php
 
-namespace CyberDuck\SEO\Helper;
+namespace CyberDuck\SEO\Generators;
 
 use Page;
-use CyberDuck\SEO\Helper\SEO_Sitemap;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\ORM\Arraylist;
@@ -12,7 +11,7 @@ use SilverStripe\Subsites\Model\SubSite;
 use SilverStripe\Subsites\Model\SubsiteDomain;
 
 /**
- * SEO_Sitemap
+ * SitemapGenerator
  *
  * Generates an HTML sitemap list
  *
@@ -20,7 +19,7 @@ use SilverStripe\Subsites\Model\SubsiteDomain;
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEO_Sitemap
+class SitemapGenerator
 {
     /**
      * The HTML to output
@@ -141,7 +140,7 @@ class SEO_Sitemap
      **/
     private function getObjectChildren($id)
     {
-        foreach(Config::inst()->get(SEO_Sitemap::class, 'objects') as $class => $config) {
+        foreach(Config::inst()->get(SitemapGenerator::class, 'objects') as $class => $config) {
             if($config['parent_id'] == $id) {
                 $filters = $this->getSitemapFilters();
                 

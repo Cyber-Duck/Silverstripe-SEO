@@ -3,16 +3,16 @@ Name: seo extensions config
 ---
 PageController:
   extensions:
-    - CyberDuck\SEO\extension\SEO_PageControllerExtension
+    - CyberDuck\SEO\Model\Extension\SeoPageControllerExtension
 Page:
   extensions:
-    - CyberDuck\SEO\extension\SEO_Extension
+    - CyberDuck\SEO\Model\Extension\SeoExtension
 SilverStripe\SiteConfig\SiteConfig:
   extensions:
-    - CyberDuck\SEO\extension\SEO_SiteConfigExtension
+    - CyberDuck\SEO\Model\Extension\SeoSiteConfigExtension
 SilverStripe\Assets\Image:
   extensions:
-    - CyberDuck\SEO\extension\SEO_ImageSitemapExtension
+    - CyberDuck\SEO\Model\Extension\SeoImageSitemapExtension
 SilverStripe\Blog\Model\Blog:
   extensions:
-    - CyberDuck\SEO\extension\SEO_BlogExtension
+    - CyberDuck\SEO\Model\Extension\SeoBlogExtension

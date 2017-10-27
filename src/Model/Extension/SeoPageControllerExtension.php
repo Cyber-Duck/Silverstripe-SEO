@@ -1,19 +1,19 @@
 <?php
 
-namespace CyberDuck\SEO\Extension;
+namespace CyberDuck\SEO\Model\Extension;
 
 use SilverStripe\Core\Extension;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\PaginatedList;
 
 /**
+ * SeoPageControllerExtension
+ *
  * @package silverstripe-seo
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
- *
- * SEO_PageControllerExtension
  */
-class SEO_PageControllerExtension extends Extension
+class SeoPageControllerExtension extends Extension
 {
     /**
      * A PaginatedList instance used for rel Meta tags

@@ -2,7 +2,6 @@
 
 namespace CyberDuck\SEO\Forms;
 
-use CyberDuck\SEO\Forms\SEO_MetaPreviewField;
 use SilverStripe\Blog\Model\BlogPost;
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\Director;
@@ -11,15 +10,15 @@ use SilverStripe\ORM\DataObject;
 use SilverStripe\View\Requirements;
 
 /**
- * SEO_Extension
+ * MetaPreviewField
  *
- * Core extension used to attach SEO fields to a DataObject
+ * Gogole SERP preview field
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEO_MetaPreviewField extends LiteralField
+class MetaPreviewField extends LiteralField
 {
     /**
      * Object instance used to populate Meta from
@@ -43,7 +42,7 @@ class SEO_MetaPreviewField extends LiteralField
 
         Requirements::javascript(Director::absoluteBaseURL().'seo/assets/js/serp.js');
 
-        parent::__construct('SEO_MetaPreviewField', $this->getMetaContent());
+        parent::__construct('MetaPreviewField', $this->getMetaContent());
     }
 
     /**
@@ -81,7 +80,7 @@ class SEO_MetaPreviewField extends LiteralField
                 }
             }
         }
-        return Config::inst()->get(SEO_MetaPreviewField::class, 'meta_title');
+        return Config::inst()->get(MetaPreviewField::class, 'meta_title');
     }
 
     /**
@@ -120,6 +119,6 @@ class SEO_MetaPreviewField extends LiteralField
                 }
             }
         }
-        return Config::inst()->get(SEO_MetaPreviewField::class, 'meta_description');
+        return Config::inst()->get(MetaPreviewField::class, 'meta_description');
     }
 }

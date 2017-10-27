@@ -2,7 +2,7 @@
 
 namespace CyberDuck\SEO\Controller;
 
-use CyberDuck\SEO\Helper\SEO_Sitemap;
+use CyberDuck\SEO\Generators\SitemapGenerator;
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\Director;
 use SilverStripe\Control\HTTPRequest;
@@ -18,7 +18,7 @@ use SilverStripe\ORM\ArrayList;
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEO_SitemapXMLController extends Controller
+class SitemapXMLController extends Controller
 {
     /**
      * Set the required content type header
@@ -92,7 +92,7 @@ class SEO_SitemapXMLController extends Controller
                 $pages->push($page);
             }
         }
-        $objects = (array) Config::inst()->get(SEO_Sitemap::class, 'objects');
+        $objects = (array) Config::inst()->get(SitemapGenerator::class, 'objects');
 
         if(!empty($objects)) {
             foreach($objects as $name => $values) {

@@ -1,7 +1,7 @@
 ---
 Name: seo sitemap config
 ---
-CyberDuck\SEO\Helper\SEO_Sitemap:
+CyberDuck\SEO\Generators\SitemapGenerator:
   objects:
     Page:
       parent_id: 0

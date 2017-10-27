@@ -4,5 +4,5 @@ After: framework/routes#coreroutes
 ---
 SilverStripe\Control\Director:
   rules:
-    'sitemap.xml' : 'SEO_SitemapXMLController'
-    'robots.txt' : 'SEO_RobotsTxtController'
+    'sitemap.xml' : 'CyberDuck\SEO\Controller\SitemapXMLController'
+    'robots.txt' : 'CyberDuck\SEO\Controller\RobotsTxtController'

@@ -1,21 +1,21 @@
 <?php
 
-namespace CyberDuck\SEO\Extension;
+namespace CyberDuck\SEO\Model\Extension;
 
 use SilverStripe\Forms\HeaderField;
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\ORM\DataExtension;
 
 /**
- * SEO_Extension
+ * SeoBlogExtension
  *
- * Core extension used to attach SEO fields to a DataObject
+ * Adds SEO options to the Blog Page class
  *
  * @package silverstripe-seo
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEO_BlogExtension extends DataExtension
+class SeoBlogExtension extends DataExtension
 {
     /**
      * Our page fields

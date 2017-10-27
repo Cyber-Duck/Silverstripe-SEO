@@ -1,6 +1,6 @@
 <?php
 
-namespace CyberDuck\SEO\Extension;
+namespace CyberDuck\SEO\Model\Extension;
 
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Forms\CheckboxField;
@@ -10,7 +10,7 @@ use SilverStripe\Forms\TextField;
 use SilverStripe\ORM\DataExtension;
 
 /**
- * SEO_SiteConfigExtension
+ * SeoSiteConfigExtension
  *
  * Updates the CMS site config with custom fields for SEO and Social sharing
  *
@@ -18,7 +18,7 @@ use SilverStripe\ORM\DataExtension;
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEO_SiteConfigExtension extends DataExtension
+class SeoSiteConfigExtension extends DataExtension
 {
     /**
      * Array of extra CMS settings fields

@@ -1,11 +1,11 @@
 <?php
 
-namespace CyberDuck\SEO\Helper;
+namespace CyberDuck\SEO\Generators;
 
 use SilverStripe\ORM\DataObject;
 
 /**
- * SEO_DynamicMeta
+ * DynamicMetaGenerator
  *
  * Hlper class for creating dynamic Meta strings using placeholders and object properties
  *
@@ -13,7 +13,7 @@ use SilverStripe\ORM\DataObject;
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEO_DynamicMeta
+class DynamicMetaGenerator // @todo docs
 {
     /**
      * A string of Meta text

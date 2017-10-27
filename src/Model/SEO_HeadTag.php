@@ -9,7 +9,7 @@ use SilverStripe\Forms\HiddenField;
 use SilverStripe\ORM\DataObject;
 
 /**
- * SEO_HeadTag
+ * SeoHeadTag
  *
  * Object representing a non standard Meta tag which can be added to the current page through
  * the extra meta tags GridField
@@ -18,7 +18,7 @@ use SilverStripe\ORM\DataObject;
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEO_HeadTag extends DataObject
+class SeoHeadTag extends DataObject
 {
     /**
      * Simple name, value, and type fields for a Meta tag

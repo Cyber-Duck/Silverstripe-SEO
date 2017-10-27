@@ -11,7 +11,7 @@ use SilverStripe\ORM\DataList;
 use SilverStripe\View\SSViewer;
 
 /**
- * SEO_SitemapImageAutocompleter
+ * SitemapImageAutocompleter
  *
  * Modified autocompleter class to search images to attach to the current page as XML sitemap entries.
  *
@@ -19,7 +19,7 @@ use SilverStripe\View\SSViewer;
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEO_SitemapImageAutocompleter extends GridFieldAddExistingAutocompleter
+class SitemapImageAutocompleter extends GridFieldAddExistingAutocompleter
 {	
     /**
      * Set core properties

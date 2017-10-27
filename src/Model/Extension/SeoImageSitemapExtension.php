@@ -1,12 +1,12 @@
 <?php
 
-namespace CyberDuck\SEO\Extension;
+namespace CyberDuck\SEO\Model\Extension;
 
 use SilverStripe\Core\Config\Config;
 use SilverStripe\ORM\DataExtension;
 
 /**
- * SEO_ImageSitemapExtension
+ * SeoImageSitemapExtension
  *
  * Extension for images which adds compatibility for XML image sitemaps
  *
@@ -14,7 +14,7 @@ use SilverStripe\ORM\DataExtension;
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEO_ImageSitemapExtension extends DataExtension
+class SeoImageSitemapExtension extends DataExtension
 {
     /**
      * Use better custom summary fields
