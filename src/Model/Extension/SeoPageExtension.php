@@ -680,4 +680,22 @@ class SeoPageExtension extends DataExtension
         $html->setValue(sprintf('<span class="ui-button-icon-primary ui-icon btn-icon-%s"></span>', $status));
         return $html;
     }
+
+    /**
+     * Get the SEO page relative link
+     *
+     * @since version 4.0.0
+     *
+     * @param string $action
+     *
+     * @return string
+     **/
+    public function Link($action = null)
+    {
+        $link = $this->RelativeLink($action);
+        
+        if(substr($link, -1) == '/') $link = substr($link, 0, -1);
+
+        return Controller::join_links(Director::baseURL(), $link);
+    }
 }
