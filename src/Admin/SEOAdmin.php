@@ -7,10 +7,12 @@ use CyberDuck\SEO\Forms\GridField\PublishPageRequest;
 use SilverStripe\Admin\ModelAdmin;
 use SilverStripe\Control\Controller;
 use SilverStripe\Core\Config\Config;
+use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\GridField\GridFieldDetailForm;
 use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
 use SilverStripe\Forms\GridField\GridFieldEditButton;
+use SilverStripe\Forms\TextField;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\Versioned\Versioned;
 
@@ -200,27 +202,27 @@ class SEOAdmin extends ModelAdmin
         return [
             'Title' => [
                 'title'  => 'Title:',
-                'field'  => 'TextField',
+                'field'  => TextField::class,
                 'filter' => 'PartialMatchFilter'
             ],
             'URLSegment' => [
                 'title'  => 'URL segment:',
-                'field'  => 'TextField',
+                'field'  => TextField::class,
                 'filter' => 'PartialMatchFilter'
             ],
             'Robots' => [
                 'title'  => 'Robots:',
-                'field'  => 'DropdownField',
+                'field'  => DropdownField::class,
                 'filter' => 'ExactMatchFilter'
             ],
             'ChangeFrequency' => [
                 'title'  => 'Change frequency:',
-                'field'  => 'DropdownField',
+                'field'  => DropdownField::class,
                 'filter' => 'ExactMatchFilter'
             ],
             'HideSocial' => [
                 'title'  => 'Social Meta:',
-                'field'  => 'DropdownField',
+                'field'  => DropdownField::class,
                 'filter' => 'ExactMatchFilter'
             ]
         ];
