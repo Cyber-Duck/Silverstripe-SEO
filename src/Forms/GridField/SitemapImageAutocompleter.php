@@ -76,11 +76,11 @@ class SitemapImageAutocompleter extends GridFieldAddExistingAutocompleter
 
 		$json = [];
 		$originalSourceFileComments = Config::inst()->get(SSViewer::class, 'source_file_comments');
-		Config::inst()->update(SSViewer::class, 'source_file_comments', false);
+		Config::modify()->set(SSViewer::class, 'source_file_comments', false);
 		foreach($results as $result) {
 			$json[$result->ID] = html_entity_decode(SSViewer::fromString($this->resultsFormat)->process($result));
 		}
-		Config::inst()->update(SSViewer::class, 'source_file_comments', $originalSourceFileComments);
+		Config::modify()->set(SSViewer::class, 'source_file_comments', $originalSourceFileComments);
 
 		return Convert::array2json($json);
 	}

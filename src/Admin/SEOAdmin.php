@@ -143,7 +143,7 @@ class SEOAdmin extends ModelAdmin
     {
         if(!Controller::curr() instanceof SEOAdmin) return parent::getSearchContext();
 
-        Config::inst()->update($this->modelClass, 'searchable_fields', $this->getSearchableFields());
+        Config::modify()->set($this->modelClass, 'searchable_fields', $this->getSearchableFields());
 
         $context = parent::getSearchContext();
         $model = $this->modelClass;

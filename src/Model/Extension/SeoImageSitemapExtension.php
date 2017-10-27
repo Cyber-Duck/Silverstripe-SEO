@@ -41,7 +41,7 @@ class SeoImageSitemapExtension extends DataExtension
      **/
     public function updateSummaryFields(&$fields)
     {
-        Config::inst()->update($this->owner->class, 'summary_fields', self::$summary_fields);
+        Config::modify()->set($this->owner->class, 'summary_fields', self::$summary_fields);
 
         $fields = Config::inst()->get($this->owner->class, 'summary_fields');
     }
