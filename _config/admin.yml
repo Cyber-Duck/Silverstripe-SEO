@@ -1,0 +1,13 @@
+---
+Name: seo admin config
+---
+CyberDuck\SEO\Admin\SEO_ModelAdmin:
+  managed_models:
+    - 'Page'
+  menu_priority: 100
+  menu_icon_class: 'font-icon-database'
+  model_importers: null
+  page_length: 100
+  menu_title: 'SEO'
+  showImportForm: false
+  url_segment: 'seo-admin'

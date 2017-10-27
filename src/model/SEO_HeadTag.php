@@ -1,4 +1,13 @@
 <?php
+
+namespace CyberDuck\SEO\Model;
+
+use SilverStripe\Forms\HeaderField;
+use SilverStripe\Forms\DropdownField;
+use SilverStripe\Forms\TextField;
+use SilverStripe\Forms\HiddenField;
+use SilverStripe\ORM\DataObject;
+
 /**
  * SEO_HeadTag
  *
@@ -32,7 +41,7 @@ class SEO_HeadTag extends DataObject
      * @config array $db 
      **/
     private static $has_one = [
-        'Page' => 'DataObject'
+        'Page' => DataObject::class
     ];
 
     /**

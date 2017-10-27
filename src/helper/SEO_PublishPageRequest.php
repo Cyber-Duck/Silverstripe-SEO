@@ -1,4 +1,14 @@
 <?php
+
+namespace CyberDuck\SEO\Helper;
+
+use Page;
+use SilverStripe\Control\Controller;
+use SilverStripe\Forms\GridField\GridFieldDetailForm_ItemRequest;
+use SilverStripe\Forms\FormAction;
+use SilverStripe\ORM\DataObject;
+use SilverStripe\Versioned\Versioned;
+
 /**
  * SEO_PublishPageRequest
  *

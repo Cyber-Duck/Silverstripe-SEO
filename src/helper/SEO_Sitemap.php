@@ -1,4 +1,16 @@
 <?php
+
+namespace CyberDuck\SEO\Helper;
+
+use Page;
+use CyberDuck\SEO\Helper\SEO_Sitemap;
+use SilverStripe\Control\Director;
+use SilverStripe\Core\Config\Config;
+use SilverStripe\ORM\Arraylist;
+use SilverStripe\ORM\DataObject;
+use SilverStripe\Subsites\Model\SubSite;
+use SilverStripe\Subsites\Model\SubsiteDomain;
+
 /**
  * SEO_Sitemap
  *
@@ -37,8 +49,8 @@ class SEO_Sitemap
      **/
     private function getSitemapHost()
     {
-        if(class_exists('SubSite')) {
-            $site = DataObject::get_by_id('SubsiteDomain', Subsite::currentSubSiteID());
+        if(class_exists(SubSite::class)) {
+            $site = DataObject::get_by_id(SubsiteDomain::class, Subsite::currentSubSiteID());
 
             if($site) return Director::protocol().$site->Domain;
         }
@@ -129,7 +141,7 @@ class SEO_Sitemap
      **/
     private function getObjectChildren($id)
     {
-        foreach(Config::inst()->get('SEO_Sitemap', 'objects') as $class => $config) {
+        foreach(Config::inst()->get(SEO_Sitemap::class, 'objects') as $class => $config) {
             if($config['parent_id'] == $id) {
                 $filters = $this->getSitemapFilters();
                 

@@ -1,4 +1,10 @@
 <?php
+
+namespace CyberDuck\SEO\Extension;
+
+use SilverStripe\Core\Config\Config;
+use SilverStripe\ORM\DataExtension;
+
 /**
  * SEO_ImageSitemapExtension
  *

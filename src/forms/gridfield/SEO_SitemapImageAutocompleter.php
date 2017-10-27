@@ -1,4 +1,15 @@
 <?php
+
+namespace CyberDuck\SEO\Forms\GridField;
+
+use LogicException;
+use SilverStripe\Assets\Image;
+use SilverStripe\Core\Config\Config;
+use SilverStripe\Core\Convert;
+use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
+use SilverStripe\ORM\DataList;
+use SilverStripe\View\SSViewer;
+
 /**
  * SEO_SitemapImageAutocompleter
  *
@@ -59,17 +70,17 @@ class SEO_SitemapImageAutocompleter extends GridFieldAddExistingAutocompleter
 		}
 		$results = File::get()
 			->filterAny($params)
-			->filter('ClassName','Image')
+			->filter('ClassName', Image::class)
 			->sort(strtok($searchFields[0], ':'), 'ASC')
 			->limit($this->getResultsLimit());
 
 		$json = [];
-		$originalSourceFileComments = Config::inst()->get('SSViewer', 'source_file_comments');
-		Config::inst()->update('SSViewer', 'source_file_comments', false);
+		$originalSourceFileComments = Config::inst()->get(SSViewer::class, 'source_file_comments');
+		Config::inst()->update(SSViewer::class, 'source_file_comments', false);
 		foreach($results as $result) {
 			$json[$result->ID] = html_entity_decode(SSViewer::fromString($this->resultsFormat)->process($result));
 		}
-		Config::inst()->update('SSViewer', 'source_file_comments', $originalSourceFileComments);
+		Config::inst()->update(SSViewer::class, 'source_file_comments', $originalSourceFileComments);
 
 		return Convert::array2json($json);
 	}

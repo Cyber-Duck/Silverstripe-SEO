@@ -1,4 +1,14 @@
 <?php
+
+namespace CyberDuck\SEO\Extension;
+
+use SilverStripe\Core\Config\Config;
+use SilverStripe\Forms\CheckboxField;
+use SilverStripe\Forms\HeaderField;
+use SilverStripe\Forms\LiteralField;
+use SilverStripe\Forms\TextField;
+use SilverStripe\ORM\DataExtension;
+
 /**
  * SEO_SiteConfigExtension
  *
@@ -17,7 +27,7 @@ class SEO_SiteConfigExtension extends DataExtension
      *
      * @config array $db 
      **/
-	private static $db = [
+    private static $db = [
         'OGSiteName'           => 'Varchar(512)',
         'TwitterHandle'        => 'Varchar(512)',
         'CreatorTwitterHandle' => 'Varchar(512)',
@@ -35,8 +45,8 @@ class SEO_SiteConfigExtension extends DataExtension
      *
      * @return FieldList
      **/
-	public function updateCMSFields(FieldList $fields)
-	{
+    public function updateCMSFields(FieldList $fields)
+    {
         $fields->addFieldToTab('Root.SEO', HeaderField::create('SEO'));
         $fields->addFieldToTab('Root.SEO', LiteralField::create(false, 'SilverStripe SEO V'.Config::inst()->get('SEO', 'version')));
 
@@ -51,7 +61,7 @@ class SEO_SiteConfigExtension extends DataExtension
 
         $fields->addFieldToTab('Root.SEO', HeaderField::create('Sitemap'));
         $fields->addFieldToTab('Root.SEO', CheckboxField::create('AutomapPriority', 'Automap sitemap priority based on depth'));
-		
-		return $fields;
-	}
+        
+        return $fields;
+    }
 }

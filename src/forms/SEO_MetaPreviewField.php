@@ -1,4 +1,15 @@
 <?php
+
+namespace CyberDuck\SEO\Forms;
+
+use CyberDuck\SEO\Forms\SEO_MetaPreviewField;
+use SilverStripe\Blog\Model\BlogPost;
+use SilverStripe\Control\Controller;
+use SilverStripe\Control\Director;
+use SilverStripe\Forms\LiteralField;
+use SilverStripe\ORM\DataObject;
+use SilverStripe\View\Requirements;
+
 /**
  * SEO_Extension
  *
@@ -15,7 +26,7 @@ class SEO_MetaPreviewField extends LiteralField
      *
      * @since version 2.0.0
      **/
-  	private $page;
+    private $page;
 
     /**
      * Requires a DataObject to be passed
@@ -26,14 +37,14 @@ class SEO_MetaPreviewField extends LiteralField
      *
      * @return void
      **/
-	public function __construct(DataObject $page)
-	{
-		$this->page = $page;
+    public function __construct(DataObject $page)
+    {
+        $this->page = $page;
 
-		Requirements::javascript(Director::absoluteBaseURL().'seo/assets/js/serp.js');
+        Requirements::javascript(Director::absoluteBaseURL().'seo/assets/js/serp.js');
 
-		parent::__construct('SEO_MetaPreviewField', $this->getMetaContent());
-	}
+        parent::__construct('SEO_MetaPreviewField', $this->getMetaContent());
+    }
 
     /**
      * Get the required values to show in the SERP preview 
@@ -42,14 +53,14 @@ class SEO_MetaPreviewField extends LiteralField
      *
      * @return ViewableData
      **/
-	private function getMetaContent()
-	{
+    private function getMetaContent()
+    {
         return Controller::curr()->customise([
             'SerpMetaTitle'       => $this->getPageMetaTitle(),
             'SerpMetaLink'        => $this->getPageMetaLink(),
             'SerpMetaDescription' => $this->getPageMetaDescription()
         ])->renderWith('MetaPreview');
-	}
+    }
 
     /**
      * Get the Meta title to show in the SERP preview
@@ -70,7 +81,7 @@ class SEO_MetaPreviewField extends LiteralField
                 }
             }
         }
-        return Config::inst()->get('SEO_MetaPreviewField', 'meta_title');
+        return Config::inst()->get(SEO_MetaPreviewField::class, 'meta_title');
     }
 
     /**
@@ -109,6 +120,6 @@ class SEO_MetaPreviewField extends LiteralField
                 }
             }
         }
-        return Config::inst()->get('SEO_MetaPreviewField', 'meta_description');
+        return Config::inst()->get(SEO_MetaPreviewField::class, 'meta_description');
     }
 }

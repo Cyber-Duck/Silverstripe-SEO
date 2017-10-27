@@ -1,6 +1,6 @@
 ---
-Name: seo_cms
+Name: seo cms config
 ---
-LeftAndMain:
+SilverStripe\Admin\LeftAndMain:
   extra_requirements_css:
     - seo/assets/css/seo.css

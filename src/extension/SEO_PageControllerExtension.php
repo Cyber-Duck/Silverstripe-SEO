@@ -1,4 +1,11 @@
 <?php
+
+namespace CyberDuck\SEO\Extension;
+
+use SilverStripe\Core\Extension;
+use SilverStripe\ORM\DataObject;
+use SilverStripe\ORM\PaginatedList;
+
 /**
  * @package silverstripe-seo
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
@@ -43,7 +50,7 @@ class SEO_PageControllerExtension extends Extension
     {
         if($this->owner->request->getVar($list->getPaginationGetVar()) !== NULL) {
             if((int) $list->getPageStart() === 0) {
-                //return $this->owner->httpError(404); // todo
+                //return $this->owner->httpError(404); // @todo
             }
             if($list->CurrentPage() > $list->TotalPages()){
                 return $this->owner->httpError(404);

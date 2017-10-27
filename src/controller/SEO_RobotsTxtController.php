@@ -1,4 +1,11 @@
 <?php
+
+namespace CyberDuck\SEO\Controller;
+
+use SilverStripe\Control\Controller;
+use SilverStripe\Control\Director;
+use SilverStripe\Control\HTTPRequest;
+
 /**
  * SitemapXML_Controller
  *
@@ -8,7 +15,7 @@
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEO_RobotsTxtController extends Page_Controller 
+class SEO_RobotsTxtController extends Controller 
 {
     /**
      * Set the required content type header
@@ -33,10 +40,10 @@ class SEO_RobotsTxtController extends Page_Controller
      *
      * @return ViewableData
      **/
-    public function index(SS_HTTPRequest $request)
+    public function index(HTTPRequest $request)
     {
         return $this->customise([
-        	'Host' => Director::absoluteBaseUrl()
+            'Host' => Director::absoluteBaseUrl()
         ])->renderWith('RobotsTxt');
     }
 }

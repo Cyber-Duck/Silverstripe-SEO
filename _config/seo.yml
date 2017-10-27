@@ -1,5 +1,5 @@
 ---
-Name: seo
+Name: seo config
 ---
-SEO:
-  version: '2.0'
+CyberDuck\SEO:
+  version: '4.0'

@@ -1,4 +1,33 @@
 <?php
+
+namespace CyberDuck\SEO\Extension;
+
+use Page;
+use CyberDuck\SEO\Form\GridField\SEO_SitemapImageAutocompleter;
+use CyberDuck\SEO\Model\SEO_HeadTag;
+use CyberDuck\SEO\Form\SEO_MetaPreviewField;
+use CyberDuck\SEO\Admin\SEO_ModelAdmin;
+use SilverStripe\Assets\Image;
+use SilverStripe\AssetAdmin\Forms\UploadField;
+use SilverStripe\Blog\Model\BlogPost;
+use SilverStripe\CMS\Model\SiteTree;
+use SilverStripe\Control\Controller;
+use SilverStripe\Control\Director;
+use SilverStripe\Core\Config\Config;
+use SilverStripe\Core\Convert;
+use SilverStripe\ErrorPage\ErrorPage;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Forms\GridField\GridFieldConfig_RelationEditor;
+use SilverStripe\Forms\HeaderField;
+use SilverStripe\Forms\TextField;
+use SilverStripe\Forms\TextareaField;
+use SilverStripe\Forms\DropdownField;
+use SilverStripe\Forms\NumericField;
+use SilverStripe\i18n\i18n;
+use SilverStripe\ORM\DataExtension;
+use SilverStripe\Security\Permission;
+
 /**
  * @package silverstripe-seo
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
@@ -63,7 +92,7 @@ class SEO_Extension extends DataExtension
      * @config array $has_one 
      **/
     private static $has_one = [
-        'SocialImage' => 'Image'
+        'SocialImage' => Image::class
     ];
 
     /**
@@ -74,8 +103,8 @@ class SEO_Extension extends DataExtension
      * @config array $many_many 
      **/
     private static $many_many = [
-        'HeadTags'      => 'SEO_HeadTag',
-        'SitemapImages' => 'Image'
+        'HeadTags'      => SEO_HeadTag::class,
+        'SitemapImages' => Image::class
     ];
 
     /**
@@ -580,7 +609,7 @@ class SEO_Extension extends DataExtension
      **/
     public function getPageGenerator()
     {
-        $generator = trim(Config::inst()->get('SiteTree', 'meta_generator'));
+        $generator = trim(Config::inst()->get(SiteTree::class, 'meta_generator'));
 
         if(!empty($generator)) return Convert::raw2att($generator);
     }
@@ -650,7 +679,7 @@ class SEO_Extension extends DataExtension
         } else {
             $status = 'cross';
         }
-        $html = HTMLText::create();
+        $html = DBText::create(); // @todo check
         $html->setValue(sprintf('<span class="ui-button-icon-primary ui-icon btn-icon-%s"></span>', $status));
         return $html;
     }

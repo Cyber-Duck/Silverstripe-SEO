@@ -1,19 +1,18 @@
 ---
-Name: seo_extensions
-After: "*"
+Name: seo extensions config
 ---
-Image:
+PageController:
   extensions:
-    - SEO_ImageSitemapExtension
-Page_Controller:
-  extensions:
-    - SEO_PageControllerExtension
+    - CyberDuck\SEO\extension\SEO_PageControllerExtension
 Page:
   extensions:
-    - SEO_Extension
-Blog:
+    - CyberDuck\SEO\extension\SEO_Extension
+SilverStripe\SiteConfig\SiteConfig:
   extensions:
-    - SEO_BlogExtension
-SiteConfig:
+    - CyberDuck\SEO\extension\SEO_SiteConfigExtension
+SilverStripe\Assets\Image:
   extensions:
-    - SEO_SiteConfigExtension
+    - CyberDuck\SEO\extension\SEO_ImageSitemapExtension
+SilverStripe\Blog\Model\Blog:
+  extensions:
+    - CyberDuck\SEO\extension\SEO_BlogExtension

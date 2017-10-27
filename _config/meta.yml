@@ -1,5 +1,5 @@
 ---
-Name: seo_meta
+Name: seo meta config
 ---
-SEO_Meta:
-  defaults: '2.0'
+CyberDuck\SEO\SEO_Meta:
+  defaults: '4.0'

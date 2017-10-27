@@ -1,4 +1,9 @@
 <?php
+
+namespace CyberDuck\SEO\Helper;
+
+use SilverStripe\ORM\DataObject;
+
 /**
  * SEO_DynamicMeta
  *
@@ -17,7 +22,7 @@ class SEO_DynamicMeta
      *
      * @var string $text 
      **/
-	private $text;
+    private $text;
 
     /**
      * An object with the SEO extension attached
@@ -26,7 +31,7 @@ class SEO_DynamicMeta
      *
      * @var DataObject $object 
      **/
-	private $object;
+    private $object;
 
     /**
      * Seperator string between looped relations
@@ -35,9 +40,9 @@ class SEO_DynamicMeta
      *
      * @var string $seperator 
      **/
-	private $seperator;
+    private $seperator;
 
-	/**
+    /**
      * Set a dynamic Meta tag populated with an object properties
      *
      * @param string     $text      Meta text with placeholders [Value]
@@ -48,12 +53,12 @@ class SEO_DynamicMeta
      *
      * @return void
      **/
-	function __construct($text, DataObject $object, $seperator = 'and')
-	{
-		$this->text = $text;
-		$this->object = $object;
-		$this->seperator = $seperator;
-	}
+    function __construct($text, DataObject $object, $seperator = 'and')
+    {
+        $this->text = $text;
+        $this->object = $object;
+        $this->seperator = $seperator;
+    }
 
     /**
      * Replace the Meta text placeholders with object properties
@@ -64,7 +69,7 @@ class SEO_DynamicMeta
      **/
     public function create()
     {
-    	$object = $this->object;
+        $object = $this->object;
 
         if(!is_object($object)) return;
 
@@ -120,7 +125,7 @@ class SEO_DynamicMeta
      **/
     private function placeHolders()
     {
-    	preg_match_all("/\[([^\]]*)\]/", $this->text, $matches, PREG_PATTERN_ORDER);
+        preg_match_all("/\[([^\]]*)\]/", $this->text, $matches, PREG_PATTERN_ORDER);
 
         return $matches[1];
     }

@@ -1,8 +1,8 @@
 ---
-Name: seo_routes
+Name: seo routes config
 After: framework/routes#coreroutes
 ---
-Director:
+SilverStripe\Control\Director:
   rules:
     'sitemap.xml' : 'SEO_SitemapXMLController'
     'robots.txt' : 'SEO_RobotsTxtController'

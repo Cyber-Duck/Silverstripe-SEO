@@ -1,4 +1,18 @@
 <?php
+
+namespace CyberDuck\SEO\Admin;
+
+use CyberDuck\SEO\Helper\SEO_PublishPageRequest;
+use CyberDuck\SEO\Admin\SEO_ModelAdmin;
+use SilverStripe\Control\Controller;
+use SilverStripe\Core\Config\Config;
+use SilverStripe\Forms\GridField\GridFieldDetailForm;
+use SilverStripe\Forms\GridField\GridFieldAddNewButton;
+use SilverStripe\Forms\GridField\GridFieldDeleteAction;
+use SilverStripe\Forms\GridField\GridFieldEditButton;
+use SilverStripe\ORM\ArrayList;
+use SilverStripe\Versioned\Versioned;
+
 /**
  * SEO_ModelAdmin
  *
@@ -10,78 +24,6 @@
  **/
 class SEO_ModelAdmin extends ModelAdmin
 {
-    /**
-     * Hide the import form for SEO admin
-     *
-     * @since version 1.0.0
-     *
-     * @config boolean $showImportForm
-     **/
-    public $showImportForm = false;
-
-    /**
-     * The main menu title
-     *
-     * @since version 1.0.0
-     *
-     * @config string $menu_title 
-     **/
-    private static $menu_title = 'SEO';
-
-    /**
-     * The CMS SEO admin URL segment
-     *
-     * @since version 1.0.0
-     *
-     * @config string $url_segment
-     **/
-    private static $url_segment = 'seo-admin';
-
-    /**
-     * The main menu icon
-     *
-     * @since version 1.0.0
-     *
-     * @config string $menu_icon 
-     **/
-    private static $menu_icon = 'seo/assets/img/menu-icons/16x16/seo.png';
-
-    /**
-     * Menu priority
-     *
-     * @since version 1.0.0
-     *
-     * @config int $menu_priority 
-     **/
-    private static $menu_priority = 101;
-
-    /**
-     * Set to 50 to easily examine a large set of pages
-     *
-     * @since version 1.0.0
-     *
-     * @config int $page_length 
-     **/
-    private static $page_length = 50;
-
-    /**
-     * Default none as they are set later
-     *
-     * @since version 1.0.0
-     *
-     * @config array $managed_models 
-     **/
-    private static $managed_models = ['Page'];
-
-    /**
-     * Disable model imports in SEO admin
-     *
-     * @since version 1.0.0
-     *
-     * @config string $model_importers 
-     **/
-    private static $model_importers = null;
-
     /**
      * The SEO admin area is for managing page SEO, not for page creation. Some grid
      * field components are removed from the SEO admin by default.
@@ -103,13 +45,13 @@ class SEO_ModelAdmin extends ModelAdmin
                 ->Fields()
                 ->fieldByName($this->sanitiseClassName($this->modelClass))
                 ->getConfig()
-                ->getComponentByType('GridFieldDetailForm')
-                ->setItemRequestClass('SEO_PublishPageRequest');
+                ->getComponentByType(GridFieldDetailForm::class)
+                ->setItemRequestClass(SEO_PublishPageRequest::class);
         }
         $grid = $form->Fields()->fieldByName($this->sanitiseClassName($this->modelClass));
-        $grid->getConfig()->removeComponentsByType('GridFieldAddNewButton');
-        $grid->getConfig()->removeComponentsByType('GridFieldDeleteAction');
-        $grid->getConfig()->removeComponentsByType('GridFieldEditButton');
+        $grid->getConfig()->removeComponentsByType(GridFieldAddNewButton::class);
+        $grid->getConfig()->removeComponentsByType(GridFieldDeleteAction::class);
+        $grid->getConfig()->removeComponentsByType(GridFieldEditButton::class);
 
         $list = $this
             ->getList()
@@ -177,7 +119,7 @@ class SEO_ModelAdmin extends ModelAdmin
      **/
     private function getVersionedPages()
     {
-        $list = new ArrayList();
+        $list = ArrayList::create();
 
         $stage = Versioned::get_by_stage($this->modelClass, 'Stage');
         foreach($stage as $stage) $list->push($stage);
@@ -241,7 +183,7 @@ class SEO_ModelAdmin extends ModelAdmin
             'Title'           => 'Title',
             'Robots'          => 'Robots',
             'Priority'        => 'Priority',
-            'ChangeFrequency' => 'ChangeFrequency'
+            'ChangeFrequency' => 'ChangeFrequency' // @todo ENUM
         ];
     }
 

@@ -1,4 +1,14 @@
 <?php
+
+namespace CyberDuck\SEO\Controller;
+
+use CyberDuck\SEO\Helper\SEO_Sitemap;
+use SilverStripe\Control\Controller;
+use SilverStripe\Control\Director;
+use SilverStripe\Control\HTTPRequest;
+use SilverStripe\Core\Config\Config;
+use SilverStripe\ORM\ArrayList;
+
 /**
  * SitemapXML_Controller
  *
@@ -8,7 +18,7 @@
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class SEO_SitemapXMLController extends Page_Controller
+class SEO_SitemapXMLController extends Controller
 {
     /**
      * Set the required content type header
@@ -33,7 +43,7 @@ class SEO_SitemapXMLController extends Page_Controller
      *
      * @return ViewableData
      **/
-    public function index(SS_HTTPRequest $request)
+    public function index(HTTPRequest $request)
     {
         return $this->renderWith('SitemapXML');
     }
@@ -82,7 +92,7 @@ class SEO_SitemapXMLController extends Page_Controller
                 $pages->push($page);
             }
         }
-        $objects = (array) Config::inst()->get('SEO_Sitemap', 'objects');
+        $objects = (array) Config::inst()->get(SEO_Sitemap::class, 'objects');
 
         if(!empty($objects)) {
             foreach($objects as $name => $values) {

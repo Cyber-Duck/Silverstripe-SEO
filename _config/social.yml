@@ -1,6 +1,6 @@
 ---
-Name: seo_social
+Name: seo social config
 ---
-SocialImage:
+CyberDuck\SEO\SocialImage:
   image_folder: 'SocialImages'
   image_size: 1024
