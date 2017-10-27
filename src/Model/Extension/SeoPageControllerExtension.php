@@ -128,7 +128,7 @@ class SeoPageControllerExtension extends Extension
      **/
     public function getSeoMetaTags()
     {
-        return Controller::curr()->customise([
+        return Controller::curr()->customise([ // @todo remove?
             'SEOPage' => $this->seo ? $this->seo : $this->owner
         ])->renderWith('HeadTags');
     }
