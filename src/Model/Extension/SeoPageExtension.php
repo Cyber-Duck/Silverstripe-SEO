@@ -219,7 +219,7 @@ class SeoPageExtension extends DataExtension
         // Sitemap
         $fields->addFieldToTab('Root.Sitemap', HeaderField::create(false, 'Sitemap', 2));
         $fields->addFieldToTab('Root.Sitemap', CheckboxField::create('SitemapHide', 'Hide in sitemap? (XML and HTML)'));
-        $fields->addFieldToTab('Root.Sitemap', NumericField::create('Priority'));
+        $fields->addFieldToTab('Root.Sitemap', NumericField::create('Priority')->setScale(1));
         $fields->addFieldToTab('Root.Sitemap', DropdownField::create('ChangeFrequency', 'Change Frequency')
             ->setSource($this->getSitemapChangeFrequency())
             ->setEmptyString('- please select - '));
