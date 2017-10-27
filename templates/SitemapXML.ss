@@ -6,7 +6,7 @@
 <url>
     
     <loc>{$Top.SitemapHost}$Link</loc>
-    <lastmod>$LastEdited.Format('c')</lastmod>
+    <lastmod>$SitemapDate</lastmod>
     <changefreq>$ChangeFrequency</changefreq>
     <priority>$Priority</priority>
 

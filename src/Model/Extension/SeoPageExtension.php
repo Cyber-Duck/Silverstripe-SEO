@@ -682,6 +682,18 @@ class SeoPageExtension extends DataExtension
     }
 
     /**
+     * Get the LastEdited object property as an ISO foramtted date for XML sitemap
+     *
+     * @since version 4.0.0
+     *
+     * @return string
+     **/
+    public function getSitemapDate()
+    {
+        return date('c', strtotime($this->owner->LastEdited));
+    }
+
+    /**
      * Get the SEO page relative link
      *
      * @since version 4.0.0
