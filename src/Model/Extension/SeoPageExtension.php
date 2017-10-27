@@ -412,6 +412,9 @@ class SeoPageExtension extends DataExtension
                 }
             }
         }
+        if(SiteConfig::current_site_config()->UseTitleAsMetaTitle) {
+            return $this->owner->Title;
+        }
     }
     
     /**
