@@ -34,7 +34,7 @@ class SeoSiteConfigExtension extends DataExtension
         'CreatorTwitterHandle' => 'Varchar(512)',
         'FacebookAppID'        => 'Varchar(512)',
         'UseTitleAsMetaTitle'  => 'Boolean',
-        'AutomapPriority'      => 'Boolean' // todo
+        //'AutomapPriority'      => 'Boolean' @todo
     ];
     
     /**
@@ -60,8 +60,8 @@ class SeoSiteConfigExtension extends DataExtension
         $fields->addFieldToTab('Root.SEO', HeaderField::create(false, 'Meta'));
         $fields->addFieldToTab('Root.SEO', CheckboxField::create('UseTitleAsMetaTitle', 'Default Meta title to page Title'));
 
-        $fields->addFieldToTab('Root.SEO', HeaderField::create(false, 'Sitemap'));
-        $fields->addFieldToTab('Root.SEO', CheckboxField::create('AutomapPriority', 'Automap sitemap priority based on depth'));
+        //$fields->addFieldToTab('Root.SEO', HeaderField::create(false, 'Sitemap'));
+        //$fields->addFieldToTab('Root.SEO', CheckboxField::create('AutomapPriority', 'Automap sitemap priority based on depth'));
         
         return $fields;
     }
