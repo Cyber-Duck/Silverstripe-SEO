@@ -1,3 +1,3 @@
 User-agent: *
 
-Sitemap {$Host}sitemap.xml
+Sitemap: {$Host}sitemap.xml
