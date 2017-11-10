@@ -46,7 +46,7 @@ class SeoPageControllerExtension extends Extension
      *
      * @return string|404 response
      **/
-    public function setPaginationTags(PaginatedList $list, $params = [])
+    public function setPaginationTags(PaginatedList $list, $params = []) // @todo allowed
     {
         if($this->owner->request->getVar($list->getPaginationGetVar()) !== NULL) {
             if((int) $list->getPageStart() === 0) {
