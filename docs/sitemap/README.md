@@ -16,7 +16,7 @@ After installing the module you can visit /sitemap.xml to see the generated XML 
 
 If you have applied the SeoExtension to a DataObject you can easily include these in your XML Sitemap.
 These Objects REQUIRE a Link() method to return the DataObject Page URL.
-If you are generating a HTML sitemap you also need to include the parent ID to correctly nest within the generated <ul> HTML list.
+If you are generating a HTML sitemap you also need to include the parent ID to correctly nest within the generated HTML list.
 
 ```yml
 CyberDuck\SEO\Generators\SitemapGenerator:
