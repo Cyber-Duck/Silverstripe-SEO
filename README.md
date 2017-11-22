@@ -1,4 +1,4 @@
-# Silverstripe 4 SEO
+# SilverStripe 4 SEO
 
 [![Latest Stable Version](https://poser.pugx.org/cyber-duck/silverstripe-seo/v/stable)](https://packagist.org/packages/cyber-duck/silverstripe-seo)
 [![Latest Unstable Version](https://poser.pugx.org/cyber-duck/silverstripe-seo/v/unstable)](https://packagist.org/packages/cyber-duck/silverstripe-seo)
