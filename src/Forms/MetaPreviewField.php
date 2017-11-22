@@ -95,10 +95,7 @@ class MetaPreviewField extends LiteralField
      **/
     private function getPageMetaLink()
     {
-        if(!method_exists($this->page, 'Link')) {
-            throw Exception(sprintf('No Link() method found on %s', $this->page->ClassName));
-        }
-        return Director::absoluteBaseURL().substr($this->page->link(), 1);
+        return Director::absoluteBaseURL().substr($this->page->Link(), 1);
     }
 
     /**
