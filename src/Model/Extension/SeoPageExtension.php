@@ -220,7 +220,8 @@ class SeoPageExtension extends DataExtension
         // Sitemap
         $fields->addFieldToTab('Root.Sitemap', HeaderField::create(false, 'Sitemap', 2));
         $fields->addFieldToTab('Root.Sitemap', CheckboxField::create('SitemapHide', 'Hide in sitemap? (XML and HTML)'));
-        $fields->addFieldToTab('Root.Sitemap', NumericField::create('Priority')->setScale(1));
+        $fields->addFieldToTab('Root.Sitemap', NumericField::create('Priority')->setScale(1)
+            ->setDescription('0.1, 0.2, 0.3, ..., 0.9, 1.0.<br >1.0 is your highest priorty, the most important page. Often the homepage.'));
         $fields->addFieldToTab('Root.Sitemap', DropdownField::create('ChangeFrequency', 'Change Frequency')
             ->setSource($this->getSitemapChangeFrequency())
             ->setEmptyString('- please select - '));
