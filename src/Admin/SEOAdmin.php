@@ -2,6 +2,10 @@
 
 namespace CyberDuck\SEO\Admin;
 
+use Page;
+use Exception;
+use CyberDuck\SEO\Model\Extension\SeoExtension;
+use CyberDuck\SEO\Model\Extension\SeoPageExtension;
 use SilverStripe\Admin\ModelAdmin;
 use SilverStripe\Forms\GridField\GridFieldDetailForm;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
@@ -20,6 +24,16 @@ class SEOAdmin extends ModelAdmin
         $grid->setList($list);
         $grid->setModelClass($this->ClassName);
 
+        $singleton = singleton($this->modelClass);
+        if($singleton instanceof Page) {
+            if(!$singleton->hasExtension(SeoPageExtension::class)) {
+                throw new Exception(sprintf('%s must have the SeoPageExtension applied to work in SEO Admin', $this->modelClass));
+            }
+        } else {
+            if(!$singleton->hasExtension(SeoExtension::class)) {
+                throw new Exception(sprintf('%s must have the SeoExtension applied to work in SEO Admin', $this->modelClass));
+            }
+        }
         if(singleton($this->modelClass)->hasExtension(Versioned::class)) {
             $grid
                 ->getConfig()
