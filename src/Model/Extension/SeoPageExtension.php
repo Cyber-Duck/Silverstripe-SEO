@@ -454,12 +454,17 @@ class SeoPageExtension extends DataExtension
      *
      * @return string
      **/
-    public function getPageCanonical()
+    public function getPageCanonical($query = null)
     {
-        if($this->owner->Canonical) {
-            return $this->owner->Canonical;
+        if($this->pagination) {
+            if($this->pagination->getPageStart() > 0) {
+                $query = '?'.$this->pagination->getPaginationGetVar().'='.$this->pagination->getPageStart();
+            }
         }
-        return $this->getPageURL();
+        if($this->owner->Canonical) {
+            return $this->owner->Canonical.$query;
+        }
+        return $this->getPageURL().$query;
     }
     
     /**
