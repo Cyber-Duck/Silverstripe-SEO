@@ -486,7 +486,7 @@ class SeoPageExtension extends DataExtension
      **/
     public function getPageURL()
     {
-        return Director::absoluteBaseURL().substr($this->owner->link(), 1);
+        return Director::absoluteBaseURL().substr($this->owner->Link(), 1);
     }
 
     /**
