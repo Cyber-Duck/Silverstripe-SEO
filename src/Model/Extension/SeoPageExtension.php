@@ -3,7 +3,6 @@
 namespace CyberDuck\SEO\Model\Extension;
 
 use Page;
-use CyberDuck\SEO\Forms\GridField\SitemapImageAutocompleter;
 use CyberDuck\SEO\Model\SeoHeadTag;
 use CyberDuck\SEO\Forms\MetaPreviewField;
 use CyberDuck\SEO\Admin\SEOAdmin;
@@ -20,7 +19,6 @@ use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\GridField\GridFieldConfig_RelationEditor;
-use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 use SilverStripe\Forms\HeaderField;
 use SilverStripe\Forms\TextField;
@@ -198,22 +196,21 @@ class SeoPageExtension extends DataExtension
             $card->setDescription('Using default twitter card "summary"');
         }
         $fields->addFieldToTab('Root.MetaTags', $card);
-        $image = UploadField::create('SocialImage');
-        $image->getValidator()->setAllowedMaxFileSize(Config::inst()->get('SocialImage', 'image_size') * 1024);
-        $image->setFolderName(Config::inst()->get('SocialImage', 'image_folder'));
-        $image->setAllowedFileCategories('image');
+        $uploader = UploadField::create('SocialImage')
+            ->setFolderName(Config::inst()->get('SocialImage', 'image_folder'))
+            ->setAllowedFileCategories('image', 'image/supported');
         if(class_exists('BlogPost')) {
             if($this->owner instanceof BlogPost) {
                 if($this->owner->Parent()->UseFeaturedAsSocialImage == 1) {
-                    $image->setDescription('Using the page featured image');
+                    $uploader->setDescription('Using the page featured image');
                 }
             }
         }
-        $fields->addFieldToTab('Root.MetaTags', $image);
+        $fields->addFieldToTab('Root.MetaTags', $uploader);
 
         // Extra Meta Tags
         $grid = GridField::create('HeadTags', 'Other Meta Tags', $this->owner->HeadTags(), GridFieldConfig_RelationEditor::create());
-        $grid->getConfig()->removeComponentsByType('GridFieldAddExistingAutocompleter');
+        $grid->getConfig()->removeComponentsByType(GridFieldAddExistingAutocompleter::class);
         $fields->addFieldToTab('Root.MetaTags', $grid);
 
         // SITEMAP TAB
@@ -224,12 +221,12 @@ class SeoPageExtension extends DataExtension
         $fields->addFieldToTab('Root.Sitemap', DropdownField::create('ChangeFrequency', 'Change Frequency')
             ->setSource($this->getSitemapChangeFrequency())
             ->setEmptyString('- please select - '));
-        $grid = GridField::create('SitemapImages', 'Sitemap Images', $this->owner->SitemapImages(), GridFieldConfig_RelationEditor::create());
-        $grid->getConfig()
-            ->removeComponentsByType(GridFieldAddNewButton::class)
-            ->removeComponentsByType(GridFieldAddExistingAutocompleter::class)
-            ->addComponent(new SitemapImageAutocompleter('before'));
-        $fields->addFieldToTab('Root.Sitemap', $grid);
+            
+        $uploader = UploadField::create('SitemapImages')
+            ->setIsMultiUpload(true)
+            ->setFolderName('SitemapImages')
+            ->setAllowedFileCategories('image', 'image/supported');
+        $fields->addFieldToTab('Root.Sitemap', $uploader);
 
         return $fields;
     }
