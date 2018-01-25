@@ -12,6 +12,29 @@ CyberDuck\SEO\Admin\SEOAdmin:
     - MyObject
 ```
 
+The SEO Admin section has modifed field settings which exports all major and minor SEO fields for the CSV export.
+The list includes the following:
+
+  - Created
+  - ID
+  - Class Name
+  - Title
+  - URL Segment
+  - Meta Title
+  - Meta Description
+  - Canonical
+  - Robots
+  - Priority
+  - Change Frequency
+  - Sitemap Hide
+  - Hide Social
+  - OG Type
+  - OG Locale
+  - Twitter Card
+  - Social Image
+  - Head Tags
+  - Sitemap Images 
+
 ## Site Config Settings
 
 A few new fields will be added to the CMS settings. These are site wide configuration settings.
