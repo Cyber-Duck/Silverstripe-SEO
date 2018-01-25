@@ -45,4 +45,31 @@ class SEOAdmin extends ModelAdmin
 
         return $form;
     }
+
+    public function getExportFields()
+    {
+        $fields = [
+            'Created'             => 'Created',
+            'ID'                  => 'ID',
+            'ClassName'           => 'Class Name',
+            'Title'               => 'Title',
+            'URLSegment'          => 'URL Segment',
+            'MetaTitle'           => 'Meta Title',
+            'MetaDescription'     => 'Meta Description',
+            'Canonical'           => 'Canonical',
+            'Robots'              => 'Robots',
+            'Priority'            => 'Priority',
+            'ChangeFrequency'     => 'Change Frequency',
+            'SitemapHide'         => 'Sitemap Hide',
+            'HideSocial'          => 'Hide Social',
+            'OGtype'              => 'OG Type',
+            'OGlocale'            => 'OG Locale',
+            'TwitterCard'         => 'Twitter Card',
+            'SocialImage.URL'     => 'Social Image',
+            'HeadTags.Count'      => 'Head Tags',
+            'SitemapImages.Count' => 'Sitemap Images'
+        ];
+        $this->extend('updateExportFields',  $fields);
+        return $fields;
+    }
 }
