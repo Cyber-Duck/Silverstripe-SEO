@@ -3,7 +3,6 @@
 namespace CyberDuck\SEO\Model\Extension;
 
 use Page;
-use CyberDuck\SEO\Forms\GridField\SitemapImageAutocompleter;
 use CyberDuck\SEO\Model\SeoHeadTag;
 use CyberDuck\SEO\Forms\MetaPreviewField;
 use CyberDuck\SEO\Admin\SEOAdmin;
@@ -20,7 +19,6 @@ use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\GridField\GridFieldConfig_RelationEditor;
-use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 use SilverStripe\Forms\HeaderField;
 use SilverStripe\Forms\TextField;
@@ -30,6 +28,7 @@ use SilverStripe\Forms\NumericField;
 use SilverStripe\i18n\i18n;
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\ORM\FieldType\DBField;
+use SilverStripe\ORM\PaginatedList;
 use SilverStripe\Security\Permission;
 use SilverStripe\SiteConfig\SiteConfig;
 
@@ -126,6 +125,15 @@ class SeoPageExtension extends DataExtension
     ];
 
     /**
+     * A PaginatedList instance used for rel Meta tags
+     *
+     * @since version 2.0.0
+     *
+     * @var PaginatedList $pagination 
+     **/
+    private $pagination;
+
+    /**
      * Adds our SEO Meta fields to the page field list. The tab is divided into
      * logical sections controlling various aspects of page SEO.
      *
@@ -198,22 +206,21 @@ class SeoPageExtension extends DataExtension
             $card->setDescription('Using default twitter card "summary"');
         }
         $fields->addFieldToTab('Root.MetaTags', $card);
-        $image = UploadField::create('SocialImage');
-        $image->getValidator()->setAllowedMaxFileSize(Config::inst()->get('SocialImage', 'image_size') * 1024);
-        $image->setFolderName(Config::inst()->get('SocialImage', 'image_folder'));
-        $image->setAllowedFileCategories('image');
+        $uploader = UploadField::create('SocialImage')
+            ->setFolderName(Config::inst()->get('SocialImage', 'image_folder'))
+            ->setAllowedFileCategories('image', 'image/supported');
         if(class_exists('BlogPost')) {
             if($this->owner instanceof BlogPost) {
                 if($this->owner->Parent()->UseFeaturedAsSocialImage == 1) {
-                    $image->setDescription('Using the page featured image');
+                    $uploader->setDescription('Using the page featured image');
                 }
             }
         }
-        $fields->addFieldToTab('Root.MetaTags', $image);
+        $fields->addFieldToTab('Root.MetaTags', $uploader);
 
         // Extra Meta Tags
         $grid = GridField::create('HeadTags', 'Other Meta Tags', $this->owner->HeadTags(), GridFieldConfig_RelationEditor::create());
-        $grid->getConfig()->removeComponentsByType('GridFieldAddExistingAutocompleter');
+        $grid->getConfig()->removeComponentsByType(GridFieldAddExistingAutocompleter::class);
         $fields->addFieldToTab('Root.MetaTags', $grid);
 
         // SITEMAP TAB
@@ -225,12 +232,12 @@ class SeoPageExtension extends DataExtension
         $fields->addFieldToTab('Root.Sitemap', DropdownField::create('ChangeFrequency', 'Change Frequency')
             ->setSource($this->getSitemapChangeFrequency())
             ->setEmptyString('- please select - '));
-        $grid = GridField::create('SitemapImages', 'Sitemap Images', $this->owner->SitemapImages(), GridFieldConfig_RelationEditor::create());
-        $grid->getConfig()
-            ->removeComponentsByType(GridFieldAddNewButton::class)
-            ->removeComponentsByType(GridFieldAddExistingAutocompleter::class)
-            ->addComponent(new SitemapImageAutocompleter('before'));
-        $fields->addFieldToTab('Root.Sitemap', $grid);
+            
+        $uploader = UploadField::create('SitemapImages')
+            ->setIsMultiUpload(true)
+            ->setFolderName('SitemapImages')
+            ->setAllowedFileCategories('image', 'image/supported');
+        $fields->addFieldToTab('Root.Sitemap', $uploader);
 
         return $fields;
     }
@@ -600,20 +607,6 @@ class SeoPageExtension extends DataExtension
     }
 
     /**
-     * Get the SilverStripe page generator tag value
-     *
-     * @since version 2.0.0
-     *
-     * @return string
-     **/
-    public function getPageGenerator()
-    {
-        $generator = trim(Config::inst()->get(SiteTree::class, 'meta_generator'));
-
-        if(!empty($generator)) return Convert::raw2att($generator);
-    }
-
-    /**
      * Get the current page Meta charset value
      *
      * @since version 2.0.0
@@ -691,5 +684,78 @@ class SeoPageExtension extends DataExtension
     public function getSitemapDate()
     {
         return date('c', strtotime($this->owner->LastEdited));
+    }
+
+    /**
+     * Sets a Paginated list object which the prev and next rel tags will be 
+     * calculated off. This method validates the current $_GET param used for 
+     * pagination and will return a 404 response if the $_GET var is outside
+     * of the expected range. e.g start=100 but only 99 items in the list
+     *
+     * @since version 2.0.0
+     *
+     * @param PaginatedList $list   Paginated list object
+     * @param array         $params Array of $_GET params to allow in the URL // todo
+     *
+     * @return string|404 response
+     **/
+    public function setPaginationTags(PaginatedList $list, $params = []) // @todo allowed
+    {
+        $controller = Controller::curr();
+        if($controller->getRequest()->getVar($list->getPaginationGetVar()) !== NULL) {
+            if((int) $list->getPageStart() === 0) {
+                //return $controller->httpError(404); // @todo
+            }
+            if($list->CurrentPage() > $list->TotalPages()){
+                return $controller->httpError(404);
+            }
+            if($list->getPageStart() % $list->getPageLength() !== 0){
+                return $controller->httpError(404);
+            }
+            if(!preg_match('/^[0-9]+$/', $list->getPageStart())){
+                return $controller->httpError(404);
+            }
+        }
+        $this->pagination = $list;
+    }
+
+    /**
+     * Get the current page prev pagination link
+     *
+     * @since version 2.0.0
+     *
+     * @return string
+     **/
+    public function getPaginationPrevTag()
+    {
+        if($this->pagination) {
+            if($this->pagination->TotalPages() > 1 && $this->pagination->NotFirstPage()) {
+                if((int) $this->pagination->CurrentPage() === 2) {
+                    return $this->owner->getPageURL();
+                } else {
+                    $start = $this->pagination->getPageStart() - $this->pagination->getPageLength();
+
+                    return $this->owner->getPageURL().'?'.$this->pagination->getPaginationGetVar().'='.$start;
+                }
+            }
+        }
+    }
+
+    /**
+     * Get the current page next pagination link
+     *
+     * @since version 2.0.0
+     *
+     * @return string
+     **/
+    public function getPaginationNextTag()
+    {
+        if($this->pagination) {
+            if($this->pagination->TotalPages() > 1 && $this->pagination->NotLastPage()) {
+                $start = $this->pagination->getPageStart() + $this->pagination->getPageLength();
+
+                return $this->owner->getPageURL().'?'.$this->pagination->getPaginationGetVar().'='.$start;
+            }
+        }
     }
 }

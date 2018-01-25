@@ -1,0 +1,12 @@
+SilverStripe\Security\Group:
+  admin:
+    Title: Administrators
+SilverStripe\Security\Member:
+  admin:
+    Email: testing@testing.cyber-duck.co.uk
+    Password: SEOSEOSEOSEO
+    Groups: =>SilverStripe\Security\Group.admin
+SilverStripe\Security\Permission:
+  admin:
+    Code: ADMIN
+    GroupID: =>SilverStripe\Security\Group.admin
