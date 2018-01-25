@@ -6,7 +6,7 @@ To generate the Page / DataObject Meta tags add the following include within the
 
 ```html
 <head>
-    <% include HeadTags %>
+    $PageMetaTags
 </head>
 ```
 
