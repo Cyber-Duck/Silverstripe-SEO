@@ -25,7 +25,7 @@ class SEOAdmin extends ModelAdmin
         $grid->setModelClass($this->ClassName);
 
         $singleton = singleton($this->modelClass);
-        if($singleton instanceof Page) {
+        if($singleton instanceof Page || is_subclass_of($object, Page::class)) {
             if(!$singleton->hasExtension(SeoPageExtension::class)) {
                 throw new Exception(sprintf('%s must have the SeoPageExtension applied to work in SEO Admin', $this->modelClass));
             }
@@ -70,6 +70,7 @@ class SEOAdmin extends ModelAdmin
             'SitemapImages.Count' => 'Sitemap Images'
         ];
         $this->extend('updateExportFields',  $fields);
+        
         return $fields;
     }
 }
