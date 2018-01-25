@@ -731,11 +731,11 @@ class SeoPageExtension extends DataExtension
         if($this->pagination) {
             if($this->pagination->TotalPages() > 1 && $this->pagination->NotFirstPage()) {
                 if((int) $this->pagination->CurrentPage() === 2) {
-                    return $this->owner->getPageURL();
+                    return $this->getPageURL();
                 } else {
                     $start = $this->pagination->getPageStart() - $this->pagination->getPageLength();
 
-                    return $this->owner->getPageURL().'?'.$this->pagination->getPaginationGetVar().'='.$start;
+                    return $this->getPageURL().'?'.$this->pagination->getPaginationGetVar().'='.$start;
                 }
             }
         }
@@ -754,7 +754,7 @@ class SeoPageExtension extends DataExtension
             if($this->pagination->TotalPages() > 1 && $this->pagination->NotLastPage()) {
                 $start = $this->pagination->getPageStart() + $this->pagination->getPageLength();
 
-                return $this->owner->getPageURL().'?'.$this->pagination->getPaginationGetVar().'='.$start;
+                return $this->getPageURL().'?'.$this->pagination->getPaginationGetVar().'='.$start;
             }
         }
     }
