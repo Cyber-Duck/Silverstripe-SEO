@@ -74,7 +74,7 @@ class MetaPreviewField extends LiteralField
         if($this->page->MetaTitle) {
             return $this->page->MetaTitle;
         }
-        if(class_exists('BlogPost')) {
+        if(class_exists(BlogPost::class)) {
             if($this->page instanceof BlogPost) {
                 if($this->page->Parent()->DefaultPostMetaTitle == 1) {
                     return $this->page->Title;
@@ -110,7 +110,7 @@ class MetaPreviewField extends LiteralField
         if($this->page->MetaDescripion) {
             return $this->page->MetaDescripion;
         }
-        if(class_exists('BlogPost')) {
+        if(class_exists(BlogPost::class)) {
             if($this->page instanceof BlogPost) {
                 if($this->page->Parent()->DefaultPostMetaDescription == 1) {
                     return strip_tags($this->page->Summary);

@@ -153,8 +153,8 @@ class SeoPageExtension extends DataExtension
         $fields->addFieldToTab('Root.MetaTags', MetaPreviewField::create($this->owner));
         $title = TextField::create('MetaTitle');
         $description = TextareaField::create('MetaDescription');
-        if(class_exists('\SilverStripe\Blog\Model\BlogPost')) {
-            if($this->owner instanceof \SilverStripe\Blog\Model\BlogPost) {
+        if(class_exists(BlogPost::class)) {
+            if($this->owner instanceof BlogPost) {
                 if($this->owner->Parent()->DefaultPostMetaTitle == 1) {
                     $title->setAttribute('placeholder', 'Using page title');
                 }
@@ -209,8 +209,8 @@ class SeoPageExtension extends DataExtension
         $uploader = UploadField::create('SocialImage')
             ->setFolderName(Config::inst()->get('SocialImage', 'image_folder'))
             ->setAllowedFileCategories('image', 'image/supported');
-        if(class_exists('BlogPost')) {
-            if($this->owner instanceof \SilverStripe\Blog\Model\BlogPost) {
+        if(class_exists(BlogPost::class)) {
+            if($this->owner instanceof BlogPost) {
                 if($this->owner->Parent()->UseFeaturedAsSocialImage == 1) {
                     $uploader->setDescription('Using the page featured image');
                 }
@@ -414,8 +414,8 @@ class SeoPageExtension extends DataExtension
         if($this->owner->MetaTitle) {
             return $this->owner->MetaTitle;
         }
-        if(class_exists('\SilverStripe\Blog\Model\BlogPost')) {
-            if($this->owner instanceof \SilverStripe\Blog\Model\BlogPost) {
+        if(class_exists(BlogPost::class)) {
+            if($this->owner instanceof BlogPost) {
                 if($this->owner->Parent()->DefaultPostMetaTitle == 1) {
                     return $this->owner->Title;
                 }
@@ -438,8 +438,8 @@ class SeoPageExtension extends DataExtension
         if($this->owner->MetaDescription) {
             return $this->owner->MetaDescription;
         }
-        if(class_exists('\SilverStripe\Blog\Model\BlogPost')) {
-            if($this->owner instanceof \SilverStripe\Blog\Model\BlogPost) {
+        if(class_exists(BlogPost::class)) {
+            if($this->owner instanceof BlogPost) {
                 if($this->owner->Parent()->DefaultPostMetaDescription == 1) {
                     return strip_tags($this->owner->Summary);
                 }
@@ -546,8 +546,8 @@ class SeoPageExtension extends DataExtension
         if($this->owner->SocialImageID > 0) {
             return $this->owner->SocialImage();
         }
-        if(class_exists('\SilverStripe\Blog\Model\BlogPost')) {
-            if($this->owner instanceof \SilverStripe\Blog\Model\BlogPost) {
+        if(class_exists(BlogPost::class)) {
+            if($this->owner instanceof BlogPost) {
                 if($this->owner->Parent()->UseFeaturedAsSocialImage == true) {
                     return $this->owner->FeaturedImage();
                 }
