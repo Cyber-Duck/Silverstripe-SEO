@@ -704,7 +704,7 @@ class SeoPageExtension extends DataExtension
         $controller = Controller::curr();
         if($controller->getRequest()->getVar($list->getPaginationGetVar()) !== NULL) {
             if((int) $list->getPageStart() === 0) {
-                //return $controller->httpError(404); // @todo
+                return $controller->httpError(404);
             }
             if($list->CurrentPage() > $list->TotalPages()){
                 return $controller->httpError(404);
