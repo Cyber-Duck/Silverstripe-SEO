@@ -1,0 +1,6 @@
+---
+Name: seo injector config
+---
+SilverStripe\Core\Injector\Injector:
+  SilverStripe\ORM\PaginatedList:
+    class: CyberDuck\SEO\ORM\SeoPaginatedList
