@@ -40,15 +40,15 @@
 <% end_if %>
 
 <% loop HeadTags.Filter('Type', 'name') %>
-<meta name="$Name" content="$Value">
+<meta name="$Title" content="$Value">
 <% end_loop %>
 
 <% loop HeadTags.Filter('Type', 'link') %>
-<link rel="$Name" href="$value">
+<link rel="$Title" href="$value">
 <% end_loop %>
 
 <% loop HeadTags.Filter('Type', 'property') %>
-<meta property="$Name" content="$Value">
+<meta property="$Title" content="$Value">
 <% end_loop %>
 
 <% if PageGenerator %>

@@ -10,9 +10,6 @@ Page:
 SilverStripe\SiteConfig\SiteConfig:
   extensions:
     - CyberDuck\SEO\Model\Extension\SeoSiteConfigExtension
-SilverStripe\Assets\Image:
-  extensions:
-    - CyberDuck\SEO\Model\Extension\SeoImageSitemapExtension
 SilverStripe\Blog\Model\Blog:
   extensions:
     - CyberDuck\SEO\Model\Extension\SeoBlogExtension

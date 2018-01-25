@@ -37,7 +37,7 @@ class SeoHeadTag extends DataObject
      * @config array $db 
      **/
     private static $db = [
-        'Name'  => 'Varchar(512)',
+        'Title' => 'Varchar(512)',
         'Value' => 'Varchar(512)',
         'Type'  => 'Varchar(512)'
     ];
@@ -61,7 +61,7 @@ class SeoHeadTag extends DataObject
      * @config array $summary_fields
      **/
     private static $summary_fields = [
-        'Name'  => 'Name',
+        'Title' => 'Title',
         'Value' => 'Value',
         'Type'  => 'Type'
     ];
@@ -73,7 +73,7 @@ class SeoHeadTag extends DataObject
      *
      * @config string $default_sort 
      **/
-    private static $default_sort = 'Name';
+    private static $default_sort = 'Title';
 
     /**
      * Singular English name

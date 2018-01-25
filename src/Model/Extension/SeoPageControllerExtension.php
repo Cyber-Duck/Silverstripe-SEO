@@ -2,8 +2,13 @@
 
 namespace CyberDuck\SEO\Model\Extension;
 
+use Page;
+use Exception;
+use CyberDuck\SEO\Model\Extension\SeoExtension;
+use CyberDuck\SEO\Model\Extension\SeoPageExtension;
 use SilverStripe\Core\Extension;
 use SilverStripe\ORM\DataObject;
+use SilverStripe\ORM\FieldType\DBField;
 use SilverStripe\ORM\PaginatedList;
 
 /**
@@ -16,15 +21,6 @@ use SilverStripe\ORM\PaginatedList;
 class SeoPageControllerExtension extends Extension
 {
     /**
-     * A PaginatedList instance used for rel Meta tags
-     *
-     * @since version 2.0.0
-     *
-     * @var PaginatedList $pagination 
-     **/
-    private $pagination;
-
-    /**
      * A DataObject instance to pull the current page SEO properties from
      *
      * @since version 2.0.0
@@ -32,78 +28,6 @@ class SeoPageControllerExtension extends Extension
      * @var DataObject $seo 
      **/
     private $seo;
-
-    /**
-     * Sets a Paginated list object which the prev and next rel tags will be 
-     * calculated off. This method validates the current $_GET param used for 
-     * pagination and will return a 404 response if the $_GET var is outside
-     * of the expected range. e.g start=100 but only 99 items in the list
-     *
-     * @since version 2.0.0
-     *
-     * @param PaginatedList $list   Paginated list object
-     * @param array         $params Array of $_GET params to allow in the URL // todo
-     *
-     * @return string|404 response
-     **/
-    public function setPaginationTags(PaginatedList $list, $params = []) // @todo allowed
-    {
-        if($this->owner->request->getVar($list->getPaginationGetVar()) !== NULL) {
-            if((int) $list->getPageStart() === 0) {
-                //return $this->owner->httpError(404); // @todo
-            }
-            if($list->CurrentPage() > $list->TotalPages()){
-                return $this->owner->httpError(404);
-            }
-            if($list->getPageStart() % $list->getPageLength() !== 0){
-                return $this->owner->httpError(404);
-            }
-            if(!preg_match('/^[0-9]+$/', $list->getPageStart())){
-                return $this->owner->httpError(404);
-            }
-        }
-        $this->pagination = $list;
-    }
-
-    /**
-     * Get the current page prev pagination link
-     *
-     * @since version 2.0.0
-     *
-     * @return string
-     **/
-    public function getPaginationPrevTag()
-    {
-        if($this->pagination) {
-            if($this->pagination->TotalPages() > 1 && $this->pagination->NotFirstPage()) {
-                if((int) $this->pagination->CurrentPage() === 2) {
-                    return $this->owner->getPageURL();
-                } else {
-                    $start = $this->pagination->getPageStart() - $this->pagination->getPageLength();
-
-                    return $this->owner->getPageURL().'?'.$this->pagination->getPaginationGetVar().'='.$start;
-                }
-            }
-        }
-    }
-
-    /**
-     * Get the current page next pagination link
-     *
-     * @since version 2.0.0
-     *
-     * @return string
-     **/
-    public function getPaginationNextTag()
-    {
-        if($this->pagination) {
-            if($this->pagination->TotalPages() > 1 && $this->pagination->NotLastPage()) {
-                $start = $this->pagination->getPageStart() + $this->pagination->getPageLength();
-
-                return $this->owner->getPageURL().'?'.$this->pagination->getPaginationGetVar().'='.$start;
-            }
-        }
-    }
 
     /**
      * Set the model to use for the current page Meta
@@ -116,6 +40,15 @@ class SeoPageControllerExtension extends Extension
      **/
     public function setSeoObject(DataObject $object)
     {
+        if($object instanceof Page || is_subclass_of($object, Page::class)) {
+            if(!$object->hasExtension(SeoPageExtension::class)) {
+                throw new Exception('setSeoObject must be passed a Page with the SeoPageExtension applied');
+            }
+        } else {
+            if(!$object->hasExtension(SeoExtension::class)) {
+                throw new Exception('setSeoObject must be passed a DataObject with the SeoExtension applied');
+            }
+        }
         $this->seo = $object;
     }
 
@@ -126,10 +59,13 @@ class SeoPageControllerExtension extends Extension
      *
      * @return ViewableData
      **/
-    public function getSeoMetaTags()
+    public function getPageMetaTags()
     {
-        return Controller::curr()->customise([ // @todo remove?
-            'SEOPage' => $this->seo ? $this->seo : $this->owner
-        ])->renderWith('HeadTags');
+        $meta = $this->owner->customise([
+            'SeoPageObject' => ($this->seo ? $this->seo : $this->owner)
+        ])->renderWith('HeadTags')->RAW();
+        
+        $meta = implode("\n", array_filter(explode("\n", $meta)));
+        return DBField::create_field('HTMLText', $meta);
     }
 }
