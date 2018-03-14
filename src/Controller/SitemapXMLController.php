@@ -88,11 +88,6 @@ class SitemapXMLController extends Controller
     {
         $pages = ArrayList::create();
         
-        foreach(Page::get() as $page) {
-            if(!$page->SitemapHide) {
-                $pages->push($page);
-            }
-        }
         $objects = (array) Config::inst()->get(SitemapGenerator::class, 'objects');
 
         if(!empty($objects)) {
