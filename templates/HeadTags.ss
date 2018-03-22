@@ -1,3 +1,5 @@
+<% with SeoPageObject %> 
+
 <title>$PageMetaTitle</title>
 <meta name="description" content="$PageMetaDescription">
 
@@ -69,3 +71,4 @@
 <link rel="next" href="$PaginationNextTag">
 <% end_if %>
 
+<% end_with %>
