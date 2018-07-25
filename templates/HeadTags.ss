@@ -1,6 +1,10 @@
 <% with SeoPageObject %> 
 
+<% if PageMetaTitle %>
 <title>$PageMetaTitle</title>
+<% else %>
+<title>$Title | $SiteConfig.Title</title>
+<% end_if %>
 <meta name="description" content="$PageMetaDescription">
 
 <link rel="canonical" href="$PageCanonical">
@@ -8,13 +12,21 @@
 
 <% if not $HideSocial %>
 
+<% if PageMetaTitle %>
 <meta property="og:title" content="$PageMetaTitle">
+<% else %>
+<meta property="og:title" content="$Title | $SiteConfig.Title">
+<% end_if %>
 <meta property="og:description" content="$PageMetaDescription">
 <meta property="og:type" content="$PageOgType">
 <meta property="og:url" content="$PageURL">
 <meta property="og:locale" content="$PageOgLocale">
 
+<% if PageMetaTitle %>
 <meta name="twitter:title" content="$PageMetaTitle">
+<% else %>
+<meta name="twitter:title" content="$Title | $SiteConfig.Title">
+<% end_if %>
 <meta name="twitter:description" content="$PageMetaDescription">
 <meta name="twitter:card" content="$PageTwitterCard">
 
