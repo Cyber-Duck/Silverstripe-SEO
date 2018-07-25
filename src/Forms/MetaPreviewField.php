@@ -41,13 +41,14 @@ class MetaPreviewField extends LiteralField
     {
         $this->page = $page;
 
-        Requirements::javascript(Director::absoluteBaseURL().'resources/cyber-duck/silverstripe-seo/assets/js/serp.js');
+        //Requirements::javascript(Director::absoluteBaseURL().'resources/cyber-duck/silverstripe-seo/assets/js/serp.js');
+        Requirements::javascript('cyber-duck/silverstripe-seo:assets/js/serp.js');
 
         parent::__construct('MetaPreviewField', $this->getMetaContent());
     }
 
     /**
-     * Get the required values to show in the SERP preview 
+     * Get the required values to show in the SERP preview
      *
      * @since version 2.0.0
      *
