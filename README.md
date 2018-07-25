@@ -7,9 +7,6 @@
 
 Author: [Andrew Mc Cormack](https://github.com/Andrew-Mc-Cormack)
 
-For SilverStripe 4.0 please use the 4.1 branch
-For SilverStripe 4.1 please use the 4.2 branch
-
 ## Features
 
 A SilverStripe module to enhance and optimize your website SEO. 
@@ -27,16 +24,30 @@ A SilverStripe module to enhance and optimize your website SEO.
   - Nested HTML Sitemap generator
   - Blog module SEO extension
 
-## Screen Shots
+## Installations
 
-## Installation
+SilverStripe 4.0 and 4.1 and over require different versions of this module because of the different public folder structure. Please see the following 2 methods.
+
+### SilverStripe 4.1 installation
 
 Add the following to your composer.json file and run /dev/buid?flush=all
 
 ```json
 {  
     "require": {  
-        "cyber-duck/silverstripe-seo": "4.0.*"
+        "cyber-duck/silverstripe-seo": "4.2.*"
+    }
+}
+```
+
+### SilverStripe 4.0 installation
+
+Add the following to your composer.json file and run /dev/buid?flush=all
+
+```json
+{  
+    "require": {  
+        "cyber-duck/silverstripe-seo": "4.1.*"
     }
 }
 ```
