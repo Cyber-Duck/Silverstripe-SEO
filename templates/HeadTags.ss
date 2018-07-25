@@ -1,3 +1,5 @@
+<% with SeoPageObject %> 
+
 <% if PageMetaTitle %>
 <title>$PageMetaTitle</title>
 <% else %>
@@ -81,3 +83,4 @@
 <link rel="next" href="$PaginationNextTag">
 <% end_if %>
 
+<% end_with %>
