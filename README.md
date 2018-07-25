@@ -7,6 +7,9 @@
 
 Author: [Andrew Mc Cormack](https://github.com/Andrew-Mc-Cormack)
 
+For SilverStripe 4.0 please use the 4.1 branch
+For SilverStripe 4.1 please use the 4.2 branch
+
 ## Features
 
 A SilverStripe module to enhance and optimize your website SEO. 
