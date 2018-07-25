@@ -30,7 +30,7 @@ SilverStripe 4.0 and 4.1 and over require different versions of this module beca
 
 ### SilverStripe 4.1 installation
 
-Add the following to your composer.json file and run /dev/buid?flush=all
+Add the following to your composer.json file and run /dev/build?flush=all
 
 ```json
 {  
@@ -42,7 +42,7 @@ Add the following to your composer.json file and run /dev/buid?flush=all
 
 ### SilverStripe 4.0 installation
 
-Add the following to your composer.json file and run /dev/buid?flush=all
+Add the following to your composer.json file and run /dev/build?flush=all
 
 ```json
 {  
