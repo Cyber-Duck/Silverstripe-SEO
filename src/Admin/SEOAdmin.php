@@ -7,10 +7,6 @@ use Exception;
 use CyberDuck\SEO\Model\Extension\SeoExtension;
 use CyberDuck\SEO\Model\Extension\SeoPageExtension;
 use SilverStripe\Admin\ModelAdmin;
-use SilverStripe\Forms\GridField\GridFieldDetailForm;
-use SilverStripe\Forms\GridField\GridFieldDeleteAction;
-use SilverStripe\Versioned\Versioned;
-use SilverStripe\Versioned\VersionedGridFieldItemRequest;
 
 class SEOAdmin extends ModelAdmin
 {
@@ -33,13 +29,6 @@ class SEOAdmin extends ModelAdmin
             if(!$singleton->hasExtension(SeoExtension::class)) {
                 throw new Exception(sprintf('%s must have the SeoExtension applied to work in SEO Admin', $this->modelClass));
             }
-        }
-        if(singleton($this->modelClass)->hasExtension(Versioned::class)) {
-            $grid
-                ->getConfig()
-                ->removeComponentsByType(GridFieldDeleteAction::class)
-                ->getComponentByType(GridFieldDetailForm::class)
-                ->setItemRequestClass(VersionedGridFieldItemRequest::class);
         }
         $this->extend('updateEditForm',  $form);
 

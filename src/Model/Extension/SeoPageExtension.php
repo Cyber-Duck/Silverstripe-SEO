@@ -272,7 +272,6 @@ class SeoPageExtension extends DataExtension
     {
         return [
             'ID'              => 'ID',
-            'PublishedIcon'   => 'Published',
             'Title'           => 'Title',
             'PageRobots'      => 'Robots',
             'PageOgType'      => 'OGtype',
@@ -660,23 +659,6 @@ class SeoPageExtension extends DataExtension
     public function getCMSPageEditLink()
     {
         return Controller::curr()->CMSEditLink();
-    }
-
-    /**
-     * Get the current page published status icon
-     *
-     * @since version 2.0.0
-     *
-     * @return string
-     **/
-    public function getPublishedIcon()
-    {
-        if($this->owner instanceof Page) {
-            $status = $this->owner->isPublished() ? 'accept' : 'delete';
-        } else {
-            $status = 'accept';
-        }
-        return DBField::create_field('HTMLText', sprintf('<span class="ui-button-icon-primary ui-icon btn-icon-%s"></span>', $status));
     }
 
     /**
