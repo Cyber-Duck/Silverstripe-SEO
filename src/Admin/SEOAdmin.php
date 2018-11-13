@@ -41,7 +41,7 @@ class SEOAdmin extends ModelAdmin
                 ->getComponentByType(GridFieldDetailForm::class)
                 ->setItemRequestClass(VersionedGridFieldItemRequest::class);
         }
-        $this->extend('updateEditForm',  $grid);
+        $this->extend('updateEditForm',  $form);
 
         return $form;
     }
