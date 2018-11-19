@@ -52,19 +52,19 @@ settings
 
 In your CMS settings add your organisation name and image to populate the data:
 
-publisher.name
-publisher.logo.url
-publisher.logo.width
-publisher.logo.height
+  - publisher.name
+  - publisher.logo.url
+  - publisher.logo.width
+  - publisher.logo.height
 
 The following data is pulled from the actual BlogPost:
 
-headline - Title
-datePublished - PublishDate
-dateModified - LastEdited
-description - Summary
-author.name - First Author FirstName and Surname
-image - FeaturedImage.URL
+  - headline - Title
+  - datePublished - PublishDate
+  - dateModified - LastEdited
+  - description - Summary
+  - author.name - First Author FirstName and Surname
+  - image - FeaturedImage.URL
 
 ## Manually Adding Schema
 
