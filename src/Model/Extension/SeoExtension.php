@@ -31,6 +31,15 @@ class SeoExtension extends SeoPageExtension
         'MetaDescription' => 'Varchar(512)'
     ];
 
+    /**
+     * Add title and URL segment fields to a DataObject
+     *
+     * @since version 1.0.0
+     *
+     * @param FieldList $fields The fields object
+     *
+     * @return FieldList
+     **/
     public function updateCMSFields(FieldList $fields) 
     {
         $fields = parent::updateCMSFields($fields);
