@@ -263,7 +263,6 @@ class SeoPageExtension extends DataExtension
     public function updateSummaryFields(&$fields)
     {
         if(Controller::curr() instanceof SEOAdmin) {
-            Config::inst()->remove($this->owner->class, 'summary_fields');
             Config::modify()->set($this->owner->class, 'summary_fields', $this->getSummaryFields());
 
             $fields = Config::inst()->get($this->owner->class, 'summary_fields');
