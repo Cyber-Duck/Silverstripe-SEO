@@ -83,7 +83,8 @@ class SeoPageExtension extends DataExtension
         'HideSocial'      => 'Boolean',
         'OGtype'          => 'Varchar(100)',
         'OGlocale'        => 'Varchar(10)',
-        'TwitterCard'     => 'Varchar(100)'
+        'TwitterCard'     => 'Varchar(100)',
+        'SchemaOrgJson'   => 'Text'
     ];
 
     /**
@@ -239,6 +240,14 @@ class SeoPageExtension extends DataExtension
             ->setAllowedFileCategories('image', 'image/supported');
         $fields->addFieldToTab('Root.Sitemap', $uploader);
 
+        // SCHEMA TAB
+        // schema
+        $fields->addFieldToTab('Root.Schema', TextareaField::create('SchemaOrgJson', 'Schema JSON')
+            ->setDescription('schema.org JSON-LD page schema (without script tags)')
+        );
+        if(class_exists(BlogPost::class) && $this->owner instanceof BlogPost) {
+            $fields->removeByName('Schema');
+        }
         return $fields;
     }
 
@@ -744,5 +753,20 @@ class SeoPageExtension extends DataExtension
                 return $this->getPageURL().'?'.$this->pagination->getPaginationGetVar().'='.$start;
             }
         }
+    }
+
+    /**
+     * Returns the page schema snippet from the CMS
+     *
+     * @return void
+     */
+    public function getPageSchema()
+    {
+        if(class_exists(BlogPost::class)) {
+            if($this->owner instanceof BlogPost) {
+                return $this->owner->renderWith('ArticleSchema');
+            }
+        }
+        return $this->owner->renderWith('Schema');
     }
 }
