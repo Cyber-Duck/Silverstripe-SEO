@@ -2,6 +2,15 @@
 
 This module allows you to add schema.org JSON to your webpage and auto generates schema for Blog Posts
 
+## Displaying Schema on Your Page
+
+Add a PageSchema template variable to your page (preferably before the closing body tag)
+
+```html
+    $PageSchema
+</body>
+```
+
 ## Auto Generated BlogPost Schema
 
 The below snippet is auto generated form your BlogPost data and some site config
