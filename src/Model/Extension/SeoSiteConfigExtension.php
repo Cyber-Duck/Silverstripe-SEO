@@ -2,6 +2,8 @@
 
 namespace CyberDuck\SEO\Model\Extension;
 
+use SilverStripe\AssetAdmin\Forms\UploadField;
+use SilverStripe\Assets\Image;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\FieldList;
@@ -29,11 +31,34 @@ class SeoSiteConfigExtension extends DataExtension
      * @config array $db 
      **/
     private static $db = [
-        'OGSiteName'           => 'Varchar(512)',
-        'TwitterHandle'        => 'Varchar(512)',
-        'CreatorTwitterHandle' => 'Varchar(512)',
-        'FacebookAppID'        => 'Varchar(512)',
-        'UseTitleAsMetaTitle'  => 'Boolean'
+        'OGSiteName'             => 'Varchar(512)',
+        'TwitterHandle'          => 'Varchar(512)',
+        'CreatorTwitterHandle'   => 'Varchar(512)',
+        'FacebookAppID'          => 'Varchar(512)',
+        'UseTitleAsMetaTitle'    => 'Boolean',
+        'SchemaOrganisationName' => 'Varchar(512)'
+    ];
+
+    /**
+     * has_one relations
+     *
+     * @since version 1.0.0
+     *
+     * @config array $has_one 
+     **/
+    private static $has_one = [
+        'SchemaOrganisationImage' => Image::class
+    ];
+
+    /**
+     * ownership relations
+     *
+     * @since version 1.0.0
+     *
+     * @config array $has_one 
+     **/
+    private static $owns = [
+        'SchemaOrganisationImage'
     ];
     
     /**
@@ -55,6 +80,14 @@ class SeoSiteConfigExtension extends DataExtension
 
         $fields->addFieldToTab('Root.SEO', HeaderField::create(false, 'Meta'));
         $fields->addFieldToTab('Root.SEO', CheckboxField::create('UseTitleAsMetaTitle', 'Default Meta title to page Title'));
+
+        $fields->addFieldToTab('Root.SEO', HeaderField::create(false, 'Schema'));
+        $fields->addFieldToTab('Root.SEO', HeaderField::create(false, 'Blog Post Schema Organisation', 4));
+        $fields->addFieldToTab('Root.SEO', TextField::create('SchemaOrganisationName', 'Name'));
+        $uploader = UploadField::create('SchemaOrganisationImage', 'Image')
+            ->setFolderName(Config::inst()->get('SocialImage', 'image_folder'))
+            ->setAllowedFileCategories('image', 'image/supported');
+        $fields->addFieldToTab('Root.SEO', $uploader);
         
         return $fields;
     }
