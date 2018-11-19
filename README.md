@@ -56,6 +56,7 @@ Add the following to your composer.json file and run /dev/build?flush=all
 
   - [Configuration](/docs/configuration)
   - [Meta](/docs/meta)
+  - [Schema](/docs/schema)
   - [Sitemap](/docs/sitemap)
   - [Robots](/docs/robots)
   - [Blog Configuration](/docs/blog-configuration)
