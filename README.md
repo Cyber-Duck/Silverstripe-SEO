@@ -15,6 +15,8 @@ A SilverStripe module to enhance and optimize your website SEO.
   - Ability to add other Meta tags
   - Pagination Meta tags for page sets
   - Dynamic Meta generation from Model properties
+  - Auto generated Blog Post schema
+  - Free text field for Page schema
   - CMS Google SERP Meta preview
   - SEO CMS Admin area
   - SEO CMS Settings configuration
