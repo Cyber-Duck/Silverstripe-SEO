@@ -14,7 +14,6 @@ use SilverStripe\Forms\TextField;
  *
  * Core extension to convert a DataObject into a page with detailed SEO configuration.
  * The user should add a URLSegment & Title field to their DataObject as well as a Link() method.
- * @todo add URLSegment
  **/
 class SeoExtension extends SeoPageExtension
 {

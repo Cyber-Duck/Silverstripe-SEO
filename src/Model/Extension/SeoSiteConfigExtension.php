@@ -85,7 +85,7 @@ class SeoSiteConfigExtension extends DataExtension
         $uploader = UploadField::create('DefaultSocialImage', 'Default Social Image')
             ->setFolderName(Config::inst()->get('SocialImage', 'image_folder'))
             ->setAllowedFileCategories('image', 'image/supported')
-            ->setDescription('Used in og:image and twitter:image meta when social image not set on page / model');
+            ->setDescription('Minimum size - 1200w x 630h pixels. Used in og:image and twitter:image meta when social image not set on page / model');
         $fields->addFieldToTab('Root.SEO', $uploader);
 
         $fields->addFieldToTab('Root.SEO', HeaderField::create(false, 'Schema'));

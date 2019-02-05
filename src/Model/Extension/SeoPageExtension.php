@@ -208,7 +208,8 @@ class SeoPageExtension extends DataExtension
         $fields->addFieldToTab('Root.MetaTags', $card);
         $uploader = UploadField::create('SocialImage')
             ->setFolderName(Config::inst()->get('SocialImage', 'image_folder'))
-            ->setAllowedFileCategories('image', 'image/supported');
+            ->setAllowedFileCategories('image', 'image/supported')
+            ->setDescription('Minimum size - 1200w x 630h pixels');
         if(class_exists(BlogPost::class)) {
             if($this->owner instanceof BlogPost) {
                 if($this->owner->Parent()->UseFeaturedAsSocialImage == 1) {
