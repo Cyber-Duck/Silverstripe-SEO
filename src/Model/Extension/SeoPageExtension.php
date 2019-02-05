@@ -97,6 +97,18 @@ class SeoPageExtension extends DataExtension
         'SocialImage' => Image::class
     ];
 
+
+    /**
+     * Owned assets
+     *
+     * @since version 4.2.2
+     *
+     * @config array $owns 
+     **/
+    private static $owns = [
+        'SocialImage'
+    ];
+
     /**
      * Has many extra Meta tags
      *
