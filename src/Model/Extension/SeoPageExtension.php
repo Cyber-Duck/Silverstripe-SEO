@@ -279,15 +279,80 @@ class SeoPageExtension extends DataExtension
     public function getSummaryFields()
     {
         return [
-            'ID'              => 'ID',
-            'Title'           => 'Title',
-            'PageRobots'      => 'Robots',
-            'PageOgType'      => 'OGtype',
-            'PageOgLocale'    => 'OGlocale',
-            'PageTwitterCard' => 'TwitterCard',
-            'Priority'        => 'Priority',
-            'ChangeFrequency' => 'Change Freq'
+            'GridFieldImage'   => '',
+            'GridFieldMeta'    => 'Meta',
+            'Title'            => 'Title',
+            'Link'             => 'URL',
+            'GridFieldSitemap' => 'Sitemap',
+            'GridFieldOg'      => 'OG Type / Locale',
+            'PageTwitterCard'  => 'Twitter Card',
         ];
+    }
+
+    /**
+     * Returns SEO admin grid field image
+     *
+     * @since version 4.2.2
+     * 
+     * @return Image|null
+     */
+    public function getGridFieldImage()
+    {
+        return $this->getPageSocialImage()->Fill(20,20);
+    }
+
+    /**
+     * Returns SEO admin grid field meta data
+     *
+     * @since version 4.2.2
+     * 
+     * @return Image|null
+     */
+    public function getGridFieldMeta()
+    {
+        $content = sprintf(
+            '<div class="seo-meta %s" [title]="Meta title"></div>
+            <div class="seo-meta %s" [title]="Meta description"></div>
+            %s', 
+            $this->owner->getPageMetaTitle() ? 'populated' : 'missing',
+            $this->owner->getPageMetaDescription() ? 'populated' : 'missing',
+            $this->owner->getPageRobots()
+        );
+        return DBField::create_field('HTMLText', $content);
+    }
+
+    /**
+     * Returns SEO admin grid field sitemap data
+     *
+     * @since version 4.2.2
+     * 
+     * @return Image|null
+     */
+    public function getGridFieldSitemap()
+    {
+        $content = sprintf(
+            '<div class="seo-sitemap">%s - %s</div>',
+            $this->owner->Priority,
+            $this->owner->ChangeFrequency
+        );
+        return DBField::create_field('HTMLText', $content);
+    }
+
+
+    /**
+     * Returns SEO admin grid field Open Graph data
+     *
+     * @since version 4.2.2
+     * 
+     * @return Image|null
+     */
+    public function GridFieldOg()
+    {
+        return sprintf(
+            '%s - %s', 
+            $this->owner->getPageOgType(), 
+            $this->owner->getPageOgLocale()
+        );
     }
 
     /**

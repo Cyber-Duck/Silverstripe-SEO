@@ -76,3 +76,15 @@
         }
     }
 }
+
+.seo-meta {
+    background-color: #ec4343;
+    float: left;
+    height: 20px;
+    margin: 0 10px 0 0;
+    width: 20px;
+    &.populated {
+        background-color: #30ca43;
+    }
+    @include radius(50%);
+}
