@@ -21,16 +21,16 @@ class SEOAdmin extends ModelAdmin
         $grid->setModelClass($this->ClassName);
 
         $singleton = singleton($this->modelClass);
-        if($singleton instanceof Page || is_subclass_of($object, Page::class)) {
-            if(!$singleton->hasExtension(SeoPageExtension::class)) {
+        if ($singleton instanceof Page || is_subclass_of($singleton, Page::class)) {
+            if (!$singleton->hasExtension(SeoPageExtension::class)) {
                 throw new Exception(sprintf('%s must have the SeoPageExtension applied to work in SEO Admin', $this->modelClass));
             }
         } else {
-            if(!$singleton->hasExtension(SeoExtension::class)) {
+            if (!$singleton->hasExtension(SeoExtension::class)) {
                 throw new Exception(sprintf('%s must have the SeoExtension applied to work in SEO Admin', $this->modelClass));
             }
         }
-        $this->extend('updateEditForm',  $form);
+        $this->extend('updateEditForm', $form);
 
         return $form;
     }
@@ -58,7 +58,7 @@ class SEOAdmin extends ModelAdmin
             'HeadTags.Count'      => 'Head Tags',
             'SitemapImages.Count' => 'Sitemap Images'
         ];
-        $this->extend('updateExportFields',  $fields);
+        $this->extend('updateExportFields', $fields);
         
         return $fields;
     }
