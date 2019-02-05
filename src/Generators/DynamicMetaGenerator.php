@@ -13,7 +13,7 @@ use SilverStripe\ORM\DataObject;
  * @license MIT License https://github.com/cyber-duck/silverstripe-seo/blob/master/LICENSE
  * @author  <andrewm@cyber-duck.co.uk>
  **/
-class DynamicMetaGenerator // @todo docs
+class DynamicMetaGenerator
 {
     /**
      * A string of Meta text
