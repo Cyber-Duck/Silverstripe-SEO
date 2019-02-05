@@ -47,7 +47,8 @@ class SeoSiteConfigExtension extends DataExtension
      * @config array $has_one 
      **/
     private static $has_one = [
-        'SchemaOrganisationImage' => Image::class
+        'SchemaOrganisationImage' => Image::class,
+        'DefaultSocialImage' => Image::class
     ];
 
     /**
@@ -58,7 +59,8 @@ class SeoSiteConfigExtension extends DataExtension
      * @config array $has_one 
      **/
     private static $owns = [
-        'SchemaOrganisationImage'
+        'SchemaOrganisationImage',
+        'DefaultSocialImage'
     ];
     
     /**
@@ -72,17 +74,22 @@ class SeoSiteConfigExtension extends DataExtension
      **/
     public function updateCMSFields(FieldList $fields)
     {
-        $fields->addFieldToTab('Root.SEO', HeaderField::create(false, 'Social Settings'));
+        $fields->addFieldToTab('Root.SEO', HeaderField::create(false, 'Meta'));
+        $fields->addFieldToTab('Root.SEO', CheckboxField::create('UseTitleAsMetaTitle', 'Default Meta title to page title when Meta title empty?'));
+
+        $fields->addFieldToTab('Root.SEO', HeaderField::create(false, 'Social Meta'));
         $fields->addFieldToTab('Root.SEO', TextField::create('OGSiteName', 'Open Graph Site Name'));
         $fields->addFieldToTab('Root.SEO', TextField::create('TwitterHandle', 'Twitter handle (no @)'));
         $fields->addFieldToTab('Root.SEO', TextField::create('CreatorTwitterHandle', 'Twitter creator handle (no @)'));
         $fields->addFieldToTab('Root.SEO', TextField::create('FacebookAppID', 'Facebook APP ID'));
-
-        $fields->addFieldToTab('Root.SEO', HeaderField::create(false, 'Meta'));
-        $fields->addFieldToTab('Root.SEO', CheckboxField::create('UseTitleAsMetaTitle', 'Default Meta title to page Title'));
+        $uploader = UploadField::create('DefaultSocialImage', 'Default Social Image')
+            ->setFolderName(Config::inst()->get('SocialImage', 'image_folder'))
+            ->setAllowedFileCategories('image', 'image/supported')
+            ->setDescription('Used in og:image and twitter:image meta when social image not set on page / model');
+        $fields->addFieldToTab('Root.SEO', $uploader);
 
         $fields->addFieldToTab('Root.SEO', HeaderField::create(false, 'Schema'));
-        $fields->addFieldToTab('Root.SEO', HeaderField::create(false, 'Blog Post Schema Organisation', 4));
+        $fields->addFieldToTab('Root.SEO', HeaderField::create(false, 'Organisation (used in blog post schema)', 4));
         $fields->addFieldToTab('Root.SEO', TextField::create('SchemaOrganisationName', 'Name'));
         $uploader = UploadField::create('SchemaOrganisationImage', 'Image')
             ->setFolderName(Config::inst()->get('SocialImage', 'image_folder'))

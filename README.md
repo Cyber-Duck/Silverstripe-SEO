@@ -11,7 +11,7 @@ Author: [Andrew Mc Cormack](https://github.com/Andrew-Mc-Cormack)
 
 A SilverStripe module to enhance and optimize your website SEO. 
   - SEO Extension for Pages and DataObjects
-  - Meta Title, Description, Twitter, Facebook (OG Graph), Canonical, Robots Meta
+  - Meta Title, Description, Twitter, Facebook (OG Graph), Canonical, Robots, Social Image Meta
   - Ability to add other Meta tags
   - Pagination Meta tags for page sets
   - Dynamic Meta generation from Model properties

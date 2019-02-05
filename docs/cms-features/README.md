@@ -39,11 +39,12 @@ The list includes the following:
 
 A few new fields will be added to the CMS settings. These are site wide configuration settings.
 
+  - Default Meta title to page title when Meta title empty? - Will use the Page title in the Meta <title></title> tag by default
   - OG Site Name - Used in Open Graph Meta
   - Twitter Handle - @{VALUE} used in Twitter Meta
   - Twitter Creator Handle - @{VALUE} used in Twitter Meta
   - Facebook App ID - Used in Facebook Meta
-  - Use Title as Meta Title - Will use the Page title in the Meta <title></title> tag by default
+  - Default Social Image - Used in og:image and twitter:image meta when social image not set on page / model
 
 ## Google SERP Preview
 

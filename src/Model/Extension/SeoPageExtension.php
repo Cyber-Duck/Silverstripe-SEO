@@ -561,9 +561,14 @@ class SeoPageExtension extends DataExtension
         if(class_exists(BlogPost::class)) {
             if($this->owner instanceof BlogPost) {
                 if($this->owner->Parent()->UseFeaturedAsSocialImage == true) {
-                    return $this->owner->FeaturedImage();
+                    if($this->owner->FeaturedImageID > 0) {
+                        return $this->owner->FeaturedImage();
+                    }
                 }
             }
+        }
+        if(SiteConfig::current_site_config()->DefaultSocialImageID > 0) {
+            return SiteConfig::current_site_config()->DefaultSocialImage();
         }
     }
 
