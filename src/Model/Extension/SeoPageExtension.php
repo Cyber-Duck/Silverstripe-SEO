@@ -483,18 +483,31 @@ class SeoPageExtension extends DataExtension
      **/
     public function getPageMetaTitle()
     {
+        $extra = '';
+        if ($this->pagination) {
+            $extra = sprintf(
+                ' | Page %s of %s', 
+                $this->pagination->CurrentPage(),
+                $this->pagination->TotalPages()
+            );
+        }
         if($this->owner->MetaTitle) {
-            return $this->owner->MetaTitle;
+            return $this->owner->MetaTitle.$extra;
         }
         if(class_exists(BlogPost::class)) {
             if($this->owner instanceof BlogPost) {
                 if($this->owner->Parent()->DefaultPostMetaTitle == 1) {
-                    return $this->owner->Title;
+                    return $this->owner->Title.$extra;
                 }
             }
         }
         if(SiteConfig::current_site_config()->UseTitleAsMetaTitle) {
-            return $this->owner->Title;
+            return sprintf(
+                '%s%s | %s',
+                $this->owner->Title,
+                $extra,
+                SiteConfig::current_site_config()->Title
+            );
         }
     }
     

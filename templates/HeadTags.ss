@@ -2,8 +2,6 @@
 
 <% if PageMetaTitle %>
 <title>$PageMetaTitle</title>
-<% else %>
-<title>$Title | $SiteConfig.Title</title>
 <% end_if %>
 <meta name="description" content="$PageMetaDescription">
 
