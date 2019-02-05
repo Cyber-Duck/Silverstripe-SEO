@@ -92,6 +92,8 @@ Andrew Mc Cormack is a member of the team and specialises in FirstArea, SecondAr
 
 Setting pagination tags is as easy as passing the PaginatedList object into a method. The next and prev tags will be calculated from it.
 
+The page meta title will also have the pagination numbers appended to it in the format " | Page {NUMBER} of {TOTAL}
+
 ```php
 class MyBlogPage_Controller extends PageController
 {
