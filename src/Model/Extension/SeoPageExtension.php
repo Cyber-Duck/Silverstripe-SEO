@@ -9,11 +9,10 @@ use CyberDuck\SEO\Admin\SEOAdmin;
 use SilverStripe\Assets\Image;
 use SilverStripe\AssetAdmin\Forms\UploadField;
 use SilverStripe\Blog\Model\BlogPost;
-use SilverStripe\CMS\Model\SiteTree;
+use SilverStripe\Control\ContentNegotiator;
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\Config\Config;
-use SilverStripe\Core\Convert;
 use SilverStripe\ErrorPage\ErrorPage;
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\FieldList;
@@ -632,7 +631,7 @@ class SeoPageExtension extends DataExtension
      **/
     public function getPageCharset()
     {
-        return Config::inst()->get('ContentNegotiator', 'encoding');
+        return Config::inst()->get(ContentNegotiator::class, 'encoding');
     }
 
     /**

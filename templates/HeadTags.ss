@@ -69,7 +69,7 @@
 <meta name="generator" content="$PageGenerator">
 <% end_if %>
 
-<meta http-equiv="Content-type" content="text/html; charset=$PageCharset">
+<meta http-equiv="content-type" content="text/html; charset=$PageCharset">
 
 <% if isCMSPreviewPage %>
 <meta name="x-page-id" content="$CMSPageID">
