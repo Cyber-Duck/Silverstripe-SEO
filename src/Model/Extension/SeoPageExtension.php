@@ -310,7 +310,8 @@ class SeoPageExtension extends DataExtension
      */
     public function getGridFieldImage()
     {
-        return $this->getPageSocialImage()->Fill(20,20);
+        $image = $this->getPageSocialImage();
+        return $image ? $image->Fill(20,20) : null;
     }
 
     /**
