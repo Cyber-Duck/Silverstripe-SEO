@@ -25,7 +25,7 @@
         }
     },
     "image": [
-        "url": "$FeaturedImage.AbsoluteURL"
+        "$FeaturedImage.AbsoluteURL"
     ]
 }
 </script>
