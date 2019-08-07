@@ -2,11 +2,11 @@
 
 ## Generating the Page Meta
 
-To generate the Page / DataObject Meta tags add the following include within the <head> of your page.
+To generate the Page / DataObject Meta tags add the standard `$MetaTags` include within the <head> of your page.
 
 ```html
 <head>
-    $PageMetaTags
+    $MetaTags
 </head>
 ```
 
