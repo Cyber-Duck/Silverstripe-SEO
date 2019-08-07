@@ -905,7 +905,8 @@ class SeoPageExtension extends DataExtension
                 'content' => $owner->getPageRobots()
             ]
         ];
-        $ptitle = $owner->Title." | ".$owner->SiteConfig()->Title;
+        $config = SiteConfig::current_site_config();
+        $ptitle = $owner->Title." | ".$config->Title;
 
         if (!$owner->HideSocial) {
             if ($owner->getPageMetaTitle()) {
