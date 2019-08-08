@@ -980,22 +980,22 @@ class SeoPageExtension extends DataExtension
                 ]
             ];
 
-            if ($owner->PageSocialImage) {
+            if ($owner->getPageSocialImage()) {
                 $tags['og:image'] = [
                     'attributes' => [
                         'property' => "og:image",
-                        'content' => $owner->PageSocialImage()->AbsoluteURL()
+                        'content' => $owner->getPageSocialImage()->AbsoluteURL()
                     ]
                 ];
                 $tags['twitter:image'] = [
                     'attributes' => [
                         'name' => "twitter:image",
-                        'content' => $owner->PageSocialImage()->AbsoluteURL()
+                        'content' => $owner->getPageSocialImage()->AbsoluteURL()
                     ]
                 ];
             }
 
-            if ($owner->SiteFacebookAppID) {
+            if ($owner->getSiteFacebookAppID()) {
                 $tags['fb:app_id'] = [
                     'attributes' => [
                         'property' => "fb:app_id",
@@ -1004,7 +1004,7 @@ class SeoPageExtension extends DataExtension
                 ];
             }
 
-            if ($owner->SiteOgSiteName) {
+            if ($owner->getSiteOgSiteName()) {
                 $tags['og:site_name'] = [
                     'attributes' => [
                         'property' => "og:site_name",
@@ -1013,7 +1013,7 @@ class SeoPageExtension extends DataExtension
                 ];
             }
 
-            if ($owner->SiteTwitterHandle) {
+            if ($owner->getSiteTwitterHandle()) {
                 $tags['twitter:site'] = [
                     'attributes' => [
                         'name' => "twitter:site",
@@ -1022,7 +1022,7 @@ class SeoPageExtension extends DataExtension
                 ];
             }
 
-            if ($owner->SiteCreatorTwitterHandle) {
+            if ($owner->getSiteCreatorTwitterHandle()) {
                 $tags['twitter:creator'] = [
                     'attributes' => [
                         'name' => "twitter:creator",
