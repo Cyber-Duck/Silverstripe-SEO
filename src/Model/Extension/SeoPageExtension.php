@@ -984,13 +984,13 @@ class SeoPageExtension extends DataExtension
                 $tags['og:image'] = [
                     'attributes' => [
                         'property' => "og:image",
-                        'content' => $owner->getPageSocialImage()->AbsoluteURL()
+                        'content' => $owner->getPageSocialImage()->AbsoluteLink()
                     ]
                 ];
                 $tags['twitter:image'] = [
                     'attributes' => [
                         'name' => "twitter:image",
-                        'content' => $owner->getPageSocialImage()->AbsoluteURL()
+                        'content' => $owner->getPageSocialImage()->AbsoluteLink()
                     ]
                 ];
             }
