@@ -4,12 +4,11 @@ namespace CyberDuck\SEO\Model\Extension;
 
 use Page;
 use Exception;
-use CyberDuck\SEO\Model\Extension\SeoExtension;
-use CyberDuck\SEO\Model\Extension\SeoPageExtension;
+use SilverStripe\Assets\Image;
 use SilverStripe\Core\Extension;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\FieldType\DBField;
-use SilverStripe\ORM\PaginatedList;
+use SilverStripe\SiteConfig\SiteConfig;
 
 /**
  * SeoPageControllerExtension
@@ -25,7 +24,7 @@ class SeoPageControllerExtension extends Extension
      *
      * @since version 2.0.0
      *
-     * @var DataObject $seo 
+     * @var DataObject $seo
      **/
     private $seo;
 
@@ -49,6 +48,7 @@ class SeoPageControllerExtension extends Extension
                 throw new Exception('setSeoObject must be passed a DataObject with the SeoExtension applied');
             }
         }
+
         $this->seo = $object;
     }
 
@@ -64,8 +64,23 @@ class SeoPageControllerExtension extends Extension
         $meta = $this->owner->customise([
             'SeoPageObject' => ($this->seo ? $this->seo : $this->owner)
         ])->renderWith('HeadTags')->RAW();
-        
+
         $meta = implode("\n", array_filter(explode("\n", $meta)));
         return DBField::create_field('HTMLText', $meta);
+    }
+
+    public function getDefaultPageSocialImage()
+    {
+        $siteConfig = SiteConfig::get()->first();
+
+        if ($siteConfig) {
+            $image =  Image::get()->byID($siteConfig->DefaultPageSocialImageID);
+
+            if ($image) {
+                return $image;
+            }
+        }
+
+        return null;
     }
 }

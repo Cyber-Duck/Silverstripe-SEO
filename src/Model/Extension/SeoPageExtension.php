@@ -9,10 +9,11 @@ use CyberDuck\SEO\Admin\SEOAdmin;
 use SilverStripe\Assets\Image;
 use SilverStripe\AssetAdmin\Forms\UploadField;
 use SilverStripe\Blog\Model\BlogPost;
-use SilverStripe\Control\ContentNegotiator;
+use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\Config\Config;
+use SilverStripe\Core\Convert;
 use SilverStripe\ErrorPage\ErrorPage;
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\FieldList;
@@ -46,7 +47,7 @@ use SilverStripe\SiteConfig\SiteConfig;
  * within the configuration such as returning a default value when no value is set.
  * Whether attaching the extension to existing or new page no manual setting of
  * properties in the CMS should be required if you want to go with a standard config.
- * 
+ *
  * Standard config is:
  * Canonical       => The current full page URL
  * Robots          => 'index,follow'
@@ -70,7 +71,7 @@ class SeoPageExtension extends DataExtension
      *
      * @since version 1.0.0
      *
-     * @config array $db 
+     * @config array $db
      **/
     private static $db = [
         'MetaTitle'       => 'Varchar(512)',
@@ -82,8 +83,7 @@ class SeoPageExtension extends DataExtension
         'HideSocial'      => 'Boolean',
         'OGtype'          => 'Varchar(100)',
         'OGlocale'        => 'Varchar(10)',
-        'TwitterCard'     => 'Varchar(100)',
-        'SchemaOrgJson'   => 'Text'
+        'TwitterCard'     => 'Varchar(100)'
     ];
 
     /**
@@ -91,22 +91,10 @@ class SeoPageExtension extends DataExtension
      *
      * @since version 1.0.0
      *
-     * @config array $has_one 
+     * @config array $has_one
      **/
     private static $has_one = [
         'SocialImage' => Image::class
-    ];
-
-
-    /**
-     * Owned assets
-     *
-     * @since version 4.2.2
-     *
-     * @config array $owns 
-     **/
-    private static $owns = [
-        'SocialImage'
     ];
 
     /**
@@ -114,7 +102,7 @@ class SeoPageExtension extends DataExtension
      *
      * @since version 1.0.0
      *
-     * @config array $many_many 
+     * @config array $many_many
      **/
     private static $many_many = [
         'HeadTags'      => SeoHeadTag::class,
@@ -126,7 +114,7 @@ class SeoPageExtension extends DataExtension
      *
      * @since version 1.0.0
      *
-     * @config array $defaults 
+     * @config array $defaults
      **/
     private static $defaults = [
         'Robots'          => 'index,follow',
@@ -141,7 +129,7 @@ class SeoPageExtension extends DataExtension
      *
      * @since version 2.0.0
      *
-     * @var PaginatedList $pagination 
+     * @var PaginatedList $pagination
      **/
     private $pagination;
 
@@ -155,7 +143,7 @@ class SeoPageExtension extends DataExtension
      *
      * @return FieldList
      **/
-    public function updateCMSFields(FieldList $fields) 
+    public function updateCMSFields(FieldList $fields)
     {
         $fields->removeByName('HeadTags');
         $fields->removeByName('SitemapImages');
@@ -220,8 +208,7 @@ class SeoPageExtension extends DataExtension
         $fields->addFieldToTab('Root.MetaTags', $card);
         $uploader = UploadField::create('SocialImage')
             ->setFolderName(Config::inst()->get('SocialImage', 'image_folder'))
-            ->setAllowedFileCategories('image', 'image/supported')
-            ->setDescription('Minimum size - 1200w x 630h pixels');
+            ->setAllowedFileCategories('image', 'image/supported');
         if(class_exists(BlogPost::class)) {
             if($this->owner instanceof BlogPost) {
                 if($this->owner->Parent()->UseFeaturedAsSocialImage == 1) {
@@ -245,27 +232,19 @@ class SeoPageExtension extends DataExtension
         $fields->addFieldToTab('Root.Sitemap', DropdownField::create('ChangeFrequency', 'Change Frequency')
             ->setSource($this->getSitemapChangeFrequency())
             ->setEmptyString('- please select - '));
-            
+
         $uploader = UploadField::create('SitemapImages')
             ->setIsMultiUpload(true)
             ->setFolderName('SitemapImages')
             ->setAllowedFileCategories('image', 'image/supported');
         $fields->addFieldToTab('Root.Sitemap', $uploader);
 
-        // SCHEMA TAB
-        // schema
-        $fields->addFieldToTab('Root.Schema', TextareaField::create('SchemaOrgJson', 'Schema JSON')
-            ->setDescription('schema.org JSON-LD page schema (without script tags)')
-        );
-        if(class_exists(BlogPost::class) && $this->owner instanceof BlogPost) {
-            $fields->removeByName('Schema');
-        }
         return $fields;
     }
 
     /**
      * Change the grid summary field structure is currently in SEO admin
-     * 
+     *
      * @param object $fields The current summary fields
      *
      * @since version 1.0.0
@@ -275,6 +254,7 @@ class SeoPageExtension extends DataExtension
     public function updateSummaryFields(&$fields)
     {
         if(Controller::curr() instanceof SEOAdmin) {
+            Config::inst()->remove($this->owner->class, 'summary_fields');
             Config::modify()->set($this->owner->class, 'summary_fields', $this->getSummaryFields());
 
             $fields = Config::inst()->get($this->owner->class, 'summary_fields');
@@ -291,81 +271,16 @@ class SeoPageExtension extends DataExtension
     public function getSummaryFields()
     {
         return [
-            'GridFieldImage'   => '',
-            'GridFieldMeta'    => 'Meta',
-            'Title'            => 'Title',
-            'Link'             => 'URL',
-            'GridFieldSitemap' => 'Sitemap',
-            'GridFieldOg'      => 'OG Type / Locale',
-            'PageTwitterCard'  => 'Twitter Card',
+            'ID'              => 'ID',
+            'PublishedIcon'   => 'Published',
+            'Title'           => 'Title',
+            'PageRobots'      => 'Robots',
+            'PageOgType'      => 'OGtype',
+            'PageOgLocale'    => 'OGlocale',
+            'PageTwitterCard' => 'TwitterCard',
+            'Priority'        => 'Priority',
+            'ChangeFrequency' => 'Change Freq'
         ];
-    }
-
-    /**
-     * Returns SEO admin grid field image
-     *
-     * @since version 4.2.2
-     * 
-     * @return Image|null
-     */
-    public function getGridFieldImage()
-    {
-        $image = $this->getPageSocialImage();
-        return $image ? $image->Fill(20,20) : null;
-    }
-
-    /**
-     * Returns SEO admin grid field meta data
-     *
-     * @since version 4.2.2
-     * 
-     * @return Image|null
-     */
-    public function getGridFieldMeta()
-    {
-        $content = sprintf(
-            '<div class="seo-meta %s" [title]="Meta title"></div>
-            <div class="seo-meta %s" [title]="Meta description"></div>
-            %s', 
-            $this->owner->getPageMetaTitle() ? 'populated' : 'missing',
-            $this->owner->getPageMetaDescription() ? 'populated' : 'missing',
-            $this->owner->getPageRobots()
-        );
-        return DBField::create_field('HTMLText', $content);
-    }
-
-    /**
-     * Returns SEO admin grid field sitemap data
-     *
-     * @since version 4.2.2
-     * 
-     * @return Image|null
-     */
-    public function getGridFieldSitemap()
-    {
-        $content = sprintf(
-            '<div class="seo-sitemap">%s - %s</div>',
-            $this->owner->Priority,
-            $this->owner->ChangeFrequency
-        );
-        return DBField::create_field('HTMLText', $content);
-    }
-
-
-    /**
-     * Returns SEO admin grid field Open Graph data
-     *
-     * @since version 4.2.2
-     * 
-     * @return Image|null
-     */
-    public function GridFieldOg()
-    {
-        return sprintf(
-            '%s - %s', 
-            $this->owner->getPageOgType(), 
-            $this->owner->getPageOgLocale()
-        );
     }
 
     /**
@@ -486,7 +401,7 @@ class SeoPageExtension extends DataExtension
             'product'             => 'Product'
         ];
     }
-    
+
     /**
      * Get the current page Meta title
      *
@@ -496,34 +411,21 @@ class SeoPageExtension extends DataExtension
      **/
     public function getPageMetaTitle()
     {
-        $extra = '';
-        if ($this->pagination) {
-            $extra = sprintf(
-                ' | Page %s of %s', 
-                $this->pagination->CurrentPage(),
-                $this->pagination->TotalPages()
-            );
-        }
         if($this->owner->MetaTitle) {
-            return $this->owner->MetaTitle.$extra;
+            return $this->owner->MetaTitle;
         }
         if(class_exists(BlogPost::class)) {
             if($this->owner instanceof BlogPost) {
                 if($this->owner->Parent()->DefaultPostMetaTitle == 1) {
-                    return $this->owner->Title.$extra;
+                    return $this->owner->Title;
                 }
             }
         }
         if(SiteConfig::current_site_config()->UseTitleAsMetaTitle) {
-            return sprintf(
-                '%s%s | %s',
-                $this->owner->Title,
-                $extra,
-                SiteConfig::current_site_config()->Title
-            );
+            return $this->owner->Title;
         }
     }
-    
+
     /**
      * Get the current page Meta description
      *
@@ -544,7 +446,7 @@ class SeoPageExtension extends DataExtension
             }
         }
     }
-    
+
     /**
      * Get the current page canonical tag URL
      *
@@ -564,7 +466,7 @@ class SeoPageExtension extends DataExtension
         }
         return $this->getPageURL().$query;
     }
-    
+
     /**
      * Get the current page Meta robots rules
      *
@@ -579,7 +481,7 @@ class SeoPageExtension extends DataExtension
         }
         return 'index,follow';
     }
-    
+
     /**
      * Get the current page URL // todo getAbsoluteURL()?
      *
@@ -652,14 +554,9 @@ class SeoPageExtension extends DataExtension
         if(class_exists(BlogPost::class)) {
             if($this->owner instanceof BlogPost) {
                 if($this->owner->Parent()->UseFeaturedAsSocialImage == true) {
-                    if($this->owner->FeaturedImageID > 0) {
-                        return $this->owner->FeaturedImage();
-                    }
+                    return $this->owner->FeaturedImage();
                 }
             }
-        }
-        if(SiteConfig::current_site_config()->DefaultSocialImageID > 0) {
-            return SiteConfig::current_site_config()->DefaultSocialImage();
         }
     }
 
@@ -723,7 +620,7 @@ class SeoPageExtension extends DataExtension
      **/
     public function getPageCharset()
     {
-        return Config::inst()->get(ContentNegotiator::class, 'encoding');
+        return Config::inst()->get('ContentNegotiator', 'encoding');
     }
 
     /**
@@ -766,6 +663,23 @@ class SeoPageExtension extends DataExtension
     }
 
     /**
+     * Get the current page published status icon
+     *
+     * @since version 2.0.0
+     *
+     * @return string
+     **/
+    public function getPublishedIcon()
+    {
+        if($this->owner instanceof Page) {
+            $status = $this->owner->isPublished() ? 'accept' : 'delete';
+        } else {
+            $status = 'accept';
+        }
+        return DBField::create_field('HTMLText', sprintf('<span class="ui-button-icon-primary ui-icon btn-icon-%s"></span>', $status));
+    }
+
+    /**
      * Get the LastEdited object property as an ISO foramtted date for XML sitemap
      *
      * @since version 4.0.0
@@ -778,8 +692,8 @@ class SeoPageExtension extends DataExtension
     }
 
     /**
-     * Sets a Paginated list object which the prev and next rel tags will be 
-     * calculated off. This method validates the current $_GET param used for 
+     * Sets a Paginated list object which the prev and next rel tags will be
+     * calculated off. This method validates the current $_GET param used for
      * pagination and will return a 404 response if the $_GET var is outside
      * of the expected range. e.g start=100 but only 99 items in the list
      *
@@ -848,20 +762,5 @@ class SeoPageExtension extends DataExtension
                 return $this->getPageURL().'?'.$this->pagination->getPaginationGetVar().'='.$start;
             }
         }
-    }
-
-    /**
-     * Returns the page schema snippet from the CMS
-     *
-     * @return void
-     */
-    public function getPageSchema()
-    {
-        if(class_exists(BlogPost::class)) {
-            if($this->owner instanceof BlogPost) {
-                return $this->owner->renderWith('ArticleSchema');
-            }
-        }
-        return $this->owner->renderWith('Schema');
     }
 }
