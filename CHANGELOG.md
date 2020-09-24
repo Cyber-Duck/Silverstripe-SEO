@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## Version 4.5.1
+
+24th September 2020
+
+### Changed
+- Updated path for extra requirements in cms.yml
+
 ## Version 1.1.0
 
 13th March 2017
