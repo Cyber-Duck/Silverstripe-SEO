@@ -37,9 +37,9 @@ class SeoHeadTag extends DataObject
      * @config array $db 
      **/
     private static $db = [
-        'Title' => 'MediumText',
-        'Value' => 'MediumText',
-        'Type'  => 'MediumText'
+        'Title' => 'Text',
+        'Value' => 'Text',
+        'Type'  => 'Text'
     ];
 
     /**
