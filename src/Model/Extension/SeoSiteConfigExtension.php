@@ -31,12 +31,12 @@ class SeoSiteConfigExtension extends DataExtension
      * @config array $db 
      **/
     private static $db = [
-        'OGSiteName'             => 'Varchar(512)',
-        'TwitterHandle'          => 'Varchar(512)',
-        'CreatorTwitterHandle'   => 'Varchar(512)',
-        'FacebookAppID'          => 'Varchar(512)',
+        'OGSiteName'             => 'MediumText',
+        'TwitterHandle'          => 'MediumText',
+        'CreatorTwitterHandle'   => 'MediumText',
+        'FacebookAppID'          => 'MediumText',
         'UseTitleAsMetaTitle'    => 'Boolean',
-        'SchemaOrganisationName' => 'Varchar(512)'
+        'SchemaOrganisationName' => 'MediumText'
     ];
 
     /**

@@ -74,8 +74,8 @@ class SeoPageExtension extends DataExtension
      * @config array $db
      **/
     private static $db = [
-        'MetaTitle'       => 'Varchar(512)',
-        'Canonical'       => 'Varchar(512)',
+        'MetaTitle'       => 'MediumText',
+        'Canonical'       => 'MediumText',
         'Robots'          => 'Varchar(100)',
         'Priority'        => 'Decimal(3,2)',
         'ChangeFrequency' => 'Varchar(20)',
