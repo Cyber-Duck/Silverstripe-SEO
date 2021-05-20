@@ -30,8 +30,7 @@ class SEOAdmin extends ModelAdmin
                 throw new Exception(sprintf('%s must have the SeoExtension applied to work in SEO Admin', $this->modelClass));
             }
         }
-        $this->extend('updateEditForm', $form);
-
+        
         return $form;
     }
 
