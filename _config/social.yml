@@ -4,3 +4,7 @@ Name: seo social config
 CyberDuck\SEO\SocialImage:
   image_folder: 'SocialImages'
   image_size: 1024
+  min_file_width: 1200 # File width defined in pixels
+  min_file_height: 630 # File height defined in pixels
+  file_aspect_ratio: '1.91:1'
+  max_file_size: 8 # File Size defined in MB

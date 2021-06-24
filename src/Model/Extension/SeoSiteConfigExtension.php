@@ -28,7 +28,7 @@ class SeoSiteConfigExtension extends DataExtension
      *
      * @since version 1.0.6
      *
-     * @config array $db 
+     * @config array $db
      **/
     private static $db = [
         'OGSiteName'             => 'Varchar(512)',
@@ -44,7 +44,7 @@ class SeoSiteConfigExtension extends DataExtension
      *
      * @since version 1.0.0
      *
-     * @config array $has_one 
+     * @config array $has_one
      **/
     private static $has_one = [
         'SchemaOrganisationImage' => Image::class,
@@ -56,13 +56,13 @@ class SeoSiteConfigExtension extends DataExtension
      *
      * @since version 1.0.0
      *
-     * @config array $has_one 
+     * @config array $has_one
      **/
     private static $owns = [
         'SchemaOrganisationImage',
         'DefaultSocialImage'
     ];
-    
+
     /**
      * Adds extra fields for social config across networks
      *
@@ -83,19 +83,25 @@ class SeoSiteConfigExtension extends DataExtension
         $fields->addFieldToTab('Root.SEO', TextField::create('CreatorTwitterHandle', 'Twitter creator handle (no @)'));
         $fields->addFieldToTab('Root.SEO', TextField::create('FacebookAppID', 'Facebook APP ID'));
         $uploader = UploadField::create('DefaultSocialImage', 'Default Social Image')
-            ->setFolderName(Config::inst()->get('SocialImage', 'image_folder'))
+            ->setFolderName(Config::inst()->get('CyberDuck\SEO\SocialImage', 'image_folder'))
             ->setAllowedFileCategories('image', 'image/supported')
-            ->setDescription('Minimum size - 1200w x 630h pixels. Used in og:image and twitter:image meta when social image not set on page / model');
+            ->setDescription(sprintf("Minimum size: %sw x %sh pixels.<br/>Maximum file size: %sMB<br/>Recommended Aspect Ratio: %s<br/>Used in og:image and twitter:image meta when social image not set on page / model",
+                            Config::inst()->get('CyberDuck\SEO\SocialImage', 'min_file_width'),
+                            Config::inst()->get('CyberDuck\SEO\SocialImage', 'min_file_height'),
+                            Config::inst()->get('CyberDuck\SEO\SocialImage', 'max_file_size'),
+                            Config::inst()->get('CyberDuck\SEO\SocialImage', 'file_aspect_ratio'),
+            ));
+        $uploader->getValidator()->setAllowedMaxFileSize(['*' => (int)Config::inst()->get('CyberDuck\SEO\SocialImage', 'max_file_size') * 1024 * 1024]);
         $fields->addFieldToTab('Root.SEO', $uploader);
 
         $fields->addFieldToTab('Root.SEO', HeaderField::create(false, 'Schema'));
         $fields->addFieldToTab('Root.SEO', HeaderField::create(false, 'Organisation (used in blog post schema)', 4));
         $fields->addFieldToTab('Root.SEO', TextField::create('SchemaOrganisationName', 'Name'));
         $uploader = UploadField::create('SchemaOrganisationImage', 'Image')
-            ->setFolderName(Config::inst()->get('SocialImage', 'image_folder'))
+            ->setFolderName(Config::inst()->get('CyberDuck\SEO\SocialImage', 'image_folder'))
             ->setAllowedFileCategories('image', 'image/supported');
         $fields->addFieldToTab('Root.SEO', $uploader);
-        
+
         return $fields;
     }
 }
