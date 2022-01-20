@@ -213,10 +213,10 @@ class SeoPageExtension extends DataExtension
                 Config::inst()->get('CyberDuck\SEO\SocialImage', 'min_file_width'),
                 Config::inst()->get('CyberDuck\SEO\SocialImage', 'min_file_height'),
                 Config::inst()->get('CyberDuck\SEO\SocialImage', 'max_file_size'),
-                Config::inst()->get('CyberDuck\SEO\SocialImage', 'file_aspect_ratio'),
+                Config::inst()->get('CyberDuck\SEO\SocialImage', 'file_aspect_ratio')
             ));
         $uploader->getValidator()->setAllowedMaxFileSize(['*' => (int)Config::inst()->get('CyberDuck\SEO\SocialImage', 'max_file_size') * 1024 * 1024]);
-    
+
         if(class_exists(BlogPost::class)) {
             if($this->owner instanceof BlogPost) {
                 if($this->owner->Parent()->UseFeaturedAsSocialImage == 1) {
