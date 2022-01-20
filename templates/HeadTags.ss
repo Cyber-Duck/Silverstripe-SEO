@@ -3,7 +3,9 @@
     <title>$PageMetaTitle</title>
     <meta name="description" content="$PageMetaDescription">
 
-    <link rel="canonical" href="$PageCanonical">
+    <% if $PageCanonical %>
+        <link rel="canonical" href="$PageCanonical">
+    <% end_if %>
     <meta name="robots" content="$PageRobots">
 
     <% if not $HideSocial %>
