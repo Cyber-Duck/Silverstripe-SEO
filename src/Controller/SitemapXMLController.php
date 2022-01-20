@@ -8,7 +8,9 @@ use SilverStripe\Control\Controller;
 use SilverStripe\Control\Director;
 use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Core\Config\Config;
+use SilverStripe\ErrorPage\ErrorPage;
 use SilverStripe\ORM\ArrayList;
+use SilverStripe\Subsites\Model\Subsite;
 
 /**
  * SitemapXML_Controller
@@ -32,7 +34,7 @@ class SitemapXMLController extends Controller
     {
         parent::init();
 
-        $this->response->addHeader("Content-Type", "application/xml"); 
+        $this->response->addHeader("Content-Type", "application/xml");
     }
 
     /**
@@ -87,18 +89,32 @@ class SitemapXMLController extends Controller
     public function getSitemapPages()
     {
         $pages = ArrayList::create();
-        
+
         $objects = (array) Config::inst()->get(SitemapGenerator::class, 'objects');
 
         if(!empty($objects)) {
             foreach($objects as $name => $values) {
-                foreach($name::get() as $page) {
-                    if(!$page->SitemapHide) {
+                foreach($name::get()->filter($this->getSitemapFilters()) as $page) {
                         $pages->push($page);
-                    }
                 }
             }
         }
         return $pages;
+    }
+
+    /**
+     * @return array
+     */
+    private function getSitemapFilters()
+    {
+        $filters = [
+            'ClassName:not' => ErrorPage::class,
+            'Robots:not'    => ['noindex,nofollow', 'noindex,follow'],
+            'SitemapHide'   => 0
+        ];
+        if(class_exists('SubSite')) {
+            $filters['SubsiteID'] = Subsite::currentSubSiteID();
+        }
+        return $filters;
     }
 }
