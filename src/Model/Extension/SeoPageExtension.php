@@ -3,33 +3,35 @@
 namespace CyberDuck\SEO\Model\Extension;
 
 use Page;
-use CyberDuck\SEO\Model\SeoHeadTag;
-use CyberDuck\SEO\Forms\MetaPreviewField;
-use CyberDuck\SEO\Admin\SEOAdmin;
+use SilverStripe\i18n\i18n;
+use SilverStripe\View\HTML;
 use SilverStripe\Assets\Image;
-use SilverStripe\AssetAdmin\Forms\UploadField;
-use SilverStripe\Blog\Model\BlogPost;
-use SilverStripe\Control\ContentNegotiator;
-use SilverStripe\Control\Controller;
+use CyberDuck\SEO\Admin\SEOAdmin;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\TextField;
 use SilverStripe\Control\Director;
+use CyberDuck\SEO\Model\SeoHeadTag;
+use SilverStripe\Forms\HeaderField;
+use SilverStripe\ORM\DataExtension;
+use SilverStripe\ORM\PaginatedList;
+use SilverStripe\CMS\Model\SiteTree;
+use SilverStripe\Control\Controller;
 use SilverStripe\Core\Config\Config;
+use SilverStripe\Forms\NumericField;
+use SilverStripe\Blog\Model\BlogPost;
 use SilverStripe\ErrorPage\ErrorPage;
 use SilverStripe\Forms\CheckboxField;
-use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\DropdownField;
+use SilverStripe\Forms\TextareaField;
+use SilverStripe\Security\Permission;
+use SilverStripe\ORM\FieldType\DBField;
+use SilverStripe\SiteConfig\SiteConfig;
+use CyberDuck\SEO\Forms\MetaPreviewField;
+use SilverStripe\Control\ContentNegotiator;
 use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\AssetAdmin\Forms\UploadField;
 use SilverStripe\Forms\GridField\GridFieldConfig_RelationEditor;
 use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
-use SilverStripe\Forms\HeaderField;
-use SilverStripe\Forms\TextField;
-use SilverStripe\Forms\TextareaField;
-use SilverStripe\Forms\DropdownField;
-use SilverStripe\Forms\NumericField;
-use SilverStripe\i18n\i18n;
-use SilverStripe\ORM\DataExtension;
-use SilverStripe\ORM\FieldType\DBField;
-use SilverStripe\ORM\PaginatedList;
-use SilverStripe\Security\Permission;
-use SilverStripe\SiteConfig\SiteConfig;
 
 /**
  * @package silverstripe-seo
@@ -40,7 +42,7 @@ use SilverStripe\SiteConfig\SiteConfig;
  *
  * Core extension to add detailed SEO configuration.
  * Attaches by default to the Page object.
- * Maps all properties in HeadTags.ss to methods within this class.
+ * Maps all properties in $headTags->ss to methods within this class.
  * e.g $PageMetaTitle => getPageMetaTitle()
  * The mapped methods handle a class property and return a value based on conditions
  * within the configuration such as returning a default value when no value is set.
@@ -864,4 +866,294 @@ class SeoPageExtension extends DataExtension
         }
         return $this->owner->renderWith('Schema');
     }
+
+    public function getPageGenerator()
+    {
+        return trim(Config::inst()->get(SiteTree::class, 'meta_generator'));
+    }
+
+    public function compileTags()
+    {
+        $tags = [];
+        $owner = $this->getOwner();
+
+        if ($this->getPageMetaTitle()) {
+            $tags['title'] = [
+                'tag' => 'title',
+                'content' => $owner->obj('Title')->forTemplate()
+            ];
+        }
+
+        $tags['description'] = [
+            'attributes' => [
+                'name' =>"description",
+                'content' => $owner->getPageMetaDescription()
+            ]
+        ];
+
+        $tags['canonical'] = [
+            'tag' => 'link',
+            'attributes' => [
+                'rel' => "canonical",
+                'href' => $owner->getPageCanonical()
+            ]
+        ];
+
+        $tags['robots'] = [
+            'attributes' => [
+                'name' => "robots",
+                'content' => $owner->getPageRobots()
+            ]
+        ];
+        $config = SiteConfig::current_site_config();
+        $ptitle = $owner->Title." | ".$config->Title;
+
+        if (!$owner->HideSocial) {
+            if ($owner->getPageMetaTitle()) {
+                $tags['og:title'] = [
+                    'attributes' => [
+                        'property' => "og:title",
+                        'content' => $owner->getPageMetaTitle()
+                    ]
+                ];
+            } else {
+                $tags['og:title'] = [
+                    'attributes' => [
+                        'property' => "og:title",
+                        'content' => $ptitle
+                    ]
+                ];
+            }
+            $tags['og:description'] = [
+                'attributes' => [
+                    'property' => "og:description",
+                    'content' => $owner->getPageMetaDescription()
+                ]
+            ];
+
+            $tags['og:type'] = [
+                'attributes' => [
+                    'property' => "og:type",
+                    'content' => $owner->getPageOgType()
+                ]
+            ];
+
+            $tags['og:url'] = [
+                'attributes' => [
+                    'property' => "og:url",
+                    'content' => $owner->getPageURL()
+                ]
+            ];
+
+            $tags['og:locale'] = [
+                'attributes' => [
+                    'property' => "og:locale",
+                    'content' => $owner->getPageOgLocale()
+                ]
+            ];
+
+            if ($owner->getPageMetaTitle()) {
+                $tags['twitter:title'] = [
+                    'attributes' => [
+                        'name' => "twitter:title",
+                        'content' => $owner->getPageMetaTitle()
+                    ]
+                ];
+            } else {
+                $tags['twitter:title'] = [
+                    'attributes' => [
+                        'name' => "twitter:title",
+                        'content' => $ptitle
+                    ]
+                ];
+            }
+            $tags['twitter:description'] = [
+                'attributes' => [
+                    'name' => "twitter:description",
+                    'content' => $owner->getPageMetaDescription()
+                ]
+            ];
+            $tags['twitter:card'] = [
+                'attributes' => [
+                    'name' => "twitter:card",
+                    'content' => $owner->getPageTwitterCard()
+                ]
+            ];
+
+            if ($owner->getPageSocialImage()) {
+                $tags['og:image'] = [
+                    'attributes' => [
+                        'property' => "og:image",
+                        'content' => $owner->getPageSocialImage()->AbsoluteLink()
+                    ]
+                ];
+                $tags['twitter:image'] = [
+                    'attributes' => [
+                        'name' => "twitter:image",
+                        'content' => $owner->getPageSocialImage()->AbsoluteLink()
+                    ]
+                ];
+            }
+
+            if ($owner->getSiteFacebookAppID()) {
+                $tags['fb:app_id'] = [
+                    'attributes' => [
+                        'property' => "fb:app_id",
+                        'content' => $owner->getSiteFacebookAppID()
+                    ]
+                ];
+            }
+
+            if ($owner->getSiteOgSiteName()) {
+                $tags['og:site_name'] = [
+                    'attributes' => [
+                        'property' => "og:site_name",
+                        'content' => $owner->getSiteOgSiteName()
+                    ]
+                ];
+            }
+
+            if ($owner->getSiteTwitterHandle()) {
+                $tags['twitter:site'] = [
+                    'attributes' => [
+                        'name' => "twitter:site",
+                        'content' => $owner->getSiteTwitterHandle()
+                    ]
+                ];
+            }
+
+            if ($owner->getSiteCreatorTwitterHandle()) {
+                $tags['twitter:creator'] = [
+                    'attributes' => [
+                        'name' => "twitter:creator",
+                        'content' => $owner->getSiteCreatorTwitterHandle()
+                    ]
+                ];
+            }
+
+        }
+
+        $headTags = $owner->HeadTags();
+
+        foreach ($headTags->Filter('Type', 'name') as $tag) {
+            $tags[$tag->Title] = [
+                'attributes' => [
+                    'name' => $tag->Title,
+                    'content' => $tag->Value
+                ]
+            ];
+        }
+
+        foreach ($headTags->Filter('Type', 'link') as $tag) {
+            $tags[$tag->Title] = [
+                'tag' => 'link',
+                'attributes' => [
+                    'name' => $tag->Title,
+                    'content' => $tag->Value
+                ]
+            ];
+        }
+
+        foreach ($headTags->Filter('Type', 'property') as $tag) {
+            $tags[$tag->Title] = [
+                'attributes' => [
+                    'property' => $tag->Title,
+                    'content' => $tag->Value
+                ]
+            ];
+        }
+
+        if ($owner->getPageGenerator()) {
+            $tags['generator'] = [
+                'attributes' => [
+                    'name' => "generator",
+                    'content' => $owner->getPageGenerator()
+                ]
+            ];
+        }
+
+        $tags['Content-Type'] = [
+            'attributes' => [
+                'http-equiv' => "Content-Type",
+                'content' => "text/html; charset=".$owner->getPageCharset()
+            ]
+        ];
+
+        if ($owner->isCMSPreviewPage()) {
+            $tags['x-page-id'] = [
+                'attributes' => [
+                    'name' => "x-page-id",
+                    'content' => $owner->getCMSPageID()
+                ]
+            ];
+            $tags['x-cms-edit-link'] = [
+                'attributes' => [
+                    'name' => "x-cms-edit-link",
+                    'content' => $owner->getCMSPageEditLink()
+                ]
+            ];
+        }
+
+        if ($owner->getPaginationPrevTag()) {
+            $tags['prev'] = [
+                'tag' => 'link',
+                'attributes' => [
+                    'rel' => "prev",
+                    'href' => $owner->getPaginationPrevTag()
+                ]
+            ];
+        }
+        if ($owner->getPaginationNextTag()) {
+            $tags['next'] = [
+                'tag' => 'link',
+                'attributes' => [
+                    'rel' => "next",
+                    'href' => $owner->getPaginationNextTag()
+                ]
+            ];
+        }
+
+        return $tags;
+    }
+
+    /**
+     * After SS4.4 we can simply merge our new tags with the old tags
+     *
+     * @param [type] $tags
+     * @return void
+     */
+    public function MetaComponents(&$old_tags)
+    {
+        $new_tags = $this->compileTags();
+
+        return array_merge($old_tags, $new_tags);
+    }
+
+    /**
+     * As a fallback for pre-SS4.4 we need to merge our tags with the default tags
+     *
+     * @param string $tagstring
+     * @return string $tagstring
+     */ 
+    public function MetaTags(&$tagstring)
+    {
+        $tags = [];
+        $old_tags = explode("\n", $tagstring);
+
+        $new_tags = $this->compileTags();
+        foreach ($new_tags as $tagProps) {
+            $tag = array_merge([
+                'tag' => 'meta',
+                'attributes' => [],
+                'content' => null,
+            ], $tagProps);
+            $tags[] = HTML::createTag($tag['tag'], $tag['attributes'], $tag['content']);
+        }
+
+        // Here we need to check if our new tags exist in the current tags
+        $tags = array_unique(array_merge($old_tags, $tags));
+        
+        $tagstring = implode("\n", $tags);
+    }
+
 }
