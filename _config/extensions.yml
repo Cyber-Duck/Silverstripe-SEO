@@ -10,9 +10,3 @@ Page:
 SilverStripe\SiteConfig\SiteConfig:
   extensions:
     - CyberDuck\SEO\Model\Extension\SeoSiteConfigExtension
-SilverStripe\Blog\Model\Blog:
-  extensions:
-    - CyberDuck\SEO\Model\Extension\SeoBlogExtension
-SilverStripe\Blog\Model\BlogPost:
-  extensions:
-    - CyberDuck\SEO\Model\Extension\SeoBlogPostExtension
