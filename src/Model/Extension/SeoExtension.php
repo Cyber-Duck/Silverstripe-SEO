@@ -25,8 +25,8 @@ class SeoExtension extends SeoPageExtension
      * @config array $db 
      **/
     private static $db = [
-        'Title'           => 'Varchar(255)',
-        'URLSegment'      => 'Varchar(255)',
+        'Title'           => 'Varchar(512)',
+        'URLSegment'      => 'Varchar(512)',
         'MetaDescription' => 'Text'
     ];
 
