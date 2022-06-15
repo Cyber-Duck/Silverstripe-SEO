@@ -74,8 +74,8 @@ class SeoPageControllerExtension extends Extension
         $siteConfig = SiteConfig::get()->first();
 
         if ($siteConfig) {
-            $image =  Image::get()->byID($siteConfig->DefaultPageSocialImageID);
-
+            $image =  Image::get()->byID($siteConfig->DefaultSocialImageID);
+            
             if ($image) {
                 return $image;
             }
