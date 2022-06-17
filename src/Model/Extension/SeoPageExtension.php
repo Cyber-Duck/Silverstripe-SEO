@@ -417,30 +417,24 @@ class SeoPageExtension extends DataExtension
 
     /**
      * Get the current page Meta title
-     * It is important to note the order of fallbacks
-     * 
+     *
      * @since version 2.0.0
      *
-     * @return void|string
+     * @return string
      **/
     public function getPageMetaTitle()
     {
-        // If we have a MetaTitle defined for this Page
-        if ($this->owner->MetaTitle) {
+        if($this->owner->MetaTitle) {
             return $this->owner->MetaTitle;
         }
-        // If we are a BlogPost lets check for a parent Page MetaTitle
-        if (class_exists(BlogPost::class)) {
-            if ($this->owner instanceof BlogPost) {
-                if ($this->owner->Parent()->DefaultPostMetaTitle == 1) {
-
+        if(class_exists(BlogPost::class)) {
+            if($this->owner instanceof BlogPost) {
+                if($this->owner->Parent()->DefaultPostMetaTitle == 1) {
                     return $this->owner->Title;
                 }
             }
         }
-
-        // Lastly if we have the SiteConfig option to use a Page's Title as the MetaTitle use that
-        if (SiteConfig::current_site_config()->UseTitleAsMetaTitle) {
+        if(SiteConfig::current_site_config()->UseTitleAsMetaTitle) {
             return $this->owner->Title;
         }
     }
@@ -563,7 +557,7 @@ class SeoPageExtension extends DataExtension
      *
      * @since version 2.0.0
      *
-     * @return Image
+     * @return string
      **/
     public function getPageSocialImage()
     {
