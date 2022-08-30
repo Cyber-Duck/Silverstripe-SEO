@@ -24,6 +24,7 @@
             <meta name="twitter:image" content="$PageSocialImage.AbsoluteURL">
         <% else_if $DefaultPageSocialImage %>
             <meta property="og:image" content="$DefaultPageSocialImage.AbsoluteURL">
+            <meta name="twitter:image" content="$DefaultPageSocialImage.AbsoluteURL">
         <% end_if %>
 
         <% if $SiteFacebookAppID %>

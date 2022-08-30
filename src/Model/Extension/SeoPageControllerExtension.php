@@ -69,12 +69,17 @@ class SeoPageControllerExtension extends Extension
         return DBField::create_field('HTMLText', $meta);
     }
 
+    /**
+     * Gets the Defaut Page Social Image, this is defined in the CMS
+     * 
+     * @return null|Image
+     */
     public function getDefaultPageSocialImage()
     {
         $siteConfig = SiteConfig::get()->first();
 
         if ($siteConfig) {
-            $image =  Image::get()->byID($siteConfig->DefaultPageSocialImageID);
+            $image =  Image::get()->byID($siteConfig->DefaultSocialImageID);
 
             if ($image) {
                 return $image;
