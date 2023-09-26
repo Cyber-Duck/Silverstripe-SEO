@@ -496,15 +496,11 @@ class SeoPageExtension extends DataExtension
     }
 
     /**
-     * Get the current page URL // todo getAbsoluteURL()?
-     *
-     * @since version 2.0.0
-     *
      * @return string
-     **/
+     */
     public function getPageURL()
     {
-        return Director::absoluteBaseURL().substr($this->owner->Link(), 1);
+        return $this->owner->getAbsoluteLiveLink(false);
     }
 
     /**
