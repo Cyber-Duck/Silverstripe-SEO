@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2558f586-b07e-4423-8fb1-bc2778323c2d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Model/Extension/SeoPageExtension.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Extension/SeoPageExtension.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
