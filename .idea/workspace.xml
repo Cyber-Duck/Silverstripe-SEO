@@ -4,8 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2558f586-b07e-4423-8fb1-bc2778323c2d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Model/Extension/SeoPageExtension.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Extension/SeoPageExtension.php" afterDir="false" />
+    <list default="true" id="a0257948-ef65-4bbb-a406-536b363581cd" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Silverstripe-SEO.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,8 +22,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "git-widget-placeholder": "dev-cms5",
-    "node.js.selected.package.tslint": "(autodetect)"
+    "git-widget-placeholder": "dev-cms5"
   }
 }]]></component>
   <component name="TaskManager">
