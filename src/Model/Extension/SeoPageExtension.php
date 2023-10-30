@@ -715,14 +715,14 @@ class SeoPageExtension extends DataExtension
      * @param PaginatedList $list   Paginated list object
      * @param array         $params Array of $_GET params to allow in the URL // todo
      *
-     * @return string|404 response
+     * @return string|404|301 response
      **/
     public function setPaginationTags(PaginatedList $list, $params = []) // @todo allowed
     {
         $controller = Controller::curr();
         if($controller->getRequest()->getVar($list->getPaginationGetVar()) !== NULL) {
             if((int) $list->getPageStart() === 0) {
-                return $controller->httpError(404);
+				return $controller->redirect($controller->getRequest()->getUrl(), 301);
             }
             if($list->CurrentPage() > $list->TotalPages()){
                 return $controller->httpError(404);
