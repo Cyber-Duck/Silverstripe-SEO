@@ -2,9 +2,6 @@
 
 namespace CyberDuck\SEO\Model\Extension;
 
-use SilverStripe\Forms\FieldList;
-use SilverStripe\Forms\HeaderField;
-use SilverStripe\Forms\CheckboxField;
 use SilverStripe\ORM\DataExtension;
 
 /**
