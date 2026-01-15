@@ -60,7 +60,7 @@ class SitemapXMLController extends Controller
      **/
     public function getSitemapHost()
     {
-        return substr(Director::absoluteBaseUrl(), 0, -1);
+        return Director::absoluteBaseUrl();
     }
 
     /**

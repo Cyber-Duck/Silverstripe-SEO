@@ -3,3 +3,5 @@ todo
 .sass-cache
 .idea
 .vscode/settings.json
+.idea/workspace.xml
+.DS_Store
